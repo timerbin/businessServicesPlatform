@@ -4,20 +4,22 @@
           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
           xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
  
-  <localRepository>E:\work\m2</localRepository>
+  <localRepository>E:\m2</localRepository>
   
   <mirrors>   
 
-	  
-   
-    <!-- osc镜像 -->
-    <mirror>
-        <!-- 镜像所有远程仓库，但不包括指定的仓库 -->
-        <id>mirror-osc</id>
-        <mirrorOf>*</mirrorOf>
-        <url>http://maven.oschina.net/content/groups/public/</url>
+	 <mirror>   
+      <id>nexus-releases</id>   
+      <mirrorOf>*</mirrorOf>   
+      <url>http://repo2.maven.org/maven2/</url>   
     </mirror>
-    
+	
+    <mirror>   
+      <id>nexus-snapshots</id>   
+      <mirrorOf>*</mirrorOf>   
+      <url>http://repo2.maven.org/maven2/</url>   
+    </mirror>   
+      
 
   </mirrors>   
    
@@ -26,23 +28,34 @@
    <profile>  
       <id>nexus</id>  
       <repositories>  
-        <repository>  
-          <id>mirror-osc</id>  
-          <url>http://mirror-osc</url>  
+       <repository>  
+          <id>nexus-releases</id>  
+          <url>http://nexus-releases</url>  
           <releases><enabled>true</enabled></releases>  
           <snapshots><enabled>false</enabled></snapshots>  
-        </repository> 
-         
+        </repository>  
+        <repository>  
+          <id>nexus-snapshots</id>  
+          <url>http://nexus-snapshots</url>  
+          <releases><enabled>true</enabled><updatePolicy>always</updatePolicy></releases>  
+          <snapshots><enabled>true</enabled><updatePolicy>always</updatePolicy></snapshots> 
+         </repository> 
        
         
       </repositories>  
       <pluginRepositories>  
-         <pluginRepository>  
-			<id>mirror-osc</id>  
-			 <url>http://mirror-osc</url>  
-			 <releases><enabled>true</enabled></releases>  
-			 <snapshots><enabled>true</enabled></snapshots>  
-		   </pluginRepository>  
+          <pluginRepository>  
+					<id>nexus-releases</id>  
+					 <url>http://nexus-releases</url>  
+					 <releases><enabled>true</enabled></releases>  
+					 <snapshots><enabled>true</enabled></snapshots>  
+				   </pluginRepository>  
+				   <pluginRepository>  
+					 <id>nexus-snapshots</id>  
+					  <url>http://nexus-snapshots</url>  
+					<releases><enabled>true</enabled></releases>  
+					 <snapshots><enabled>true</enabled></snapshots>  
+				 </pluginRepository>  
          </pluginRepositories>  
     </profile>  
   </profiles>  
