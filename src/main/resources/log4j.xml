@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+
+    <!-- appender -->
+    <appender name="CONSOLE" class="org.apache.log4j.ConsoleAppender">
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="Encoding" value="UTF-8"/>
+            <param name="ConversionPattern" value="[%7r] %6p - %30.30c - %m \n"/>
+        </layout>
+    </appender>
+
+    <appender name="FILE-DEBUG" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="DatePattern" value="'.'yyyy-MM-dd"/>
+        <param name="file" value="${com.log.path}/debug.log"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d [%t] %6p - %30.30c - %m \n"/>
+        </layout>
+    </appender>
+
+    <appender name="FILE-SQL" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="DatePattern" value="'.'yyyy-MM-dd"/>
+        <param name="file" value="${com.log.path}/sql.log"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d [%t] %6p - %30.30c - %m \n"/>
+        </layout>
+    </appender>
+
+    <appender name="FILE-SERVICE" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="DatePattern" value="'.'yyyy-MM-dd"/>
+        <param name="file" value="${com.log.path}/service.log"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d [%t] %6p - %30.30c - %m \n"/>
+        </layout>
+    </appender>
+
+    <appender name="FILE-CONTROLLER" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="DatePattern" value="'.'yyyy-MM-dd"/>
+        <param name="file" value="${com.log.path}/controller.log"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d [%t] %6p - %30.30c - %m \n"/>
+        </layout>
+    </appender>
+
+    <logger name="cn.com.businessservicesplatform.service" additivity="false">
+        <level value="${com.log.level}"/>
+        <appender-ref ref="FILE-SERVICE"/>
+    </logger>
+
+    <logger name="cn.com.businessservicesplatform.controller" additivity="false">
+        <level value="${com.log.level}"/>
+        <appender-ref ref="FILE-CONTROLLER"/>
+    </logger>
+
+    <!--显示sql start-->
+    <logger name="java.sql.Connection">
+        <level value="${com.log.level}"/>
+        <appender-ref ref="FILE-SQL"/>
+    </logger>
+
+    <logger name="java.sql.PreparedStatement">
+        <level value="${com.log.level}"/>
+        <appender-ref ref="FILE-SQL"/>
+    </logger>
+
+    <logger name="java.sql.ResultSet" additivity="false">
+        <level value="${com.log.level}"/>
+        <appender-ref ref="FILE-SQL"/>
+    </logger>
+    <!--显示sql end-->
+
+    <logger name="org.springframework" additivity="false">
+        <level value="${com.log.level}"/>
+        <appender-ref ref="FILE-DEBUG"/>
+    </logger>
+
+    <root>
+        <priority value="${com.log.level}"/>
+        <appender-ref ref="FILE-DEBUG"/>
+    </root>
+</log4j:configuration>
