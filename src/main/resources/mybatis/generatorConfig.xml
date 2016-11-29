@@ -29,11 +29,11 @@
              <property name="enableSubPackages" value="true"/>
          </javaClientGenerator>
  
-         <table tableName="dso_user" domainObjectName="dsoUser"
+          <table tableName="BASE_USER_COMPANY_SERVICE" domainObjectName="BaseUserCompanyService"
                 enableCountByExample="false" enableUpdateByExample="false"
                 enableDeleteByExample="false" enableSelectByExample="false"
                 selectByExampleQueryId="false">
-         </table>
+         </table>  
  
      </context>
 </generatorConfiguration>

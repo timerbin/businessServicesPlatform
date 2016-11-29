@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.businessservicesplatform.dao.mysql.UserServiceCommentMapper" >
+  <resultMap id="BaseResultMap" type="cn.com.businessservicesplatform.model.mysql.UserServiceComment" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="company_id" property="companyId" jdbcType="INTEGER" />
+    <result column="service_id" property="serviceId" jdbcType="VARCHAR" />
+    <result column="comment_user_id" property="commentUserId" jdbcType="INTEGER" />
+    <result column="comment_user_name" property="commentUserName" jdbcType="VARCHAR" />
+    <result column="comment_type" property="commentType" jdbcType="INTEGER" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="verify_time" property="verifyTime" jdbcType="TIMESTAMP" />
+    <result column="verify_user_id" property="verifyUserId" jdbcType="INTEGER" />
+    <result column="verify_user_name" property="verifyUserName" jdbcType="VARCHAR" />
+    <result column="verify_user_des" property="verifyUserDes" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="cn.com.businessservicesplatform.model.mysql.UserServiceComment" extends="BaseResultMap" >
+    <result column="comment_directions" property="commentDirections" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, user_id, company_id, service_id, comment_user_id, comment_user_name, comment_type, 
+    status, modify_time, create_time, verify_time, verify_user_id, verify_user_name, 
+    verify_user_des
+  </sql>
+  <sql id="Blob_Column_List" >
+    comment_directions
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from user_service_comment
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from user_service_comment
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="cn.com.businessservicesplatform.model.mysql.UserServiceComment" >
+    insert into user_service_comment (id, user_id, company_id, 
+      service_id, comment_user_id, comment_user_name, 
+      comment_type, status, modify_time, 
+      create_time, verify_time, verify_user_id, 
+      verify_user_name, verify_user_des, comment_directions
+      )
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{companyId,jdbcType=INTEGER}, 
+      #{serviceId,jdbcType=VARCHAR}, #{commentUserId,jdbcType=INTEGER}, #{commentUserName,jdbcType=VARCHAR}, 
+      #{commentType,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, #{modifyTime,jdbcType=TIMESTAMP}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{verifyTime,jdbcType=TIMESTAMP}, #{verifyUserId,jdbcType=INTEGER}, 
+      #{verifyUserName,jdbcType=VARCHAR}, #{verifyUserDes,jdbcType=VARCHAR}, #{commentDirections,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="cn.com.businessservicesplatform.model.mysql.UserServiceComment" >
+    insert into user_service_comment
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="companyId != null" >
+        company_id,
+      </if>
+      <if test="serviceId != null" >
+        service_id,
+      </if>
+      <if test="commentUserId != null" >
+        comment_user_id,
+      </if>
+      <if test="commentUserName != null" >
+        comment_user_name,
+      </if>
+      <if test="commentType != null" >
+        comment_type,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="modifyTime != null" >
+        modify_time,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="verifyTime != null" >
+        verify_time,
+      </if>
+      <if test="verifyUserId != null" >
+        verify_user_id,
+      </if>
+      <if test="verifyUserName != null" >
+        verify_user_name,
+      </if>
+      <if test="verifyUserDes != null" >
+        verify_user_des,
+      </if>
+      <if test="commentDirections != null" >
+        comment_directions,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="companyId != null" >
+        #{companyId,jdbcType=INTEGER},
+      </if>
+      <if test="serviceId != null" >
+        #{serviceId,jdbcType=VARCHAR},
+      </if>
+      <if test="commentUserId != null" >
+        #{commentUserId,jdbcType=INTEGER},
+      </if>
+      <if test="commentUserName != null" >
+        #{commentUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="commentType != null" >
+        #{commentType,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="modifyTime != null" >
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="verifyTime != null" >
+        #{verifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="verifyUserId != null" >
+        #{verifyUserId,jdbcType=INTEGER},
+      </if>
+      <if test="verifyUserName != null" >
+        #{verifyUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="verifyUserDes != null" >
+        #{verifyUserDes,jdbcType=VARCHAR},
+      </if>
+      <if test="commentDirections != null" >
+        #{commentDirections,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.com.businessservicesplatform.model.mysql.UserServiceComment" >
+    update user_service_comment
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="companyId != null" >
+        company_id = #{companyId,jdbcType=INTEGER},
+      </if>
+      <if test="serviceId != null" >
+        service_id = #{serviceId,jdbcType=VARCHAR},
+      </if>
+      <if test="commentUserId != null" >
+        comment_user_id = #{commentUserId,jdbcType=INTEGER},
+      </if>
+      <if test="commentUserName != null" >
+        comment_user_name = #{commentUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="commentType != null" >
+        comment_type = #{commentType,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="modifyTime != null" >
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="verifyTime != null" >
+        verify_time = #{verifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="verifyUserId != null" >
+        verify_user_id = #{verifyUserId,jdbcType=INTEGER},
+      </if>
+      <if test="verifyUserName != null" >
+        verify_user_name = #{verifyUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="verifyUserDes != null" >
+        verify_user_des = #{verifyUserDes,jdbcType=VARCHAR},
+      </if>
+      <if test="commentDirections != null" >
+        comment_directions = #{commentDirections,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="cn.com.businessservicesplatform.model.mysql.UserServiceComment" >
+    update user_service_comment
+    set user_id = #{userId,jdbcType=INTEGER},
+      company_id = #{companyId,jdbcType=INTEGER},
+      service_id = #{serviceId,jdbcType=VARCHAR},
+      comment_user_id = #{commentUserId,jdbcType=INTEGER},
+      comment_user_name = #{commentUserName,jdbcType=VARCHAR},
+      comment_type = #{commentType,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      verify_time = #{verifyTime,jdbcType=TIMESTAMP},
+      verify_user_id = #{verifyUserId,jdbcType=INTEGER},
+      verify_user_name = #{verifyUserName,jdbcType=VARCHAR},
+      verify_user_des = #{verifyUserDes,jdbcType=VARCHAR},
+      comment_directions = #{commentDirections,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.com.businessservicesplatform.model.mysql.UserServiceComment" >
+    update user_service_comment
+    set user_id = #{userId,jdbcType=INTEGER},
+      company_id = #{companyId,jdbcType=INTEGER},
+      service_id = #{serviceId,jdbcType=VARCHAR},
+      comment_user_id = #{commentUserId,jdbcType=INTEGER},
+      comment_user_name = #{commentUserName,jdbcType=VARCHAR},
+      comment_type = #{commentType,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      verify_time = #{verifyTime,jdbcType=TIMESTAMP},
+      verify_user_id = #{verifyUserId,jdbcType=INTEGER},
+      verify_user_name = #{verifyUserName,jdbcType=VARCHAR},
+      verify_user_des = #{verifyUserDes,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

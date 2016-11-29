@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.businessservicesplatform.dao.mysql.BaseUserCompanyMapper" >
+  <resultMap id="BaseResultMap" type="cn.com.businessservicesplatform.model.mysql.BaseUserCompany" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="company_name" property="companyName" jdbcType="VARCHAR" />
+    <result column="company_address" property="companyAddress" jdbcType="VARCHAR" />
+    <result column="company_contact_user" property="companyContactUser" jdbcType="VARCHAR" />
+    <result column="company_contact_tel" property="companyContactTel" jdbcType="VARCHAR" />
+    <result column="company_url" property="companyUrl" jdbcType="VARCHAR" />
+    <result column="company_register_money" property="companyRegisterMoney" jdbcType="VARCHAR" />
+    <result column="company_register_time" property="companyRegisterTime" jdbcType="TIMESTAMP" />
+    <result column="company_directions" property="companyDirections" jdbcType="VARCHAR" />
+    <result column="company_scope" property="companyScope" jdbcType="INTEGER" />
+    <result column="company_type" property="companyType" jdbcType="INTEGER" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="verify_time" property="verifyTime" jdbcType="TIMESTAMP" />
+    <result column="verify_user_id" property="verifyUserId" jdbcType="INTEGER" />
+    <result column="verify_user_name" property="verifyUserName" jdbcType="VARCHAR" />
+    <result column="verify_user_des" property="verifyUserDes" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, user_id, company_name, company_address, company_contact_user, company_contact_tel, 
+    company_url, company_register_money, company_register_time, company_directions, company_scope, 
+    company_type, status, modify_time, create_time, verify_time, verify_user_id, verify_user_name, 
+    verify_user_des
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from base_user_company
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from base_user_company
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="cn.com.businessservicesplatform.model.mysql.BaseUserCompany" >
+    insert into base_user_company (id, user_id, company_name, 
+      company_address, company_contact_user, company_contact_tel, 
+      company_url, company_register_money, company_register_time, 
+      company_directions, company_scope, company_type, 
+      status, modify_time, create_time, 
+      verify_time, verify_user_id, verify_user_name, 
+      verify_user_des)
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{companyName,jdbcType=VARCHAR}, 
+      #{companyAddress,jdbcType=VARCHAR}, #{companyContactUser,jdbcType=VARCHAR}, #{companyContactTel,jdbcType=VARCHAR}, 
+      #{companyUrl,jdbcType=VARCHAR}, #{companyRegisterMoney,jdbcType=VARCHAR}, #{companyRegisterTime,jdbcType=TIMESTAMP}, 
+      #{companyDirections,jdbcType=VARCHAR}, #{companyScope,jdbcType=INTEGER}, #{companyType,jdbcType=INTEGER}, 
+      #{status,jdbcType=INTEGER}, #{modifyTime,jdbcType=TIMESTAMP}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{verifyTime,jdbcType=TIMESTAMP}, #{verifyUserId,jdbcType=INTEGER}, #{verifyUserName,jdbcType=VARCHAR}, 
+      #{verifyUserDes,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.com.businessservicesplatform.model.mysql.BaseUserCompany" >
+    insert into base_user_company
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="companyName != null" >
+        company_name,
+      </if>
+      <if test="companyAddress != null" >
+        company_address,
+      </if>
+      <if test="companyContactUser != null" >
+        company_contact_user,
+      </if>
+      <if test="companyContactTel != null" >
+        company_contact_tel,
+      </if>
+      <if test="companyUrl != null" >
+        company_url,
+      </if>
+      <if test="companyRegisterMoney != null" >
+        company_register_money,
+      </if>
+      <if test="companyRegisterTime != null" >
+        company_register_time,
+      </if>
+      <if test="companyDirections != null" >
+        company_directions,
+      </if>
+      <if test="companyScope != null" >
+        company_scope,
+      </if>
+      <if test="companyType != null" >
+        company_type,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="modifyTime != null" >
+        modify_time,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="verifyTime != null" >
+        verify_time,
+      </if>
+      <if test="verifyUserId != null" >
+        verify_user_id,
+      </if>
+      <if test="verifyUserName != null" >
+        verify_user_name,
+      </if>
+      <if test="verifyUserDes != null" >
+        verify_user_des,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="companyName != null" >
+        #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="companyAddress != null" >
+        #{companyAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="companyContactUser != null" >
+        #{companyContactUser,jdbcType=VARCHAR},
+      </if>
+      <if test="companyContactTel != null" >
+        #{companyContactTel,jdbcType=VARCHAR},
+      </if>
+      <if test="companyUrl != null" >
+        #{companyUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="companyRegisterMoney != null" >
+        #{companyRegisterMoney,jdbcType=VARCHAR},
+      </if>
+      <if test="companyRegisterTime != null" >
+        #{companyRegisterTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="companyDirections != null" >
+        #{companyDirections,jdbcType=VARCHAR},
+      </if>
+      <if test="companyScope != null" >
+        #{companyScope,jdbcType=INTEGER},
+      </if>
+      <if test="companyType != null" >
+        #{companyType,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="modifyTime != null" >
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="verifyTime != null" >
+        #{verifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="verifyUserId != null" >
+        #{verifyUserId,jdbcType=INTEGER},
+      </if>
+      <if test="verifyUserName != null" >
+        #{verifyUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="verifyUserDes != null" >
+        #{verifyUserDes,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.com.businessservicesplatform.model.mysql.BaseUserCompany" >
+    update base_user_company
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="companyName != null" >
+        company_name = #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="companyAddress != null" >
+        company_address = #{companyAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="companyContactUser != null" >
+        company_contact_user = #{companyContactUser,jdbcType=VARCHAR},
+      </if>
+      <if test="companyContactTel != null" >
+        company_contact_tel = #{companyContactTel,jdbcType=VARCHAR},
+      </if>
+      <if test="companyUrl != null" >
+        company_url = #{companyUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="companyRegisterMoney != null" >
+        company_register_money = #{companyRegisterMoney,jdbcType=VARCHAR},
+      </if>
+      <if test="companyRegisterTime != null" >
+        company_register_time = #{companyRegisterTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="companyDirections != null" >
+        company_directions = #{companyDirections,jdbcType=VARCHAR},
+      </if>
+      <if test="companyScope != null" >
+        company_scope = #{companyScope,jdbcType=INTEGER},
+      </if>
+      <if test="companyType != null" >
+        company_type = #{companyType,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="modifyTime != null" >
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="verifyTime != null" >
+        verify_time = #{verifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="verifyUserId != null" >
+        verify_user_id = #{verifyUserId,jdbcType=INTEGER},
+      </if>
+      <if test="verifyUserName != null" >
+        verify_user_name = #{verifyUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="verifyUserDes != null" >
+        verify_user_des = #{verifyUserDes,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.com.businessservicesplatform.model.mysql.BaseUserCompany" >
+    update base_user_company
+    set user_id = #{userId,jdbcType=INTEGER},
+      company_name = #{companyName,jdbcType=VARCHAR},
+      company_address = #{companyAddress,jdbcType=VARCHAR},
+      company_contact_user = #{companyContactUser,jdbcType=VARCHAR},
+      company_contact_tel = #{companyContactTel,jdbcType=VARCHAR},
+      company_url = #{companyUrl,jdbcType=VARCHAR},
+      company_register_money = #{companyRegisterMoney,jdbcType=VARCHAR},
+      company_register_time = #{companyRegisterTime,jdbcType=TIMESTAMP},
+      company_directions = #{companyDirections,jdbcType=VARCHAR},
+      company_scope = #{companyScope,jdbcType=INTEGER},
+      company_type = #{companyType,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      verify_time = #{verifyTime,jdbcType=TIMESTAMP},
+      verify_user_id = #{verifyUserId,jdbcType=INTEGER},
+      verify_user_name = #{verifyUserName,jdbcType=VARCHAR},
+      verify_user_des = #{verifyUserDes,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
