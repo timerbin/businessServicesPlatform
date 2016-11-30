@@ -60,7 +60,7 @@ public class BasePage {
 	}
 	
 	public int getPage() {
-		return page;
+		return (page <= 0) ? 1 : page;
 	}
 	public void setPage(int page) {
 		this.page = page;

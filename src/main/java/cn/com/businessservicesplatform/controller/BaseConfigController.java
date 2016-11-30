@@ -22,7 +22,7 @@ public class BaseConfigController {
     
     @RequestMapping("/list")
     public ModelAndView toIndex() {
-    	BasePage basePage = new BasePage(1,6);
+    	BasePage basePage = new BasePage(1,3);
     	BaseConfigDataVo baseConfigDataVo = new BaseConfigDataVo();
     	baseConfigDataVo.setType(1);
     	List<BaseConfigData> list = baseConfigDataService.queryPage(basePage, baseConfigDataVo);
