@@ -5,27 +5,50 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>注册</title>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<link href="images/gerenzx.css" rel="stylesheet" type="text/css" />
 <meta name="renderer" content="webkit" />
 </head>
 <body>
-	<div >
-		<form action="#" method="post">
-			<dl>
-				<dt>用户名</dt>
-				<dd>
-					<input type="text" class="username"  placeholder="用户名/手机号" name="username" />
-				</dd>
-			</dl>
-			<dl>
-				<dt>密码</dt>
-				<dd>
-					<input type="password" class="password" name="password" autocomplete="off" />
-				</dd>
-			</dl>
-              <div>
-                  <a class="btn btn-red btn-full fn-mt15">提交</a>
-              </div>
-		</form>
-	</div>
+<form action="#" method="post">
+    <div class="gerenzx_right">
+      <table border="0" cellspacing="20" cellpadding="0" class="gerenzx_table">
+      	  <tr>
+            <td width="120" align="right">用户名：</td>
+            <td width="260"><input name="" type="text" class="grzx_input"  /></td>
+          </tr>
+          <tr>
+            <td width="120" align="right">姓名：</td>
+            <td width="260"><input name="" type="text" class="grzx_input" /></td>
+          </tr>
+          <tr>
+            <td width="120" align="right">密码：</td>
+            <td width="260"><input name="" type="password" class="grzx_input" /></td>
+          </tr>
+          <tr>
+            <td width="120" align="right">确认密码：</td>
+            <td width="260"><input name="" type="password" class="grzx_input" /></td>
+          </tr>
+          <tr>
+            <td align="right">年龄：</td>
+            <td><input name="" type="text" class="grzx_input2" /></td>
+          </tr>
+          <tr>
+            <td align="right">性别：</td>
+            <td><input name="" type="radio" value="" /> 男 &nbsp;&nbsp;&nbsp;&nbsp;<input name="" type="radio" value="" /> 女</td>
+          </tr>
+          <tr>
+            <td align="right">联系方式：</td>
+            <td><input name="" type="text" class="grzx_input" /></td>
+          </tr>
+          <tr>
+            <td align="right">邮箱：</td>
+            <td><input name="" type="text" class="grzx_input" /></td>
+          </tr>
+          <tr>
+            <td colspan="2" align="center"><input name="" type="button" value=" 提 交 " class="grzx_button"/></td>
+          </tr>
+        </table>
+  	</div>
+</form>
 </body>
 </html>
