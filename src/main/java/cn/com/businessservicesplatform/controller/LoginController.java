@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 
 
 @Controller
-@RequestMapping("/shop")
-public class TestController {
+@RequestMapping("/login")
+public class LoginController {
 
     @RequestMapping("/index")
     @ResponseBody

@@ -27,7 +27,12 @@
         <property name="order" value="1" />  
     </bean> 
 	
-	
+	<mvc:interceptors>
+	 	<mvc:interceptor>
+            <mvc:mapping path="/shop/**" />
+            <bean class="cn.com.businessservicesplatform.interceptor.LoginInterceptor"/>
+        </mvc:interceptor>
+	</mvc:interceptors>
 
 	<!--配置spring json 视图解析-->
 	<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping"/>
