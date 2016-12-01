@@ -24,6 +24,29 @@
     from base_user
     where id = #{id,jdbcType=INTEGER}
   </select>
+  
+  <select id="findBaseUser" resultMap="BaseResultMap" parameterType="cn.com.businessservicesplatform.model.vo.BaseUserVo" >
+    select 
+    <include refid="Base_Column_List" />
+    from base_user
+    where 1=1 
+      <if test="userId != null" >
+        and user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="loginName != null" >
+        and login_name = #{loginName,jdbcType=VARCHAR},
+      </if>
+    <if test="mobilePhone != null" >
+        and mobile_phone = #{mobilePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        and email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="loginPwd != null" >
+       and login_pwd =  #{loginPwd,jdbcType=VARCHAR},
+      </if>
+  </select>
+  
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from base_user
     where id = #{id,jdbcType=INTEGER}

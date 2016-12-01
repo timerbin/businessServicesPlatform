@@ -20,12 +20,32 @@ public class BaseUser {
     private Integer status;
 
     private Integer type;
+    
+    private Integer age;
+    
+    private Integer sex;
 
     private Date modifyTime;
 
     private Date createTime;
 
-    public Integer getId() {
+    public Integer getAge() {
+		return age;
+	}
+
+	public void setAge(Integer age) {
+		this.age = age;
+	}
+
+	public Integer getSex() {
+		return sex;
+	}
+
+	public void setSex(Integer sex) {
+		this.sex = sex;
+	}
+
+	public Integer getId() {
         return id;
     }
 
