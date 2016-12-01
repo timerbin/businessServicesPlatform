@@ -18,7 +18,6 @@
     </properties>
 
     <dependencies>
-        <!-- springframe start 
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-core</artifactId>
@@ -180,7 +179,6 @@
             <version>4.11</version>
             <scope>test</scope>
         </dependency>
-		-->
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>servlet-api</artifactId>
@@ -211,6 +209,7 @@
 		            <encoding>UTF-8</encoding>  
 		        </configuration>  
 		    </plugin>
+		      <!-- spring版本号 
 		    <plugin>
 		     <groupId>org.mybatis.generator</groupId>
 		      <artifactId>mybatis-generator-maven-plugin</artifactId>
@@ -236,6 +235,7 @@
 		         </dependency>
 		     </dependencies>
 		 </plugin>
+		 -->
 		 <plugin>  
 		    <groupId>org.apache.maven.plugins</groupId>  
 		    <artifactId>maven-compiler-plugin</artifactId>  
