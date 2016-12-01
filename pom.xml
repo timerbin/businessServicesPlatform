@@ -18,7 +18,7 @@
     </properties>
 
     <dependencies>
-        <!-- springframe start -->
+        <!-- springframe start 
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-core</artifactId>
@@ -78,16 +78,14 @@
             <artifactId>spring-test</artifactId>
             <version>${spring.version}</version>
         </dependency>
-        <!-- springframe end -->
+       
 
-        <!--spring 集成aspectj -->
         <dependency>
             <groupId>org.aspectj</groupId>
             <artifactId>aspectjweaver</artifactId>
             <version>1.6.8</version>
         </dependency>
 
-        <!--spring 集成json start -->
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-core</artifactId>
@@ -103,55 +101,46 @@
             <artifactId>jackson-annotations</artifactId>
             <version>2.5.2</version>
         </dependency>
-        <!--spring 集成json end -->
 
-        <!--spring 集成cglib -->
         <dependency>
             <groupId>cglib</groupId>
             <artifactId>cglib</artifactId>
             <version>2.2.2</version>
         </dependency>
 
-        <!-- Javamail API -->
         <dependency>
             <groupId>javax.mail</groupId>
             <artifactId>mail</artifactId>
             <version>1.4.4</version>
         </dependency>
 
-        <!-- mybatis核心包 -->
         <dependency>
             <groupId>org.mybatis</groupId>
             <artifactId>mybatis</artifactId>
             <version>${mybatis.version}</version>
         </dependency>
-        <!-- mybatis/spring包 -->
         <dependency>
             <groupId>org.mybatis</groupId>
             <artifactId>mybatis-spring</artifactId>
             <version>1.2.2</version>
         </dependency>
-        <!-- mysql驱动包 -->
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>5.1.29</version>
         </dependency>
-        <!-- 阿里巴巴数据源包 -->
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>druid</artifactId>
             <version>1.0.13</version>
         </dependency>
 
-        <!-- json数据 -->
         <dependency>
             <groupId>org.codehaus.jackson</groupId>
             <artifactId>jackson-mapper-asl</artifactId>
             <version>1.9.13</version>
         </dependency>
 
-        <!-- quartz spring 3.1以上才支持quartz 2.2.1 -->
         <dependency>
             <groupId>org.quartz-scheduler</groupId>
             <artifactId>quartz</artifactId>
@@ -163,14 +152,12 @@
             <version>2.2.1</version>
         </dependency>
 
-        <!-- commons工具包 -->
         <dependency>
             <groupId>commons-lang</groupId>
             <artifactId>commons-lang</artifactId>
             <version>2.6</version>
         </dependency>
 	 
-        <!-- log start -->
         <dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
@@ -186,7 +173,6 @@
             <artifactId>slf4j-log4j12</artifactId>
             <version>${slf4j.version}</version>
         </dependency>
-        <!-- log end -->
 
         <dependency>
             <groupId>junit</groupId>
@@ -194,13 +180,14 @@
             <version>4.11</version>
             <scope>test</scope>
         </dependency>
-
+		-->
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>servlet-api</artifactId>
             <version>2.5</version>
             <scope>provided</scope>
         </dependency>
+         
     </dependencies>
 
   <build>
