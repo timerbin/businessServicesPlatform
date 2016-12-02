@@ -121,6 +121,7 @@ public class LoginController extends BaseController{
     @RequestMapping("/toRegister")
     public ModelAndView toRegister() {
     	ModelAndView model = new ModelAndView ( "/login/register"); 
+    	model.addObject("errorMsg", "");
     	return model;
     }
     /**
@@ -170,6 +171,9 @@ public class LoginController extends BaseController{
     	}
     	if(StringUtils.isBlank(baseUserVo.getLoginPwd2())){
     		return "确认密码为空";
+    	}
+    	if(baseUserVo.getLoginPwd().equals(baseUserVo.getLoginPwd2())){
+    		return "密码与确认密码不相同";
     	}
     	if(StringUtils.isBlank(baseUserVo.getMobilePhone())){
     		return "联系方式为空";

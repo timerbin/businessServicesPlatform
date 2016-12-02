@@ -3,6 +3,7 @@ package cn.com.businessservicesplatform.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import cn.com.businessservicesplatform.common.util.MD5Util;
 import cn.com.businessservicesplatform.dao.mysql.BaseUserMapper;
 import cn.com.businessservicesplatform.model.mysql.BaseUser;
 import cn.com.businessservicesplatform.model.vo.BaseUserVo;
@@ -16,6 +17,7 @@ public class BaseUserServiceImpl implements BaseUserService{
 
 	@Override
 	public Integer register(BaseUserVo baseUserVo) {
+		baseUserVo.setLoginPwd(MD5Util.getMD5(baseUserVo.getLoginPwd()));
 		return baseUserMapper.insert(baseUserVo);
 	}
 
