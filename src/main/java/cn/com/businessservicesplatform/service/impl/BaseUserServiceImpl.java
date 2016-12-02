@@ -1,8 +1,11 @@
 package cn.com.businessservicesplatform.service.impl;
 
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import cn.com.businessservicesplatform.common.constants.BaseUserTypeEnum;
 import cn.com.businessservicesplatform.common.util.MD5Util;
 import cn.com.businessservicesplatform.dao.mysql.BaseUserMapper;
 import cn.com.businessservicesplatform.model.mysql.BaseUser;
@@ -18,6 +21,10 @@ public class BaseUserServiceImpl implements BaseUserService{
 	@Override
 	public Integer register(BaseUserVo baseUserVo) {
 		baseUserVo.setLoginPwd(MD5Util.getMD5(baseUserVo.getLoginPwd()));
+		baseUserVo.setCreateTime(new Date());
+		baseUserVo.setStatus(0);
+		baseUserVo.setModifyTime(new Date());
+		baseUserVo.setType(BaseUserTypeEnum.GENERAL_USER.getId());
 		return baseUserMapper.insert(baseUserVo);
 	}
 

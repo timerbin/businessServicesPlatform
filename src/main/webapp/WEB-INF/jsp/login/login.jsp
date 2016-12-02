@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -12,7 +13,7 @@
 
 </head>
 <body>
-
+<form id="doLogin" action="${BASE_URL}/login/doLogin.html" method="post">
 <div class="login_head">
 	<div class="login_title"><img src="${BASE_URL}/images/goin_h.png" width="301" height="57" /></div>
 </div>
@@ -20,27 +21,23 @@
 	<ul>
     	<li class="border_bj margin_top20">
             <span class="login_img"><img src="${BASE_URL}/images/goin_yh.png" /></span>
-            <input id="loginName" name="loginName" type="text" placeholder="请输入用户名" class="login_input_text" />
+            <input id="loginName" maxlength="20"  name="loginName" type="text" placeholder="请输入登录名" class="login_input_text" />
         </li>
         <li class="border_bj margin_top20">
             <span class="login_img"><img src="${BASE_URL}/images/goin_mm.png" /></span>
-            <input id="loginPwd" name="loginPwd" type="password" placeholder="请输入密码" class="login_input_text" />
+            <input id="loginPwd" maxlength="20"  name="loginPwd" type="password" placeholder="请输入密码" class="login_input_text" />
         </li>
-        <li>
-            <span class="login_wjmm"><a href="#">忘记密码</a></span>
-            <span><input name="" type="checkbox" value="" /> 记住密码</span>
-        </li>
-        <li>
-            <span><input name="" type="text" placeholder="请输入验证码" class="login_input_text"  style="width:150px;" /></span>
+        <li class="  margin_top20">
+            <span><input id="verifyCode" maxlength="4"  name="verifyCode" type="text" placeholder="请输入验证码" class="login_input_text"  style="width:150px;" /></span>
             <span><img id="img" style="width:110px;height:30px;" src="${BASE_URL}/authImage" title="换一张" /></span>
         </li>
         <li>
-            <span class="login_wjmm"><a href="${BASE_URL}/login/toRegister.html">立即注册</a></span>
+            <span class="login_wjmm"><a href="${BASE_URL}/login/toRegister.html">立即注册</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#">忘记密码</a></span>
         </li>
-        <li><input name="" type="button" value="登 录" class="login_button" /></li>
+        <li><input id="loginBtn" name="loginBtn" type="button" value="登 录" class="login_button" /></li>
     </ul>
 </div>
-
+</form>
 
 <jsp:include page="../public/footer.jsp" />
 
@@ -49,6 +46,32 @@
     $("#img").click(function(){
     	$("#img").attr("src","${BASE_URL}/authImage?date=" + new Date());
     });
+    $("#loginBtn").click(function(){
+    	if(check()){
+    		$("#doLogin").submit();
+    	}
+    });
+    function check(){
+    	var loginName = $("#loginName").val();
+    	if($.trim(loginName).length <= 0){
+    		alert("请输入登录名");
+    		 $("#loginName").focus();
+    		return false;
+    	}
+    	var loginPwd = $("#loginPwd").val();
+    	if($.trim(loginPwd).length <= 0){
+    		alert("请输入密码");
+    		 $("#loginPwd").focus();
+    		return false;
+    	}
+    	var verifyCode = $("#verifyCode").val();
+    	if($.trim(verifyCode).length <= 0){
+    		alert("请输入验证码");
+    		 $("#verifyCode").focus();
+    		return false;
+    	}
+    	return true;
+    }
 </script>
 </body>
 </html>

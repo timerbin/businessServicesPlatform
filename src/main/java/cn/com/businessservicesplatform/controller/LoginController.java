@@ -138,6 +138,7 @@ public class LoginController extends BaseController{
     public ModelAndView doRegister(BaseUserVo baseUserVo) {
     	ModelAndView model = new ModelAndView ( "/login/register"); 
     	try {
+    		model.addObject("vo", baseUserVo);
 			String checkResult = checkRegisterMsg(baseUserVo);
 			if(!StringUtils.isBlank(checkResult)){
 				model.addObject("errorMsg", checkResult);
@@ -169,10 +170,14 @@ public class LoginController extends BaseController{
     	if(StringUtils.isBlank(baseUserVo.getLoginPwd())){
     		return "密码为空";
     	}
+    	if(baseUserVo.getLoginPwd().length() < 6){
+    		return "密码必须大于6位";
+    	}
     	if(StringUtils.isBlank(baseUserVo.getLoginPwd2())){
     		return "确认密码为空";
     	}
-    	if(baseUserVo.getLoginPwd().equals(baseUserVo.getLoginPwd2())){
+    	
+    	if(!baseUserVo.getLoginPwd().equals(baseUserVo.getLoginPwd2())){
     		return "密码与确认密码不相同";
     	}
     	if(StringUtils.isBlank(baseUserVo.getMobilePhone())){
