@@ -5,7 +5,6 @@ import cn.com.businessservicesplatform.common.util.VerifyCodeUtils;
 import cn.com.businessservicesplatform.model.mysql.BaseUser;
 import cn.com.businessservicesplatform.model.vo.BaseUserVo;
 import cn.com.businessservicesplatform.service.BaseUserService;
-import cn.com.businessservicesplatform.service.SettingConfigService;
 
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -30,8 +29,7 @@ public class LoginController extends BaseController{
 
 	@Autowired
 	BaseUserService baseUserService;
-	@Autowired
-	SettingConfigService settingConfigService;
+	
 	
 	/**
      * @Description: 跳转到登录页面 <br>
@@ -123,7 +121,6 @@ public class LoginController extends BaseController{
     @RequestMapping("/toRegister")
     public ModelAndView toRegister() {
     	ModelAndView model = new ModelAndView ( "/login/register"); 
-    	System.err.println(settingConfigService.getBaseUrl());
     	return model;
     }
     /**
