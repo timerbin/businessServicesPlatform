@@ -23,9 +23,32 @@
     from user_look_history
     where id = #{id,jdbcType=INTEGER}
   </select>
+   <select id="queryHistroyList" resultMap="BaseResultMap" parameterType="cn.com.businessservicesplatform.model.vo.UserLookHistoryVo" >
+    select 
+    <include refid="Base_Column_List" />
+    from user_look_history
+    where  status = 1 
+    <if test="vo.id != null" >
+        and id = #{vo.id,jdbcType=INTEGER},
+    </if>
+    <if test="vo.userId != null" >
+        and user_id = #{vo.userId,jdbcType=INTEGER},
+    </if>
+    <if test="vo.serviceId != null" >
+        and service_id = #{vo.serviceId,jdbcType=INTEGER},
+    </if>
+    <if test="vo.companyId != null" >
+        and company_id = #{vo.companyId,jdbcType=INTEGER},
+    </if>
+    <if test="vo.type != null" >
+        and type = #{vo.type,jdbcType=INTEGER},
+    </if>
+    <if test="vo.nowDate != null" >
+        and now_date = #{vo.nowDate,jdbcType=INTEGER},
+    </if>
+  </select>
   
-  
-    <select id="getByVo" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  <select id="getByVo" resultMap="BaseResultMap" parameterType="cn.com.businessservicesplatform.model.vo.UserLookHistoryVo" >
     select 
     <include refid="Base_Column_List" />
     from user_look_history
@@ -134,6 +157,17 @@
       </if>
     </trim>
   </insert>
+  
+  
+  
+  
+  
+  <update id="updateDelStatus" parameterType="java.lang.Integer" >
+    update user_look_history set status = -1,modify_time = now()
+    where id = #{id,jdbcType=INTEGER} 
+  </update>
+  
+  
   <update id="updateByPrimaryKeySelective" parameterType="cn.com.businessservicesplatform.model.mysql.UserLookHistory" >
     update user_look_history
     <set >

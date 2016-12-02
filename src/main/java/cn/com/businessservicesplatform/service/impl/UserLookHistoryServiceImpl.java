@@ -1,6 +1,7 @@
 package cn.com.businessservicesplatform.service.impl;
 
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -44,6 +45,19 @@ public class UserLookHistoryServiceImpl implements UserLookHistoryService{
 			}
 		}
 		return result;
+	}
+
+	@Override
+	public List<UserLookHistory> queryHistroyList(UserLookHistoryVo userLookHistoryVo) {
+		return userLookHistoryMapper.queryHistroyList(userLookHistoryVo);
+	}
+
+	@Override
+	public int updateDel(Integer id) {
+		if(null == id){
+			return 0;
+		}
+		return userLookHistoryMapper.updateDelStatus(id);
 	}
 
 	 

@@ -1,5 +1,7 @@
 package cn.com.businessservicesplatform.dao.mysql;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 
 import cn.com.businessservicesplatform.model.mysql.UserLookHistory;
@@ -19,4 +21,9 @@ public interface UserLookHistoryMapper {
     int updateByPrimaryKey(UserLookHistory record);
     
     UserLookHistory getByVo(@Param("vo")UserLookHistoryVo UserLookHistoryVo);
+    
+    public List<UserLookHistory> queryHistroyList(UserLookHistoryVo userLookHistoryVo);
+    
+    int updateDelStatus(Integer id);
+
 }
