@@ -15,7 +15,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/shop/baseConfig")
-public class BaseConfigController {
+public class BaseConfigController extends BaseController {
 
 	@Autowired
 	BaseConfigDataService baseConfigDataService;

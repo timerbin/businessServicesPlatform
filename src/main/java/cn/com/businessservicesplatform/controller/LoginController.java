@@ -23,7 +23,7 @@ import java.io.IOException;
 
 @Controller
 @RequestMapping("/login")
-public class LoginController {
+public class LoginController extends BaseController{
 	
 	private static final Logger log = LoggerFactory.getLogger(LoginController.class);
 
@@ -51,7 +51,7 @@ public class LoginController {
     	return model;
     }
     @RequestMapping("/doLogin")
-    public ModelAndView doLogin(HttpServletRequest request,BaseUserVo baseUserVo) {
+    public ModelAndView doLogin(HttpServletRequest request,HttpServletResponse response,BaseUserVo baseUserVo) {
     	ModelAndView model = new ModelAndView ( "/login/login");
     	try {
 			String checkLogin = checkLogin(baseUserVo);
@@ -63,9 +63,9 @@ public class LoginController {
 			BaseUser baseUser = baseUserService.findBaseUser(baseUserVo);
 			if(null != baseUser && baseUser.getId() != null){
 				model.addObject("baseUser", baseUser);
-				Boolean setCookieResult = CookieUtil.setCookieUser(request, baseUser);
+				Boolean setCookieResult = CookieUtil.setCookieUser(request,response,new BaseUserVo(baseUser));
 				if(!setCookieResult){
-					setCookieResult = CookieUtil.setCookieUser(request, baseUser);
+					setCookieResult = CookieUtil.setCookieUser(request,response,new BaseUserVo(baseUser));
 				}
 				if(setCookieResult){
 					if(!StringUtils.isBlank(baseUserVo.getCallbackUrl())){

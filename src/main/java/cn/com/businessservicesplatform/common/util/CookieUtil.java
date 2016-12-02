@@ -1,11 +1,25 @@
 package cn.com.businessservicesplatform.common.util;
 
-import javax.servlet.http.HttpServletRequest;
+import java.net.URLEncoder;
 
-import cn.com.businessservicesplatform.model.mysql.BaseUser;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import cn.com.businessservicesplatform.model.vo.BaseUserVo;
+
 
 public class CookieUtil {
 
+	private static final Logger log = LoggerFactory.getLogger(CookieUtil.class);
+	
+	public static final String DEFAULT_COOKIE_KEY = "services_user_info";
+	
 	/**
 	 * @Description: 获取cookie中用户信息 <br>
 	 * @Author: wangwenbin <br>
@@ -15,8 +29,26 @@ public class CookieUtil {
 	 * @return void <br>
 	 * @throws
 	 */
-	public static BaseUser getCookieUser(HttpServletRequest request){
-		return new BaseUser();
+	public static BaseUserVo getCookieUser(HttpServletRequest request){
+		BaseUserVo baseUserVo = null;
+		try {
+			String signStr = getCookie(request,DEFAULT_COOKIE_KEY);
+			if(!StringUtils.isBlank(signStr)){
+				String dataMsg = DESUtils.decrypt(signStr);
+				if(StringUtils.isBlank(dataMsg) && dataMsg.indexOf("|") >= 0){
+					String [] datas =  dataMsg.split("|");
+					if(datas.length >= 5){
+						baseUserVo = new BaseUserVo();
+						baseUserVo.setLoginName(datas[0]);
+						//TODO
+					}
+				}
+			}
+		} catch (Exception e) {
+			log.error("CookieUtil.getCookieUser.is.error",e);
+		}
+		
+		return baseUserVo;
 	}
 	
 	/**
@@ -25,13 +57,80 @@ public class CookieUtil {
 	 * @Date: 2016年12月1日 <br>
 	 * @Time: 下午9:32:11 <br>
 	 * @param request
-	 * @param baseUser
+	 * @param BaseUserVo
 	 * @return
 	 * @return Boolean <br>
 	 * @throws
 	 */
-	public static Boolean setCookieUser(HttpServletRequest request,BaseUser baseUser){
+	public static Boolean setCookieUser(HttpServletRequest request,HttpServletResponse response,BaseUserVo baseUserVo){
+		 
 		return Boolean.TRUE;
 	}
+	
+	/**
+	 * session 赋值
+	 * @param request
+	 * @param BaseUserVo
+	 */
+	public static void setSession(HttpServletRequest request,BaseUserVo BaseUserVo){
+		HttpSession  httpSession = request.getSession();
+		httpSession.setAttribute(DEFAULT_COOKIE_KEY, BaseUserVo);
+	}
+	/**
+	 * session取值
+	 * @param request
+	 * @param BaseUserVo
+	 */
+	public   static BaseUserVo getSession(HttpServletRequest request){
+		BaseUserVo baseUserVo = null ;
+		try {
+			HttpSession  httpSession = request.getSession();
+			baseUserVo = (BaseUserVo) httpSession.getAttribute(CookieUtil.DEFAULT_COOKIE_KEY);
+		} catch (Exception e) {
+			log.error("CookieUtil.getSession.is.error",e);
+		}
+		return baseUserVo;
+	}
+	
+	
+	/**
+	 * 添加cookie
+	 * @param response
+	 * @param name
+	 * @param value
+	 * @param maxAge
+	 */
+	private static void addCookie(HttpServletResponse response, String name, String value,Integer maxAge) {
+	 		try {
+	 			name = URLEncoder.encode(name, "UTF-8");
+	 			value = URLEncoder.encode(value, "UTF-8");
+	 			Cookie cookie = new Cookie(name, value);
+	 			if (maxAge != null) {
+	 				cookie.setMaxAge(maxAge);
+	 			}
+	 			cookie.setPath("/");
+	 	        //cookie.setDomain(".");
+	 			response.addCookie(cookie);
+	 		} catch (Exception e) {
+	 			log.error(String.format("CookieUtil.addCookie.is.system.error:%s-%s",name,value),e);
+	 		}
+	  }
+	/**
+	 * 获取cookie
+	 * @param req
+	 * @param name
+	 * @return
+	 */
+	 private static String getCookie(HttpServletRequest req, String name) {
+			Cookie[] cookies = req.getCookies();
+			if (cookies == null)
+				return null;
+			for (int i = 0; i < cookies.length; i++) {
+				if (cookies[i].getName().equals(name)) {
+					return cookies[i].getValue();
+				}
+			}
+			return null;
+		}
 	
 }

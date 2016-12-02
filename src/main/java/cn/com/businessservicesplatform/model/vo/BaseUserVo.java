@@ -5,6 +5,10 @@ import cn.com.businessservicesplatform.model.mysql.BaseUser;
 public class BaseUserVo extends BaseUser {
 	
 	 public BaseUserVo(){}
+	 
+	 public BaseUserVo(BaseUser baseUser){
+		 
+	 }
 	
 	 private String loginPwd2;
 	 

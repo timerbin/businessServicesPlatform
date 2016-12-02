@@ -23,14 +23,21 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 	    throws Exception {
 		try {
 			String requestUrl = request.getRequestURL().toString();
-			BaseUser baseUser = CookieUtil.getCookieUser(request);
+			/***优先Session 中取值**/
+			BaseUser baseUser = CookieUtil.getSession(request);
 			if(null == baseUser || baseUser.getId() == null){
-				StringBuffer url = new StringBuffer("/login/toLogin.html");
-				if(!StringUtils.isBlank(requestUrl)){
-					url.append("?callbackUrl=" + URLEncoder.encode(requestUrl,"UTF-8"));
+				/***其次cookie 中取值**/
+				baseUser = CookieUtil.getCookieUser(request);
+				if(null == baseUser || baseUser.getId() == null){
+					StringBuffer url = new StringBuffer("/login/toLogin.html");
+					if(!StringUtils.isBlank(requestUrl)){
+						url.append("?callbackUrl=" + URLEncoder.encode(requestUrl,"UTF-8"));
+					}
+					response.sendRedirect(url.toString());
+					return Boolean.FALSE;
+				}else{
+					return Boolean.TRUE;
 				}
-				response.sendRedirect(url.toString());
-				return Boolean.FALSE;
 			}else{
 				return Boolean.TRUE;
 			}

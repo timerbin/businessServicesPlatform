@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 @Controller
 @RequestMapping("/shop")
-public class BaseUserCompanyController {
+public class BaseUserCompanyController extends BaseController{
 
 	/**
 	 * @Description: 跳转到公司页面 <br>

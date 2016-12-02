@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 
 @Controller
 @RequestMapping("/shop")
-public class TestController {
+public class TestController extends BaseController{
 
     @RequestMapping("/index")
     @ResponseBody
