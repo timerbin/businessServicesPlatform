@@ -1,0 +1,24 @@
+@charset "utf-8";
+* { margin:0; padding:0;}
+body { padding:0; margin:0; font-size:12px;  color:#333; font-family:"Microsoft YaHei",微软雅黑,"MicrosoftJhengHei",华文细黑,STHeiti,MingLiu;}
+a { text-decoration:none; color:#333;}
+a:hover { color: #FF0000; text-decoration: underline;}
+img{ border:0;}
+ol,ul,li { margin: 0px; padding: 0px; list-style-type: none;}
+dl,dt,dd,h1,h2,h3,h4,h5,h6 { margin: 0px; padding: 0px;}
+.clear{ display:block;overflow:hidden;clear:both;height:0;line-height:0;font-size:0;}
+
+.login_head { background:#202830; height:110px; padding-top:125px;}
+.login_title { width:480px; height:109px; margin:0 auto; background:#151c22; border-radius:8px 8px 0 0; border:1px solid #2c3343; border-bottom:none; text-align:center;}
+.login_title img { margin-top:34px;}
+.login_box { width:320px; margin:0 auto; background:#f2f2f2; border:1px solid #e5e5e5; border-top:none; border-radius:0 0 8px 8px; padding:15px 80px 45px 80px;}
+.login_box ul li { height:48px; line-height:48px; display:block; color:#666; font-size:14px;}
+.login_box ul li a { color:#666;}
+.margin_top20 { margin-top:20px;}
+.border_bj { border:1px solid #dddddd; background:#fff; border-radius:4px;}
+.login_img { display:block; float:left; padding:15px 10px 15px 20px;}
+.login_input_text { width:268px; height:48px; border:none; font-size:14px;}
+.login_wjmm { float:right;}
+.login_button { width:320px; height:48px; border:none; background:#cc1c1e; color:#fff; font-size:16px; border-radius:4px;}
+
+.login_fotter { text-align:center; font-size:14px; color:#888; padding:20px 0; margin-top:20px;}

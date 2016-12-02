@@ -13,7 +13,7 @@
     <div class="gerenzx_right">
       <table border="0" cellspacing="20" cellpadding="0" class="gerenzx_table">
       	  <tr>
-            <td width="120" align="right">用户名：</td>
+            <td width="120" align="right">用户名：${BASE_URL}</td>
             <td width="260"><input name="loginName" type="text" class="grzx_input"  /></td>
           </tr>
           <tr>
