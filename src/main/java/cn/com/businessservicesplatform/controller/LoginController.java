@@ -242,39 +242,4 @@ public class LoginController extends BaseController{
     	return "";
     		
     }
-
-
-	/**
-	 * 验证码
-	 * @Author John
-	 * @param request
-	 * @param response
-     * @return
-     */
-	@RequestMapping("/genVerifyCode")
-	@ResponseBody
-	public String genVerifyCode(HttpServletRequest request,HttpServletResponse response) {
-		response.setHeader("Pragma", "No-cache");
-		response.setHeader("Cache-Control", "no-cache");
-		response.setDateHeader("Expires", 0);
-		response.setContentType("image/jpeg");
-
-		//生成随机字串
-		String verifyCode = VerifyCodeUtils.generateVerifyCode(4);
-		//存入会话session
-		HttpSession session = request.getSession(true);
-		//删除以前的
-		session.removeAttribute("verCode");
-		session.setAttribute("verCode", verifyCode.toLowerCase());
-		//生成图片
-		int w = 100, h = 30;
-		try {
-			VerifyCodeUtils.outputImage(w, h, response.getOutputStream(), verifyCode);
-		} catch (IOException e) {
-			//处理异常
-			e.printStackTrace();
-		}
-
-		return  verifyCode;
-	}
 }

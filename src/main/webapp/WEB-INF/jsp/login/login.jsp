@@ -1,5 +1,4 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -8,6 +7,9 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 <link href="${BASE_URL}/images/login.css" rel="stylesheet" type="text/css" />
 <meta name="renderer" content="webkit" />
+
+<jsp:include page="../public/baseData.jsp" />
+
 </head>
 <body>
 
@@ -29,8 +31,8 @@
             <span><input name="" type="checkbox" value="" /> 记住密码</span>
         </li>
         <li>
-            <span class="login_wjmm"><a href="#">验证码</a></span>
-            <span><input name="" type="text" placeholder="请输入验证码" class="login_input_text"  style="width:100px;" /><img id="img" src="${BASE_URL}/login/genVerifyCode.html" /><label style="color:white;">看不清？</label></span>
+            <span><input name="" type="text" placeholder="请输入验证码" class="login_input_text"  style="width:150px;" /></span>
+            <span><img id="img" style="width:110px;height:30px;" src="${BASE_URL}/authImage" title="换一张" /></span>
         </li>
         <li>
             <span class="login_wjmm"><a href="${BASE_URL}/login/toRegister.html">立即注册</a></span>
@@ -39,15 +41,14 @@
     </ul>
 </div>
 
-<div class="login_fotter">江苏省泰兴虹桥工业园区管理委员会©版权所有</div>
 
+<jsp:include page="../public/footer.jsp" />
 
-
- 
 
 <script type="text/javascript">
-    function changeImg(){
-        var img = document.getElementById("img");
-        img.src = "${BASE_URL}/login/genVerifyCode.html?date=" + new Date();;
-    }
+    $("#img").click(function(){
+    	$("#img").attr("src","${BASE_URL}/authImage?date=" + new Date());
+    });
 </script>
+</body>
+</html>
