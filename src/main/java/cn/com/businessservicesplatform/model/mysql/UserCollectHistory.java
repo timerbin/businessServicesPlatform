@@ -7,7 +7,7 @@ public class UserCollectHistory {
 
     private Integer userId;
 
-    private Integer serverId;
+    private Integer serviceId;
 
     private Integer companyId;
 
@@ -35,12 +35,12 @@ public class UserCollectHistory {
         this.userId = userId;
     }
 
-    public Integer getServerId() {
-        return serverId;
+    public Integer getServiceId() {
+        return serviceId;
     }
 
-    public void setServerId(Integer serverId) {
-        this.serverId = serverId;
+    public void setServiceId(Integer serviceId) {
+        this.serviceId = serviceId;
     }
 
     public Integer getCompanyId() {

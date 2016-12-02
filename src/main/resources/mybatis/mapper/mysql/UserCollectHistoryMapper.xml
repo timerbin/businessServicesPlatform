@@ -4,7 +4,7 @@
   <resultMap id="BaseResultMap" type="cn.com.businessservicesplatform.model.mysql.UserCollectHistory" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="user_id" property="userId" jdbcType="INTEGER" />
-    <result column="server_id" property="serverId" jdbcType="INTEGER" />
+    <result column="service_id" property="serviceId" jdbcType="INTEGER" />
     <result column="company_id" property="companyId" jdbcType="INTEGER" />
     <result column="status" property="status" jdbcType="INTEGER" />
     <result column="type" property="type" jdbcType="INTEGER" />
@@ -12,7 +12,7 @@
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, user_id, server_id, company_id, status, type, modify_time, create_time
+    id, user_id, service_id, company_id, status, type, modify_time, create_time
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -25,10 +25,10 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="cn.com.businessservicesplatform.model.mysql.UserCollectHistory" >
-    insert into user_collect_history (id, user_id, server_id, 
+    insert into user_collect_history (id, user_id, service_id, 
       company_id, status, type, 
       modify_time, create_time)
-    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{serverId,jdbcType=INTEGER}, 
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{serviceId,jdbcType=INTEGER}, 
       #{companyId,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, #{type,jdbcType=INTEGER}, 
       #{modifyTime,jdbcType=TIMESTAMP}, #{createTime,jdbcType=TIMESTAMP})
   </insert>
@@ -41,8 +41,8 @@
       <if test="userId != null" >
         user_id,
       </if>
-      <if test="serverId != null" >
-        server_id,
+      <if test="serviceId != null" >
+        service_id,
       </if>
       <if test="companyId != null" >
         company_id,
@@ -67,8 +67,8 @@
       <if test="userId != null" >
         #{userId,jdbcType=INTEGER},
       </if>
-      <if test="serverId != null" >
-        #{serverId,jdbcType=INTEGER},
+      <if test="serviceId != null" >
+        #{serviceId,jdbcType=INTEGER},
       </if>
       <if test="companyId != null" >
         #{companyId,jdbcType=INTEGER},
@@ -93,8 +93,8 @@
       <if test="userId != null" >
         user_id = #{userId,jdbcType=INTEGER},
       </if>
-      <if test="serverId != null" >
-        server_id = #{serverId,jdbcType=INTEGER},
+      <if test="serviceId != null" >
+        service_id = #{serviceId,jdbcType=INTEGER},
       </if>
       <if test="companyId != null" >
         company_id = #{companyId,jdbcType=INTEGER},
@@ -117,7 +117,7 @@
   <update id="updateByPrimaryKey" parameterType="cn.com.businessservicesplatform.model.mysql.UserCollectHistory" >
     update user_collect_history
     set user_id = #{userId,jdbcType=INTEGER},
-      server_id = #{serverId,jdbcType=INTEGER},
+      service_id = #{serviceId,jdbcType=INTEGER},
       company_id = #{companyId,jdbcType=INTEGER},
       status = #{status,jdbcType=INTEGER},
       type = #{type,jdbcType=INTEGER},

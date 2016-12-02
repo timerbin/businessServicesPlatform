@@ -4,6 +4,8 @@
   <resultMap id="BaseResultMap" type="cn.com.businessservicesplatform.model.mysql.BaseUser" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="age" property="age" jdbcType="INTEGER" />
+    <result column="sex" property="sex" jdbcType="INTEGER" />
     <result column="login_name" property="loginName" jdbcType="VARCHAR" />
     <result column="login_pwd" property="loginPwd" jdbcType="VARCHAR" />
     <result column="rale_name" property="raleName" jdbcType="VARCHAR" />
@@ -15,8 +17,8 @@
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, user_id, login_name, login_pwd, rale_name, mobile_phone, email, status, type, 
-    modify_time, create_time
+    id, user_id, age, sex, login_name, login_pwd, rale_name, mobile_phone, email, status, 
+    type, modify_time, create_time
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -47,19 +49,22 @@
       </if>
   </select>
   
+  
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from base_user
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="cn.com.businessservicesplatform.model.mysql.BaseUser" >
-    insert into base_user (id, user_id, login_name, 
-      login_pwd, rale_name, mobile_phone, 
-      email, status, type, 
-      modify_time, create_time)
-    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{loginName,jdbcType=VARCHAR}, 
-      #{loginPwd,jdbcType=VARCHAR}, #{raleName,jdbcType=VARCHAR}, #{mobilePhone,jdbcType=VARCHAR}, 
-      #{email,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{type,jdbcType=INTEGER}, 
-      #{modifyTime,jdbcType=TIMESTAMP}, #{createTime,jdbcType=TIMESTAMP})
+    insert into base_user (id, user_id, age, 
+      sex, login_name, login_pwd, 
+      rale_name, mobile_phone, email, 
+      status, type, modify_time, 
+      create_time)
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{age,jdbcType=INTEGER}, 
+      #{sex,jdbcType=INTEGER}, #{loginName,jdbcType=VARCHAR}, #{loginPwd,jdbcType=VARCHAR}, 
+      #{raleName,jdbcType=VARCHAR}, #{mobilePhone,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
+      #{status,jdbcType=INTEGER}, #{type,jdbcType=INTEGER}, #{modifyTime,jdbcType=TIMESTAMP}, 
+      #{createTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="cn.com.businessservicesplatform.model.mysql.BaseUser" >
     insert into base_user
@@ -69,6 +74,12 @@
       </if>
       <if test="userId != null" >
         user_id,
+      </if>
+      <if test="age != null" >
+        age,
+      </if>
+      <if test="sex != null" >
+        sex,
       </if>
       <if test="loginName != null" >
         login_name,
@@ -105,6 +116,12 @@
       <if test="userId != null" >
         #{userId,jdbcType=INTEGER},
       </if>
+      <if test="age != null" >
+        #{age,jdbcType=INTEGER},
+      </if>
+      <if test="sex != null" >
+        #{sex,jdbcType=INTEGER},
+      </if>
       <if test="loginName != null" >
         #{loginName,jdbcType=VARCHAR},
       </if>
@@ -140,6 +157,12 @@
       <if test="userId != null" >
         user_id = #{userId,jdbcType=INTEGER},
       </if>
+      <if test="age != null" >
+        age = #{age,jdbcType=INTEGER},
+      </if>
+      <if test="sex != null" >
+        sex = #{sex,jdbcType=INTEGER},
+      </if>
       <if test="loginName != null" >
         login_name = #{loginName,jdbcType=VARCHAR},
       </if>
@@ -173,6 +196,8 @@
   <update id="updateByPrimaryKey" parameterType="cn.com.businessservicesplatform.model.mysql.BaseUser" >
     update base_user
     set user_id = #{userId,jdbcType=INTEGER},
+      age = #{age,jdbcType=INTEGER},
+      sex = #{sex,jdbcType=INTEGER},
       login_name = #{loginName,jdbcType=VARCHAR},
       login_pwd = #{loginPwd,jdbcType=VARCHAR},
       rale_name = #{raleName,jdbcType=VARCHAR},

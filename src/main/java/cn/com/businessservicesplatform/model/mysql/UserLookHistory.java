@@ -2,12 +2,14 @@ package cn.com.businessservicesplatform.model.mysql;
 
 import java.util.Date;
 
+import cn.com.businessservicesplatform.model.vo.UserLookHistoryVo;
+
 public class UserLookHistory {
     private Integer id;
 
     private Integer userId;
 
-    private Integer serverId;
+    private Integer serviceId;
 
     private Integer companyId;
 
@@ -17,9 +19,21 @@ public class UserLookHistory {
 
     private Integer type;
 
+    private String nowDate;
+
     private Date modifyTime;
 
     private Date createTime;
+    
+    public UserLookHistory(){}
+    
+    public UserLookHistory(UserLookHistoryVo userLookHistoryVo){
+    	this.userId = userLookHistoryVo.getUserId();
+    	this.serviceId = userLookHistoryVo.getServiceId();
+    	this.type = userLookHistoryVo.getType();
+    	this.companyId = userLookHistoryVo.getCompanyId();
+    }
+    
 
     public Integer getId() {
         return id;
@@ -37,12 +51,12 @@ public class UserLookHistory {
         this.userId = userId;
     }
 
-    public Integer getServerId() {
-        return serverId;
+    public Integer getServiceId() {
+        return serviceId;
     }
 
-    public void setServerId(Integer serverId) {
-        this.serverId = serverId;
+    public void setServiceId(Integer serviceId) {
+        this.serviceId = serviceId;
     }
 
     public Integer getCompanyId() {
@@ -75,6 +89,14 @@ public class UserLookHistory {
 
     public void setType(Integer type) {
         this.type = type;
+    }
+
+    public String getNowDate() {
+        return nowDate;
+    }
+
+    public void setNowDate(String nowDate) {
+        this.nowDate = nowDate == null ? null : nowDate.trim();
     }
 
     public Date getModifyTime() {

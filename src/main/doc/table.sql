@@ -24,6 +24,8 @@ PRIMARY KEY (`id`)
 CREATE TABLE `BASE_USER` (
 `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '逻辑主键',
 user_id INT(11) NOT NULL  COMMENT '用户中心用户ID',
+age INT(11) NOT NULL  COMMENT '年龄',
+sex INT(11) NOT NULL  COMMENT '性别 0 男 1 女',
 login_name VARCHAR(200) DEFAULT NULL COMMENT  '登录名',
 login_pwd VARCHAR(200) DEFAULT NULL COMMENT  '登录密码',
 rale_name VARCHAR(200) DEFAULT NULL  COMMENT '真实名称',
@@ -35,6 +37,7 @@ modify_time  TIMESTAMP NOT NULL  ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时�
 create_time  TIMESTAMP NOT NULL COMMENT '创建时间',
 PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户信息';
+
 
 
 -- 用户企业信息 --
@@ -94,11 +97,12 @@ PRIMARY KEY (`id`)
 CREATE TABLE `USER_LOOK_HISTORY` (
 `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '逻辑主键',
 user_id INT(11) NOT NULL  COMMENT '用户中心用户ID',
-server_id  INT(11)  NOT NULL  COMMENT '服务id',
+service_id  INT(11)  NOT NULL  COMMENT '服务id',
 company_id  INT(11)  DEFAULT NULL  COMMENT '企业id',
 look_count  INT(11)  DEFAULT 1  COMMENT '每天的浏览次数',
 status int(1) DEFAULT 1 COMMENT '状态  -1逻辑删除 1正常',
 type int(1) DEFAULT 1  COMMENT '类型 1服务浏览  2企业浏览',
+now_date VARCHAR(20) NOT NULL COMMENT '收藏日期',
 modify_time  TIMESTAMP NOT NULL  ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
 create_time  TIMESTAMP NOT NULL COMMENT '创建时间',
 PRIMARY KEY (`id`)
@@ -108,7 +112,7 @@ PRIMARY KEY (`id`)
 CREATE TABLE `USER_COLLECT_HISTORY` (
 `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '逻辑主键',
 user_id INT(11) NOT NULL  COMMENT '用户中心用户ID',
-server_id  INT(11)  DEFAULT NULL  COMMENT '服务id',
+service_id  INT(11)  DEFAULT NULL  COMMENT '服务id',
 company_id  INT(11)  DEFAULT NULL  COMMENT '企业id',
 status int(1) DEFAULT 1 COMMENT '状态  -1逻辑删除 1正常',
 type int(1) DEFAULT 1  COMMENT '类型 1服务收藏  2企业收藏',

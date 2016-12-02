@@ -4,16 +4,18 @@
   <resultMap id="BaseResultMap" type="cn.com.businessservicesplatform.model.mysql.UserLookHistory" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="user_id" property="userId" jdbcType="INTEGER" />
-    <result column="server_id" property="serverId" jdbcType="INTEGER" />
+    <result column="service_id" property="serviceId" jdbcType="INTEGER" />
     <result column="company_id" property="companyId" jdbcType="INTEGER" />
     <result column="look_count" property="lookCount" jdbcType="INTEGER" />
     <result column="status" property="status" jdbcType="INTEGER" />
     <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="now_date" property="nowDate" jdbcType="VARCHAR" />
     <result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, user_id, server_id, company_id, look_count, status, type, modify_time, create_time
+    id, user_id, service_id, company_id, look_count, status, type, now_date, modify_time, 
+    create_time
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -21,19 +23,49 @@
     from user_look_history
     where id = #{id,jdbcType=INTEGER}
   </select>
+  
+  
+    <select id="getByVo" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from user_look_history
+    where  status = 1 
+    <if test="vo.id != null" >
+        and id = #{vo.id,jdbcType=INTEGER},
+    </if>
+    <if test="vo.userId != null" >
+        and user_id = #{vo.userId,jdbcType=INTEGER},
+    </if>
+    <if test="vo.serviceId != null" >
+        and service_id = #{vo.serviceId,jdbcType=INTEGER},
+    </if>
+    <if test="vo.companyId != null" >
+        and company_id = #{vo.companyId,jdbcType=INTEGER},
+    </if>
+    <if test="vo.type != null" >
+        and type = #{vo.type,jdbcType=INTEGER},
+    </if>
+    <if test="vo.nowDate != null" >
+        and now_date = #{vo.nowDate,jdbcType=INTEGER},
+    </if>
+    
+  </select>
+  
+  
+  
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from user_look_history
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="cn.com.businessservicesplatform.model.mysql.UserLookHistory" >
-    insert into user_look_history (id, user_id, server_id, 
+    insert into user_look_history (id, user_id, service_id, 
       company_id, look_count, status, 
-      type, modify_time, create_time
-      )
-    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{serverId,jdbcType=INTEGER}, 
+      type, now_date, modify_time, 
+      create_time)
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{serviceId,jdbcType=INTEGER}, 
       #{companyId,jdbcType=INTEGER}, #{lookCount,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, 
-      #{type,jdbcType=INTEGER}, #{modifyTime,jdbcType=TIMESTAMP}, #{createTime,jdbcType=TIMESTAMP}
-      )
+      #{type,jdbcType=INTEGER}, #{nowDate,jdbcType=VARCHAR}, #{modifyTime,jdbcType=TIMESTAMP}, 
+      #{createTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="cn.com.businessservicesplatform.model.mysql.UserLookHistory" >
     insert into user_look_history
@@ -44,8 +76,8 @@
       <if test="userId != null" >
         user_id,
       </if>
-      <if test="serverId != null" >
-        server_id,
+      <if test="serviceId != null" >
+        service_id,
       </if>
       <if test="companyId != null" >
         company_id,
@@ -58,6 +90,9 @@
       </if>
       <if test="type != null" >
         type,
+      </if>
+      <if test="nowDate != null" >
+        now_date,
       </if>
       <if test="modifyTime != null" >
         modify_time,
@@ -73,8 +108,8 @@
       <if test="userId != null" >
         #{userId,jdbcType=INTEGER},
       </if>
-      <if test="serverId != null" >
-        #{serverId,jdbcType=INTEGER},
+      <if test="serviceId != null" >
+        #{serviceId,jdbcType=INTEGER},
       </if>
       <if test="companyId != null" >
         #{companyId,jdbcType=INTEGER},
@@ -87,6 +122,9 @@
       </if>
       <if test="type != null" >
         #{type,jdbcType=INTEGER},
+      </if>
+      <if test="nowDate != null" >
+        #{nowDate,jdbcType=VARCHAR},
       </if>
       <if test="modifyTime != null" >
         #{modifyTime,jdbcType=TIMESTAMP},
@@ -102,8 +140,8 @@
       <if test="userId != null" >
         user_id = #{userId,jdbcType=INTEGER},
       </if>
-      <if test="serverId != null" >
-        server_id = #{serverId,jdbcType=INTEGER},
+      <if test="serviceId != null" >
+        service_id = #{serviceId,jdbcType=INTEGER},
       </if>
       <if test="companyId != null" >
         company_id = #{companyId,jdbcType=INTEGER},
@@ -117,6 +155,9 @@
       <if test="type != null" >
         type = #{type,jdbcType=INTEGER},
       </if>
+      <if test="nowDate != null" >
+        now_date = #{nowDate,jdbcType=VARCHAR},
+      </if>
       <if test="modifyTime != null" >
         modify_time = #{modifyTime,jdbcType=TIMESTAMP},
       </if>
@@ -129,11 +170,12 @@
   <update id="updateByPrimaryKey" parameterType="cn.com.businessservicesplatform.model.mysql.UserLookHistory" >
     update user_look_history
     set user_id = #{userId,jdbcType=INTEGER},
-      server_id = #{serverId,jdbcType=INTEGER},
+      service_id = #{serviceId,jdbcType=INTEGER},
       company_id = #{companyId,jdbcType=INTEGER},
       look_count = #{lookCount,jdbcType=INTEGER},
       status = #{status,jdbcType=INTEGER},
       type = #{type,jdbcType=INTEGER},
+      now_date = #{nowDate,jdbcType=VARCHAR},
       modify_time = #{modifyTime,jdbcType=TIMESTAMP},
       create_time = #{createTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
