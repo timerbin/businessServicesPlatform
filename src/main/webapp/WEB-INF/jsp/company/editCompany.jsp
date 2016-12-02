@@ -5,8 +5,9 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>注册</title>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-<link href="images/gerenzx.css" rel="stylesheet" type="text/css" />
+<link href="/images/gerenzx.css" rel="stylesheet" type="text/css" />
 <meta name="renderer" content="webkit" />
+    <jsp:include page="../public/baseData.jsp" />
 </head>
 <body>
 <form action="#" method="post">
@@ -49,6 +50,8 @@
           </tr>
         </table>
   	</div>
+    <jsp:include page="../public/footer.jsp" ></jsp:include>
 </form>
 </body>
 </html>
+
