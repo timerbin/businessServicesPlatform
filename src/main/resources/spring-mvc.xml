@@ -19,7 +19,7 @@
 	<!-- 自动扫描controller包下的所有类，使其认为spring mvc的控制器 -->
 	<context:component-scan base-package="cn.com.businessservicesplatform.controller"/>
 	
-	<context:property-placeholder location="classpath:settings.properties"/>
+	<context:property-placeholder location="classpath:config.properties"/>
 	
 	<bean id="springUtils" class="cn.com.businessservicesplatform.common.util.SpringUtils" />
 	
