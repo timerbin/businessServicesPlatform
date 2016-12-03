@@ -54,7 +54,7 @@ public class BaseUserCompanyServiceImpl implements BaseUserCompanyService {
     		//全部删除
     		baseUserCompanyPicMapper.deleteAllPic(vo.getId());
     		if(vo.getPicListStr().indexOf("|")>0){
-    			String [] picUrls = vo.getPicListStr().split("|");
+    			String [] picUrls = vo.getPicListStr().split("\\|");
     			if(null != picUrls && picUrls.length > 0){
     				for(int i=0;i<picUrls.length;i++){
     					if(!StringUtils.isBlank(picUrls[i])){

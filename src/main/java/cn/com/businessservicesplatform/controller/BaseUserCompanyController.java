@@ -43,6 +43,10 @@ public class BaseUserCompanyController extends BaseController{
     	ModelAndView model = new ModelAndView ("/login/editCompany");
     	BaseUserVo baseUserVo = this.getUser(request);
     	model.addObject("user", baseUserVo);
+    	if(null == baseUserVo){
+    		model = new ModelAndView ( "redirect:/login/toLogin.html");
+    		return model;
+    	}
     	//经营范围
     	List<BaseConfigData>  managementList = baseConfigDataService.queryList(new BaseConfigDataVo(BaseConfigTypeEnum.MANAGEMENT.getId()));
     	model.addObject("managementList", managementList);

@@ -35,8 +35,8 @@ public class CookieUtil {
 			String signStr = getCookie(request,DEFAULT_COOKIE_KEY);
 			if(!StringUtils.isBlank(signStr)){
 				String dataMsg = DESUtils.decrypt(signStr);
-				if(StringUtils.isBlank(dataMsg) && dataMsg.indexOf("|") >= 0){
-					String [] datas =  dataMsg.split("|");
+				if(!StringUtils.isBlank(dataMsg) && dataMsg.indexOf("|") >= 0){
+					String [] datas =  dataMsg.split("\\|");
 					if(datas.length >= 8){
 						baseUserVo = new BaseUserVo();
 						baseUserVo.setId(makeInt(datas[0]));
