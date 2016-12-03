@@ -47,6 +47,7 @@ public class CookieUtil {
 						baseUserVo.setMobilePhone(datas[5]);
 						baseUserVo.setEmail(datas[6]);
 						baseUserVo.setSex(makeInt(datas[7]));
+						baseUserVo.setCompanyId(makeInt(datas[8]));
 					}
 				}
 			}
@@ -88,7 +89,8 @@ public class CookieUtil {
 			 str.append(baseUserVo.getType()).append("|");
 			 str.append(baseUserVo.getMobilePhone()).append("|");
 			 str.append(baseUserVo.getEmail()).append("|");
-			 str.append(baseUserVo.getSex());
+			 str.append(baseUserVo.getSex()).append("|");
+			 str.append(baseUserVo.getCompanyId());
 			 String sign = DESUtils.encrypt(str.toString());
 			 int maxAge = 60*60*24*1;
 			 addCookie(response,DEFAULT_COOKIE_KEY,sign,maxAge);

@@ -1,8 +1,10 @@
 package cn.com.businessservicesplatform.controller;
 
 import cn.com.businessservicesplatform.common.util.CookieUtil;
-import cn.com.businessservicesplatform.common.util.VerifyCodeUtils;
+import cn.com.businessservicesplatform.dao.mysql.BaseUserCompanyMapper;
 import cn.com.businessservicesplatform.model.mysql.BaseUser;
+import cn.com.businessservicesplatform.model.mysql.BaseUserCompany;
+import cn.com.businessservicesplatform.model.vo.BaseUserCompanyVo;
 import cn.com.businessservicesplatform.model.vo.BaseUserVo;
 import cn.com.businessservicesplatform.service.BaseUserService;
 
@@ -18,7 +20,6 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.io.IOException;
 
 
 @Controller
@@ -29,6 +30,8 @@ public class LoginController extends BaseController{
 
 	@Autowired
 	BaseUserService baseUserService;
+	@Autowired
+	BaseUserCompanyMapper baseUserCompanyMapper;
 	
 	
 	/**
@@ -80,9 +83,15 @@ public class LoginController extends BaseController{
 			BaseUser baseUser = baseUserService.findBaseUser(baseUserVo);
 			if(null != baseUser && baseUser.getId() != null){
 				model.addObject("baseUser", baseUser);
-				Boolean setCookieResult = CookieUtil.setCookieUser(request,response,new BaseUserVo(baseUser));
+				BaseUserVo userVo =  new BaseUserVo(baseUser);
+				BaseUserCompanyVo baseUserCompanyVo = new BaseUserCompanyVo(baseUser.getId());
+				BaseUserCompany baseUserCompany = baseUserCompanyMapper.getUserCompany(baseUserCompanyVo);
+				if(null != baseUserCompany && baseUserCompany.getId() != null){
+					userVo.setCompanyId(baseUserCompany.getId());
+				}
+				Boolean setCookieResult = CookieUtil.setCookieUser(request,response,userVo);
 				if(!setCookieResult){
-					setCookieResult = CookieUtil.setCookieUser(request,response,new BaseUserVo(baseUser));
+					setCookieResult = CookieUtil.setCookieUser(request,response,userVo);
 				}
 				if(setCookieResult){
 					if(!StringUtils.isBlank(baseUserVo.getCallbackUrl())){

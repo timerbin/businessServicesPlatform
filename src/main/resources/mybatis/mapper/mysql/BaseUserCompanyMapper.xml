@@ -28,6 +28,21 @@
     company_type, status, modify_time, create_time, verify_time, verify_user_id, verify_user_name, 
     verify_user_des
   </sql>
+  
+  
+  <select id="getUserCompany" resultMap="BaseResultMap" parameterType="cn.com.businessservicesplatform.model.vo.BaseUserVo" >
+    select 
+    <include refid="Base_Column_List" />
+    from base_user_company where status = 1 
+    <if test="userId != null" >
+       and user_id = #{userId,jdbcType=INTEGER},
+    </if>
+    <if test="id != null" >
+       and id = #{id,jdbcType=INTEGER},
+    </if>
+  </select>
+  
+  
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />

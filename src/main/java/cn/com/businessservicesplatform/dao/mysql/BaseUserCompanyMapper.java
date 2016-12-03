@@ -1,6 +1,7 @@
 package cn.com.businessservicesplatform.dao.mysql;
 
 import cn.com.businessservicesplatform.model.mysql.BaseUserCompany;
+import cn.com.businessservicesplatform.model.vo.BaseUserCompanyVo;
 
 public interface BaseUserCompanyMapper {
     int deleteByPrimaryKey(Integer id);
@@ -14,4 +15,7 @@ public interface BaseUserCompanyMapper {
     int updateByPrimaryKeySelective(BaseUserCompany record);
 
     int updateByPrimaryKey(BaseUserCompany record);
+    
+    BaseUserCompany getUserCompany(BaseUserCompanyVo baseUserCompanyVo);
+    
 }

@@ -22,6 +22,16 @@ public class BaseUserVo extends BaseUser {
 	 private String callbackUrl;
 	 
 	 private String verifyCode;
+	 
+	 private Integer companyId;
+
+	public Integer getCompanyId() {
+		return companyId;
+	}
+
+	public void setCompanyId(Integer companyId) {
+		this.companyId = companyId;
+	}
 
 	public String getCallbackUrl() {
 		return callbackUrl;
