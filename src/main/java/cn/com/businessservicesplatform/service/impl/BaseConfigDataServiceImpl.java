@@ -21,4 +21,9 @@ public class BaseConfigDataServiceImpl implements BaseConfigDataService{
 		return baseConfigDataMapper.queryPage(basePage, baseConfigDataVo);
 	}
 
+	@Override
+	public List<BaseConfigData> queryList(BaseConfigDataVo baseConfigDataVo) {
+		return baseConfigDataMapper.queryList(baseConfigDataVo);
+	}
+
 }

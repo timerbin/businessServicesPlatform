@@ -14,6 +14,13 @@ public class BaseUserCompanyPic {
     private Date modifyTime;
 
     private Date createTime;
+    
+    public BaseUserCompanyPic(){}
+    public BaseUserCompanyPic(Integer companyId,String companyPicUrl){
+    	this.companyId = companyId;
+    	this.companyPicUrl = companyPicUrl;
+    	this.status = 1;
+    }
 
     public Integer getId() {
         return id;

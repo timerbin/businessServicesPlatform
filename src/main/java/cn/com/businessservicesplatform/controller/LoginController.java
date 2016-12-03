@@ -6,6 +6,7 @@ import cn.com.businessservicesplatform.model.mysql.BaseUser;
 import cn.com.businessservicesplatform.model.mysql.BaseUserCompany;
 import cn.com.businessservicesplatform.model.vo.BaseUserCompanyVo;
 import cn.com.businessservicesplatform.model.vo.BaseUserVo;
+import cn.com.businessservicesplatform.service.BaseUserCompanyService;
 import cn.com.businessservicesplatform.service.BaseUserService;
 
 import org.apache.commons.lang.StringUtils;
@@ -31,7 +32,7 @@ public class LoginController extends BaseController{
 	@Autowired
 	BaseUserService baseUserService;
 	@Autowired
-	BaseUserCompanyMapper baseUserCompanyMapper;
+	BaseUserCompanyService baseUserCompanyService;
 	
 	
 	/**
@@ -85,7 +86,7 @@ public class LoginController extends BaseController{
 				model.addObject("baseUser", baseUser);
 				BaseUserVo userVo =  new BaseUserVo(baseUser);
 				BaseUserCompanyVo baseUserCompanyVo = new BaseUserCompanyVo(baseUser.getId());
-				BaseUserCompany baseUserCompany = baseUserCompanyMapper.getUserCompany(baseUserCompanyVo);
+				BaseUserCompany baseUserCompany = baseUserCompanyService.getUserCompany(baseUserCompanyVo);
 				if(null != baseUserCompany && baseUserCompany.getId() != null){
 					userVo.setCompanyId(baseUserCompany.getId());
 				}

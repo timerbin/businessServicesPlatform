@@ -18,10 +18,23 @@
     from base_user_company_pic
     where id = #{id,jdbcType=INTEGER}
   </select>
+  
+  <select id="queryList" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from base_user_company_pic
+    where company_id = #{companyId,jdbcType=INTEGER} and status = 1
+  </select>
+  
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from base_user_company_pic
     where id = #{id,jdbcType=INTEGER}
   </delete>
+  <delete id="deleteAllPic" parameterType="java.lang.Integer" >
+    delete from base_user_company_pic
+    where company_id = #{companyId,jdbcType=INTEGER}
+  </delete>
+  
   <insert id="insert" parameterType="cn.com.businessservicesplatform.model.mysql.BaseUserCompanyPic" >
     insert into base_user_company_pic (id, company_id, company_pic_url, 
       status, modify_time, create_time

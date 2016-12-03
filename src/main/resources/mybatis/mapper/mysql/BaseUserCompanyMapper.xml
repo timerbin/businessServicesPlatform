@@ -53,7 +53,7 @@
     delete from base_user_company
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="cn.com.businessservicesplatform.model.mysql.BaseUserCompany" >
+  <insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="cn.com.businessservicesplatform.model.mysql.BaseUserCompany" >
     insert into base_user_company (id, user_id, company_name, 
       company_address, company_contact_user, company_contact_tel, 
       company_url, company_register_money, company_register_time, 

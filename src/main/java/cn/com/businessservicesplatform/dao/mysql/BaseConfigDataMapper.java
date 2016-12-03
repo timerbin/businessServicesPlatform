@@ -22,4 +22,7 @@ public interface BaseConfigDataMapper {
     int updateByPrimaryKey(BaseConfigData record);
     
     public List<BaseConfigData> queryPage(@Param("basePage")BasePage basePage,@Param("base") BaseConfigDataVo baseConfigDataVo);
+    
+    public List<BaseConfigData> queryList(@Param("base") BaseConfigDataVo baseConfigDataVo);
+    
 }

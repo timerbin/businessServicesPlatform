@@ -1,18 +1,33 @@
 package cn.com.businessservicesplatform.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+
+import cn.com.businessservicesplatform.common.constants.BaseConfigTypeEnum;
+import cn.com.businessservicesplatform.model.mysql.BaseConfigData;
+import cn.com.businessservicesplatform.model.vo.BaseConfigDataVo;
+import cn.com.businessservicesplatform.model.vo.BaseUserCompanyVo;
+import cn.com.businessservicesplatform.model.vo.BaseUserVo;
+import cn.com.businessservicesplatform.service.BaseConfigDataService;
+import cn.com.businessservicesplatform.service.BaseUserCompanyService;
 @Controller
-@RequestMapping("/ss")
+@RequestMapping("/user")
 public class BaseUserCompanyController extends BaseController{
 
+	@Autowired
+	BaseConfigDataService baseConfigDataService;
+	
+	@Autowired
+	BaseUserCompanyService baseUserCompanyService;
+	
 	/**
 	 * @Description: 跳转到公司页面 <br>
 	 * @Author: wangwenbin <br>
@@ -23,10 +38,27 @@ public class BaseUserCompanyController extends BaseController{
 	 * @throws
 	 */
 	@RequestMapping("/toCompany")
-    public ModelAndView toCompany() {
+    public ModelAndView toCompany(HttpServletRequest request) {
+    	ModelAndView model = new ModelAndView ("/login/editCompany");
+    	BaseUserVo baseUserVo = this.getUser(request);
+    	model.addObject("user", baseUserVo);
+    	//经营范围
+    	List<BaseConfigData>  managementList = baseConfigDataService.queryList(new BaseConfigDataVo(BaseConfigTypeEnum.MANAGEMENT.getId()));
+    	model.addObject("managementList", managementList);
+    	//企业性质
+    	List<BaseConfigData> propertyList = baseConfigDataService.queryList(new BaseConfigDataVo(BaseConfigTypeEnum.COMPANY_PROPERTY.getId()));
+    	model.addObject("propertyList", propertyList);
+    	
+    	
+    	return model;
+    }
+	@RequestMapping("/saveCompany")
+    public ModelAndView saveCompany(BaseUserCompanyVo baseUserCompanyVo) {
     	ModelAndView model = new ModelAndView ( "/login/editCompany");
     	return model;
     }
+	
+	
 	@RequestMapping("/toUp")
     public ModelAndView toUp() {
     	ModelAndView model = new ModelAndView ( "/company/uploadFrame");

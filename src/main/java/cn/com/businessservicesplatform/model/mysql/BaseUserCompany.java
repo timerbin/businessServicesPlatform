@@ -2,6 +2,8 @@ package cn.com.businessservicesplatform.model.mysql;
 
 import java.util.Date;
 
+import cn.com.businessservicesplatform.model.vo.BaseUserCompanyVo;
+
 public class BaseUserCompany {
     private Integer id;
 
@@ -40,6 +42,42 @@ public class BaseUserCompany {
     private String verifyUserName;
 
     private String verifyUserDes;
+    
+    public BaseUserCompany(){}
+    
+    
+    public BaseUserCompany(BaseUserCompanyVo baseUserCompany){
+    	this.setId(baseUserCompany.getId());
+		this.setUserId(baseUserCompany.getUserId());
+		this.setCompanyAddress(baseUserCompany.getCompanyAddress());
+		this.setCompanyContactTel(baseUserCompany.getCompanyContactTel());
+		this.setCompanyContactUser(baseUserCompany.getCompanyContactUser());
+		this.setCompanyDirections(baseUserCompany.getCompanyDirections());
+		this.setCompanyName(baseUserCompany.getCompanyName());
+		this.setCompanyRegisterMoney(baseUserCompany.getCompanyRegisterMoney());
+		this.setCompanyRegisterTime(baseUserCompany.getCompanyRegisterTime());
+		this.setCompanyScope(baseUserCompany.getCompanyScope());
+		this.setCompanyType(baseUserCompany.getCompanyType());
+		this.setStatus(baseUserCompany.getStatus());
+		this.setCompanyUrl(baseUserCompany.getCompanyUrl());
+		this.setCreateTime(baseUserCompany.getCreateTime());
+		this.setModifyTime(baseUserCompany.getModifyTime());
+	}
+    
+    public BaseUserCompany make(BaseUserCompany baseUserCompany,BaseUserCompanyVo baseUserCompanyVo){
+		baseUserCompany.setUserId(baseUserCompanyVo.getUserId());
+		baseUserCompany.setCompanyAddress(baseUserCompanyVo.getCompanyAddress());
+		baseUserCompany.setCompanyContactTel(baseUserCompanyVo.getCompanyContactTel());
+		baseUserCompany.setCompanyContactUser(baseUserCompanyVo.getCompanyContactUser());
+		baseUserCompany.setCompanyDirections(baseUserCompanyVo.getCompanyDirections());
+		baseUserCompany.setCompanyName(baseUserCompanyVo.getCompanyName());
+		baseUserCompany.setCompanyRegisterMoney(baseUserCompanyVo.getCompanyRegisterMoney());
+		baseUserCompany.setCompanyRegisterTime(baseUserCompanyVo.getCompanyRegisterTime());
+		baseUserCompany.setCompanyScope(baseUserCompanyVo.getCompanyScope());
+		baseUserCompany.setCompanyType(baseUserCompanyVo.getCompanyType());
+		baseUserCompany.setCompanyUrl(baseUserCompanyVo.getCompanyUrl());
+		return baseUserCompany;
+	}
 
     public Integer getId() {
         return id;
