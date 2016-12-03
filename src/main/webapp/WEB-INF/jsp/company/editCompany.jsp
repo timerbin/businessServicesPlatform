@@ -62,7 +62,12 @@
                 <td><select id="companyScope" name="companyScope" class="form_input">
 	                	<option value="">请选择</option>
 	                	<c:forEach items="${managementList}" var="management">
-							<option value="${management.id}">${management.showName}</option>
+	                		<c:if test="${management.id==vo.companyScope}">
+	            	 			<option value="${management.id}" selected="selected">${management.showName}</option>
+			   				</c:if>
+			   				<c:if test="${management.id!=vo.companyScope}">
+	            	 			<option value="${management.id}">${management.showName}</option>
+			   				</c:if>
 						</c:forEach>
                     </select>
                 </td>
@@ -70,7 +75,7 @@
               </tr>
               <tr>
                 <td align="right"><span class="hong_xing">*</span>成立时间：</td>
-                <td><input id="companyRegisterTimeStr" name="companyRegisterTimeStr" value="${vo.companyRegisterTimeStr}"  type="text" class="form_input2" /></td>
+                <td><input id="companyRegisterTimeStr" placeholder="yyyy-MM-dd" name="companyRegisterTimeStr" value="${vo.companyRegisterTimeStr}"  type="text" class="form_input2" /></td>
                 <td>&nbsp;</td>
               </tr>
               <tr>
@@ -78,7 +83,12 @@
                 <td><select id="companyType" name="companyType"  class="form_input">
                 		<option value="">请选择</option>
 	                	<c:forEach items="${propertyList}" var="property">
-							<option value="${property.id}">${property.showName}</option>
+	                		<c:if test="${property.id==vo.companyType}">
+	            	 			<option value="${property.id}" selected="selected">${property.showName}</option>
+			   				</c:if>
+			   				<c:if test="${property.id!=vo.companyType}">
+	            	 			<option value="${management.id}">${property.showName}</option>
+			   				</c:if>
 						</c:forEach>
                 	</select>
                 </td>
@@ -100,12 +110,17 @@
               </tr>
               <tr>
                 <td align="right" valign="top"><span class="hong_xing">*</span>企业简介：</td>
-                <td colspan="2"><textarea id="companyDirections" name="companyDirections"  value="${vo.companyDirections}" cols="" rows="" class="form_textarea"></textarea></td>
+                <td colspan="2"><textarea id="companyDirections" name="companyDirections"  cols="" rows="" class="form_textarea">${vo.companyDirections}</textarea></td>
               </tr>
               <tr>
                 <td align="right">&nbsp;</td>
-                <td><input id="saveBtn" name="saveBtn" type="button" / value="保 存" class="form_button bjse_hong">
-                 	<input  id="subBtn" name="subBtn" type="button" / value="提 交"  class="form_button bjse_lan"> 
+                <td>
+                	<c:if test="${empty vo}">
+		            	 <input  id="subBtn" name="subBtn" type="button"  value="提 交"  class="form_button bjse_lan"/> 
+				   </c:if>
+				   <c:if test="${not empty vo}">
+				   		<input id="saveBtn" name="saveBtn" type="button"  value="保 存" class="form_button bjse_hong"/>
+				   </c:if>
                  </td>
                 <td>&nbsp;</td>
               </tr>
@@ -166,6 +181,11 @@
     		 $("#companyContactTel").focus();
     		return false;
     	}
+    	if(!checkMob(companyContactTel)){
+    		alert("请输入正确联系电话");
+    		 $("#companyContactTel").focus();
+    		return false;
+    	}
     	var companyScope = $("#companyScope").val();
     	if($.trim(companyScope).length <= 0){
     		alert("请选择经营范围");
@@ -182,12 +202,33 @@
     		 $("#companyContactUser").focus();
     		return false;
     	}
+    	var companyUrl = $("#companyUrl").val();
+    	if($.trim(companyUrl).length <= 0){
+    		alert("请输入企业官网链接");
+    		 $("#companyUrl").focus();
+    		return false;
+    	}
+    	
+    	var isUrl =  /^((https|http)?:\/\/)*$/;
+    	if (isUrl.test(companyUrl)){
+    		alert("请输入正确企业官网链接");
+   		 	$("#companyUrl").focus();
+   			return false;
+    	}
+    	
     	var companyRegisterTimeStr = $("#companyRegisterTimeStr").val();
     	if($.trim(companyRegisterTimeStr).length <= 0){
     		alert("请输入成立时间");
     		 $("#companyRegisterTimeStr").focus();
     		return false;
     	}
+    	var isDate =  /^(\d{4})-(\d{2})-(\d{2})$/;
+    	if (!isDate.test(companyRegisterTimeStr)){
+    		alert("请输入正确成立时间");
+   		 	$("#companyRegisterTimeStr").focus();
+   			return false;
+    	}
+    	
     	var picListStr = "";
     	$('.up_pic_img').each(function(){
     		if(picListStr.length > 0){
@@ -202,6 +243,17 @@
     	$("#picListStr").val(picListStr);
     	return true;
     }
+    var isMob = /^((13[0-9])|(14[0-9])|(15[0-9])|(18[0-9])|(17[0-9]))\d{8}$/;
+    function checkMob(mobile) {
+    	var isPhone = /^([0-9]{3,4}-)?[0-9]{7,8}$/;
+    	if (isMob.test(mobile) || isPhone.test(mobile)) {
+    		return true;
+    	} else {
+    		return false;
+    	}
+    }
+    
+    
     function doSelectPic() {
     	$("#pic", $("#uploadPicFrame")[0].contentWindow.document).click();
     	return false;

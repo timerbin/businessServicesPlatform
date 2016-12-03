@@ -68,19 +68,31 @@ public class BaseUserCompanyController extends BaseController{
     	return model;
     }
 	@RequestMapping("/saveCompany")
-    public ModelAndView saveCompany(BaseUserCompanyVo baseUserCompanyVo) {
+    public ModelAndView saveCompany(HttpServletRequest request,BaseUserCompanyVo baseUserCompanyVo) {
     	ModelAndView model = new ModelAndView ( "/company/editCompany");
     	try {
-			model.addObject("vo", baseUserCompanyVo);
+    		BaseUserVo baseUserVo = this.getUser(request);
+        	model.addObject("user", baseUserVo);
+        	if(null == baseUserVo){
+        		model = new ModelAndView ( "redirect:/login/toLogin.html");
+        		return model;
+        	}
+        	baseUserCompanyVo.setUserId(baseUserVo.getId());
+    		List<BaseConfigData>  managementList = baseConfigDataService.queryList(new BaseConfigDataVo(BaseConfigTypeEnum.MANAGEMENT.getId()));
+        	model.addObject("managementList", managementList);
+        	//企业性质
+        	List<BaseConfigData> propertyList = baseConfigDataService.queryList(new BaseConfigDataVo(BaseConfigTypeEnum.COMPANY_PROPERTY.getId()));
+        	model.addObject("propertyList", propertyList);
 			String checkLogin = check(baseUserCompanyVo);
 			if(!StringUtils.isBlank(checkLogin)){
 				model.addObject("errorMsg", checkLogin);
 				log.error(String.format("BaseUserCompanyController.saveCompany.check.error:%s", checkLogin));
 				return model;
 			}
+			model.addObject("vo", baseUserCompanyVo);
 			int result = baseUserCompanyService.insert(baseUserCompanyVo);
 			if(result <= 0){
-				model.addObject("errorMsg", checkLogin);
+				model.addObject("errorMsg","系统繁忙,请稍后再试");
 				log.error("BaseUserCompanyController.saveCompany.save.error:");
 				return model;
 			}else{
