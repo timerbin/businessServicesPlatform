@@ -5,13 +5,12 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>上传图片</title>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-<link href="http://127.0.0.1/images/gerenzx.css" rel="stylesheet" type="text/css" />
+<link href="${BASE_URL}/images/gerenzx.css" rel="stylesheet" type="text/css" />
 <meta name="renderer" content="webkit" />
 </head>
 <body>
-	 <form id="${formId}" action="/ss/uploadPic.html" method="post" enctype="multipart/form-data">
+	 <form id="${formId}" action="${BASE_URL}/user/uploadPic.html" method="post" enctype="multipart/form-data">
 	<input name="jsonp" type="hidden" value="${jsonp}" />
-	<input name="itemPicParam" type="hidden" value="${itemPicParam}">
 	<input id="${inputId}" name="pic" onchange="${inputOnChange}(this)" type="file" style="opacity:0;width:0px;height:0px;overflow:hidden;" />
 </form>
 </body>

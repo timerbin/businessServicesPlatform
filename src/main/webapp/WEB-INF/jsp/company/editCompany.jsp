@@ -14,6 +14,7 @@
 
 <body>
 <form id="saveCompany" action="${BASE_URL}/user/saveCompany.html" method="post">
+	<input id="baseUrl"   value="${BASE_URL}"  type="hidden"  />
      <table width="100%" height="100%" border="0px" cellpadding="0px" cellspacing="0px" >
 	<tr><td width="250px" valign="top" class="con_left">
 		 <jsp:include page="../public/left.jsp" ></jsp:include>
@@ -25,68 +26,73 @@
             <table width="900" border="0" cellspacing="20" cellpadding="0">
               <tr>
                 <td width="121" align="right"><span class="hong_xing">*</span>企业名称：</td>
-                <td width="550"><input id="companyName" name="companyName" type="text" class="form_input" /></td>
+                <td width="550"><input id="companyName" name="companyName" value="${vo.companyName}" type="text" class="form_input" /></td>
                 <td width="149">&nbsp;</td>
               </tr>
               <tr>
                 <td align="right"><span class="hong_xing">*</span>注册资金：</td>
-                <td><input  id="companyRegisterMoney" name="companyRegisterMoney"  type="text" class="form_input2" /></td>
+                <td><input  id="companyRegisterMoney" name="companyRegisterMoney" value="${vo.companyRegisterMoney}"   type="text" class="form_input2" /></td>
                 <td>&nbsp;</td>
               </tr>
               <tr>
                 <td align="right"><span class="hong_xing">*</span>企业地址：</td>
-                <td><input id="companyAddress" name="companyAddress"  type="text" class="form_input" /></td>
+                <td><input id="companyAddress" name="companyAddress" value="${vo.companyAddress}"  type="text" class="form_input" /></td>
                 <td>&nbsp;</td>
               </tr>
               <tr>
                 <td align="right"><span class="hong_xing">*</span>联系电话：</td>
-                <td><input id="companyContactTel" name="companyContactTel" type="text" class="form_input2" /></td>
+                <td><input id="companyContactTel" name="companyContactTel" value="${vo.companyContactTel}"  type="text" class="form_input2" /></td>
                 <td>&nbsp;</td>
               </tr>
               <tr>
                 <td align="right"><span class="hong_xing">*</span>联系人：</td>
-                <td><input id="companyContactUser" name="companyContactUser" type="text" class="form_input2" /></td>
+                <td><input id="companyContactUser" name="companyContactUser" value="${vo.companyContactUser}" type="text" class="form_input2" /></td>
                 <td>&nbsp;</td>
               </tr>
               <tr>
                 <td align="right"><span class="hong_xing">*</span>经营范围：</td>
                 <td><select id="companyScope" name="companyScope" class="form_input">
-                	<option></option>
+	                	<option value="">请选择</option>
+	                	<c:forEach items="${managementList}" var="management">
+							<option value="${management.id}">${management.showName}</option>
+						</c:forEach>
                     </select>
                 </td>
                 <td>&nbsp;</td>
               </tr>
               <tr>
                 <td align="right"><span class="hong_xing">*</span>成立时间：</td>
-                <td><input id="companyRegisterTimeStr" name="companyRegisterTimeStr" type="text" class="form_input2" /></td>
+                <td><input id="companyRegisterTimeStr" name="companyRegisterTimeStr" value="${vo.companyRegisterTimeStr}"  type="text" class="form_input2" /></td>
                 <td>&nbsp;</td>
               </tr>
               <tr>
                 <td align="right"><span class="hong_xing">*</span>企业性质：</td>
                 <td><select id="companyType" name="companyType"  class="form_input">
+                		<option value="">请选择</option>
+	                	<c:forEach items="${propertyList}" var="property">
+							<option value="${property.id}">${property.showName}</option>
+						</c:forEach>
                 	</select>
                 </td>
                 <td>&nbsp;</td>
               </tr>
               <tr>
                 <td align="right" valign="top"><span class="hong_xing">*</span>企业图片：</td>
-                <td class="qiye_img">
-                	<img src="${BASE_URL}/images/home_yzqy_16.jpg" />
-                	<img src="${BASE_URL}/images/home_yzqy_16.jpg" />
-                	<img src="${BASE_URL}/images/home_yzqy_16.jpg" />
-                	<img src="${BASE_URL}/images/home_yzqy_16.jpg" />
+                <td class="qiye_img" ><span id="cimgs"></span>
+                </td>
+                <td valign="bottom">
+                	<input  onclick="doSelectPic()"  type="button" value="上传图片" class="form_shangchuan" />
                 	<iframe id="uploadPicFrame" src="" style="display:none;"></iframe>
                 </td>
-                <td valign="bottom"><input id="khzm" onclick="doSelectPic('khzm')"  type="button" value="上传图片" class="form_shangchuan" /></td>
               </tr>
               <tr>
                 <td align="right"><span class="hong_xing">*</span>企业官网链接：</td>
-                <td><input  id="companyUrl" name="companyUrl" type="text" class="form_input" /></td>
+                <td><input  id="companyUrl" name="companyUrl" value="${vo.companyUrl}"   type="text" class="form_input" /></td>
                 <td>&nbsp;</td>
               </tr>
               <tr>
                 <td align="right" valign="top"><span class="hong_xing">*</span>企业简介：</td>
-                <td colspan="2"><textarea id="companyDirections" name="companyDirections" cols="" rows="" class="form_textarea"></textarea></td>
+                <td colspan="2"><textarea id="companyDirections" name="companyDirections"  value="${vo.companyDirections}" cols="" rows="" class="form_textarea"></textarea></td>
               </tr>
               <tr>
                 <td align="right">&nbsp;</td>
@@ -99,6 +105,7 @@
 </table>
 <jsp:include page="../public/footer.jsp" ></jsp:include>
 <script type="text/javascript">
+	var baseUrl = $("#baseUrl").val();
     $("#saveBtn").click(function(){
     	if(check()){
     		$("#saveCompany").submit();
@@ -129,6 +136,16 @@
     		 $("#companyContactTel").focus();
     		return false;
     	}
+    	var companyScope = $("#companyScope").val();
+    	if($.trim(companyScope).length <= 0){
+    		alert("请选择经营范围");
+    		return false;
+    	}
+    	var companyType = $("#companyType").val();
+    	if($.trim(companyType).length <= 0){
+    		alert("请选择企业性质");
+    		return false;
+    	}
     	var companyContactUser = $("#companyContactUser").val();
     	if($.trim(companyContactUser).length <= 0){
     		alert("请输入联系人");
@@ -143,14 +160,13 @@
     	}
     	return true;
     }
-    function doSelectPic(id) {
-    	imgId = id;
+    function doSelectPic() {
     	$("#pic", $("#uploadPicFrame")[0].contentWindow.document).click();
     	return false;
     }
     initUploadPicFrame();
     function initUploadPicFrame(){
-    	var frameSrc = "/ss/getUploadPicForm.html";
+    	var frameSrc = "/user/getUploadPicForm.html";
     	var frameParam = new Object();
     	frameParam.formId= "upload";
     	frameParam.inputId= "pic";
@@ -161,40 +177,44 @@
     }
     function picChange(inputFile){
     	var fileSize = 0;
-    	var fileName = "";
-    	//ie7 8 9 10恶心的文件尺寸读取方法需要执行权限,为了体验,干掉本地验证
     	if (navigator.userAgent.indexOf('MSIE') >= 0){
-    		//var fileActObj = new ActiveXObject("Scripting.FileSystemObject");
-    		//var targetFile = fileActObj.GetFile(inputFile.value);
-    		//fileSize = targetFile.Size;
-    		//fileName = targetFile.Name;
     	}else{
     		var files = inputFile.files;
     		if (files.length>0){
     			var targetFile = files[0];
     			fileSize = targetFile.size;
-    			fileName = targetFile.name;
+    		}
+    		if(files.length > 1){
+    			alert("请单张上传");
+        		initUploadPicFrame();
     		}
     	}
-    	if (fileSize>5242880){
-    		alert("上传图片大小超过5M");
+    	if (fileSize>2097152){
+    		alert("上传图片大小超过2M");
     		initUploadPicFrame();
     	}else{
-    		$("#fileName").html(fileName);
     		$("#upload", $("#uploadPicFrame")[0].contentWindow.document).submit();
     	}
     }
+    function delPic(data){
+    	$(data).remove();
+    }
     //上传完成后回调的方法
     function picUploadCallback(data){
-    	alert(data);
-    	layer.close(load);
-    	if (data.code=="0"){
-    		var picUrl = data.url;
-    		$("#"+imgId).attr("src", picUrl);
-    		$("#"+imgId+"Path").val(picUrl);
-    		$("#"+imgId+"Pre").show();
+    	if (data.returnCode == "1"){
+    		var picUrl = data.picPath;
+    		if(picUrl.length > 0){
+        		var imgHtml = "<img title='点击删除' onclick='delPic(this)' src='"+baseUrl+"/"+data.picPath+"' class='up_pic_img' />";
+        		$("#cimgs").append(imgHtml);
+    		}else{
+    			alert("上传失败,请稍后再试");
+    		}
     	}else{
-    		alert(data.message);
+    		if(data.msg != ""){
+    			alert(data.msg);
+    		}else{
+    			alert("上传失败,请稍后再试");
+    		}
     	}
     	initUploadPicFrame();
     }
