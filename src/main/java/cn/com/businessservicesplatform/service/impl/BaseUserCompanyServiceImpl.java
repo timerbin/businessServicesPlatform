@@ -125,6 +125,38 @@ public class BaseUserCompanyServiceImpl implements BaseUserCompanyService {
 		}
 		return result;
 	}
+	@Override
+	public BaseUserCompanyVo getUserAllCompany(Integer id){
+		BaseUserCompanyVo result = null;
+		if(null != id){
+			BaseUserCompany baseUserCompany = baseUserCompanyMapper.selectByPrimaryKey(id);
+			if(null != baseUserCompany && baseUserCompany.getId() != null){
+				result = new BaseUserCompanyVo(baseUserCompany);
+				List<BaseUserCompanyPic> picList = baseUserCompanyPicMapper.queryList(baseUserCompany.getId());
+				if(null != picList && picList.size() > 0){
+					result.setPicList(picList);
+					StringBuffer picListStr = new StringBuffer();
+					for(BaseUserCompanyPic pic : picList){
+						if(null != pic && !StringUtils.isBlank(pic.getCompanyPicUrl())){
+							if(!StringUtils.isBlank(picListStr.toString())){
+								picListStr.append("|");
+							}
+							picListStr.append(pic.getCompanyPicUrl());
+						}
+					}
+					result.setPicListStr(picListStr.toString());
+				}
+				try {
+					if(null != baseUserCompany.getCompanyRegisterTime()){
+						result.setCompanyRegisterTimeStr(DateUtils.getString(baseUserCompany.getCompanyRegisterTime(), DateUtils.DEF_DATE_NO_TIME_FORMAT));
+					}
+				} catch (Exception e) {
+					log.error("BaseUserCompanyService.getUserAllCompany.is.registerTime.error:"+baseUserCompany.getCompanyRegisterTime(),e);
+				}
+			}
+		}
+		return result;
+	}
 
 	@Override
 	public BaseUserCompany getUserCompany(BaseUserCompanyVo baseUserCompanyVo) {
