@@ -11,7 +11,7 @@ public interface BaseConfigDataService {
 	/**
 	 * 分页查询基础信息
 	 * @param basePage
-	 * @param BaseConfigDataVo
+	 * @param baseConfigDataVo
 	 * @return
 	 */
 	public List<BaseConfigData> queryPage(BasePage basePage,BaseConfigDataVo baseConfigDataVo);

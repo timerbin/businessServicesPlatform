@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -14,17 +15,17 @@
 		<div >
             <div class="left_logo"><img src="images/home_logo.png" width="152" height="100" /></div>
             <ul>
-                <li><span class="left_biao"><img src="images/nav_01.png" /></span>首页</li>
-                <li class="left_border"><span class="left_biao"><img src="images/nav_02.png" /></span>行政办公</li>
-                <li><span class="left_biao"><img src="images/nav_03.png" /></span>商旅出行</li>
-                <li><span class="left_biao"><img src="images/nav_04.png" /></span>注册服务</li>
-                <li><span class="left_biao"><img src="images/nav_05.png" /></span>知识产权</li>
-                <li><span class="left_biao"><img src="images/nav_06.png" /></span>招聘培训</li>
-                <li><span class="left_biao"><img src="images/nav_07.png" /></span>企业展示</li>
-                <li><span class="left_biao"><img src="images/nav_08.png" /></span>企业推广</li>
-                <li><span class="left_biao"><img src="images/nav_09.png" /></span>金融服务</li>
-                <li><span class="left_biao"><img src="images/nav_10.png" /></span>法律服务</li>
-                <li><span class="left_biao"><img src="images/nav_11.png" /></span>软件服务</li>
+                <li><span class="left_biao"><img src="/images/nav_01.png" /></span>首页</li>
+                <li class="left_border"><span class="left_biao"><img src="/images/nav_02.png" /></span>行政办公</li>
+                <li><span class="left_biao"><img src="/images/nav_03.png" /></span>商旅出行</li>
+                <li><span class="left_biao"><img src="/images/nav_04.png" /></span>注册服务</li>
+                <li><span class="left_biao"><img src="/images/nav_05.png" /></span>知识产权</li>
+                <li><span class="left_biao"><img src="/images/nav_06.png" /></span>招聘培训</li>
+                <li><span class="left_biao"><img src="/images/nav_07.png" /></span>企业展示</li>
+                <li><span class="left_biao"><img src="/images/nav_08.png" /></span>企业推广</li>
+                <li><span class="left_biao"><img src="/images/nav_09.png" /></span>金融服务</li>
+                <li><span class="left_biao"><img src="/images/nav_10.png" /></span>法律服务</li>
+                <li><span class="left_biao"><img src="/images/nav_11.png" /></span>软件服务</li>
             </ul>
         </div>
 	</td>
@@ -34,7 +35,7 @@
             <ul class="header_yh">
                 <li class="header_xiala"><a href="#"></a></li>
                 <li class="header_name">张小二</li>
-                <li class="header_touxiang"><img src="images/touxiang_03.jpg" width="38" height="38" /></li>
+                <li class="header_touxiang"><img src="/images/touxiang_03.jpg" width="38" height="38" /></li>
             </ul>
             <ul class="head_grzcdl">
                 <li class="head_gr"><a href="#">个人中心</a></li>
@@ -44,6 +45,7 @@
         </div>
     	<div class="location">企业入驻-填写企业相关信息提交审核</div>
     	<div class="form_box">
+            <form action="" name="cwqyForm" id="cwqyForm"></form>
             <table width="900" border="0" cellspacing="20" cellpadding="0">
               <tr>
                 <td width="121" align="right"><span class="hong_xing">*</span>企业名称：</td>
@@ -87,7 +89,7 @@
               </tr>
               <tr>
                 <td align="right" valign="top"><span class="hong_xing">*</span>企业图片：</td>
-                <td class="qiye_img"><img src="images/home_yzqy_16.jpg" /><img src="images/home_yzqy_16.jpg" /><img src="images/home_yzqy_16.jpg" /><img src="images/home_yzqy_16.jpg" /></td>
+                <td class="qiye_img"><img src="/images/home_yzqy_16.jpg" /><img src="/images/home_yzqy_16.jpg" /><img src="images/home_yzqy_16.jpg" /><img src="images/home_yzqy_16.jpg" /></td>
                 <td valign="bottom"><input name="" type="button" value="上传图片" class="form_shangchuan" /></td>
               </tr>
               <tr>
@@ -108,34 +110,9 @@
         </div>
     </td></tr>
 </table>
-<jsp:include page="../public/footer.jsp" ></jsp:include>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<jsp:include page="../public/footer.jsp"/>
 </body>
 </html>
+<script type="text/javascript">
+    
+</script>
