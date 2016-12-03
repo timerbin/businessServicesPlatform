@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import cn.com.businessservicesplatform.dao.mysql.BaseUserCompanyMapper;
 import cn.com.businessservicesplatform.dao.mysql.BaseUserCompanyPicMapper;
@@ -15,6 +16,7 @@ import cn.com.businessservicesplatform.service.BaseUserCompanyService;
 /**
  * Created by John on 2016/12/2.
  */
+@Service
 public class BaseUserCompanyServiceImpl implements BaseUserCompanyService {
 	@Autowired
 	BaseUserCompanyMapper baseUserCompanyMapper;
