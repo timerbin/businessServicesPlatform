@@ -77,6 +77,15 @@ public class BaseUserCompanyServiceImpl implements BaseUserCompanyService {
 				List<BaseUserCompanyPic> picList = baseUserCompanyPicMapper.queryList(baseUserCompany.getId());
 				if(null != picList && picList.size() > 0){
 					result.setPicList(picList);
+					StringBuffer picListStr = new StringBuffer();
+					for(BaseUserCompanyPic pic : picList){
+						if(null != pic && StringUtils.isBlank(pic.getCompanyPicUrl())){
+							if(!StringUtils.isBlank(picListStr.toString())){
+								picListStr.append("|");
+							}
+							picListStr.append(pic.getCompanyPicUrl());
+						}
+					}	
 				}
 			}
 		}

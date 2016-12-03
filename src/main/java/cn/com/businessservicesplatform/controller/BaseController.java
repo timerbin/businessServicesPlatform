@@ -28,8 +28,8 @@ public class BaseController {
 			baseUser = (BaseUserVo) CookieUtil.getSession(request);
 			if(null == baseUser){
 				baseUser = CookieUtil.getCookieUser(request);
-				if(null != baseUser){
 					CookieUtil.setSession(request, baseUser);
+					if(null != baseUser){
 				}
 			}
 		} catch (Exception e) {

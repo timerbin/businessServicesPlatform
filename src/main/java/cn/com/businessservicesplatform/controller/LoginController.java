@@ -1,7 +1,6 @@
 package cn.com.businessservicesplatform.controller;
 
 import cn.com.businessservicesplatform.common.util.CookieUtil;
-import cn.com.businessservicesplatform.dao.mysql.BaseUserCompanyMapper;
 import cn.com.businessservicesplatform.model.mysql.BaseUser;
 import cn.com.businessservicesplatform.model.mysql.BaseUserCompany;
 import cn.com.businessservicesplatform.model.vo.BaseUserCompanyVo;

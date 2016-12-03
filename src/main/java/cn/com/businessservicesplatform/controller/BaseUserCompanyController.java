@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -48,16 +49,77 @@ public class BaseUserCompanyController extends BaseController{
     	//企业性质
     	List<BaseConfigData> propertyList = baseConfigDataService.queryList(new BaseConfigDataVo(BaseConfigTypeEnum.COMPANY_PROPERTY.getId()));
     	model.addObject("propertyList", propertyList);
-    	
+    	//公司信息
+    	BaseUserCompanyVo resultVo = baseUserCompanyService.getBaseUserAllCompany(baseUserVo.getId());
+    	model.addObject("resultVo", resultVo);
     	
     	return model;
     }
 	@RequestMapping("/saveCompany")
     public ModelAndView saveCompany(BaseUserCompanyVo baseUserCompanyVo) {
     	ModelAndView model = new ModelAndView ( "/login/editCompany");
+    	try {
+			model.addObject("resultVo", baseUserCompanyVo);
+			String checkLogin = check(baseUserCompanyVo);
+			if(!StringUtils.isBlank(checkLogin)){
+				model.addObject("errorMsg", checkLogin);
+				log.error(String.format("BaseUserCompanyController.saveCompany.check.error:%s", checkLogin));
+				return model;
+			}
+			int result = baseUserCompanyService.insert(baseUserCompanyVo);
+			if(result <= 0){
+				model.addObject("errorMsg", checkLogin);
+				log.error("BaseUserCompanyController.saveCompany.save.error:");
+				return model;
+			}else{
+				model = new ModelAndView ( "redirect:/user/toCompany.html");
+	    		return model;
+			}
+		} catch (Exception e) {
+			log.error("BaseUserCompanyController.saveCompany.system.error:", e);
+		}
     	return model;
     }
-	
+	 private String check(BaseUserCompanyVo baseUserCompanyVo){
+    	if(null == baseUserCompanyVo){
+    		return "公司信息为空";
+    	}
+    	if(StringUtils.isBlank(baseUserCompanyVo.getCompanyName())){
+    		return "公司名为空";
+    	}
+    	if(StringUtils.isBlank(baseUserCompanyVo.getCompanyAddress())){
+    		return "公司地址为空";
+    	}
+    	if(StringUtils.isBlank(baseUserCompanyVo.getCompanyContactUser())){
+    		return "公司联系人为空";
+    	}
+    	if(StringUtils.isBlank(baseUserCompanyVo.getCompanyContactTel())){
+    		return "联系方式为空";
+    	}
+    	if(StringUtils.isBlank(baseUserCompanyVo.getCompanyUrl())){
+    		return "公司官网地址为空";
+    	}
+    	if(StringUtils.isBlank(baseUserCompanyVo.getCompanyRegisterMoney())){
+    		return "注册资金为空";
+    	}
+    	if(StringUtils.isBlank(baseUserCompanyVo.getCompanyDirections())){
+    		return "公司简介为空";
+    	}
+    	if(StringUtils.isBlank(baseUserCompanyVo.getCompanyRegisterTimeStr())){
+    		return "注册时间为空";
+    	}
+    	if(StringUtils.isBlank(baseUserCompanyVo.getPicListStr())){
+    		return "企业图片为空";
+    	}
+    	if(null == baseUserCompanyVo.getCompanyScope()){
+    		return "经营范围为空";
+    	}
+    	if(null == baseUserCompanyVo.getCompanyType()){
+    		return "企业性质为空";
+    	}
+    	
+    	return null;
+	}
 	
 	@RequestMapping("/toUp")
     public ModelAndView toUp() {
