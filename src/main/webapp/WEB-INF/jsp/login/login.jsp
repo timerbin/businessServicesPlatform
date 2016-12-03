@@ -69,6 +69,11 @@
     		 $("#loginPwd").focus();
     		return false;
     	}
+    	if($.trim(loginPwd).length < 6){
+    		 alert("密码长度必须大于6位");
+    		 $("#loginPwd").focus();
+    		return false;
+    	}
     	var verifyCode = $("#verifyCode").val();
     	if($.trim(verifyCode).length <= 0){
     		alert("请输入验证码");

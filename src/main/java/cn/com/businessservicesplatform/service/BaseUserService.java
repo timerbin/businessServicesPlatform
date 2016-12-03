@@ -28,4 +28,10 @@ public interface BaseUserService {
 	 * @throws
 	 */
 	public BaseUser findBaseUser(BaseUserVo baseUserVo);
+	
+	public int updatePassword(BaseUserVo baseUserVo);
+	
+	public int updateUserInfo(BaseUserVo baseUserVo);
+	
+	public BaseUser selectByPrimaryKey(Integer id);
 }

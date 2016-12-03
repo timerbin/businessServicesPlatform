@@ -19,11 +19,22 @@ public class BaseUserVo extends BaseUser {
 	
 	 private String loginPwd2;
 	 
+	 private String oldLoginPwd;
+	 
 	 private String callbackUrl;
 	 
 	 private String verifyCode;
 	 
 	 private Integer companyId;
+	 
+
+	public String getOldLoginPwd() {
+		return oldLoginPwd;
+	}
+
+	public void setOldLoginPwd(String oldLoginPwd) {
+		this.oldLoginPwd = oldLoginPwd;
+	}
 
 	public Integer getCompanyId() {
 		return companyId;
