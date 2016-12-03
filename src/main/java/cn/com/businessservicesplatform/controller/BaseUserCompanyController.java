@@ -94,28 +94,28 @@ public class BaseUserCompanyController extends BaseController{
     }
 	 private String check(BaseUserCompanyVo baseUserCompanyVo){
     	if(null == baseUserCompanyVo){
-    		return "公司信息为空";
+    		return "企业信息为空";
     	}
     	if(StringUtils.isBlank(baseUserCompanyVo.getCompanyName())){
-    		return "公司名为空";
+    		return "企业名称为空";
     	}
     	if(StringUtils.isBlank(baseUserCompanyVo.getCompanyAddress())){
-    		return "公司地址为空";
+    		return "企业地址为空";
     	}
     	if(StringUtils.isBlank(baseUserCompanyVo.getCompanyContactUser())){
-    		return "公司联系人为空";
+    		return "企业联系人为空";
     	}
     	if(StringUtils.isBlank(baseUserCompanyVo.getCompanyContactTel())){
     		return "联系方式为空";
     	}
     	if(StringUtils.isBlank(baseUserCompanyVo.getCompanyUrl())){
-    		return "公司官网地址为空";
+    		return "企业官网地址为空";
     	}
     	if(StringUtils.isBlank(baseUserCompanyVo.getCompanyRegisterMoney())){
     		return "注册资金为空";
     	}
     	if(StringUtils.isBlank(baseUserCompanyVo.getCompanyDirections())){
-    		return "公司简介为空";
+    		return "企业简介为空";
     	}
     	if(StringUtils.isBlank(baseUserCompanyVo.getCompanyRegisterTimeStr())){
     		return "注册时间为空";

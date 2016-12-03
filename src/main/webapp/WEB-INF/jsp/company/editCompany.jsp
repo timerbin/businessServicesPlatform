@@ -15,6 +15,8 @@
 <body>
 <form id="saveCompany" action="${BASE_URL}/user/saveCompany.html" method="post">
 	<input id="baseUrl"   value="${BASE_URL}"  type="hidden"  />
+	<input id="picListStr" name="picListStr" value="${vo.picListStr}"  type="hidden"  />
+	
      <table width="100%" height="100%" border="0px" cellpadding="0px" cellspacing="0px" >
 	<tr><td width="250px" valign="top" class="con_left">
 		 <jsp:include page="../public/left.jsp" ></jsp:include>
@@ -24,6 +26,12 @@
     	<div class="location">企业入驻-填写企业相关信息提交审核</div>
     	<div class="form_box">
             <table width="900" border="0" cellspacing="20" cellpadding="0">
+	           <c:if test="${not empty errorMsg}">
+	            	<tr>
+	            		<td width="121" align="right"><span style="color:red;">${errorMsg}</span></td>
+	            		<td colspan="2">&nbsp;</td>
+	            	 </tr>
+			   </c:if>
               <tr>
                 <td width="121" align="right"><span class="hong_xing">*</span>企业名称：</td>
                 <td width="550"><input id="companyName" name="companyName" value="${vo.companyName}" type="text" class="form_input" /></td>
@@ -78,9 +86,9 @@
               </tr>
               <tr>
                 <td align="right" valign="top"><span class="hong_xing">*</span>企业图片：</td>
-                <td class="qiye_img" ><span id="cimgs"></span>
+                <td class="qiye_img" ><span id="cimgs" title="点击删除"></span>
                 </td>
-                <td valign="bottom">
+                <td valign="bottom"  >
                 	<input  onclick="doSelectPic()"  type="button" value="上传图片" class="form_shangchuan" />
                 	<iframe id="uploadPicFrame" src="" style="display:none;"></iframe>
                 </td>
@@ -96,7 +104,9 @@
               </tr>
               <tr>
                 <td align="right">&nbsp;</td>
-                <td><input id="saveBtn" name="saveBtn" type="button" / value="保 存" class="form_button bjse_hong"> <input name="" type="button" / value="提 交" class="form_button bjse_lan"> <input name="" type="button" / value="重 置" class="form_button bjse_cheng"></td>
+                <td><input id="saveBtn" name="saveBtn" type="button" / value="保 存" class="form_button bjse_hong">
+                 	<input  id="subBtn" name="subBtn" type="button" / value="提 交"  class="form_button bjse_lan"> 
+                 </td>
                 <td>&nbsp;</td>
               </tr>
             </table>
@@ -106,7 +116,27 @@
 <jsp:include page="../public/footer.jsp" ></jsp:include>
 <script type="text/javascript">
 	var baseUrl = $("#baseUrl").val();
+	
+	var picUrls = $("#picListStr").val();
+	if($.trim(picUrls).length > 0){
+		$("#cimgs").html("");
+		if(picUrls.indexOf("|") > 0){
+			var picUrl = picUrls.split('|');
+			for(var i=0;i<picUrl.length;i++){
+				var imgHtml = "<img title='点击删除' onclick='delPic(this)' srcpath='"+picUrl[i]+"' src='"+baseUrl+"/"+picUrl[i]+"' class='up_pic_img' />";
+				$("#cimgs").append(imgHtml);
+			}
+		}else{
+			var imgHtml = "<img title='点击删除' onclick='delPic(this)' srcpath='"+picUrls+"' src='"+baseUrl+"/"+picUrls+"' class='up_pic_img' />";
+			$("#cimgs").append(imgHtml);
+		}
+	}
     $("#saveBtn").click(function(){
+    	if(check()){
+    		$("#saveCompany").submit();
+    	}
+    });
+    $("#subBtn").click(function(){
     	if(check()){
     		$("#saveCompany").submit();
     	}
@@ -158,6 +188,18 @@
     		 $("#companyRegisterTimeStr").focus();
     		return false;
     	}
+    	var picListStr = "";
+    	$('.up_pic_img').each(function(){
+    		if(picListStr.length > 0){
+    			picListStr = picListStr + "|";
+    		}
+    		picListStr = picListStr+$(this).attr("srcpath");
+    	});
+    	if($.trim(picListStr).length <= 0){
+    		alert("请上传企业图片");
+    		return false;
+    	}
+    	$("#picListStr").val(picListStr);
     	return true;
     }
     function doSelectPic() {
@@ -204,7 +246,7 @@
     	if (data.returnCode == "1"){
     		var picUrl = data.picPath;
     		if(picUrl.length > 0){
-        		var imgHtml = "<img title='点击删除' onclick='delPic(this)' src='"+baseUrl+"/"+data.picPath+"' class='up_pic_img' />";
+        		var imgHtml = "<img title='点击删除' onclick='delPic(this)' srcpath='"+data.picPath+"' src='"+baseUrl+"/"+data.picPath+"' class='up_pic_img' />";
         		$("#cimgs").append(imgHtml);
     		}else{
     			alert("上传失败,请稍后再试");
