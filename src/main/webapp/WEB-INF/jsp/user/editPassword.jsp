@@ -11,9 +11,10 @@
 <jsp:include page="../public/baseData.jsp" />
 </head>
 
-
 <body>
 <form id="doEditPassword" action="${BASE_URL}/user/doEditPassword.html" method="post">
+ 	<jsp:include page="../public/loginheader.jsp" />
+	<div class="top_tiao"></div>
 	<div class="gerenzx_main">
 	 <jsp:include page="../public/loginLeft.jsp" />
     <div class="gerenzx_right">
@@ -41,13 +42,12 @@
             <td><input  id="loginPwd2" name="loginPwd2"  type="password" class="grzx_input" /></td>
           </tr>
           <tr>
-            <td colspan="2" align="center"><input name="saveBtn" type="button" value="保 存" class="grzx_button" /></td>
+            <td colspan="2" align="center"><input id="saveBtn" name="saveBtn" type="button" value="保 存" class="grzx_button" /></td>
           </tr>
         </table>
 
   </div>
 </div>
-<jsp:include page="../public/footer.jsp" ></jsp:include>
 <script type="text/javascript">
 $("#saveBtn").click(function(){
 	if(check()){

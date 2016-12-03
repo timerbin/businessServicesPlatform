@@ -22,7 +22,7 @@
 		 <jsp:include page="../public/left.jsp" ></jsp:include>
 	</td>
     <td  valign="top">
-		<jsp:include page="../public/loginheader.jsp" ></jsp:include>
+		<jsp:include page="../public/header.jsp" ></jsp:include>
     	<div class="location">企业入驻-填写企业相关信息提交审核</div>
     	<div class="form_box">
             <table width="900" border="0" cellspacing="20" cellpadding="0">

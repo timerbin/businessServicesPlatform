@@ -39,10 +39,13 @@ public class UserController extends BaseController{
      * @throws
      */
     @RequestMapping("/toEditPassword")
-    public ModelAndView toEditPassword(HttpServletRequest request) {
+    public ModelAndView toEditPassword(HttpServletRequest request,String msg) {
     	ModelAndView model = new ModelAndView ( "/user/editPassword");
     	BaseUserVo baseUserVo = this.getUser(request);
     	model.addObject("user", baseUserVo);
+    	if(StringUtils.isBlank(msg) && msg.equals("success")){
+    		model.addObject("errorMsg", "修改成功");
+    	}
     	return model;
     }
     @RequestMapping("/doEditPassword")
@@ -60,7 +63,8 @@ public class UserController extends BaseController{
 			baseUserVo.setId(nowUser.getId());
 			int result = baseUserService.updatePassword(baseUserVo);
 			if(result > 0){
-				model.addObject("errorMsg", "修改成功");
+				model = new ModelAndView ( "redirect:/user/toEditUserInfo.html?msg=success");
+				return model;
 			}else{
 				if(result == -2){
 					model.addObject("errorMsg", "原密码输入错误,请重新输入");
@@ -98,7 +102,7 @@ public class UserController extends BaseController{
     
      
     @RequestMapping("/toEditUserInfo")
-    public ModelAndView toEditUserInfo(HttpServletRequest request) {
+    public ModelAndView toEditUserInfo(HttpServletRequest request,String msg) {
     	ModelAndView model = new ModelAndView ( "/user/editUserinfo");
     	BaseUserVo baseUserVo = this.getUser(request);
     	BaseUser baseUser = baseUserService.selectByPrimaryKey(baseUserVo.getId());
@@ -111,6 +115,9 @@ public class UserController extends BaseController{
     	try {
     		BaseUserVo nowUser = this.getUser(request);
         	model.addObject("user", nowUser);
+        	BaseUserVo userVo = this.getUser(request);
+        	BaseUser baseUser = baseUserService.selectByPrimaryKey(userVo.getId());
+        	model.addObject("vo", baseUser);
 			String checkLogin = checkUserInfo(baseUserVo);
 			if(!StringUtils.isBlank(checkLogin)){
 				model.addObject("errorMsg", checkLogin);
@@ -118,9 +125,10 @@ public class UserController extends BaseController{
 				return model;
 			}
 			baseUserVo.setId(nowUser.getId());
-			int result = baseUserService.updatePassword(baseUserVo);
+			int result = baseUserService.updateUserInfo(baseUserVo);
 			if(result > 0){
-				model.addObject("errorMsg", "修改成功");
+				 model = new ModelAndView ( "redirect:/user/toEditUserInfo.html");
+				 return model;
 			}else{
 				model.addObject("errorMsg", "修改失败,请稍后再试");
 				log.error(String.format("LoginController.doEditUserInfo.error:%s","修改失败，请稍后再试"));
@@ -136,8 +144,8 @@ public class UserController extends BaseController{
     	if(null == baseUserVo){
     		return "修改信息为空";
     	}
-    	if(StringUtils.isBlank(baseUserVo.getLoginName())){
-    		return "用户名为空";
+    	if(StringUtils.isBlank(baseUserVo.getRaleName())){
+    		return "姓名为空";
     	}
     	if(StringUtils.isBlank(baseUserVo.getMobilePhone())){
     		return "联系方式为空";

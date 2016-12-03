@@ -18,6 +18,8 @@ display:none
 
 <body>
 <form id="doEditUserInfo" action="${BASE_URL}/user/doEditUserInfo.html" method="post">
+	<jsp:include page="../public/loginheader.jsp" />
+	<div class="top_tiao"></div>
 	<div class="gerenzx_main">
 	 <jsp:include page="../public/loginLeft.jsp" />
     <div class="gerenzx_right">
@@ -25,9 +27,10 @@ display:none
       <table border="0" cellspacing="20" cellpadding="0" class="gerenzx_table">
       	  <c:if test="${not empty errorMsg}">
 	        <tr>
-	            <td width="120" colspan="2"  align="right">
+	            <td width="120"   align="right">
 	            	<span style="color:red;">${errorMsg }</span>
 	            </td>
+	            <td width="260" >&nbsp;</td>
 	            <td width="260" class="td_dis" colspan="2" >&nbsp;</td>
 	        </tr>
 		 </c:if>
@@ -81,11 +84,11 @@ display:none
 
   </div>
 </div>
-<jsp:include page="../public/footer.jsp" ></jsp:include>
 <script type="text/javascript">
 $("#updateBtn").click(function(){
 	$('.td_dis').each(function(){
 		 $(this).removeClass("td_dis");
+		 $('#updateBtn').hide();
 	});
 });
 $("#saveBtn").click(function(){
