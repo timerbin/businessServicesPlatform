@@ -6,6 +6,8 @@ import cn.com.businessservicesplatform.service.UserCompanyServiceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 
 /**
  * Created by John on 2016/12/3.
@@ -19,4 +21,11 @@ public class UserCompanyServiceServiceImpl implements UserCompanyServiceService{
     public int insert(UserCompanyServiceVo vo){
         return userCompanyServiceMapper.insert(vo);
     }
+
+    @Override
+    public UserCompanyServiceVo fetchCompanyService(UserCompanyServiceVo vo) {
+        return userCompanyServiceMapper.getUserCompanyService(vo);
+    }
+
+
 }

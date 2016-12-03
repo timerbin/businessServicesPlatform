@@ -1,6 +1,13 @@
 package cn.com.businessservicesplatform.controller;
 
+import cn.com.businessservicesplatform.model.mysql.BaseUserCompany;
+import cn.com.businessservicesplatform.model.mysql.UserCompanyService;
+import cn.com.businessservicesplatform.model.mysql.UserLookHistory;
+import cn.com.businessservicesplatform.model.vo.BaseUserCompanyVo;
+import cn.com.businessservicesplatform.model.vo.UserCompanyServiceVo;
 import cn.com.businessservicesplatform.model.vo.UserLookHistoryVo;
+import cn.com.businessservicesplatform.service.BaseUserCompanyService;
+import cn.com.businessservicesplatform.service.UserCompanyServiceService;
 import cn.com.businessservicesplatform.service.UserLookHistoryService;
 
 
@@ -13,6 +20,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 @Controller
 @RequestMapping("/shop/look")
@@ -22,6 +32,12 @@ public class UserLookHistoryController extends BaseController{
 
 	@Autowired
 	UserLookHistoryService userLookHistoryService;
+
+	@Autowired
+	BaseUserCompanyService baseUserCompanyService;
+
+	@Autowired
+	UserCompanyServiceService userCompanyServiceService;
 	
 	
 	/**
@@ -36,7 +52,29 @@ public class UserLookHistoryController extends BaseController{
     @RequestMapping("/toLookList")
     public ModelAndView toLookList() {
     	ModelAndView model = new ModelAndView ( "/login/login");
-    	
+		UserLookHistoryVo vo = new UserLookHistoryVo();
+		List<UserLookHistoryVo> ulhLst =  userLookHistoryService.queryHistroyList(vo);
+		List<UserLookHistoryVo> ulhLstNew = new ArrayList<UserLookHistoryVo>();
+
+		BaseUserCompanyVo companyVo = new BaseUserCompanyVo();
+		UserCompanyServiceVo usVo = new UserCompanyServiceVo();
+		for (UserLookHistoryVo hVo: ulhLst) {
+
+			//获取企业公司
+			companyVo.setUserId(hVo.getCompanyId());
+			BaseUserCompany bc = baseUserCompanyService.getUserCompany(companyVo);
+			hVo.setCompanyName(bc.getCompanyName());
+			BaseUserCompanyVo bcVo = new BaseUserCompanyVo(bc);
+			hVo.setCompanyPicUrl(bcVo.getPicList().get(0).getCompanyPicUrl());
+
+			//获取服务
+			usVo.setUserId(hVo.getServiceId());
+			hVo.setServiceName(userCompanyServiceService.fetchCompanyService(usVo).getServiceName());
+
+			ulhLstNew.add(hVo);
+		}
+
+		model.addObject("ulhLstNew",ulhLstNew);
     	return model;
     }
 	
