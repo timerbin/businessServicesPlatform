@@ -30,7 +30,7 @@ public interface UserLookHistoryService {
 	 * @return List<UserLookHistory> <br>
 	 * @throws
 	 */
-	public List<UserLookHistoryVo> queryHistroyList(UserLookHistoryVo userLookHistoryVo);
+	public List<UserLookHistory> queryHistroyList(UserLookHistoryVo userLookHistoryVo);
 	
 	/**
 	 * @Description: 删除浏览记录 <br>

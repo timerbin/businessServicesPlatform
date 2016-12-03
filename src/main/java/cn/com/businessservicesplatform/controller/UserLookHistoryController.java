@@ -53,7 +53,15 @@ public class UserLookHistoryController extends BaseController{
     public ModelAndView toLookList() {
     	ModelAndView model = new ModelAndView ( "/login/login");
 		UserLookHistoryVo vo = new UserLookHistoryVo();
-		List<UserLookHistoryVo> ulhLst =  userLookHistoryService.queryHistroyList(vo);
+		List<UserLookHistory> ulhLstHis =  userLookHistoryService.queryHistroyList(vo);
+		List<UserLookHistoryVo> ulhLst = new ArrayList<UserLookHistoryVo>();
+		for (UserLookHistory ulh : ulhLstHis){
+			UserLookHistoryVo hVo = new UserLookHistoryVo(ulh.getUserId(),ulh.getServiceId(),ulh.getCompanyId(),ulh.getType());
+			ulhLst.add(hVo);
+		}
+
+
+
 		List<UserLookHistoryVo> ulhLstNew = new ArrayList<UserLookHistoryVo>();
 
 		BaseUserCompanyVo companyVo = new BaseUserCompanyVo();

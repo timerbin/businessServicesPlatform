@@ -47,10 +47,26 @@ public class UserLookHistoryServiceImpl implements UserLookHistoryService{
 		return result;
 	}
 
+	/**
+	 * 查询浏览记录
+	 *
+	 * @param userLookHistoryVo
+	 * @return List<UserLookHistory> <br>
+	 * @throws
+	 * @Description: <br>
+	 * @Author: wangwenbin <br>
+	 * @Date: 2016年12月2日 <br>
+	 * @Time: 下午9:19:41 <br>
+	 */
 	@Override
 	public List<UserLookHistory> queryHistroyList(UserLookHistoryVo userLookHistoryVo) {
 		return userLookHistoryMapper.queryHistroyList(userLookHistoryVo);
 	}
+
+//	@Override
+//	public List<UserLookHistory> queryHistroyList(UserLookHistoryVo userLookHistoryVo) {
+//		return userLookHistoryMapper.queryHistroyList(userLookHistoryVo);
+//	}
 
 	@Override
 	public int updateDel(Integer id) {
