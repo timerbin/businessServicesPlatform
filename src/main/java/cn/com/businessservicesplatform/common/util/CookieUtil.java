@@ -37,10 +37,16 @@ public class CookieUtil {
 				String dataMsg = DESUtils.decrypt(signStr);
 				if(StringUtils.isBlank(dataMsg) && dataMsg.indexOf("|") >= 0){
 					String [] datas =  dataMsg.split("|");
-					if(datas.length >= 5){
+					if(datas.length >= 8){
 						baseUserVo = new BaseUserVo();
-						baseUserVo.setLoginName(datas[0]);
-						//TODO
+						baseUserVo.setId(makeInt(datas[0]));
+						baseUserVo.setLoginName(datas[1]);
+						baseUserVo.setRaleName(datas[2]);
+						baseUserVo.setStatus(makeInt(datas[3]));
+						baseUserVo.setType(makeInt(datas[4]));
+						baseUserVo.setMobilePhone(datas[5]);
+						baseUserVo.setEmail(datas[6]);
+						baseUserVo.setSex(makeInt(datas[7]));
 					}
 				}
 			}
@@ -49,6 +55,13 @@ public class CookieUtil {
 		}
 		
 		return baseUserVo;
+	}
+	private static Integer makeInt(String str){
+		Integer result = null;
+		if(!StringUtils.isBlank(str)){
+			result = Integer.parseInt(str);
+		}
+		return result;
 	}
 	
 	/**
@@ -63,8 +76,28 @@ public class CookieUtil {
 	 * @throws
 	 */
 	public static Boolean setCookieUser(HttpServletRequest request,HttpServletResponse response,BaseUserVo baseUserVo){
-		 
-		return Boolean.TRUE;
+		 if(null == baseUserVo || baseUserVo.getId() == null){
+			 return Boolean.FALSE;
+		 }
+		 try {
+			StringBuffer str = new StringBuffer();
+			 str.append(baseUserVo.getId()).append("|");
+			 str.append(baseUserVo.getLoginName()).append("|");
+			 str.append(baseUserVo.getRaleName()).append("|");
+			 str.append(baseUserVo.getStatus()).append("|");
+			 str.append(baseUserVo.getType()).append("|");
+			 str.append(baseUserVo.getMobilePhone()).append("|");
+			 str.append(baseUserVo.getEmail()).append("|");
+			 str.append(baseUserVo.getSex());
+			 String sign = DESUtils.encrypt(str.toString());
+			 int maxAge = 60*60*24*1;
+			 addCookie(response,DEFAULT_COOKIE_KEY,sign,maxAge);
+			 setSession(request,baseUserVo);
+			 return Boolean.TRUE;
+		} catch (Exception e) {
+			log.error("CookieUtil.setCookieUser.is.system.error",e);
+		}
+		return Boolean.FALSE;
 	}
 	
 	/**
@@ -101,19 +134,19 @@ public class CookieUtil {
 	 * @param maxAge
 	 */
 	private static void addCookie(HttpServletResponse response, String name, String value,Integer maxAge) {
-	 		try {
-	 			name = URLEncoder.encode(name, "UTF-8");
-	 			value = URLEncoder.encode(value, "UTF-8");
-	 			Cookie cookie = new Cookie(name, value);
-	 			if (maxAge != null) {
-	 				cookie.setMaxAge(maxAge);
-	 			}
-	 			cookie.setPath("/");
-	 	        //cookie.setDomain(".");
-	 			response.addCookie(cookie);
-	 		} catch (Exception e) {
-	 			log.error(String.format("CookieUtil.addCookie.is.system.error:%s-%s",name,value),e);
-	 		}
+ 		try {
+ 			name = URLEncoder.encode(name, "UTF-8");
+ 			value = URLEncoder.encode(value, "UTF-8");
+ 			Cookie cookie = new Cookie(name, value);
+ 			if (maxAge != null) {
+ 				cookie.setMaxAge(maxAge);
+ 			}
+ 			cookie.setPath("/");
+ 	        //cookie.setDomain(".");
+ 			response.addCookie(cookie);
+ 		} catch (Exception e) {
+ 			log.error(String.format("CookieUtil.addCookie.is.system.error:%s-%s",name,value),e);
+ 		}
 	  }
 	/**
 	 * 获取cookie

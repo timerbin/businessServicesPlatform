@@ -20,8 +20,8 @@
 <div class="login_box">
 	<ul>
 		<c:if test="${not empty errorMsg}">
-	        <li class="border_bj margin_top20">
-	            <span>${errorMsg}</span>
+	        <li class="margin_top20">
+	            <span style="color:red;">${errorMsg}</span>
 	        </li>
 		</c:if>
     	<li class="border_bj margin_top20">

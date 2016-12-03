@@ -5,8 +5,6 @@ import java.util.Date;
 public class BaseUser {
     private Integer id;
 
-    private Integer userId;
-
     private Integer age;
 
     private Integer sex;
@@ -35,14 +33,6 @@ public class BaseUser {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public Integer getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Integer userId) {
-        this.userId = userId;
     }
 
     public Integer getAge() {

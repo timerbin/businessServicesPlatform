@@ -22,7 +22,7 @@ public class BaseUserServiceImpl implements BaseUserService{
 	public Integer register(BaseUserVo baseUserVo) {
 		baseUserVo.setLoginPwd(MD5Util.getMD5(baseUserVo.getLoginPwd()));
 		baseUserVo.setCreateTime(new Date());
-		baseUserVo.setStatus(0);
+		baseUserVo.setStatus(1);
 		baseUserVo.setModifyTime(new Date());
 		baseUserVo.setType(BaseUserTypeEnum.GENERAL_USER.getId());
 		return baseUserMapper.insert(baseUserVo);
@@ -30,6 +30,7 @@ public class BaseUserServiceImpl implements BaseUserService{
 
 	@Override
 	public BaseUser findBaseUser(BaseUserVo baseUserVo) {
+		baseUserVo.setLoginPwd(MD5Util.getMD5(baseUserVo.getLoginPwd()));
 		return baseUserMapper.findBaseUser(baseUserVo);
 	}
 

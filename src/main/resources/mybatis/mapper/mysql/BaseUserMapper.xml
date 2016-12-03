@@ -3,7 +3,6 @@
 <mapper namespace="cn.com.businessservicesplatform.dao.mysql.BaseUserMapper" >
   <resultMap id="BaseResultMap" type="cn.com.businessservicesplatform.model.mysql.BaseUser" >
     <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="user_id" property="userId" jdbcType="INTEGER" />
     <result column="age" property="age" jdbcType="INTEGER" />
     <result column="sex" property="sex" jdbcType="INTEGER" />
     <result column="login_name" property="loginName" jdbcType="VARCHAR" />
@@ -17,7 +16,7 @@
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, user_id, age, sex, login_name, login_pwd, rale_name, mobile_phone, email, status, 
+    id, age, sex, login_name, login_pwd, rale_name, mobile_phone, email, status, 
     type, modify_time, create_time
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
@@ -32,20 +31,17 @@
     <include refid="Base_Column_List" />
     from base_user
     where 1=1 
-      <if test="userId != null" >
-        and user_id = #{userId,jdbcType=INTEGER},
-      </if>
       <if test="loginName != null" >
-        and login_name = #{loginName,jdbcType=VARCHAR},
+        and login_name = #{loginName,jdbcType=VARCHAR}
       </if>
     <if test="mobilePhone != null" >
-        and mobile_phone = #{mobilePhone,jdbcType=VARCHAR},
+        and mobile_phone = #{mobilePhone,jdbcType=VARCHAR}
       </if>
       <if test="email != null" >
-        and email = #{email,jdbcType=VARCHAR},
+        and email = #{email,jdbcType=VARCHAR}
       </if>
       <if test="loginPwd != null" >
-       and login_pwd =  #{loginPwd,jdbcType=VARCHAR},
+       and login_pwd =  #{loginPwd,jdbcType=VARCHAR}
       </if>
   </select>
   
@@ -55,12 +51,12 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="cn.com.businessservicesplatform.model.mysql.BaseUser" >
-    insert into base_user (id, user_id, age, 
+    insert into base_user (id, age, 
       sex, login_name, login_pwd, 
       rale_name, mobile_phone, email, 
       status, type, modify_time, 
       create_time)
-    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{age,jdbcType=INTEGER}, 
+    values (#{id,jdbcType=INTEGER}, #{age,jdbcType=INTEGER}, 
       #{sex,jdbcType=INTEGER}, #{loginName,jdbcType=VARCHAR}, #{loginPwd,jdbcType=VARCHAR}, 
       #{raleName,jdbcType=VARCHAR}, #{mobilePhone,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
       #{status,jdbcType=INTEGER}, #{type,jdbcType=INTEGER}, #{modifyTime,jdbcType=TIMESTAMP}, 
@@ -71,9 +67,6 @@
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         id,
-      </if>
-      <if test="userId != null" >
-        user_id,
       </if>
       <if test="age != null" >
         age,
@@ -113,9 +106,6 @@
       <if test="id != null" >
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="userId != null" >
-        #{userId,jdbcType=INTEGER},
-      </if>
       <if test="age != null" >
         #{age,jdbcType=INTEGER},
       </if>
@@ -154,9 +144,6 @@
   <update id="updateByPrimaryKeySelective" parameterType="cn.com.businessservicesplatform.model.mysql.BaseUser" >
     update base_user
     <set >
-      <if test="userId != null" >
-        user_id = #{userId,jdbcType=INTEGER},
-      </if>
       <if test="age != null" >
         age = #{age,jdbcType=INTEGER},
       </if>
@@ -195,7 +182,7 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="cn.com.businessservicesplatform.model.mysql.BaseUser" >
     update base_user
-    set user_id = #{userId,jdbcType=INTEGER},
+    set  
       age = #{age,jdbcType=INTEGER},
       sex = #{sex,jdbcType=INTEGER},
       login_name = #{loginName,jdbcType=VARCHAR},

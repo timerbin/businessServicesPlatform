@@ -61,6 +61,22 @@ public class LoginController extends BaseController{
 				log.error(String.format("LoginController.doLogin.check.error:%s", checkLogin));
 				return model;
 			}
+			String code = null;
+			HttpSession httpSession = request.getSession();
+			if(null != httpSession.getAttribute("verCode")){
+				code =  httpSession.getAttribute("verCode").toString();
+			}
+			if(StringUtils.isBlank(code)){
+				model.addObject("errorMsg","验证码输入错误");
+				log.error("LoginController.doLogin.check.error:code.is.null");
+				return model;
+			}else{
+				if(!code.equals(baseUserVo.getVerifyCode())){
+					model.addObject("errorMsg","验证码输入错误");
+					log.error("LoginController.doLogin.check.error:code.is.null");
+					return model;
+				}
+			}
 			BaseUser baseUser = baseUserService.findBaseUser(baseUserVo);
 			if(null != baseUser && baseUser.getId() != null){
 				model.addObject("baseUser", baseUser);
@@ -73,7 +89,7 @@ public class LoginController extends BaseController{
 						model = new ModelAndView ( "redirect:"+baseUserVo.getCallbackUrl());
 			    		return model;
 			    	}else{
-			    		model = new ModelAndView ( "/index");
+			    		model = new ModelAndView ( "redirect:/user/index.html");
 			    		return model;
 			    	}
 				}else{
@@ -97,7 +113,7 @@ public class LoginController extends BaseController{
     		return "注册信息为空";
     	}
     	if(StringUtils.isBlank(baseUserVo.getLoginName())){
-    		return "用户名为空";
+    		return "登录名为空";
     	}
     	if(StringUtils.isBlank(baseUserVo.getLoginPwd())){
     		return "密码为空";
@@ -147,7 +163,7 @@ public class LoginController extends BaseController{
 			}
 			Integer result = baseUserService.register(baseUserVo);
 			if(null != result && result.intValue() > 0){
-				model = new ModelAndView ( "/index"); 
+				model = new ModelAndView ( "redirect:/login/toLogin.html"); 
 				return model;
 			}else{
 				log.error(String.format("LoginController.doRegister.save.error:%s",baseUserVo.getLoginName()));
@@ -176,7 +192,6 @@ public class LoginController extends BaseController{
     	if(StringUtils.isBlank(baseUserVo.getLoginPwd2())){
     		return "确认密码为空";
     	}
-    	
     	if(!baseUserVo.getLoginPwd().equals(baseUserVo.getLoginPwd2())){
     		return "密码与确认密码不相同";
     	}
@@ -185,9 +200,6 @@ public class LoginController extends BaseController{
     	}
     	if(StringUtils.isBlank(baseUserVo.getEmail())){
     		return "邮件为空";
-    	}
-    	if(null == baseUserVo.getAge()){
-    		return "年龄为空";
     	}
     	if(null == baseUserVo.getSex()){
     		return "性别为空";

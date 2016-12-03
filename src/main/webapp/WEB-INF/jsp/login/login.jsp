@@ -19,6 +19,11 @@
 </div>
 <div class="login_box">
 	<ul>
+		<c:if test="${not empty errorMsg}">
+	        <li class="margin_top20">
+	            <span style="color:red;">${errorMsg}</span>
+	        </li>
+		</c:if>
     	<li class="border_bj margin_top20">
             <span class="login_img"><img src="${BASE_URL}/images/goin_yh.png" /></span>
             <input id="loginName" maxlength="20"  name="loginName" type="text" placeholder="请输入登录名" class="login_input_text" />

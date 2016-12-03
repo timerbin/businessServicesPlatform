@@ -7,7 +7,14 @@ public class BaseUserVo extends BaseUser {
 	 public BaseUserVo(){}
 	 
 	 public BaseUserVo(BaseUser baseUser){
-		 
+		 super.setEmail(baseUser.getEmail());
+		 super.setMobilePhone(baseUser.getMobilePhone());
+		 super.setId(baseUser.getId());
+		 super.setLoginName(baseUser.getLoginName());
+		 super.setRaleName(baseUser.getRaleName());
+		 super.setType(baseUser.getType());
+		 super.setStatus(baseUser.getStatus());
+		 super.setSex(baseUser.getSex());
 	 }
 	
 	 private String loginPwd2;
