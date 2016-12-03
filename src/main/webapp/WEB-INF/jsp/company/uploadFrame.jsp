@@ -21,7 +21,7 @@ function doSelectPic(id) {
 }
 initUploadPicFrame();
 function initUploadPicFrame(){
-	var frameSrc = "/ss/getUploadPicForm.html";
+	var frameSrc = "/user/getUploadPicForm.html";
 	var frameParam = new Object();
 	frameParam.formId= "upload";
 	frameParam.inputId= "pic";
