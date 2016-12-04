@@ -7,8 +7,17 @@ public class UserCompanyServiceVo extends UserCompanyService {
 	public UserCompanyServiceVo(){}
 	
 	public String serviceTypeStr;
-	
-    public UserCompanyServiceVo(UserCompanyService userCompanyService){
+	public String statusStr;
+
+	public String getStatusStr() {
+		return statusStr;
+	}
+
+	public void setStatusStr(String statusStr) {
+		this.statusStr = statusStr;
+	}
+
+	public UserCompanyServiceVo(UserCompanyService userCompanyService){
     	super.setCompanyId(userCompanyService.getCompanyId());
     	super.setServiceContactTel(userCompanyService.getServiceContactTel());
     	super.setServiceContactUser(userCompanyService.getServiceContactUser());

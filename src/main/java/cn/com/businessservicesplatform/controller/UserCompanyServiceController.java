@@ -1,7 +1,9 @@
 package cn.com.businessservicesplatform.controller;
 
 import cn.com.businessservicesplatform.common.constants.BaseConfigTypeEnum;
+import cn.com.businessservicesplatform.common.constants.UserServiceStatuesEnum;
 import cn.com.businessservicesplatform.model.mysql.BaseConfigData;
+import cn.com.businessservicesplatform.model.mysql.UserCompanyService;
 import cn.com.businessservicesplatform.model.vo.BaseConfigDataVo;
 import cn.com.businessservicesplatform.model.vo.BaseUserVo;
 import cn.com.businessservicesplatform.model.vo.UserCompanyServiceVo;
@@ -50,6 +52,45 @@ public class UserCompanyServiceController extends BaseController{
 		return model;
 	}
 
+
+
+	/**
+	 * 服务管理 跳转
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/toServiceManage")
+	protected ModelAndView toServiceManage(HttpServletRequest request) {
+
+		ModelAndView model = new ModelAndView ("admin/grzx_fwgl");
+		List<BaseConfigData> serTypeList = baseConfigDataService.queryList(new BaseConfigDataVo(BaseConfigTypeEnum.SERVICES_TYPE.getId()));
+
+		UserCompanyServiceVo vo = new UserCompanyServiceVo();
+		List<UserCompanyServiceVo> voList = userCompanyServiceService.getAllUserCompanyServices(vo);
+
+		for (UserCompanyServiceVo serVo:voList) {
+			for (BaseConfigData configs:serTypeList) {
+				if(serVo.getServiceType() == configs.getId()){
+					serVo.setServiceTypeStr(configs.getShowName());
+					serVo.setStatusStr(UserServiceStatuesEnum.get(serVo.getStatus()).getDes());
+				}
+			}
+
+		}
+
+
+		model.addObject("serTypeList", serTypeList);
+		model.addObject("voList", voList);
+		return model;
+	}
+
+
+//	public static void main(String[] args){
+//		String showName = "13";
+//		showName = showName.substring(3);
+//
+//		System.out.print("***"+showName);
+//	}
 	
 	/**
 	 * 发布服务
