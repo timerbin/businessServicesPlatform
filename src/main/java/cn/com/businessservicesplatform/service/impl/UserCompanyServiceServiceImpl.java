@@ -20,6 +20,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 
 /**
  * Created by John on 2016/12/3.
@@ -110,5 +112,16 @@ public class UserCompanyServiceServiceImpl implements UserCompanyServiceService{
 		}
 		return result;
 	}
+
+	/**
+	 * 查询所有服务
+	 * @param record
+	 * @return
+     */
+	@Override
+	public List<UserCompanyServiceVo> getAllUserCompanyServices(UserCompanyServiceVo record) {
+		return userCompanyServiceMapper.getAllUserCompanyServices(record);
+	}
+
 
 }

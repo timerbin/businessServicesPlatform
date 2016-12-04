@@ -47,26 +47,52 @@ public class BaseUserCompanyController extends BaseController{
 	 * @throws
 	 */
 	@RequestMapping("/toCompany")
-    public ModelAndView toCompany(HttpServletRequest request) {
-    	ModelAndView model = new ModelAndView ("/company/editCompany");
-    	BaseUserVo baseUserVo = this.getUser(request);
-    	model.addObject("user", baseUserVo);
-    	if(null == baseUserVo){
-    		model = new ModelAndView ( "redirect:/login/toLogin.html");
-    		return model;
-    	}
-    	//经营范围
-    	List<BaseConfigData>  managementList = baseConfigDataService.queryList(new BaseConfigDataVo(BaseConfigTypeEnum.MANAGEMENT.getId()));
-    	model.addObject("managementList", managementList);
-    	//企业性质
-    	List<BaseConfigData> propertyList = baseConfigDataService.queryList(new BaseConfigDataVo(BaseConfigTypeEnum.COMPANY_PROPERTY.getId()));
-    	model.addObject("propertyList", propertyList);
-    	//公司信息
-    	BaseUserCompanyVo resultVo = baseUserCompanyService.getBaseUserAllCompany(baseUserVo.getId());
-    	model.addObject("vo", resultVo);
-    	
-    	return model;
-    }
+	public ModelAndView toCompany(HttpServletRequest request) {
+		ModelAndView model = new ModelAndView ("/company/editCompany");
+		BaseUserVo baseUserVo = this.getUser(request);
+		model.addObject("user", baseUserVo);
+		if(null == baseUserVo){
+			model = new ModelAndView ( "redirect:/login/toLogin.html");
+			return model;
+		}
+		//经营范围
+		List<BaseConfigData>  managementList = baseConfigDataService.queryList(new BaseConfigDataVo(BaseConfigTypeEnum.MANAGEMENT.getId()));
+		model.addObject("managementList", managementList);
+		//企业性质
+		List<BaseConfigData> propertyList = baseConfigDataService.queryList(new BaseConfigDataVo(BaseConfigTypeEnum.COMPANY_PROPERTY.getId()));
+		model.addObject("propertyList", propertyList);
+		//公司信息
+		BaseUserCompanyVo resultVo = baseUserCompanyService.getBaseUserAllCompany(baseUserVo.getId());
+		model.addObject("vo", resultVo);
+
+		return model;
+	}
+
+
+	/**
+	 * 跳转 到企业管理页面
+	 * @param request
+	 * @return
+     */
+	@RequestMapping("/toAllCompany")
+	public ModelAndView toAllCompany(HttpServletRequest request) {
+		ModelAndView model = new ModelAndView ("/admin/grzx_qygl");
+		BaseUserVo baseUserVo = this.getUser(request);
+		model.addObject("user", baseUserVo);
+		if(null == baseUserVo){
+			model = new ModelAndView ( "redirect:/login/toLogin.html");
+			return model;
+		}
+
+
+		BaseUserCompanyVo companyVo = new BaseUserCompanyVo();
+		List<BaseUserCompanyVo> companyVoLst =	baseUserCompanyService.getAllUserCompanys(companyVo);
+		model.addObject("companyVoLst",companyVoLst);
+		return model;
+	}
+
+
+
 	@RequestMapping("/saveCompany")
     public ModelAndView saveCompany(HttpServletRequest request,BaseUserCompanyVo baseUserCompanyVo) {
     	ModelAndView model = new ModelAndView ( "/company/editCompany");

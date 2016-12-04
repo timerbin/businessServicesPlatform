@@ -1,5 +1,6 @@
 package cn.com.businessservicesplatform.service.impl;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -164,6 +165,25 @@ public class BaseUserCompanyServiceImpl implements BaseUserCompanyService {
 			}
 		}
 		return vo;
+	}
+
+	/**
+	 * 获取所有的企业
+	 *
+	 * @param baseUserCompanyVo
+	 * @return
+	 */
+	@Override
+	public List<BaseUserCompanyVo> getAllUserCompanys(BaseUserCompanyVo baseUserCompanyVo) {
+		List<BaseUserCompany> comLst = baseUserCompanyMapper.getAllUserCompanys(baseUserCompanyVo);
+		List<BaseUserCompanyVo> comVoLst = new ArrayList<BaseUserCompanyVo>();
+
+		for (BaseUserCompany com:comLst) {
+			BaseUserCompanyVo comVo = new BaseUserCompanyVo(com);
+			comVoLst.add(comVo);
+		}
+
+		return comVoLst;
 	}
 
 	@Override
