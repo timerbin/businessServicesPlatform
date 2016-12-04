@@ -8,6 +8,7 @@ import cn.com.businessservicesplatform.model.vo.UserCollectHistoryVo;
 import cn.com.businessservicesplatform.model.vo.UserCompanyServiceVo;
 import cn.com.businessservicesplatform.service.BaseUserCompanyService;
 import cn.com.businessservicesplatform.service.UserCollectHistoryService;
+import cn.com.businessservicesplatform.service.UserCompanyServiceService;
 
 import java.util.Date;
 import java.util.List;
@@ -26,6 +27,9 @@ public class UserColletHistoryServiceImpl implements UserCollectHistoryService {
 	UserCollectHistoryMapper userCollectHistoryMapper;
 	@Autowired
 	BaseUserCompanyService baseUserCompanyService;
+	@Autowired
+	UserCompanyServiceService userCompanyServiceService;
+	
 
 	@Override
 	public int addUserCollectHistory(UserCollectHistoryVo vo) {
@@ -112,13 +116,10 @@ public class UserColletHistoryServiceImpl implements UserCollectHistoryService {
 			for(UserCollectHistoryVo vo:list){
 				if(null != vo){
 					if(vo.getType() == UserCollectHistoryTypeEnum.SERVICES.getId()){
-						UserCompanyServiceVo serviceVo = new UserCompanyServiceVo();
-						
-						
+						UserCompanyServiceVo serviceVo = userCompanyServiceService.getAllService(vo.getCompanyId());
 						vo.setUserCompanyServiceVo(serviceVo);
 						BaseUserCompanyVo  companyVo =  baseUserCompanyService.getUserAllCompany(vo.getCompanyId());
 						vo.setBaseUserCompanyVo(companyVo);
-						
 					}else if(vo.getType() == UserCollectHistoryTypeEnum.COMPANY.getId()){
 						BaseUserCompanyVo  companyVo =  baseUserCompanyService.getUserAllCompany(vo.getCompanyId());
 						vo.setBaseUserCompanyVo(companyVo);

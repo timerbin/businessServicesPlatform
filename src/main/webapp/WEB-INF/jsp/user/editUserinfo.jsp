@@ -28,7 +28,7 @@ display:none
       	  <c:if test="${not empty errorMsg}">
 	        <tr>
 	            <td width="120"   align="right">
-	            	<span style="color:red;">${errorMsg }</span>
+	            	<span style="color:red;">${errorMsg}</span>
 	            </td>
 	            <td width="260" >&nbsp;</td>
 	            <td width="260" class="td_dis" colspan="2" >&nbsp;</td>

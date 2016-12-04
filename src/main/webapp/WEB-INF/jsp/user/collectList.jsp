@@ -12,7 +12,9 @@
 </head>
 
 <body>
-<form id="doEditUserInfo" action="${BASE_URL}/user/doEditUserInfo.html" method="post">
+<form id="doEditUserInfo" action="${BASE_URL}/user/collectList.html" method="post">
+	<input id="collectType" name="type" value="${vo.type}" type="hidden"/>
+	<input id="baseUrl"  value="${BASE_URL}" type="hidden"/>
 	<jsp:include page="../public/loginheader.jsp" />
 	<div class="top_tiao"></div>
 	<div class="gerenzx_main">
@@ -23,24 +25,34 @@
     	</div>
       	<div class="llls_button_box">
 			<c:if test="${vo.type==1}">
-			    <input name="" type="button" value="收藏的服务" class="llls_button" />
-			    <input name="" type="button" value="收藏的企业" class="llls_button2" />
+			    <input id="collectService"  type="button" value="收藏的服务" class="llls_button" />
+			    <input id="collectCompany"  type="button" value="收藏的企业" class="llls_button2" />
 			</c:if>
 			<c:if test="${vo.type==2}">
-				<input name="" type="button" value="收藏的服务" class="llls_button2" />
-			    <input name="" type="button" value="收藏的企业" class="llls_button" />
+				<input id="collectService"  type="button" value="收藏的服务" class="llls_button2" />
+			    <input id="collectCompany"  type="button" value="收藏的企业" class="llls_button" />
 			</c:if>
         </div>
+        <div class="wdsc_list">
+            <div class="wdsc_left"><img src="${BASE_URL}/${collect.baseUserCompanyVo.logoPicPath}" /></div>
+            <div class="wdsc_center">
+                <h3>${collect.userCompanyServiceVo.serviceName}</h3>
+                <p>${collect.userCompanyServiceVo.serviceDirections}</p>
+                <span>${collect.baseUserCompanyVo.companyName}</span>
+            </div>
+            <span class="wdsc_right"><img class="serviceBtn" dataCompanyId="12" dataId="12" src="${BASE_URL}/images/shoucang.png" /></span>
+            <div class="clear"></div>
+       	</div>
         <c:if test="${vo.type==1}">
 	        <c:forEach items="${collectList}" var="collect">
 	        	<div class="wdsc_list">
-		            <div class="wdsc_left"><img src="${BASE_URL}/images/home_yzqy_16.jpg" /></div>
+		            <div class="wdsc_left"><img src="${BASE_URL}/${collect.baseUserCompanyVo.logoPicPath}" /></div>
 		            <div class="wdsc_center">
-		                <h3>斐讯数据通信技术有限公司</h3>
-		                <p>激情发展、追求卓越、客户价值、共同成长</p>
-		                <span>北京天地仁财务咨询有限公司</span>
+		                <h3>${collect.userCompanyServiceVo.serviceName}</h3>
+		                <p>${collect.userCompanyServiceVo.serviceDirections}</p>
+		                <span>${collect.baseUserCompanyVo.companyName}</span>
 		            </div>
-		            <span class="wdsc_right"><img src="${BASE_URL}/images/shoucang.png" /></span>
+		            <span class="wdsc_right"><img class="serviceBtn" dataCompanyId="${collect.userCompanyServiceVo.id}" dataId="${collect.userCompanyServiceVo.id}" src="${BASE_URL}/images/shoucang.png" /></span>
 		            <div class="clear"></div>
 	        	</div>
         	</c:forEach>
@@ -50,10 +62,10 @@
 	            <ul>
 	            	<c:forEach items="${collectList}" var="collect">
 		        	  	<li>
-		                    <span class="wdsc_qiye"><img src="images/home_yzqy_16.jpg" /></span>
-		                    <h3>斐讯数据通信技术有限公司</h3>
-		                    <span class="qysc_pp">激情发展、追求卓越、客户价值、共同成长</span>
-		                    <span class="wdsdc_qy_xing"><img src="images/shoucang.png" /></span>
+		                    <span class="wdsc_qiye"><img src="${BASE_URL}/${collect.baseUserCompanyVo.logoPicPath}" /></span>
+		                    <h3>${collect.baseUserCompanyVo.companyName}</h3>
+		                    <span class="qysc_pp">${collect.baseUserCompanyVo.companyDirections}</span>
+		                    <span class="wdsdc_qy_xing"><img class="companyBtn" dataId="${collect.userCompanyServiceVo.id}" src="${BASE_URL}/images/shoucang.png" /></span>
 	                	</li>
 	        		</c:forEach>
 	            </ul>
@@ -62,58 +74,54 @@
   </div>
 </div>
 <script type="text/javascript">
-$("#updateBtn").click(function(){
-	$('.td_dis').each(function(){
-		 $(this).removeClass("td_dis");
-		 $('#updateBtn').hide();
-	});
-});
-$("#saveBtn").click(function(){
-	if(check()){
-		$("#doEditUserInfo").submit();
+var baseUrl = $("#baseUrl").val();
+$(".serviceBtn").click(function(){
+	var serviceId = $(this).attr("dataId");
+	var companyId = $(this).attr("dataCompanyId");
+	if(serviceId.length>0 && companyId.length>0){
+		$.ajax({
+	        url: baseUrl+"/user/delCollect.html",
+	        data : {"serviceId":serviceId,"companyId":companyId},
+	        type : 'POST',
+	        success: function (data) {
+	            if (data) {
+	            	$(this).hide();
+	            }else{
+	            	alert("取消收藏失败");
+	            }
+	        }
+	    });
+	}else{
+		alert("取消收藏失败");
 	}
 });
-function check(){
-	var raleName = $("#raleName").val();
-	if($.trim(raleName).length <= 0){
-		alert("请输入姓名");
-		 $("#raleName").focus();
-		return false;
+$(".companyBtn").click(function(){
+	var companyId = $(this).attr("dataId");
+	if(companyId.length>0){
+		$.ajax({
+			url: baseUrl+"/user/delCollect.html",
+	        data : {"companyId":companyId},
+	        type : 'POST',
+	        success: function (data) {
+	            if (data) {
+	            	$(this).hide();
+	            }else{
+	            	alert("取消收藏失败");
+	            }
+	        }
+	    });
+	}else{
+		alert("取消收藏失败");
 	}
-	var mobilePhone = $("#mobilePhone").val();
-	if($.trim(mobilePhone).length <= 0){
-		alert("请输入联系方式");
-		 $("#mobilePhone").focus();
-		return false;
-	}
-	if(!checkMob(mobilePhone)){
-		alert("请输入正确联系方式");
-		$("#mobilePhone").focus();
-		return false;
-	}
-	var email = $("#email").val();
-	if($.trim(email).length <= 0){
-		alert("请输入邮箱");
-		 $("#email").focus();
-		return false;
-	}
-	 var isemail  = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-	 if(!isemail.test(email)){
-		 alert("请输入正确邮箱格式");
-		 $("#email").focus();
-		return false;
-	 }
-	 
-	return true;
-}
-var isMob = /^((13[0-9])|(14[0-9])|(15[0-9])|(18[0-9])|(17[0-9]))\d{8}$/;
-function checkMob(mobile) {
-	if (isMob.test(mobile)) {
-		return true;
-	} else {
-		return false;
-	}
-}
+});
+$("#collectService").click(function(){
+	$("#collectType").val(1);
+	$("#doEditUserInfo").submit();
+});
+$("#collectCompany").click(function(){
+	$("#collectType").val(2);
+	$("#doEditUserInfo").submit();
+});
 </script>
 
 </form>
