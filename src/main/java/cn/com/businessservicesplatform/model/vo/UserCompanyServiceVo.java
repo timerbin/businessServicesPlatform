@@ -1,5 +1,7 @@
 package cn.com.businessservicesplatform.model.vo;
 
+
+import cn.com.businessservicesplatform.common.util.DateUtils;
 import cn.com.businessservicesplatform.model.mysql.UserCompanyService;
 
 public class UserCompanyServiceVo extends UserCompanyService {
@@ -9,6 +11,8 @@ public class UserCompanyServiceVo extends UserCompanyService {
 	public String queryStr;
 	public String serviceTypeStr;
 	public Integer queryRows = 20;
+	
+	public String createTimeStr;
 	
 	public BaseUserCompanyVo baseUserCompanyVo;
 	
@@ -29,6 +33,24 @@ public class UserCompanyServiceVo extends UserCompanyService {
     	super.setRecommend(userCompanyService.getRecommend());
     	super.setPicUrl(userCompanyService.getPicUrl());
     }
+    
+    
+
+	public String getCreateTimeStr() {
+		try {
+			if(null != super.getCreateTime()){
+				setCreateTimeStr(DateUtils.getString(super.getCreateTime(), "yyyy-MM-dd HH:mm"));
+			}
+		} catch (Exception e) {
+		}
+		return createTimeStr;
+	}
+
+	public void setCreateTimeStr(String createTimeStr) {
+		this.createTimeStr = createTimeStr;
+	}
+
+
 
 	public BaseUserCompanyVo getBaseUserCompanyVo() {
 		return baseUserCompanyVo;

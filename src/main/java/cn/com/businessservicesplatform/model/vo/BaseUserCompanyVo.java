@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 
+import cn.com.businessservicesplatform.common.util.DateUtils;
 import cn.com.businessservicesplatform.model.mysql.BaseUserCompany;
 import cn.com.businessservicesplatform.model.mysql.BaseUserCompanyPic;
 
@@ -68,6 +69,12 @@ public class BaseUserCompanyVo extends BaseUserCompany {
 	}
 
 	public String getCompanyRegisterTimeStr() {
+		try {
+			if(StringUtils.isBlank(companyRegisterTimeStr) && null != super.getCompanyRegisterTime()){
+				setCompanyRegisterTimeStr(DateUtils.getString(super.getCompanyRegisterTime(), "yyyy年MM月dd日"));
+			}
+		} catch (Exception e) {
+		}
 		return companyRegisterTimeStr;
 	}
 

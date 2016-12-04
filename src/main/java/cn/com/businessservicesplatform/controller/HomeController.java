@@ -151,4 +151,50 @@ public class HomeController extends BaseController{
     	return model;
     }
 	
+	/**
+	 * @Description:所有服务 <br>
+	 * @Author: wangwenbin <br>
+	 * @Date: 2016年12月1日 <br>
+	 * @Time: 下午9:55:39 <br>
+	 * @return
+	 * @return ModelAndView <br>
+	 * @throws
+	 */
+	@RequestMapping("/serviceShow")
+    public ModelAndView serviceShow(Integer page,HttpServletRequest request,UserCompanyServiceVo userCompanyServiceVo) {
+    	ModelAndView model = new ModelAndView ("/home/serviceShow");
+    	try {
+    		if(null == userCompanyServiceVo || userCompanyServiceVo.getId() == null){
+    			model = new ModelAndView ( "redirect:/home/allService.html");
+	    		return model;
+			}
+    		model.addObject("queryVo", userCompanyServiceVo);
+			BaseUserVo baseUserVo = this.getUser(request);
+			model.addObject("user", baseUserVo);
+			//经营范围
+			List<BaseConfigData>  serviceTypeList = baseConfigDataService.queryList(new BaseConfigDataVo(BaseConfigTypeEnum.SERVICES_TYPE.getId()));
+			model.addObject("serviceTypeList", serviceTypeList);
+			 
+			//服务信息
+			UserCompanyServiceVo  vo = userCompanyServiceService.getAllService(userCompanyServiceVo.getId());
+//			if(null == vo || vo.getId() == null){
+//    			model = new ModelAndView ( "redirect:/home/allService.html");
+//	    		return model;
+//			}
+			model.addObject("vo", vo);
+			
+			List<UserCompanyServiceVo> likeServiceList = userCompanyServiceService.queryLikeList(6);
+			model.addObject("likeServiceList", likeServiceList);
+			
+			//评论信息
+			BasePage basePage = new BasePage(page,5);
+			
+			model.addObject("basePage", basePage);
+			
+		} catch (Exception e) {
+			log.error("HomeController.serviceShow.is.system.error",e);
+		}
+    	return model;
+    }
+	
 }

@@ -11,7 +11,7 @@
 <jsp:include page="../public/baseData.jsp" />
 </head>
 <body>
-<form id="allCompany" action="${BASE_URL}/shop/allCompany.html" method="post">
+<form id="allCompany" action="${BASE_URL}/home/allCompany.html" method="post">
 	<input id="baseUrl"   value="${BASE_URL}"  type="hidden"  />
 	<input id="page" name="page"   value="${basePage.page}"  type="hidden"  />
     <table width="100%" height="100%" border="0px" cellpadding="0px" cellspacing="0px" >
