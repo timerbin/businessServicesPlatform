@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import cn.com.businessservicesplatform.common.util.BasePage;
 import cn.com.businessservicesplatform.common.util.DateUtils;
 import cn.com.businessservicesplatform.dao.mysql.BaseUserCompanyMapper;
 import cn.com.businessservicesplatform.dao.mysql.BaseUserCompanyPicMapper;
@@ -133,30 +134,37 @@ public class BaseUserCompanyServiceImpl implements BaseUserCompanyService {
 			BaseUserCompany baseUserCompany = baseUserCompanyMapper.selectByPrimaryKey(id);
 			if(null != baseUserCompany && baseUserCompany.getId() != null){
 				result = new BaseUserCompanyVo(baseUserCompany);
-				List<BaseUserCompanyPic> picList = baseUserCompanyPicMapper.queryList(baseUserCompany.getId());
-				if(null != picList && picList.size() > 0){
-					result.setPicList(picList);
-					StringBuffer picListStr = new StringBuffer();
-					for(BaseUserCompanyPic pic : picList){
-						if(null != pic && !StringUtils.isBlank(pic.getCompanyPicUrl())){
-							if(!StringUtils.isBlank(picListStr.toString())){
-								picListStr.append("|");
-							}
-							picListStr.append(pic.getCompanyPicUrl());
-						}
-					}
-					result.setPicListStr(picListStr.toString());
-				}
-				try {
-					if(null != baseUserCompany.getCompanyRegisterTime()){
-						result.setCompanyRegisterTimeStr(DateUtils.getString(baseUserCompany.getCompanyRegisterTime(), DateUtils.DEF_DATE_NO_TIME_FORMAT));
-					}
-				} catch (Exception e) {
-					log.error("BaseUserCompanyService.getUserAllCompany.is.registerTime.error:"+baseUserCompany.getCompanyRegisterTime(),e);
-				}
+				result = makeBaseUser(result);
 			}
 		}
 		return result;
+	}
+	
+	private BaseUserCompanyVo makeBaseUser(BaseUserCompanyVo vo){
+		if(null != vo && null != vo.getId()){
+			List<BaseUserCompanyPic> picList = baseUserCompanyPicMapper.queryList(vo.getId());
+			if(null != picList && picList.size() > 0){
+				vo.setPicList(picList);
+				StringBuffer picListStr = new StringBuffer();
+				for(BaseUserCompanyPic pic : picList){
+					if(null != pic && !StringUtils.isBlank(pic.getCompanyPicUrl())){
+						if(!StringUtils.isBlank(picListStr.toString())){
+							picListStr.append("|");
+						}
+						picListStr.append(pic.getCompanyPicUrl());
+					}
+				}
+				vo.setPicListStr(picListStr.toString());
+			}
+			try {
+				if(null != vo.getCompanyRegisterTime()){
+					vo.setCompanyRegisterTimeStr(DateUtils.getString(vo.getCompanyRegisterTime(), DateUtils.DEF_DATE_NO_TIME_FORMAT));
+				}
+			} catch (Exception e) {
+				log.error("BaseUserCompanyService.makeBaseUser.is.registerTime.error:"+vo.getCompanyRegisterTime(),e);
+			}
+		}
+		return vo;
 	}
 
 	/**
@@ -181,5 +189,30 @@ public class BaseUserCompanyServiceImpl implements BaseUserCompanyService {
 	@Override
 	public BaseUserCompany getUserCompany(BaseUserCompanyVo baseUserCompanyVo) {
 		return baseUserCompanyMapper.getUserCompany(baseUserCompanyVo);
+	}
+	
+	@Override
+	public List<BaseUserCompanyVo> queryPage(BasePage basePage,BaseUserCompanyVo vo){
+		List<BaseUserCompanyVo> list = baseUserCompanyMapper.queryPage(basePage, vo);
+		if(null != list && list.size() > 0){
+			for(BaseUserCompanyVo baseUserCompanyVo :list){
+				if(null != baseUserCompanyVo && baseUserCompanyVo.getId() != null){
+					baseUserCompanyVo = makeBaseUser(baseUserCompanyVo);
+				}
+			}
+		}
+		return list;
+	}
+	@Override
+	public List<BaseUserCompanyVo> queryList(BaseUserCompanyVo vo){
+		List<BaseUserCompanyVo> list = baseUserCompanyMapper.queryList(vo);
+		if(null != list && list.size() > 0){
+			for(BaseUserCompanyVo baseUserCompanyVo :list){
+				if(null != baseUserCompanyVo && baseUserCompanyVo.getId() != null){
+					baseUserCompanyVo = makeBaseUser(baseUserCompanyVo);
+				}
+			}
+		}
+		return list;
 	}
 }

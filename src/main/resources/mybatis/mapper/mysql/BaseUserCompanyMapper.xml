@@ -15,6 +15,7 @@
     <result column="company_scope" property="companyScope" jdbcType="INTEGER" />
     <result column="company_type" property="companyType" jdbcType="INTEGER" />
     <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="recommend" property="recommend" jdbcType="INTEGER" />
     <result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="verify_time" property="verifyTime" jdbcType="TIMESTAMP" />
@@ -26,11 +27,11 @@
     id, user_id, company_name, company_address, company_contact_user, company_contact_tel, 
     company_url, company_register_money, company_register_time, company_directions, company_scope, 
     company_type, status, modify_time, create_time, verify_time, verify_user_id, verify_user_name, 
-    verify_user_des
+    verify_user_des,recommend
   </sql>
   
   
-  <select id="getUserCompany" resultMap="BaseResultMap" parameterType="cn.com.businessservicesplatform.model.vo.BaseUserVo" >
+  <select id="getUserCompany" resultMap="BaseResultMap" parameterType="cn.com.businessservicesplatform.model.vo.BaseUserCompanyVo" >
     select 
     <include refid="Base_Column_List" />
     from base_user_company where status != -1
@@ -55,6 +56,44 @@
     </if>
   </select>
   
+  <select id="queryPage" resultMap="BaseResultMap" parameterType="cn.com.businessservicesplatform.model.vo.BaseUserCompanyVo" >
+    select 
+    <include refid="Base_Column_List" />
+    from base_user_company where status = 1
+    <if test="vo.userId != null" >
+       and user_id = #{vo.userId,jdbcType=INTEGER}
+    </if>
+    <if test="vo.companyScope != null" >
+        and company_scope = #{vo.companyScope,jdbcType=INTEGER}
+      </if>
+      <if test="vo.companyType != null" >
+        and company_type = #{vo.companyType,jdbcType=INTEGER}
+      </if>
+  </select>
+  
+  <select id="queryList" resultMap="BaseResultMap" parameterType="cn.com.businessservicesplatform.model.vo.BaseUserCompanyVo" >
+    select 
+    <include refid="Base_Column_List" />
+    from base_user_company where status = 1
+    <if test="vo.userId != null" >
+       and user_id = #{vo.userId,jdbcType=INTEGER}
+    </if>
+    <if test="vo.companyScope != null" >
+        and company_scope = #{vo.companyScope,jdbcType=INTEGER}
+      </if>
+      <if test="vo.companyType != null" >
+        and company_type = #{vo.companyType,jdbcType=INTEGER}
+      </if>
+      <if test="vo.recommend != null">
+       and recommend = #{vo.recommend,jdbcType=INTEGER}
+      </if>
+      <if test="vo.queryRows != null" >
+        limit  #{vo.queryRows,jdbcType=INTEGER}
+    </if>
+  </select>
+  
+  
+  
   
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -73,14 +112,14 @@
       company_directions, company_scope, company_type, 
       status, modify_time, create_time, 
       verify_time, verify_user_id, verify_user_name, 
-      verify_user_des)
+      verify_user_des,recommend)
     values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{companyName,jdbcType=VARCHAR}, 
       #{companyAddress,jdbcType=VARCHAR}, #{companyContactUser,jdbcType=VARCHAR}, #{companyContactTel,jdbcType=VARCHAR}, 
       #{companyUrl,jdbcType=VARCHAR}, #{companyRegisterMoney,jdbcType=VARCHAR}, #{companyRegisterTime,jdbcType=TIMESTAMP}, 
       #{companyDirections,jdbcType=VARCHAR}, #{companyScope,jdbcType=INTEGER}, #{companyType,jdbcType=INTEGER}, 
       #{status,jdbcType=INTEGER}, #{modifyTime,jdbcType=TIMESTAMP}, #{createTime,jdbcType=TIMESTAMP}, 
       #{verifyTime,jdbcType=TIMESTAMP}, #{verifyUserId,jdbcType=INTEGER}, #{verifyUserName,jdbcType=VARCHAR}, 
-      #{verifyUserDes,jdbcType=VARCHAR})
+      #{verifyUserDes,jdbcType=VARCHAR},#{recommend,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="cn.com.businessservicesplatform.model.mysql.BaseUserCompany" >
     insert into base_user_company
@@ -142,6 +181,9 @@
       <if test="verifyUserDes != null" >
         verify_user_des,
       </if>
+      <if test="recommend != null" >
+        recommend,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -200,6 +242,9 @@
       </if>
       <if test="verifyUserDes != null" >
         #{verifyUserDes,jdbcType=VARCHAR},
+      </if>
+      <if test="recommend != null" >
+        #{recommend,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -260,6 +305,9 @@
       <if test="verifyUserDes != null" >
         verify_user_des = #{verifyUserDes,jdbcType=VARCHAR},
       </if>
+      <if test="recommend != null" >
+        recommend = #{recommend,jdbcType=INTEGER},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -282,7 +330,8 @@
       verify_time = #{verifyTime,jdbcType=TIMESTAMP},
       verify_user_id = #{verifyUserId,jdbcType=INTEGER},
       verify_user_name = #{verifyUserName,jdbcType=VARCHAR},
-      verify_user_des = #{verifyUserDes,jdbcType=VARCHAR}
+      verify_user_des = #{verifyUserDes,jdbcType=VARCHAR},
+      recommend = #{recommend,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

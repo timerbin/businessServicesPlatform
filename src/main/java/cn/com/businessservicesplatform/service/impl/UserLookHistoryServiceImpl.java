@@ -84,6 +84,10 @@ public class UserLookHistoryServiceImpl implements UserLookHistoryService{
 	@Override
 	public List<String> queryHisDate() {return userLookHistoryMapper.queryHistoryDate();
 	}
+	@Override
+	public List<UserLookHistory> queryTopHistroyList(UserLookHistoryVo userLookHistoryVo){
+		return userLookHistoryMapper.queryTopHistroyList(userLookHistoryVo);
+	}
 
 
 }

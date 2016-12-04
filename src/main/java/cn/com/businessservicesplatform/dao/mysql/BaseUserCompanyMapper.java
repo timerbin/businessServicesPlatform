@@ -1,5 +1,10 @@
 package cn.com.businessservicesplatform.dao.mysql;
 
+import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+
+import cn.com.businessservicesplatform.common.util.BasePage;
 import cn.com.businessservicesplatform.model.mysql.BaseUserCompany;
 import cn.com.businessservicesplatform.model.vo.BaseUserCompanyVo;
 
@@ -22,4 +27,7 @@ public interface BaseUserCompanyMapper {
 
     List<BaseUserCompany> getAllUserCompanys(BaseUserCompanyVo baseUserCompanyVo);
     
+    List<BaseUserCompanyVo> queryPage(@Param("basePage")BasePage basePage,@Param("vo")BaseUserCompanyVo vo);
+    
+    public List<BaseUserCompanyVo> queryList(@Param("vo")BaseUserCompanyVo vo);
 }

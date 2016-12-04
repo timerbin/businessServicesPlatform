@@ -1,5 +1,6 @@
 package cn.com.businessservicesplatform.service;
 
+import cn.com.businessservicesplatform.common.util.BasePage;
 import cn.com.businessservicesplatform.model.mysql.BaseUserCompany;
 import cn.com.businessservicesplatform.model.vo.BaseUserCompanyVo;
 
@@ -14,12 +15,16 @@ public interface BaseUserCompanyService {
 	public BaseUserCompany getUserCompany(BaseUserCompanyVo baseUserCompanyVo);
 	
 	public BaseUserCompanyVo getUserAllCompany(Integer id);
-
-
 	/**
 	 * 获取所有的企业
 	 * @param baseUserCompanyVo
 	 * @return
-     */
+	 */
 	List<BaseUserCompanyVo> getAllUserCompanys(BaseUserCompanyVo baseUserCompanyVo);
+
+	public List<BaseUserCompanyVo> queryPage(BasePage
+													 basePage,BaseUserCompanyVo vo);
+
+	public List<BaseUserCompanyVo> queryList(BaseUserCompanyVo vo);
+
 }

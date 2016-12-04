@@ -13,9 +13,29 @@ public class BaseUserCompanyVo extends BaseUserCompany {
 	
 	private List<BaseUserCompanyPic>  picList;
 	
-	public  String  picListStr;
+	private  String  picListStr;
 	
-	public String logoPicPath;
+	private String logoPicPath;
+	
+	private String queryStr;
+	
+	private Integer queryRows=10;
+	
+	public Integer getQueryRows() {
+		return queryRows;
+	}
+
+	public void setQueryRows(Integer queryRows) {
+		this.queryRows = queryRows;
+	}
+
+	public String getQueryStr() {
+		return queryStr;
+	}
+
+	public void setQueryStr(String queryStr) {
+		this.queryStr = queryStr;
+	}
 
 	public String getLogoPicPath() {
 		if(null != picList && picList.size() > 0){

@@ -10,6 +10,8 @@ public class UserCompanyService {
     private Integer companyId;
 
     private String serviceName;
+    
+    private String picUrl;
 
     private String serviceContactUser;
 
@@ -32,8 +34,26 @@ public class UserCompanyService {
     private String verifyUserDes;
 
     private String serviceDirections;
+    
+    private Integer recommend;
 
-    public Integer getId() {
+    public Integer getRecommend() {
+		return recommend;
+	}
+
+	public void setRecommend(Integer recommend) {
+		this.recommend = recommend;
+	}
+
+	public String getPicUrl() {
+		return picUrl;
+	}
+
+	public void setPicUrl(String picUrl) {
+		this.picUrl = picUrl;
+	}
+
+	public Integer getId() {
         return id;
     }
 

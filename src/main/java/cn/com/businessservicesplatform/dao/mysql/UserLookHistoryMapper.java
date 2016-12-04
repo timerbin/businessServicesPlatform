@@ -27,5 +27,7 @@ public interface UserLookHistoryMapper {
     int updateDelStatus(Integer id);
 
     List<String> queryHistoryDate();
+    
+    public List<UserLookHistory> queryTopHistroyList(@Param("vo")UserLookHistoryVo userLookHistoryVo);
 
 }

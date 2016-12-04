@@ -4,6 +4,8 @@ import cn.com.businessservicesplatform.model.mysql.UserLookHistory;
 
 public class UserLookHistoryVo extends UserLookHistory {
 
+	
+	
 	public UserLookHistoryVo() {
 	}
 
@@ -13,12 +15,19 @@ public class UserLookHistoryVo extends UserLookHistory {
 		super.setCompanyId(companyId);
 		super.setType(type);
 	}
-
-
-	private String userName;
+	private Integer queryRows = 20;
 	private String serviceName;
+	private String userName;
 	private String companyName;
 	private String companyPicUrl;
+	
+	public Integer getQueryRows() {
+		return queryRows;
+	}
+
+	public void setQueryRows(Integer queryRows) {
+		this.queryRows = queryRows;
+	}
 
 	public String getUserName() {
 		return userName;

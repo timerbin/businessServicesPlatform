@@ -43,6 +43,8 @@ public class BaseUserCompany {
 
     private String verifyUserDes;
     
+    private Integer recommend;
+    
     public BaseUserCompany(){}
     
     
@@ -62,6 +64,7 @@ public class BaseUserCompany {
 		this.setCompanyUrl(baseUserCompany.getCompanyUrl());
 		this.setCreateTime(baseUserCompany.getCreateTime());
 		this.setModifyTime(baseUserCompany.getModifyTime());
+		this.setRecommend(baseUserCompany.getRecommend());
 	}
     
     public BaseUserCompany make(BaseUserCompany baseUserCompany,BaseUserCompanyVo baseUserCompanyVo){
@@ -76,10 +79,21 @@ public class BaseUserCompany {
 		baseUserCompany.setCompanyScope(baseUserCompanyVo.getCompanyScope());
 		baseUserCompany.setCompanyType(baseUserCompanyVo.getCompanyType());
 		baseUserCompany.setCompanyUrl(baseUserCompanyVo.getCompanyUrl());
+		baseUserCompany.setRecommend(baseUserCompany.getRecommend());
 		return baseUserCompany;
 	}
 
-    public Integer getId() {
+    public Integer getRecommend() {
+		return recommend;
+	}
+
+
+	public void setRecommend(Integer recommend) {
+		this.recommend = recommend;
+	}
+
+
+	public Integer getId() {
         return id;
     }
 

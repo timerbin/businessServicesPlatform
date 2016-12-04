@@ -16,6 +16,8 @@
     <result column="verify_user_id" jdbcType="INTEGER" property="verifyUserId" />
     <result column="verify_user_name" jdbcType="VARCHAR" property="verifyUserName" />
     <result column="verify_user_des" jdbcType="VARCHAR" property="verifyUserDes" />
+    <result column="recommend" jdbcType="INTEGER" property="recommend" />
+    <result column="pic_url" jdbcType="VARCHAR" property="picUrl" />
   </resultMap>
   <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="cn.com.businessservicesplatform.model.mysql.UserCompanyService">
     <result column="service_directions" jdbcType="LONGVARCHAR" property="serviceDirections" />
@@ -23,7 +25,7 @@
   <sql id="Base_Column_List">
     id, user_id, company_id, service_name, service_contact_user, service_contact_tel, 
     service_type, status, modify_time, create_time, verify_time, verify_user_id, verify_user_name, 
-    verify_user_des
+    verify_user_des,recommend,pic_url
   </sql>
   <sql id="Blob_Column_List">
     service_directions
@@ -37,7 +39,36 @@
     where id = #{id,jdbcType=INTEGER}
   </select>
 
+	<select id="queryPage" resultMap="BaseResultMap" parameterType="cn.com.businessservicesplatform.model.vo.UserCompanyServiceVo" >
+    select
+    <include refid="Base_Column_List" />
+    from user_company_service where status = 1
+    <if test="vo.userId != null" >
+      and user_id = #{vo.userId,jdbcType=INTEGER}
+    </if>
+    <if test="vo.serviceType != null">
+        service_type = #{vo.serviceType,jdbcType=INTEGER}
+      </if>
+  </select>
 
+ <select id="queryList" resultMap="BaseResultMap" parameterType="cn.com.businessservicesplatform.model.vo.UserCompanyServiceVo" >
+    select
+    <include refid="Base_Column_List" />
+    from user_company_service where status = 1 
+    <if test="vo.userId != null" >
+      and user_id = #{vo.userId,jdbcType=INTEGER}
+    </if>
+    <if test="vo.serviceType != null">
+        service_type = #{vo.serviceType,jdbcType=INTEGER}
+      </if>
+     <if test="vo.recommend != null">
+       and  recommend = #{vo.recommend,jdbcType=INTEGER}
+      </if>
+     <if test="vo.queryRows != null" >
+        limit  #{vo.queryRows,jdbcType=INTEGER}
+    </if>
+  </select>
+  
 
   <select id="getUserCompanyService" resultMap="BaseResultMap" parameterType="cn.com.businessservicesplatform.model.vo.UserCompanyServiceVo" >
     select
@@ -73,15 +104,18 @@
       service_name, service_contact_user, service_contact_tel, 
       service_type, status, modify_time, 
       create_time, verify_time, verify_user_id, 
-      verify_user_name, verify_user_des, service_directions
+      verify_user_name, verify_user_des, service_directions,recommend,pic_url
       )
     values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{companyId,jdbcType=INTEGER}, 
       #{serviceName,jdbcType=VARCHAR}, #{serviceContactUser,jdbcType=VARCHAR}, #{serviceContactTel,jdbcType=VARCHAR}, 
       #{serviceType,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, #{modifyTime,jdbcType=TIMESTAMP}, 
       #{createTime,jdbcType=TIMESTAMP}, #{verifyTime,jdbcType=TIMESTAMP}, #{verifyUserId,jdbcType=INTEGER}, 
-      #{verifyUserName,jdbcType=VARCHAR}, #{verifyUserDes,jdbcType=VARCHAR}, #{serviceDirections,jdbcType=LONGVARCHAR}
+      #{verifyUserName,jdbcType=VARCHAR}, #{verifyUserDes,jdbcType=VARCHAR}, #{serviceDirections,jdbcType=LONGVARCHAR},
+      #{recommend,jdbcType=INTEGER},#{picUrl,jdbcType=VARCHAR}
       )
   </insert>
+  
+   
   <insert id="insertSelective" parameterType="cn.com.businessservicesplatform.model.mysql.UserCompanyService">
     insert into user_company_service
     <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -130,6 +164,12 @@
       <if test="serviceDirections != null">
         service_directions,
       </if>
+      <if test="recommend != null">
+        recommend,
+      </if>
+      <if test="picUrl != null">
+        pic_url,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -177,8 +217,15 @@
       <if test="serviceDirections != null">
         #{serviceDirections,jdbcType=LONGVARCHAR},
       </if>
+      <if test="recommend != null">
+        #{recommend,jdbcType=INTEGER},
+      </if>
+      <if test="picUrl != null">
+        #{picUrl,jdbcType=VARCHAR},
+      </if>
     </trim>
   </insert>
+  
   <update id="updateByPrimaryKeySelective" parameterType="cn.com.businessservicesplatform.model.mysql.UserCompanyService">
     update user_company_service
     <set>
@@ -224,9 +271,16 @@
       <if test="serviceDirections != null">
         service_directions = #{serviceDirections,jdbcType=LONGVARCHAR},
       </if>
+      <if test="recommend != null">
+        recommend = #{recommend,jdbcType=INTEGER},
+      </if>
+      <if test="picUrl != null">
+        pic_url = #{picUrl,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
+  
   <update id="updateByPrimaryKeyWithBLOBs" parameterType="cn.com.businessservicesplatform.model.mysql.UserCompanyService">
     update user_company_service
     set user_id = #{userId,jdbcType=INTEGER},
@@ -242,7 +296,9 @@
       verify_user_id = #{verifyUserId,jdbcType=INTEGER},
       verify_user_name = #{verifyUserName,jdbcType=VARCHAR},
       verify_user_des = #{verifyUserDes,jdbcType=VARCHAR},
-      service_directions = #{serviceDirections,jdbcType=LONGVARCHAR}
+      service_directions = #{serviceDirections,jdbcType=LONGVARCHAR},
+      recommend = #{recommend,jdbcType=INTEGER},
+      pic_url = #{picUrl,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="cn.com.businessservicesplatform.model.mysql.UserCompanyService">
@@ -259,7 +315,9 @@
       verify_time = #{verifyTime,jdbcType=TIMESTAMP},
       verify_user_id = #{verifyUserId,jdbcType=INTEGER},
       verify_user_name = #{verifyUserName,jdbcType=VARCHAR},
-      verify_user_des = #{verifyUserDes,jdbcType=VARCHAR}
+      verify_user_des = #{verifyUserDes,jdbcType=VARCHAR},
+      recommend = #{recommend,jdbcType=INTEGER},
+      pic_url = #{picUrl,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>
