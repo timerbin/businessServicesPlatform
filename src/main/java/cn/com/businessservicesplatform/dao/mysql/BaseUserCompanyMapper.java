@@ -24,4 +24,6 @@ public interface BaseUserCompanyMapper {
     BaseUserCompany getUserCompany(BaseUserCompanyVo baseUserCompanyVo);
     
     List<BaseUserCompanyVo> queryPage(@Param("basePage")BasePage basePage,@Param("vo")BaseUserCompanyVo vo);
+    
+    public List<BaseUserCompanyVo> queryList(@Param("vo")BaseUserCompanyVo vo);
 }

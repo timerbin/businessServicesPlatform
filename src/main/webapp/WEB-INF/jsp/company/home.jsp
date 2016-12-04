@@ -4,14 +4,14 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>所有企业</title>
+<title>首页</title>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 <link href="${BASE_URL}/images/hongqiao.css" rel="stylesheet" type="text/css" />
 <meta name="renderer" content="webkit" />
 <jsp:include page="../public/baseData.jsp" />
 </head>
 <body>
-<form id="allCompany" action="${BASE_URL}/shop/allCompany.html" method="post">
+<form id="allCompany" action="${BASE_URL}/shop/homeIndex.html" method="post">
 	<input id="baseUrl"   value="${BASE_URL}"  type="hidden"  />
 	<input id="page" name="page"   value="${basePage.page}"  type="hidden"  />
     <table width="100%" height="100%" border="0px" cellpadding="0px" cellspacing="0px" >
@@ -49,31 +49,61 @@
    				</c:if>
             </div>
         </div>
-    	<div class="right_main">
+        <div class="right_main">
             <div class="youzhiqy_box">
-                <div class="right2_h2"><span class="more">&nbsp;</span><h2>优质企业</h2></div>
+                <div class="right2_h2"><span class="more"><a href="#" target="_blank">查看更多>></a></span><h2>优质企业</h2></div>
+                
                 <div class="youzhiqy_yzqy" >
                     <ul>
                     	<c:forEach items="${companyList}" var="company">
                     		<c:if test="${not empty company.id}">
-		                		<li><img src="${BASE_URL}/${company.logoPicPath}"  />
-		                            <h3>${company.companyName}</h3>
-		                            <p>${company.companyDirections}</p>
-		                        </li>
+	                		<li><img src="${BASE_URL}/${company.logoPicPath}"  />
+	                            <h3>${company.companyName}</h3>
+	                            <p>${company.companyDirections}</p>
+	                        </li>
 	                        </c:if>
 						</c:forEach>
                     </ul>
-                    <div class="clear"></div>
+                        <div class="clear"></div>
+                </div>
+            </div>
+            
+            <div class="fuwu_xihuan">
+                <div class="tjfw_box">
+                    <div class="right_h2"><span class="more"><a href="#" target="_blank">查看更多>></a></span><h2>推荐服务</h2></div>
+                    <c:forEach items="${serviceList}" var="service" varStatus="status">
+                    	<c:if test="${not empty service.id}">
+                     	<dl>
+	                        <dt class="bjse_hong">${status.index+1}</dt>
+	                        <dd><h3>${service.baseUserCompanyVo.companyName}</h3></dd>
+	                        <dd><p>${service.serviceDirections}</p></dd>
+	                    </dl>
+	                    </c:if>
+					</c:forEach>
+                </div>
+                <div class="cnxh_box">
+                  <div class="right_h2"><span class="more">&nbsp;</span><h2>猜你喜欢</h2></div>
+                    <ul>
+                    	<c:forEach items="${likeServiceList}" var="likeService">
+                    		<c:if test="${not empty likeService.id}">
+	                        <li class="float_left"><img src="${BASE_URL}/${service.picUrl}" width="180" height="100" />
+	                            <h3>${likeService.serviceName}</h3>
+	                            <p>${likeService.serviceDirections}</p>
+	                            <span><a href="#">查看</a></span>
+                        	</li>
+                        	</c:if>
+						</c:forEach>
+                    </ul>
                 </div>
                 
-                <div class="page"><span class="page_left"><a href="#"></a></span> <a href="#">1</a> <a href="#" class="page_tab">2</a> <a href="#">3</a> <a href="#">4</a> <a href="#">5</a> <a href="#">6</a> <span class="page_right"><a href="#"></a></span></div>
-                
             </div>
-      </div>
-      <div class="footer">Copyright 2011-2016</div>
-    </td>
- </tr>
+        
+        </div>
+        <div class="footer">Copyright 2011-2016</div>
+    </td></tr>
 </table>
+        
+        
 <script type="text/javascript">
 $("#queryBtn").click(function(){
 	$("#allCompany").submit();

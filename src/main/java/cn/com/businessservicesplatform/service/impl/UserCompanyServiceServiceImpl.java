@@ -79,10 +79,26 @@ public class UserCompanyServiceServiceImpl implements UserCompanyServiceService{
 		}
 		return list;
 	}
-	@Autowired
-	public List<UserCompanyServiceVo> queryLikeList(){
+	@Override
+	 public List<UserCompanyServiceVo> queryList(UserCompanyServiceVo vo){
+		List<UserCompanyServiceVo> list = userCompanyServiceMapper.queryList(vo);
+		if(null != list && list.size()>0){
+			for(UserCompanyServiceVo serviceVo :list){
+				if(null != serviceVo && serviceVo.getCompanyId() != null){
+					BaseUserCompanyVo baseUserCompanyVo = baseUserCompanyService.getUserAllCompany(serviceVo.getCompanyId());
+					serviceVo.setBaseUserCompanyVo(baseUserCompanyVo);
+				}
+			}
+		}
+		return list;
+	 }
+	@Override
+	public List<UserCompanyServiceVo> queryLikeList(Integer queryRows){
 		List<UserCompanyServiceVo> result = null;
 		UserLookHistoryVo userLookHistoryVo = new UserLookHistoryVo();
+		if(null != queryRows){
+			userLookHistoryVo.setQueryRows(queryRows);
+		}
 		List<UserLookHistory> list =  userLookHistoryService.queryTopHistroyList(userLookHistoryVo);
 		if(null != list && list.size()>0){
 			result = new ArrayList<UserCompanyServiceVo>();

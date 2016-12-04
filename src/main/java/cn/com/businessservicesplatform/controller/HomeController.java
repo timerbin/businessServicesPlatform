@@ -10,6 +10,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 
 import cn.com.businessservicesplatform.common.constants.BaseConfigTypeEnum;
+import cn.com.businessservicesplatform.common.constants.RecommendEnum;
 import cn.com.businessservicesplatform.common.util.BasePage;
 import cn.com.businessservicesplatform.model.mysql.BaseConfigData;
 import cn.com.businessservicesplatform.model.vo.BaseConfigDataVo;
@@ -93,7 +94,7 @@ public class HomeController extends BaseController{
 			//公司信息
 			model.addObject("serviceList", serviceList);
 			
-			List<UserCompanyServiceVo> likeServiceList = userCompanyServiceService.queryLikeList();
+			List<UserCompanyServiceVo> likeServiceList = userCompanyServiceService.queryLikeList(6);
 			//公司信息
 			model.addObject("likeServiceList", likeServiceList);
 			
@@ -101,6 +102,51 @@ public class HomeController extends BaseController{
 			
 		} catch (Exception e) {
 			log.error("HomeController.allService.is.system.error",e);
+		}
+    	return model;
+    }
+	
+	/**
+	 * @Description:所有企业 <br>
+	 * @Author: wangwenbin <br>
+	 * @Date: 2016年12月1日 <br>
+	 * @Time: 下午9:55:39 <br>
+	 * @return
+	 * @return ModelAndView <br>
+	 * @throws
+	 */
+	@RequestMapping("/homeIndex")
+    public ModelAndView home(HttpServletRequest request,BaseUserCompanyVo baseUserCompanyVo) {
+    	ModelAndView model = new ModelAndView ("/company/home");
+    	try {
+    		model.addObject("queryVo", baseUserCompanyVo);
+    		
+			BaseUserVo baseUserVo = this.getUser(request);
+			
+			model.addObject("user", baseUserVo);
+			//经营范围
+			List<BaseConfigData>  managementList = baseConfigDataService.queryList(new BaseConfigDataVo(BaseConfigTypeEnum.MANAGEMENT.getId()));
+			model.addObject("managementList", managementList);
+			 
+			baseUserCompanyVo.setRecommend(RecommendEnum.RECCOMEND.getId());
+			baseUserCompanyVo.setQueryRows(5);
+			List<BaseUserCompanyVo> companyList = baseUserCompanyService.queryList( baseUserCompanyVo);
+			//推荐公司
+			model.addObject("companyList", companyList);
+			
+			List<UserCompanyServiceVo> likeServiceList = userCompanyServiceService.queryLikeList(8);
+			//猜你喜欢
+			model.addObject("likeServiceList", likeServiceList);
+			
+			UserCompanyServiceVo userCompanyServiceVo = new UserCompanyServiceVo();
+			userCompanyServiceVo.setRecommend(RecommendEnum.RECCOMEND.getId());
+			userCompanyServiceVo.setQueryRows(5);
+			List<UserCompanyServiceVo> serviceList = userCompanyServiceService.queryList(userCompanyServiceVo);
+			//推荐服务
+			model.addObject("serviceList", serviceList);
+			
+		} catch (Exception e) {
+			log.error("HomeController.allCompany.is.system.error",e);
 		}
     	return model;
     }

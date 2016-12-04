@@ -183,4 +183,16 @@ public class BaseUserCompanyServiceImpl implements BaseUserCompanyService {
 		}
 		return list;
 	}
+	@Override
+	public List<BaseUserCompanyVo> queryList(BaseUserCompanyVo vo){
+		List<BaseUserCompanyVo> list = baseUserCompanyMapper.queryList(vo);
+		if(null != list && list.size() > 0){
+			for(BaseUserCompanyVo baseUserCompanyVo :list){
+				if(null != baseUserCompanyVo && baseUserCompanyVo.getId() != null){
+					baseUserCompanyVo = makeBaseUser(baseUserCompanyVo);
+				}
+			}
+		}
+		return list;
+	}
 }

@@ -39,8 +39,7 @@
     where id = #{id,jdbcType=INTEGER}
   </select>
 
-
- <select id="queryList" resultMap="BaseResultMap" parameterType="cn.com.businessservicesplatform.model.vo.UserCompanyServiceVo" >
+	<select id="queryPage" resultMap="BaseResultMap" parameterType="cn.com.businessservicesplatform.model.vo.UserCompanyServiceVo" >
     select
     <include refid="Base_Column_List" />
     from user_company_service where status = 1
@@ -48,10 +47,28 @@
       and user_id = #{vo.userId,jdbcType=INTEGER}
     </if>
     <if test="vo.serviceType != null">
-        service_type = #{vo.serviceType,jdbcType=INTEGER},
+        service_type = #{vo.serviceType,jdbcType=INTEGER}
       </if>
   </select>
 
+ <select id="queryList" resultMap="BaseResultMap" parameterType="cn.com.businessservicesplatform.model.vo.UserCompanyServiceVo" >
+    select
+    <include refid="Base_Column_List" />
+    from user_company_service where status = 1 
+    <if test="vo.userId != null" >
+      and user_id = #{vo.userId,jdbcType=INTEGER}
+    </if>
+    <if test="vo.serviceType != null">
+        service_type = #{vo.serviceType,jdbcType=INTEGER}
+      </if>
+     <if test="vo.recommend != null">
+       and  recommend = #{vo.recommend,jdbcType=INTEGER}
+      </if>
+     <if test="vo.queryRows != null" >
+        limit  #{vo.queryRows,jdbcType=INTEGER}
+    </if>
+  </select>
+  
 
   <select id="getUserCompanyService" resultMap="BaseResultMap" parameterType="cn.com.businessservicesplatform.model.vo.UserCompanyServiceVo" >
     select

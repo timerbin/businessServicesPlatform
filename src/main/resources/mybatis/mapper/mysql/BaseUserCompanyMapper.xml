@@ -58,7 +58,26 @@
       </if>
   </select>
   
-  
+  <select id="queryList" resultMap="BaseResultMap" parameterType="cn.com.businessservicesplatform.model.vo.BaseUserCompanyVo" >
+    select 
+    <include refid="Base_Column_List" />
+    from base_user_company where status = 1
+    <if test="vo.userId != null" >
+       and user_id = #{vo.userId,jdbcType=INTEGER}
+    </if>
+    <if test="vo.companyScope != null" >
+        and company_scope = #{vo.companyScope,jdbcType=INTEGER}
+      </if>
+      <if test="vo.companyType != null" >
+        and company_type = #{vo.companyType,jdbcType=INTEGER}
+      </if>
+      <if test="vo.recommend != null">
+       and recommend = #{vo.recommend,jdbcType=INTEGER}
+      </if>
+      <if test="vo.queryRows != null" >
+        limit  #{vo.queryRows,jdbcType=INTEGER}
+    </if>
+  </select>
   
   
   

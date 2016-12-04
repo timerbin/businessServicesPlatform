@@ -53,6 +53,7 @@
             <div class="fuwu_left_con">
                 <div class="right3_h2"><span class="more">&nbsp;</span><h2>推荐服务</h2></div>
                 <c:forEach items="${serviceList}" var="service">
+                <c:if test="${not empty service.id}">
                		<div class="tjfw_tuwen">
 	           	    	<div class="tjfw_tu"><img src="${BASE_URL}/${service.picUrl}" /></div>
 	                    <span class="scfuwu">
@@ -65,7 +66,8 @@
 	                        <span class="fuwu_time">${service.serviceDirections}</span>
 	                        <span class="fuwu_gongsim">${service.baseUserCompanyVo.companyName}</span>
 	                    </div>
-                	</div> 
+                	</div>
+                	</c:if>
 				</c:forEach>
             	<div class="page"><span class="page_left"><a href="#"></a></span> <a href="#">1</a> <a href="#" class="page_tab">2</a> <a href="#">3</a> <a href="#">4</a> <a href="#">5</a> <a href="#">6</a> <span class="page_right"><a href="#"></a></span></div>
           </div>
@@ -74,18 +76,20 @@
                 	<div class="right_h2"><span class="more"><a href="#" target="_blank">查看更多>></a></span><h2>猜你喜欢</h2></div>
                     <ul>
                     	<c:forEach items="${likeServiceList}" var="likeService">
-	                        <li><img src="${BASE_URL}/${service.picUrl}" width="180" height="100" />
-	                            <h3>${likeService.serviceName}</h3>
-	                            <p>${likeService.serviceDirections}</p>
-	                            <span><a href="#">查看</a></span>
-                        	</li>
+                    		<c:if test="${not empty likeService.id}">
+		                        <li><img src="${BASE_URL}/${service.picUrl}" width="180" height="100" />
+		                            <h3>${likeService.serviceName}</h3>
+		                            <p>${likeService.serviceDirections}</p>
+		                            <span><a href="#">查看</a></span>
+	                        	</li>
+                        	</c:if>
 						</c:forEach>
                     </ul>
                 </div>
             </div>
             <div class="clear"></div>
         </div>
-        
+        <div class="footer">Copyright 2011-2016</div>
     </td></tr>
 </table>
 <script type="text/javascript">
