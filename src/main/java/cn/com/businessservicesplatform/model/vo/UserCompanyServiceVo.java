@@ -54,7 +54,21 @@ public class UserCompanyServiceVo extends UserCompanyService {
 		this.createTimeStr = createTimeStr;
 	}
 
+	public Integer getQueryRows() {
+		return queryRows;
+	}
 
+	public void setQueryRows(Integer queryRows) {
+		this.queryRows = queryRows;
+	}
+
+	public BaseUserCompanyVo getBaseUserCompanyVo() {
+		return baseUserCompanyVo;
+	}
+
+	public void setBaseUserCompanyVo(BaseUserCompanyVo baseUserCompanyVo) {
+		this.baseUserCompanyVo = baseUserCompanyVo;
+	}
 
 	public String getServiceTypeStr() {
 		return serviceTypeStr;
