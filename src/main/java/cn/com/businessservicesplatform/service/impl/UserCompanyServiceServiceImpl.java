@@ -1,11 +1,19 @@
 package cn.com.businessservicesplatform.service.impl;
 
+import cn.com.businessservicesplatform.common.util.BasePage;
 import cn.com.businessservicesplatform.dao.mysql.BaseConfigDataMapper;
 import cn.com.businessservicesplatform.dao.mysql.UserCompanyServiceMapper;
-import cn.com.businessservicesplatform.model.mysql.BaseConfigData;
 import cn.com.businessservicesplatform.model.mysql.UserCompanyService;
+import cn.com.businessservicesplatform.model.mysql.UserLookHistory;
+import cn.com.businessservicesplatform.model.vo.BaseUserCompanyVo;
 import cn.com.businessservicesplatform.model.vo.UserCompanyServiceVo;
+import cn.com.businessservicesplatform.model.vo.UserLookHistoryVo;
+import cn.com.businessservicesplatform.service.BaseUserCompanyService;
 import cn.com.businessservicesplatform.service.UserCompanyServiceService;
+import cn.com.businessservicesplatform.service.UserLookHistoryService;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,6 +33,11 @@ public class UserCompanyServiceServiceImpl implements UserCompanyServiceService{
     UserCompanyServiceMapper userCompanyServiceMapper;
     @Autowired
     BaseConfigDataMapper baseConfigDataMapper;
+    @Autowired
+    BaseUserCompanyService baseUserCompanyService;
+    
+    @Autowired
+	UserLookHistoryService userLookHistoryService;
 
     public int insert(UserCompanyServiceVo vo){
         return userCompanyServiceMapper.insert(vo);
@@ -45,15 +58,41 @@ public class UserCompanyServiceServiceImpl implements UserCompanyServiceService{
 		UserCompanyService userCompanyService = userCompanyServiceMapper.selectByPrimaryKey(id);
 		if(null != userCompanyService && userCompanyService.getId() != null){
 			userCompanyServiceVo = new UserCompanyServiceVo(userCompanyService);
-			if(null != userCompanyServiceVo.getServiceType()){
-				BaseConfigData baseConfigData = baseConfigDataMapper.selectByPrimaryKey(id);
-				if(null != baseConfigData){
-					userCompanyServiceVo.setServiceTypeStr(baseConfigData.getShowName());
-				}
+			if(null != userCompanyServiceVo && userCompanyServiceVo.getCompanyId() != null){
+				BaseUserCompanyVo baseUserCompanyVo = baseUserCompanyService.getUserAllCompany(userCompanyServiceVo.getCompanyId());
+				userCompanyServiceVo.setBaseUserCompanyVo(baseUserCompanyVo);
 			}
 		}
 		return userCompanyServiceVo;
 	}
-
+	
+	@Override
+	public List<UserCompanyServiceVo> queryPage(BasePage basePage,UserCompanyServiceVo vo){
+		List<UserCompanyServiceVo> list = userCompanyServiceMapper.queryPage(basePage, vo);
+		if(null != list && list.size()>0){
+			for(UserCompanyServiceVo serviceVo :list){
+				if(null != serviceVo && serviceVo.getCompanyId() != null){
+					BaseUserCompanyVo baseUserCompanyVo = baseUserCompanyService.getUserAllCompany(serviceVo.getCompanyId());
+					serviceVo.setBaseUserCompanyVo(baseUserCompanyVo);
+				}
+			}
+		}
+		return list;
+	}
+	@Autowired
+	public List<UserCompanyServiceVo> queryLikeList(){
+		List<UserCompanyServiceVo> result = null;
+		UserLookHistoryVo userLookHistoryVo = new UserLookHistoryVo();
+		List<UserLookHistory> list =  userLookHistoryService.queryTopHistroyList(userLookHistoryVo);
+		if(null != list && list.size()>0){
+			result = new ArrayList<UserCompanyServiceVo>();
+			for(UserLookHistory history:list){
+				if(null != history && history.getServiceId()!=null){
+					result.add(getAllService(history.getServiceId()));
+				}
+			}
+		}
+		return result;
+	}
 
 }

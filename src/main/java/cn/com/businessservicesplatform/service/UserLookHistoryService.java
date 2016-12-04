@@ -14,7 +14,7 @@ public interface UserLookHistoryService {
 	 * @Time: 下午9:19:22 <br>
 	 * @param userLookHistoryVo
 	 * @return
-	 * @return int <br>
+	 * @return int <br>UserCompanyServiceService
 	 * @throws
 	 */
 	public int insert(UserLookHistoryVo userLookHistoryVo);
@@ -49,5 +49,17 @@ public interface UserLookHistoryService {
 	 * @return
      */
 	public List<String> queryHisDate();
+	
+	/**
+	 * @Description: 猜你喜欢 <br>
+	 * @Author: wangwenbin <br>
+	 * @Date: 2016年12月4日 <br>
+	 * @Time: 下午4:28:48 <br>
+	 * @param userLookHistoryVo
+	 * @return
+	 * @return List<UserLookHistory> <br>
+	 * @throws
+	 */
+	public List<UserLookHistory> queryTopHistroyList(UserLookHistoryVo userLookHistoryVo);
 	
 }

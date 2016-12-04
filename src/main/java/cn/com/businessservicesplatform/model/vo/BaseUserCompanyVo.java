@@ -16,6 +16,16 @@ public class BaseUserCompanyVo extends BaseUserCompany {
 	public  String  picListStr;
 	
 	public String logoPicPath;
+	
+	public String queryStr;
+
+	public String getQueryStr() {
+		return queryStr;
+	}
+
+	public void setQueryStr(String queryStr) {
+		this.queryStr = queryStr;
+	}
 
 	public String getLogoPicPath() {
 		if(null != picList && picList.size() > 0){

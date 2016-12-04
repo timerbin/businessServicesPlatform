@@ -1,9 +1,12 @@
 package cn.com.businessservicesplatform.dao.mysql;
 
+import cn.com.businessservicesplatform.common.util.BasePage;
 import cn.com.businessservicesplatform.model.mysql.UserCompanyService;
 import cn.com.businessservicesplatform.model.vo.UserCompanyServiceVo;
 
 import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
 
 public interface UserCompanyServiceMapper {
     int deleteByPrimaryKey(Integer id);
@@ -21,4 +24,6 @@ public interface UserCompanyServiceMapper {
     int updateByPrimaryKey(UserCompanyService record);
 
     UserCompanyServiceVo getUserCompanyService(UserCompanyService record);
+    
+    List<UserCompanyServiceVo> queryPage(@Param("basePage")BasePage basePage,@Param("vo")UserCompanyServiceVo vo);
 }
