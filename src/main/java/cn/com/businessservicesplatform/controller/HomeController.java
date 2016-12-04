@@ -44,7 +44,7 @@ public class HomeController extends BaseController{
 	 */
 	@RequestMapping("/allCompany")
     public ModelAndView allCompany(Integer page,HttpServletRequest request,BaseUserCompanyVo baseUserCompanyVo) {
-    	ModelAndView model = new ModelAndView ("/company/allCompany");
+    	ModelAndView model = new ModelAndView ("/home/allCompany");
     	try {
     		model.addObject("queryVo", baseUserCompanyVo);
     		
@@ -77,7 +77,7 @@ public class HomeController extends BaseController{
 	 */
 	@RequestMapping("/allService")
     public ModelAndView allService(Integer page,HttpServletRequest request,UserCompanyServiceVo userCompanyServiceVo) {
-    	ModelAndView model = new ModelAndView ("/company/allService");
+    	ModelAndView model = new ModelAndView ("/home/allService");
     	try {
     		model.addObject("queryVo", userCompanyServiceVo);
     		
@@ -117,7 +117,7 @@ public class HomeController extends BaseController{
 	 */
 	@RequestMapping("/homeIndex")
     public ModelAndView home(HttpServletRequest request,BaseUserCompanyVo baseUserCompanyVo) {
-    	ModelAndView model = new ModelAndView ("/company/home");
+    	ModelAndView model = new ModelAndView ("/home/home");
     	try {
     		model.addObject("queryVo", baseUserCompanyVo);
     		
