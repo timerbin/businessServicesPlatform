@@ -1,5 +1,6 @@
 package cn.com.businessservicesplatform.controller;
 
+import cn.com.businessservicesplatform.common.constants.UserLookHistoryTypeEnum;
 import cn.com.businessservicesplatform.model.mysql.BaseUserCompany;
 import cn.com.businessservicesplatform.model.mysql.UserCompanyService;
 import cn.com.businessservicesplatform.model.mysql.UserLookHistory;
@@ -54,6 +55,19 @@ public class UserLookHistoryController extends BaseController{
     	ModelAndView model = new ModelAndView ( "/user/lookHistory");
 		UserLookHistoryVo vo = new UserLookHistoryVo();
 		List<UserLookHistory> ulhLstHis =  userLookHistoryService.queryHistroyList(vo);
+
+
+		//查询企业 浏览历史
+		UserLookHistoryVo voCompany = new UserLookHistoryVo();
+		voCompany.setType(UserLookHistoryTypeEnum.COMPANY.getId());
+		List<UserLookHistory> comLstHis =  userLookHistoryService.queryHistroyList(vo);
+
+		//查询服务 浏览历史
+		UserLookHistoryVo voService = new UserLookHistoryVo();
+		voService.setType(UserLookHistoryTypeEnum.SERVICES.getId());
+		List<UserLookHistory> serLstHis =  userLookHistoryService.queryHistroyList(vo);
+
+
 		List<UserLookHistoryVo> ulhLst = new ArrayList<UserLookHistoryVo>();
 		for (UserLookHistory ulh : ulhLstHis){
 			UserLookHistoryVo hVo = new UserLookHistoryVo(ulh.getUserId(),ulh.getServiceId(),ulh.getCompanyId(),ulh.getType());
@@ -84,6 +98,9 @@ public class UserLookHistoryController extends BaseController{
 		}
 
 		model.addObject("ulhLstNew",ulhLstNew);
+		model.addObject("comLstHis",comLstHis);
+		model.addObject("serLstHis",serLstHis);
+
 		model.addObject("dateStr",userLookHistoryService.queryHisDate());
     	return model;
     }

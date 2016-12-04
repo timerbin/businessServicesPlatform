@@ -47,19 +47,19 @@
     <div class="gerenzx_right">
     	<div class="grzx_h2"><h2>浏览历史</h2></div>
       <div class="llls_button_box">
-        	<input name="" type="button" value="全部分类" class="llls_button" />
-          <input name="" type="button" value="企业" class="llls_button2" />
-          <input name="" type="button" value="服务" class="llls_button2" />
+        	<input name="tyAll" id="tyAll" type="button" value="全部分类" class="llls_button" onclick="typeAll()"/>
+          <input name="comAll" id="comAll" type="button" value="企业" class="llls_button2" onclick="comAllEvn()"/>
+          <input name="serAll" id="serAll" type="button" value="服务" class="llls_button2" onclick="serAllEvn()"/>
         </div>
 
-        <c:forEach var="dtStr" items="${ dateStr}">
+        <c:forEach var="dtStr" items="${dateStr}">
 
             <c:forEach var="history" items="${ulhLstNew}">
 
                 <c:if test="${dtStr == history.nowDate}" >
                     <div class="llls_time">${dtStr}</div>
 
-                    <div>
+                    <div id="alls" style="display: block">
                         <dl class="llls_list">
                             <dt><img src="${history.companyPicUrl}" /></dt>
                             <dd>
@@ -81,9 +81,58 @@
                         <div class="clear"></div>
                     </div>
 
-                    <br/>
+                    <div id="allCom" style="display: none">
 
+                <c:if test="${history.type == 2}">
+                        <dl class="llls_list">
+                            <dt><img src="${history.companyPicUrl}" /></dt>
+                            <dd>
+                                <h3>斐讯数据通信技术有限公司</h3>
+                                <p>激情发展、追求卓越、客户价值、共同成长</p>
+                                <span><img src="/images/shanchu.png"/></span>
+                            </dd>
+                        </dl>
+                            <%--</c:if>
+                            <c:if test="${history.type == 1}" >--%>
+                        <dl class="llls_list">
+                            <dt><img src="/images/home_yzqy_16.jpg" /></dt>
+                            <dd>
+                                <h3>斐讯数据通信技术有限公司</h3>
+                                <p>激情发展、追求卓越、客户价值、共同成长</p>
+                                <span><img src="/images/shanchu.png"/></span>
+                            </dd>
+                        </dl>
                 </c:if>
+                        <div class="clear"></div>
+                    </div>
+
+                    <div id="allSer" style="display: none">
+
+                        <c:if test="${history.type == 1}">
+                        <dl class="llls_list">
+                            <dt><img src="${history.companyPicUrl}" /></dt>
+                            <dd>
+                                <h3>斐讯数据通信技术有限公司</h3>
+                                <p>激情发展、追求卓越、客户价值、共同成长</p>
+                                <span><img src="/images/shanchu.png"/></span>
+                            </dd>
+                        </dl>
+                            <%--</c:if>
+                            <c:if test="${history.type == 1}" >--%>
+                        <dl class="llls_list">
+                            <dt><img src="/images/home_yzqy_16.jpg" /></dt>
+                            <dd>
+                                <h3>斐讯数据通信技术有限公司</h3>
+                                <p>激情发展、追求卓越、客户价值、共同成长</p>
+                                <span><img src="/images/shanchu.png"/></span>
+                            </dd>
+                        </dl>
+                        </c:if>
+                        <div class="clear"></div>
+                    </div>
+                    <br/>
+                </div>
+        </c:if>
             </c:forEach>
         </c:forEach>
 
@@ -93,5 +142,43 @@
 
 </div>
 <jsp:include page="../public/footer.jsp" ></jsp:include>
+
 </body>
 </html>
+
+<script type="application/javascript">
+
+    function typeAll(){
+        $('#tyAll').addClass("llls_button");
+        $('#comAll').addClass("llls_button2");
+        $('#serAll').addClass("llls_button2");
+
+        $('#alls').show();
+        $('#allSer').hide();
+        $('#allCom').hide();
+
+    }
+
+    function comAllEvn(){
+
+        $('#tyAll').addClass("llls_button2");
+        $('#comAll').addClass("llls_button");
+        $('#serAll').addClass("llls_button2");
+
+        $('#alls').hide();
+        $('#allSer').hide();
+        $('#allCom').show();
+
+    }
+
+    function serAllEvn(){
+
+        $('#tyAll').addClass("llls_button2");
+        $('#comAll').addClass("llls_button2");
+        $('#serAll').addClass("llls_button");
+
+        $('#alls').hide();
+        $('#allSer').show();
+        $('#allCom').hide();
+    }
+</script>
