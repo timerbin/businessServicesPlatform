@@ -23,6 +23,13 @@
     from user_look_history
     where id = #{id,jdbcType=INTEGER}
   </select>
+
+  <select id="queryHistoryDate" resultMap="BaseResultMap" >
+    SELECT DISTINCT(now_date) FROM
+    user_look_history
+    where  status = 1
+
+  </select>
    <select id="queryHistroyList" resultMap="BaseResultMap" parameterType="cn.com.businessservicesplatform.model.vo.UserLookHistoryVo" >
     select 
     <include refid="Base_Column_List" />
@@ -44,7 +51,7 @@
         and type = #{vo.type,jdbcType=INTEGER},
     </if>
     <if test="vo.nowDate != null" >
-        and now_date = #{vo.nowDate,jdbcType=INTEGER},
+        and now_date = #{vo.nowDate,jdbcType=VARCHAR},
     </if>
   </select>
   
@@ -69,7 +76,7 @@
         and type = #{vo.type,jdbcType=INTEGER},
     </if>
     <if test="vo.nowDate != null" >
-        and now_date = #{vo.nowDate,jdbcType=INTEGER},
+        and now_date = #{vo.nowDate,jdbcType=VARCHAR},
     </if>
     
   </select>

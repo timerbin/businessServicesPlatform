@@ -52,34 +52,39 @@
           <input name="" type="button" value="服务" class="llls_button2" />
         </div>
 
-        <c:forEach var="history" items="${ulhLstNew}">
+        <c:forEach var="dtStr" items="${ dateStr}">
 
-        <div class="llls_time">${history.createTime}</div>
+            <c:forEach var="history" items="${ulhLstNew}">
 
-        <div>
-            <c:if test="${history.type == 2}" >
-            <dl class="llls_list">
-                <dt><img src="/images/home_yzqy_16.jpg" /></dt>
-                <dd>
-                    <h3>斐讯数据通信技术有限公司</h3>
-                    <p>激情发展、追求卓越、客户价值、共同成长</p>
-                    <span><img src="/images/shanchu.png"/></span>
-                </dd>
-            </dl>
-            </c:if>
-            <c:if test="${history.type == 1}" >
-            <dl class="llls_list">
-                <dt><img src="/images/home_yzqy_16.jpg" /></dt>
-                <dd>
-                    <h3>斐讯数据通信技术有限公司</h3>
-                    <p>激情发展、追求卓越、客户价值、共同成长</p>
-                    <span><img src="/images/shanchu.png"/></span>
-                </dd>
-            </dl>
-            </c:if>
-            <div class="clear"></div>
-      	</div>
+                <c:if test="${dtStr == history.nowDate}" >
+                    <div class="llls_time">${dtStr}</div>
 
+                    <div>
+                        <dl class="llls_list">
+                            <dt><img src="${history.companyPicUrl}" /></dt>
+                            <dd>
+                                <h3>斐讯数据通信技术有限公司</h3>
+                                <p>激情发展、追求卓越、客户价值、共同成长</p>
+                                <span><img src="/images/shanchu.png"/></span>
+                            </dd>
+                        </dl>
+                            <%--</c:if>
+                            <c:if test="${history.type == 1}" >--%>
+                        <dl class="llls_list">
+                            <dt><img src="/images/home_yzqy_16.jpg" /></dt>
+                            <dd>
+                                <h3>斐讯数据通信技术有限公司</h3>
+                                <p>激情发展、追求卓越、客户价值、共同成长</p>
+                                <span><img src="/images/shanchu.png"/></span>
+                            </dd>
+                        </dl>
+                        <div class="clear"></div>
+                    </div>
+
+                    <br/>
+
+                </c:if>
+            </c:forEach>
         </c:forEach>
 
         

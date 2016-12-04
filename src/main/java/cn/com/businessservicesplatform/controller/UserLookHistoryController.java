@@ -25,7 +25,7 @@ import java.util.List;
 
 
 @Controller
-@RequestMapping("/shop/look")
+@RequestMapping("/shopp/look")
 public class UserLookHistoryController extends BaseController{
 	
 	private static final Logger log = LoggerFactory.getLogger(UserLookHistoryController.class);
@@ -51,7 +51,7 @@ public class UserLookHistoryController extends BaseController{
      */
     @RequestMapping("/toLookList")
     public ModelAndView toLookList() {
-    	ModelAndView model = new ModelAndView ( "/login/login");
+    	ModelAndView model = new ModelAndView ( "/user/lookHistory");
 		UserLookHistoryVo vo = new UserLookHistoryVo();
 		List<UserLookHistory> ulhLstHis =  userLookHistoryService.queryHistroyList(vo);
 		List<UserLookHistoryVo> ulhLst = new ArrayList<UserLookHistoryVo>();
@@ -63,6 +63,7 @@ public class UserLookHistoryController extends BaseController{
 
 
 		List<UserLookHistoryVo> ulhLstNew = new ArrayList<UserLookHistoryVo>();
+//		List<String> dateStr = new ArrayList<String>();
 
 		BaseUserCompanyVo companyVo = new BaseUserCompanyVo();
 		UserCompanyServiceVo usVo = new UserCompanyServiceVo();
@@ -83,6 +84,7 @@ public class UserLookHistoryController extends BaseController{
 		}
 
 		model.addObject("ulhLstNew",ulhLstNew);
+		model.addObject("dateStr",userLookHistoryService.queryHisDate());
     	return model;
     }
 	

@@ -44,5 +44,10 @@ public interface UserLookHistoryService {
 	 */
 	public int updateDel(Integer id);
 
+	/**
+	 * 获取浏览历史的所有日期
+	 * @return
+     */
+	public List<String> queryHisDate();
 	
 }

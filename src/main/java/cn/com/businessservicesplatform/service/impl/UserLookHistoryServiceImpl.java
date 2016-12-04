@@ -76,7 +76,15 @@ public class UserLookHistoryServiceImpl implements UserLookHistoryService{
 		return userLookHistoryMapper.updateDelStatus(id);
 	}
 
-	 
-	 
+	/**
+	 * 获取浏览历史的所有日期
+	 *
+	 * @return
+	 */
+	@Override
+	public List<String> queryHisDate() {
+		return userLookHistoryMapper.queryHistoryDate();
+	}
+
 
 }

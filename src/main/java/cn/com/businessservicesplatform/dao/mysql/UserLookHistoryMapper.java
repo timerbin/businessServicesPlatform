@@ -22,8 +22,10 @@ public interface UserLookHistoryMapper {
     
     UserLookHistory getByVo(@Param("vo")UserLookHistoryVo UserLookHistoryVo);
     
-    public List<UserLookHistory> queryHistroyList(UserLookHistoryVo userLookHistoryVo);
+    public List<UserLookHistory> queryHistroyList(@Param("vo")UserLookHistoryVo userLookHistoryVo);
     
     int updateDelStatus(Integer id);
+
+    List<String> queryHistoryDate();
 
 }
