@@ -2,6 +2,8 @@ package cn.com.businessservicesplatform.model.vo;
 
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
+
 import cn.com.businessservicesplatform.model.mysql.BaseUserCompany;
 import cn.com.businessservicesplatform.model.mysql.BaseUserCompanyPic;
 
@@ -12,6 +14,22 @@ public class BaseUserCompanyVo extends BaseUserCompany {
 	private List<BaseUserCompanyPic>  picList;
 	
 	public  String  picListStr;
+	
+	public String logoPicPath;
+
+	public String getLogoPicPath() {
+		if(null != picList && picList.size() > 0){
+			BaseUserCompanyPic pic = picList.get(0);
+			if(null != pic && !StringUtils.isBlank(pic.getCompanyPicUrl())){
+				this.setLogoPicPath(pic.getCompanyPicUrl());
+			}
+		}
+		return logoPicPath;
+	}
+
+	public void setLogoPicPath(String logoPicPath) {
+		this.logoPicPath = logoPicPath;
+	}
 
 	public String getPicListStr() {
 		return picListStr;

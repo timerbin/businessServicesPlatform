@@ -10,4 +10,6 @@ public interface BaseUserCompanyService {
 	public BaseUserCompanyVo getBaseUserAllCompany(Integer userId);
 	
 	public BaseUserCompany getUserCompany(BaseUserCompanyVo baseUserCompanyVo);
+	
+	public BaseUserCompanyVo getUserAllCompany(Integer id);
 }
