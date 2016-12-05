@@ -8,22 +8,15 @@ public class UserCompanyServiceVo extends UserCompanyService {
 	
 	public UserCompanyServiceVo(){}
 	
-	public String serviceTypeStr;
+	private String serviceTypeStr;
 	public Integer queryRows = 20;
 	
-	public String createTimeStr;
+	private String createTimeStr;
 	
 	public BaseUserCompanyVo baseUserCompanyVo;
-	public String statusStr;
+	private String statusStr;
+	private String recommendStr; //是否推荐
 
-	public String getStatusStr() {
-		return statusStr;
-	}
-
-	public void setStatusStr(String statusStr) {
-		this.statusStr = statusStr;
-	}
-	
     public UserCompanyServiceVo(UserCompanyService userCompanyService){
     	super.setCompanyId(userCompanyService.getCompanyId());
     	super.setServiceContactTel(userCompanyService.getServiceContactTel());
@@ -76,6 +69,23 @@ public class UserCompanyServiceVo extends UserCompanyService {
 
 	public void setServiceTypeStr(String serviceTypeStr) {
 		this.serviceTypeStr = serviceTypeStr;
+	}
+
+
+	public String getRecommendStr() {
+		return recommendStr;
+	}
+
+	public void setRecommendStr(String recommendStr) {
+		this.recommendStr = recommendStr;
+	}
+
+	public String getStatusStr() {
+		return statusStr;
+	}
+
+	public void setStatusStr(String statusStr) {
+		this.statusStr = statusStr;
 	}
     
     

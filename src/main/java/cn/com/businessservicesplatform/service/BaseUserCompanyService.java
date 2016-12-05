@@ -22,8 +22,7 @@ public interface BaseUserCompanyService {
 	 */
 	List<BaseUserCompanyVo> getAllUserCompanys(BaseUserCompanyVo baseUserCompanyVo);
 
-	public List<BaseUserCompanyVo> queryPage(BasePage
-													 basePage,BaseUserCompanyVo vo);
+	public List<BaseUserCompanyVo> queryPage(BasePage basePage,BaseUserCompanyVo vo);
 
 	public List<BaseUserCompanyVo> queryList(BaseUserCompanyVo vo);
 

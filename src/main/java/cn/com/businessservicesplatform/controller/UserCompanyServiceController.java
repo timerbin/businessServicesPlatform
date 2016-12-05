@@ -1,6 +1,7 @@
 package cn.com.businessservicesplatform.controller;
 
 import cn.com.businessservicesplatform.common.constants.BaseConfigTypeEnum;
+import cn.com.businessservicesplatform.common.constants.RecommendEnum;
 import cn.com.businessservicesplatform.common.constants.UserServiceStatuesEnum;
 import cn.com.businessservicesplatform.model.mysql.BaseConfigData;
 import cn.com.businessservicesplatform.model.mysql.UserCompanyService;
@@ -73,6 +74,7 @@ public class UserCompanyServiceController extends BaseController{
 				if(serVo.getServiceType() == configs.getId()){
 					serVo.setServiceTypeStr(configs.getShowName());
 					serVo.setStatusStr(UserServiceStatuesEnum.get(serVo.getStatus()).getDes());
+					serVo.setRecommendStr(RecommendEnum.get(serVo.getRecommend()).getDes());
 				}
 			}
 

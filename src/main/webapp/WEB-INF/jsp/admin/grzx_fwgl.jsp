@@ -46,7 +46,9 @@
         <jsp:include page="../public/loginLeft.jsp" />
     <div class="gerenzx_right">
     	<div class="grzx_h2"><h2>服务管理</h2></div>
+        <form action="" id="" name="">
       <table border="0" cellspacing="10" cellpadding="0" class="gerenzx_table">
+
           <tr>
             <td width="78" align="right">服务名称：</td>
             <td width="155"><input name="" type="text" class="grzx_input" /></td>
@@ -90,8 +92,20 @@
                   <td align="center">${fwVo.serviceTypeStr}</td>
                   <td align="center">${fwVo.statusStr}</td>
                   <td align="center">${fwVo.id}</td>
-                  <td align="center">是</td>
-                  <td align="center"><a href="#" class="hongzi_a">推荐</a> <a href="#" class="lanzi_a">编辑</a> <a href="#" class="hongzi_a">删除</a> <a href="#" class="lanzi_a">详情</a></td>
+                  <td align="center">${fwVo.recommendStr}</td>
+                  <td align="center">
+                      <c:if test="${fwVo.recommend == 0}">
+                          <a href="${BASE_URL}/user/doEditUserInfo.html" class="hongzi_a">不推荐</a>
+                      </c:if>
+                      <c:if test="${fwVo.recommend == 1}">
+                          <a href="#" class="hongzi_a">推荐</a>
+                      </c:if>
+
+
+                      <a href="#" class="lanzi_a">编辑</a>
+                      <a href="#" class="hongzi_a">删除</a>
+                      <a href="#" class="lanzi_a">详情</a>
+                  </td>
               </tr>
           </c:forEach>
 
@@ -106,7 +120,7 @@
           </tr>--%>
           </tbody>
         </table>
-
+        </form>
   </div>
 </div>
 <jsp:include page="../public/footer.jsp" ></jsp:include>
