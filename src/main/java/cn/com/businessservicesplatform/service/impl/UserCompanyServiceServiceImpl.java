@@ -94,6 +94,28 @@ public class UserCompanyServiceServiceImpl implements UserCompanyServiceService{
 		}
 		return list;
 	 }
+
+
+	/**
+	 * 更新
+	 * @param vo
+	 * @return
+     */
+	@Override
+	public int updateByPrimaryKeySelective(UserCompanyServiceVo vo) {
+		return userCompanyServiceMapper.updateByPrimaryKeySelective(vo);
+	}
+
+	/**
+	 * 删除
+	 * @param id
+	 * @return
+     */
+	@Override
+	public int delCompanyServiceByid(Integer id) {
+		return userCompanyServiceMapper.deleteByPrimaryKey(id);
+	}
+
 	@Override
 	public List<UserCompanyServiceVo> queryLikeList(Integer queryRows){
 		List<UserCompanyServiceVo> result = null;

@@ -27,4 +27,8 @@ public interface UserCompanyServiceService {
    public List<UserCompanyServiceVo> queryLikeList(Integer queryRows);
 
    public List<UserCompanyServiceVo> queryList(UserCompanyServiceVo vo);
+
+   public int updateByPrimaryKeySelective(UserCompanyServiceVo vo);
+
+   public int delCompanyServiceByid(Integer id);
 }

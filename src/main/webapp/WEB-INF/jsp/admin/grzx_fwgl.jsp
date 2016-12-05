@@ -95,10 +95,10 @@
                   <td align="center">${fwVo.recommendStr}</td>
                   <td align="center">
                       <c:if test="${fwVo.recommend == 0}">
-                          <a href="${BASE_URL}/user/doEditUserInfo.html" class="hongzi_a">不推荐</a>
+                          <a href="${BASE_URL}/user/doEditUserInfo.html?recommend=0" class="hongzi_a">不推荐</a>
                       </c:if>
                       <c:if test="${fwVo.recommend == 1}">
-                          <a href="#" class="hongzi_a">推荐</a>
+                          <a href="${BASE_URL}/user/doEditUserInfo.html?recommend=1" class="hongzi_a">推荐</a>
                       </c:if>
 
 
