@@ -26,9 +26,23 @@ public class BaseUserVo extends BaseUser {
 	 private String verifyCode;
 	 
 	 private Integer companyId;
-	 
+	 /***
+	  * Enabled 启用
+	  * Disable 停用
+	  * doAdmin 升级管理员
+	  * 
+	  */
+	 private String updateCode;
 
  
+	public String getUpdateCode() {
+		return updateCode;
+	}
+
+	public void setUpdateCode(String updateCode) {
+		this.updateCode = updateCode;
+	}
+
 	public Integer getCompanyId() {
 		return companyId;
 	}

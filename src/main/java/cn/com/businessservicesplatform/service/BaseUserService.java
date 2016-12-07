@@ -1,5 +1,8 @@
 package cn.com.businessservicesplatform.service;
 
+import java.util.List;
+
+import cn.com.businessservicesplatform.common.util.BasePage;
 import cn.com.businessservicesplatform.model.mysql.BaseUser;
 import cn.com.businessservicesplatform.model.vo.BaseUserVo;
 
@@ -34,4 +37,8 @@ public interface BaseUserService {
 	public int updateUserInfo(BaseUserVo baseUserVo);
 	
 	public BaseUser selectByPrimaryKey(Integer id);
+	
+	public List<BaseUser> queryPage(BasePage basePage, BaseUserVo baseUserVo);
+	
+	public void updateUserStatus(BaseUserVo baseUserVo);
 }

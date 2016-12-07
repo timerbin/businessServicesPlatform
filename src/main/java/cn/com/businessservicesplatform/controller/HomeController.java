@@ -60,7 +60,7 @@ public class HomeController extends BaseController{
 			List<BaseConfigData>  managementList = baseConfigDataService.queryList(new BaseConfigDataVo(BaseConfigTypeEnum.MANAGEMENT.getId()));
 			model.addObject("managementList", managementList);
 			 
-			BasePage basePage = new BasePage(page,1);
+			BasePage basePage = new BasePage(page,10);
 			
 			List<BaseUserCompanyVo> companyList = baseUserCompanyService.queryPage(basePage, baseUserCompanyVo);
 			//公司信息

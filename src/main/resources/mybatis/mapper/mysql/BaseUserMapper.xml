@@ -36,6 +36,16 @@
     where id = #{id,jdbcType=INTEGER}
   </select>
   
+  <select id="queryPage" resultMap="BaseResultMap" parameterType="cn.com.businessservicesplatform.model.vo.BaseUserVo" >
+    select 
+    <include refid="Base_Column_List" />
+    from base_user
+    where 1=1 
+      <if test="userName != null" >
+        and user_name = #{userName,jdbcType=VARCHAR}
+      </if>
+  </select>
+  
   <select id="findBaseUser" resultMap="BaseResultMap" parameterType="cn.com.businessservicesplatform.model.vo.BaseUserVo" >
     select 
     <include refid="Base_Column_List" />

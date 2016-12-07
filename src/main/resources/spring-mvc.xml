@@ -36,7 +36,7 @@
 	
 	<mvc:interceptors>
 	 	<mvc:interceptor>
-            <mvc:mapping path="/shop/**" />
+            <mvc:mapping path="/user/**" />
             <bean class="cn.com.businessservicesplatform.interceptor.LoginInterceptor"/>
         </mvc:interceptor>
 	</mvc:interceptors>

@@ -1,6 +1,7 @@
 package cn.com.businessservicesplatform.service.impl;
 
 import java.util.Date;
+import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import cn.com.businessservicesplatform.common.constants.BaseUserTypeEnum;
+import cn.com.businessservicesplatform.common.util.BasePage;
 import cn.com.businessservicesplatform.common.util.MD5Util;
 import cn.com.businessservicesplatform.dao.mysql.BaseUserMapper;
 import cn.com.businessservicesplatform.model.mysql.BaseUser;
@@ -91,7 +93,27 @@ public class BaseUserServiceImpl implements BaseUserService{
 		result = baseUserMapper.updateByPrimaryKey(baseUser);
 		return result;
 	}
-
-	 
+	@Override
+	public List<BaseUser> queryPage(BasePage basePage, BaseUserVo baseUserVo){
+		return baseUserMapper.queryPage(basePage, baseUserVo);
+	}
+	@Override
+	public void updateUserStatus(BaseUserVo baseUserVo){
+		if(null != baseUserVo && null != baseUserVo.getId()){
+			BaseUser baseUsr = baseUserMapper.selectByPrimaryKey(baseUserVo.getId());
+			if(StringUtils.isBlank(baseUserVo.getUpdateCode())){
+				if(baseUserVo.getUpdateCode().equals("Enabled")){
+					baseUsr.setUserStatus(1);
+				}else if(baseUserVo.getUpdateCode().equals("Disable")){
+					baseUsr.setUserStatus(-1);
+				}else if(baseUserVo.getUpdateCode().equals("doAdmin")){
+					baseUsr.setType(2);
+				}else if(baseUserVo.getUpdateCode().equals("doUser")){
+					baseUsr.setType(1);
+				}
+				baseUserMapper.updateByPrimaryKey(baseUsr);
+			}
+		}
+	}
 
 }
