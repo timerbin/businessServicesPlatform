@@ -8,7 +8,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 <link href="${BASE_URL}/images/hongqiao.css" rel="stylesheet" type="text/css" />
 <meta name="renderer" content="webkit" />
-<jsp:include page="../public/baseData.jsp" />
+	<jsp:include page="../public/baseData.jsp" />
+	<jsp:include page="../public/pager.jsp" />
 </head>
 <body>
 <form id="saveComment" action="${BASE_URL}/user/saveComment.html" method="post">
@@ -19,10 +20,12 @@
 	<input id="commentTypeStr" name="commentTypeStr"    type="hidden"  />
 	
 </form>
-<form id="allCompany" action="${BASE_URL}/home/allService.html" method="post">
+<form id="allService" action="${BASE_URL}/home/allService.html" method="post">
 	<input id="baseUrl"   value="${BASE_URL}"  type="hidden"  />
-	<input id="page" name="page" value="${basePage.page}"  type="hidden"  />
 	<input id="id" name="id"   value="${queryVo.id}"  type="hidden"  />
+	 <input id="page" name="page" type="hidden"/>
+    <input id="curPage" name="curPage"  value="${basePage.page}" type="hidden"/>
+   	<input id="pageCount" name="pageCount" value="${basePage.pages}" type="hidden"/>
 	
     <table width="100%" height="100%" border="0px" cellpadding="0px" cellspacing="0px" >
 	<tr><td width="250px" valign="top" class="con_left">
@@ -144,9 +147,7 @@
 	                        	<span class="hui_zi">${comment.getCreateTimeStr}</span>
 	                    	</div>
 					</c:forEach>
-                    
-                    
-                    <div class="tjfw_page"><a href="#">上一页</a> <a href="#">1</a> <a href="#">2</a> <a href="#">3</a> <a href="#">下一页</a></div>
+                    <div class="pages" id="pager"></div>
               </div>
             </div>
             <div class="fuwu_right_con">
@@ -183,6 +184,18 @@
 </table>
          
 <script type="text/javascript">
+//分页  begin
+var cur_page = $("#curPage").val();
+var page_count = $("#pageCount").val();
+jQuery("#pager").pager({pagenumber: cur_page, pagecount: page_count, buttonClickCallback: change_page });
+
+function change_page(cur_page) {
+    jQuery("#page").val(cur_page);
+    jQuery("#allCompany").submit();
+}
+
+//分页 end
+
 $("#queryBtn").click(function(){
 	$("#allCompany").submit();
 });

@@ -8,12 +8,15 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 <link href="${BASE_URL}/images/hongqiao.css" rel="stylesheet" type="text/css" />
 <meta name="renderer" content="webkit" />
-<jsp:include page="../public/baseData.jsp" />
+	<jsp:include page="../public/baseData.jsp" />
+	<jsp:include page="../public/pager.jsp" />
 </head>
 <body>
 <form id="allCompany" action="${BASE_URL}/home/allService.html" method="post">
 	<input id="baseUrl"   value="${BASE_URL}"  type="hidden"  />
-	<input id="page" name="page"   value="${basePage.page}"  type="hidden"  />
+	<input id="page" name="page" type="hidden"/>
+    <input id="curPage" name="curPage"  value="${basePage.page}" type="hidden"/>
+   	<input id="pageCount" name="pageCount" value="${basePage.pages}" type="hidden"/>
     <table width="100%" height="100%" border="0px" cellpadding="0px" cellspacing="0px" >
 	<tr><td width="250px" valign="top" class="con_left">
 		 <jsp:include page="../public/left.jsp" ></jsp:include>
@@ -69,7 +72,7 @@
                 	</div>
                 	</c:if>
 				</c:forEach>
-            	<div class="page"><span class="page_left"><a href="#"></a></span> <a href="#">1</a> <a href="#" class="page_tab">2</a> <a href="#">3</a> <a href="#">4</a> <a href="#">5</a> <a href="#">6</a> <span class="page_right"><a href="#"></a></span></div>
+				 <div class="pages" id="pager"></div>
           </div>
             <div class="fuwu_right_con">
                 <div class="tjfw_cnxh">
@@ -93,6 +96,19 @@
     </td></tr>
 </table>
 <script type="text/javascript">
+//分页  begin
+var cur_page = $("#curPage").val();
+var page_count = $("#pageCount").val();
+jQuery("#pager").pager({pagenumber: cur_page, pagecount: page_count, buttonClickCallback: change_page });
+
+function change_page(cur_page) {
+    jQuery("#page").val(cur_page);
+    jQuery("#allCompany").submit();
+}
+
+//分页 end
+
+
 $("#queryBtn").click(function(){
 	$("#allCompany").submit();
 });

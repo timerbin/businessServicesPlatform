@@ -23,6 +23,10 @@
     <result column="verify_user_name" property="verifyUserName" jdbcType="VARCHAR" />
     <result column="verify_user_des" property="verifyUserDes" jdbcType="VARCHAR" />
   </resultMap>
+  
+  <resultMap extends="BaseResultMap" id="BaseResultMapVo" type="cn.com.businessservicesplatform.model.vo.BaseUserCompanyVo">
+  </resultMap>
+  
   <sql id="Base_Column_List" >
     id, user_id, company_name, company_address, company_contact_user, company_contact_tel, 
     company_url, company_register_money, company_register_time, company_directions, company_scope, 
@@ -56,7 +60,7 @@
     </if>
   </select>
   
-  <select id="queryPage" resultMap="BaseResultMap" parameterType="cn.com.businessservicesplatform.model.vo.BaseUserCompanyVo" >
+  <select id="queryPage" resultMap="BaseResultMapVo" parameterType="cn.com.businessservicesplatform.model.vo.BaseUserCompanyVo" >
     select 
     <include refid="Base_Column_List" />
     from base_user_company where status = 1

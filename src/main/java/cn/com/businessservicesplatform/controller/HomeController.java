@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 
@@ -47,7 +48,7 @@ public class HomeController extends BaseController{
 	 * @throws
 	 */
 	@RequestMapping("/allCompany")
-    public ModelAndView allCompany(Integer page,HttpServletRequest request,BaseUserCompanyVo baseUserCompanyVo) {
+    public ModelAndView allCompany(@RequestParam(required = false, value = "page", defaultValue = "1")Integer page,HttpServletRequest request,BaseUserCompanyVo baseUserCompanyVo) {
     	ModelAndView model = new ModelAndView ("/home/allCompany");
     	try {
     		model.addObject("queryVo", baseUserCompanyVo);
@@ -59,13 +60,15 @@ public class HomeController extends BaseController{
 			List<BaseConfigData>  managementList = baseConfigDataService.queryList(new BaseConfigDataVo(BaseConfigTypeEnum.MANAGEMENT.getId()));
 			model.addObject("managementList", managementList);
 			 
-			BasePage basePage = new BasePage(page,10);
+			BasePage basePage = new BasePage(page,1);
+			
 			List<BaseUserCompanyVo> companyList = baseUserCompanyService.queryPage(basePage, baseUserCompanyVo);
 			//公司信息
 			model.addObject("companyList", companyList);
 			
 			model.addObject("basePage", basePage);
 		} catch (Exception e) {
+			e.printStackTrace();
 			log.error("HomeController.allCompany.is.system.error",e);
 		}
     	return model;
@@ -80,7 +83,7 @@ public class HomeController extends BaseController{
 	 * @throws
 	 */
 	@RequestMapping("/allService")
-    public ModelAndView allService(Integer page,HttpServletRequest request,UserCompanyServiceVo userCompanyServiceVo) {
+    public ModelAndView allService(@RequestParam(required = false, value = "page", defaultValue = "1")Integer page,HttpServletRequest request,UserCompanyServiceVo userCompanyServiceVo) {
     	ModelAndView model = new ModelAndView ("/home/allService");
     	try {
     		model.addObject("queryVo", userCompanyServiceVo);
@@ -165,7 +168,7 @@ public class HomeController extends BaseController{
 	 * @throws
 	 */
 	@RequestMapping("/serviceShow")
-    public ModelAndView serviceShow(Integer page,Integer commentType,HttpServletRequest request,UserCompanyServiceVo userCompanyServiceVo) {
+    public ModelAndView serviceShow(@RequestParam(required = false, value = "page", defaultValue = "1")Integer page,Integer commentType,HttpServletRequest request,UserCompanyServiceVo userCompanyServiceVo) {
     	ModelAndView model = new ModelAndView ("/home/serviceShow");
     	try {
     		if(null == userCompanyServiceVo || userCompanyServiceVo.getId() == null){
