@@ -2,7 +2,6 @@ package cn.com.businessservicesplatform.controller;
 
 import cn.com.businessservicesplatform.common.constants.UserLookHistoryTypeEnum;
 import cn.com.businessservicesplatform.model.mysql.BaseUserCompany;
-import cn.com.businessservicesplatform.model.mysql.UserCompanyService;
 import cn.com.businessservicesplatform.model.mysql.UserLookHistory;
 import cn.com.businessservicesplatform.model.vo.BaseUserCompanyVo;
 import cn.com.businessservicesplatform.model.vo.UserCompanyServiceVo;
@@ -26,7 +25,7 @@ import java.util.List;
 
 
 @Controller
-@RequestMapping("/shopp/look")
+@RequestMapping("/user")
 public class UserLookHistoryController extends BaseController{
 	
 	private static final Logger log = LoggerFactory.getLogger(UserLookHistoryController.class);

@@ -14,13 +14,13 @@ import java.util.List;
 
 
 @Controller
-@RequestMapping("/shop/baseConfig")
+@RequestMapping("/user")
 public class BaseConfigController extends BaseController {
 
 	@Autowired
 	BaseConfigDataService baseConfigDataService;
     
-    @RequestMapping("/list")
+    @RequestMapping("/baseList")
     public ModelAndView toIndex() {
     	BasePage basePage = new BasePage(1,3);
     	BaseConfigDataVo baseConfigDataVo = new BaseConfigDataVo();

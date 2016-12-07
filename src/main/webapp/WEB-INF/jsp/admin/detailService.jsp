@@ -123,12 +123,12 @@
 <script type="application/javascript">
 
     function retturnSer(){
-        window.location.href="${BASE_URL}/shopp/userCompanyService/toServiceManage.html";
+        window.location.href="${BASE_URL}/user/toServiceManage.html";
     }
 
    /* function updateSer(){
         $.ajax({
-            url:'${BASE_URL}/shopp/userCompanyService/toServiceManage.html',
+            url:'${BASE_URL}/user/toServiceManage.html',
             type:'POST', //GET
             async:false,    //或false,是否异步
             data:{

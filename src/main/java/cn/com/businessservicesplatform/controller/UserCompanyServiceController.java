@@ -25,7 +25,7 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
-@RequestMapping("/shopp/userCompanyService")
+@RequestMapping("/user")
 public class UserCompanyServiceController extends BaseController{
 
 	public static final Logger log = LoggerFactory.getLogger(UserCompanyServiceController.class);
