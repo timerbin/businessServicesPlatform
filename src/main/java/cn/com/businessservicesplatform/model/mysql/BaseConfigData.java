@@ -2,6 +2,8 @@ package cn.com.businessservicesplatform.model.mysql;
 
 import java.util.Date;
 
+import cn.com.businessservicesplatform.model.vo.BaseConfigDataVo;
+
 public class BaseConfigData {
     private Integer id;
 
@@ -16,6 +18,14 @@ public class BaseConfigData {
     private Date modifyTime;
 
     private Date createTime;
+    
+    public BaseConfigData(){
+    	
+    }
+    public BaseConfigData(BaseConfigDataVo baseConfigData){
+		this.setType(baseConfigData.getType());
+		this.setShowName(baseConfigData.getShowName());
+	}
 
     public Integer getId() {
         return id;

@@ -1,10 +1,10 @@
 package cn.com.businessservicesplatform.controller;
 
 import cn.com.businessservicesplatform.common.constants.BaseConfigTypeEnum;
+import cn.com.businessservicesplatform.common.util.BasePage;
 import cn.com.businessservicesplatform.model.mysql.BaseConfigData;
 import cn.com.businessservicesplatform.model.mysql.BaseUser;
 import cn.com.businessservicesplatform.model.vo.BaseConfigDataVo;
-import cn.com.businessservicesplatform.model.vo.BaseUserCompanyVo;
 import cn.com.businessservicesplatform.model.vo.BaseUserVo;
 import cn.com.businessservicesplatform.model.vo.UserServiceCommentVo;
 import cn.com.businessservicesplatform.service.BaseConfigDataService;
@@ -18,6 +18,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -249,6 +251,34 @@ public class UserController extends BaseController{
 			
 		} catch (Exception e) {
 			log.error("UserController.toStatistics.is.system.error",e);
+		}
+		return model;
+	}
+    
+	/**
+	 * 跳转 统计页面
+	 * @param request
+	 * @return
+     */
+	@RequestMapping("/userManagement")
+	public ModelAndView userManagement(@RequestParam(required = false, value = "page", defaultValue = "1")Integer page,HttpServletRequest request,BaseUserVo baseUserVo) {
+		ModelAndView model = new ModelAndView ("/admin/userManagement");
+		try {
+			BaseUserVo nowUser = this.getUser(request);
+			model.addObject("user", nowUser);
+			if(null == baseUserVo){
+				model = new ModelAndView ( "redirect:/login/toLogin.html");
+				return model;
+			}
+			BasePage basePage = new BasePage(page,10);
+			List<BaseUser> userList = baseUserService.queryPage(basePage, baseUserVo);
+			model.addObject("userList", userList);
+			model.addObject("basePage", basePage);
+			model.addObject("vo", baseUserVo);
+			baseUserService.updateUserStatus(baseUserVo);
+			
+		} catch (Exception e) {
+			log.error("UserController.userManagement.is.system.error",e);
 		}
 		return model;
 	}

@@ -17,5 +17,9 @@ public interface BaseConfigDataService {
 	public List<BaseConfigData> queryPage(BasePage basePage,BaseConfigDataVo baseConfigDataVo);
 	
 	public List<BaseConfigData> queryList(BaseConfigDataVo baseConfigDataVo);
+	
+	public int updateStatus(BaseConfigDataVo baseConfigDataVo);
+	
+	public int insert(BaseConfigDataVo baseConfigDataVo);
 
 }

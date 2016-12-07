@@ -14,6 +14,8 @@
             	<c:if test="${services_user_info.type == 2}">
 		            <li><span><img src="${BASE_URL}/images/gerenzx_x5.png" /></span><a href="#">企业管理</a></li>
 		            <li><span><img src="${BASE_URL}/images/gerenzx_x6.png" /></span><a href="#">服务管理</a></li>
+		            <li><span><img src="${BASE_URL}/images/gerenzx_x6.png" /></span><a href="${BASE_URL}/user/userManagement.html">用户管理</a></li>
+		            <li><span><img src="${BASE_URL}/images/gerenzx_x6.png" /></span><a href="${BASE_URL}/user/baseList.html">基本信息管理</a></li>
 	            </c:if>
             </c:if>
         </ul>

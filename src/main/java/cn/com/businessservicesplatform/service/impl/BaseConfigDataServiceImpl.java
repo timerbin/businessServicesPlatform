@@ -1,5 +1,6 @@
 package cn.com.businessservicesplatform.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,33 @@ public class BaseConfigDataServiceImpl implements BaseConfigDataService{
 	@Override
 	public List<BaseConfigData> queryList(BaseConfigDataVo baseConfigDataVo) {
 		return baseConfigDataMapper.queryList(baseConfigDataVo);
+	}
+
+	@Override
+	public int updateStatus(BaseConfigDataVo baseConfigDataVo) {
+		int result = 0;
+		if(null != baseConfigDataVo && baseConfigDataVo.getId() != null){
+			BaseConfigData configData = baseConfigDataMapper.selectByPrimaryKey(baseConfigDataVo.getId());
+			if(null != configData && configData.getId() != null){
+				if(baseConfigDataVo.getUpdateCode().equals("Enabled")){
+					configData.setStatus(1);
+				}else if(baseConfigDataVo.getUpdateCode().equals("Disable")){
+					configData.setStatus(-1);
+				}
+				result = baseConfigDataMapper.updateByPrimaryKey(configData);
+			}
+		}
+		return result;
+	}
+	@Override
+	public int insert(BaseConfigDataVo baseConfigDataVo){
+		
+		BaseConfigData data = new BaseConfigData(baseConfigDataVo);
+		data.setStatus(1);
+		data.setCreateTime(new Date());
+		data.setModifyTime(new Date());
+		int result = baseConfigDataMapper.insert(data);
+		return result;
 	}
 
 }
