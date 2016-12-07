@@ -40,13 +40,13 @@ public class CookieUtil {
 					if(datas.length >= 8){
 						baseUserVo = new BaseUserVo();
 						baseUserVo.setId(makeInt(datas[0]));
-						baseUserVo.setLoginName(datas[1]);
-						baseUserVo.setRaleName(datas[2]);
-						baseUserVo.setStatus(makeInt(datas[3]));
+						baseUserVo.setUserName(datas[1]);
+						baseUserVo.setTrueName(datas[2]);
+						baseUserVo.setUserStatus(makeInt(datas[3]));
 						baseUserVo.setType(makeInt(datas[4]));
-						baseUserVo.setMobilePhone(datas[5]);
+						baseUserVo.setMobilePhoneNumber(datas[5]);
 						baseUserVo.setEmail(datas[6]);
-						baseUserVo.setSex(makeInt(datas[7]));
+						baseUserVo.setUserSex(makeInt(datas[7]));
 						baseUserVo.setCompanyId(makeInt(datas[8]));
 					}
 				}
@@ -83,13 +83,13 @@ public class CookieUtil {
 		 try {
 			StringBuffer str = new StringBuffer();
 			 str.append(baseUserVo.getId()).append("|");
-			 str.append(baseUserVo.getLoginName()).append("|");
-			 str.append(baseUserVo.getRaleName()).append("|");
-			 str.append(baseUserVo.getStatus()).append("|");
+			 str.append(baseUserVo.getUserName()).append("|");
+			 str.append(baseUserVo.getTrueName()).append("|");
+			 str.append(baseUserVo.getUserStatus()).append("|");
 			 str.append(baseUserVo.getType()).append("|");
-			 str.append(baseUserVo.getMobilePhone()).append("|");
+			 str.append(baseUserVo.getMobilePhoneNumber()).append("|");
 			 str.append(baseUserVo.getEmail()).append("|");
-			 str.append(baseUserVo.getSex()).append("|");
+			 str.append(baseUserVo.getUserSex()).append("|");
 			 str.append(baseUserVo.getCompanyId());
 			 String sign = DESUtils.encrypt(str.toString());
 			 int maxAge = 60*60*24*1;

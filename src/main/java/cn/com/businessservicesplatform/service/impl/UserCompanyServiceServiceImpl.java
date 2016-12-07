@@ -13,6 +13,7 @@ import cn.com.businessservicesplatform.service.UserCompanyServiceService;
 import cn.com.businessservicesplatform.service.UserLookHistoryService;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -20,7 +21,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 
 
 /**
@@ -42,7 +42,21 @@ public class UserCompanyServiceServiceImpl implements UserCompanyServiceService{
 	UserLookHistoryService userLookHistoryService;
 
     public int insert(UserCompanyServiceVo vo){
-        return userCompanyServiceMapper.insert(vo);
+    	int result = 0;
+    	UserCompanyServiceVo queryVo = new UserCompanyServiceVo();
+    	queryVo.setServiceType(vo.getServiceType());
+    	queryVo.setServiceName(vo.getServiceName());
+    	UserCompanyServiceVo resulstVo = userCompanyServiceMapper.getUserCompanyService(queryVo);
+    	if(null == resulstVo || resulstVo.getId() == null){
+    		vo.setStatus(1);
+        	vo.setCreateTime(new Date());
+        	vo.setModifyTime(new Date());
+        	result = userCompanyServiceMapper.insert(vo);
+    	}else{
+    		result = -2;
+    	}
+    	return result;
+    	
     }
 
     @Override

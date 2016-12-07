@@ -3,3 +3,11 @@ ssh-keygen -t rsa -C "wangwenbin8023@sina.com" -f "C:\Users\Administrator\.ssh\i
 
 mybatis-generator:generate
 
+
+
+http://echarts.baidu.com/echarts2/doc/doc.html#ÒıÈëECharts2
+
+
+http://echarts.baidu.com/echarts2/doc/example/line3.html#macarons
+
+

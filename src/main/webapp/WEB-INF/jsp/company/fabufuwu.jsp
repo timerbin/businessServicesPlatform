@@ -10,148 +10,234 @@
 </head>
 
 <body>
+ <form action="${BASE_URL}/user/saveService.html" id="fbfwForm" name="fbfwForm">
+ <input id="baseUrl"   value="${BASE_URL}"  type="hidden"  /> 
+ <input id="picUrl" name="picUrl" value="${vo.picUrl}"  type="hidden"  />
 <table width="100%" height="100%" border="0px" cellpadding="0px" cellspacing="0px" >
 	<tr><td width="250px"  class="con_left" valign="top" height="100%">
-        <div>
-            <div class="left_logo"><img src="images/home_logo.png" width="152" height="100" /></div>
-            <ul>
-                <li><span class="left_biao"><img src="images/nav_01.png" /></span>首页</li>
-                <li class="left_border"><span class="left_biao"><img src="/images/nav_02.png" /></span>行政办公</li>
-                <li><span class="left_biao"><img src="/images/nav_03.png" /></span>商旅出行</li>
-                <li><span class="left_biao"><img src="/images/nav_04.png" /></span>注册服务</li>
-                <li><span class="left_biao"><img src="/images/nav_05.png" /></span>知识产权</li>
-                <li><span class="left_biao"><img src="/images/nav_06.png" /></span>招聘培训</li>
-                <li><span class="left_biao"><img src="/images/nav_07.png" /></span>企业展示</li>
-                <li><span class="left_biao"><img src="/images/nav_08.png" /></span>企业推广</li>
-                <li><span class="left_biao"><img src="/images/nav_09.png" /></span>金融服务</li>
-                <li><span class="left_biao"><img src="/images/nav_10.png" /></span>法律服务</li>
-                <li><span class="left_biao"><img src="/images/nav_11.png" /></span>软件服务</li>
-            </ul>
-        </div>
+        <jsp:include page="../public/left.jsp" ></jsp:include>
 	</td>
     <td  valign="top">
-        <div class="right_header">
-            <span class="header_left">您好，欢迎光临泰兴虹桥园区商业服务整合平台</span>
-            <ul class="header_yh">
-                <li class="header_xiala"><a href="#"></a></li>
-                <li class="header_name">张小二</li>
-                <li class="header_touxiang"><img src="/images/touxiang_03.jpg" width="38" height="38" /></li>
-            </ul>
-            <ul class="head_grzcdl">
-                <li class="head_gr"><a href="#">个人中心</a></li>
-                <li class="head_zc"><a href="#">注册</a></li>
-                <li class="head_dl"><a href="#">登录</a></li>
-            </ul>
-        </div>
+        <jsp:include page="../public/header.jsp" ></jsp:include>
         <div class="location">发布服务</div>
         <div class="form_box">
-
-            <form action="" id="fbfwForm" name="fbfwForm">
+           
             <table width="900" border="0" cellspacing="20" cellpadding="0">
+            	<c:if test="${not empty errorMsg}">
+	            	<tr>
+	            		<td width="121" align="right"><span style="color:red;">${errorMsg}</span></td>
+	            		<td colspan="2">&nbsp;</td>
+	            	 </tr>
+			   </c:if>
               <tr>
                 <td width="121" align="right"><span class="hong_xing">*</span>服务名称：</td>
                 <td width="550">
-                    <input id="fwName" name="fwName" type="text" class="form_input" />
+                    <input id="serviceName" name="serviceName" value="${vo.serviceName}" type="text" class="form_input" />
                 </td>
                 <td width="149">&nbsp;</td>
               </tr>
               <tr>
                 <td align="right"><span class="hong_xing">*</span>服务类别：</td>
                 <td>
-                    <select name="fwType" id="fwType" class="form_input">
-                        <%--<c:if test="${not empty serTypeList}">--%>
-                           <c:forEach var="serType" items="${serTypeList}">
-                               <option value="${serType.id}">
-                                   ${serType.showName}
-                               </option>
-                           </c:forEach>
-                        <%--</c:if>--%>
+                    <select name="serviceType" id="serviceType" class="form_input">
+                          <c:forEach var="serType" items="${serTypeList}">
+                             <c:if test="${serType.id==vo.serviceType}">
+	            	 			<option value="${serType.id}" selected="selected">${serType.showName}</option>
+			   				</c:if>
+			   				<c:if test="${serType.id!=vo.serviceType}">
+			   				 	<option value="${serType.id}">${serType.showName}</option>
+			   				</c:if>
+                          </c:forEach>
                     </select>
-
                 </td>
                 <td>&nbsp;</td>
               </tr>
               <tr>
                 <td align="right"><span class="hong_xing">*</span>联系人：</td>
-                <td><input name="fwLxr" id="fwLxr" type="text" class="form_input2" /></td>
+                <td><input name="serviceContactUser" id="serviceContactUser"  value="${vo.serviceContactUser}" type="text" class="form_input2" /></td>
                 <td>&nbsp;</td>
               </tr>
               <tr>
                 <td align="right"><span class="hong_xing">*</span>联系方式：</td>
-                <td><input name="fwLxfs" id="fwLxfs" type="text" class="form_input2" /></td>
+                <td><input name="serviceContactTel" id="serviceContactTel"  value="${vo.serviceContactTel}" type="text" class="form_input2" /></td>
                 <td>&nbsp;</td>
               </tr>
               <tr>
+                	<td align="right" valign="top"><span class="hong_xing">*</span>服务图片：</td>
+                	<td class="qiye_img" >
+                		<span id="cimgs" title="点击删除"></span>
+                	</td>
+                	<td valign="bottom"  >
+	                	<input  onclick="doSelectPic()"  type="button" value="上传图片" class="form_shangchuan" />
+	                	<iframe id="uploadPicFrame" src="" style="display:none;"></iframe>
+                	</td>
+              </tr>
+              <tr>
                 <td align="right" valign="top"><span class="hong_xing">*</span>服务介绍：</td>
-                <td colspan="2"><textarea name="fwJs" id="fwJs" cols="" rows="" class="form_textarea"></textarea></td>
+                <td colspan="2"><textarea name="serviceDirections" id="serviceDirections" cols="" rows="" class="form_textarea">${vo.serviceDirections}</textarea></td>
               </tr>
               <tr>
                 <td align="right">&nbsp;</td>
-                <td><input name="baocunBtn" id="baocunBtn" type="button"  value="保 存" class="form_button bjse_hong" onclick="addSer()">
-                    <input name="tijiaoBtn" id="tijiaoBtn" type="button"  value="提 交" class="form_button bjse_lan">
-                    <input name="chongzhiBtn" id="chongzhiBtn" type="reset"  value="重 置" class="form_button bjse_cheng">
+                <td> 
+                    <input name="tijiaoBtn" id="tijiaoBtn" type="button"  value="提 交" class="form_button bjse_lan"/>
                 </td>
                 <td>&nbsp;</td>
               </tr>
             </table>
-                </form>
+         
         </div>
     </td></tr>
-
 </table>
+ </form>
 <jsp:include page="../public/footer.jsp" ></jsp:include>
-</body>
-</html>
-
 <script type="application/javascript">
-    /*$("baocunBtn").click(function(){
-        $.post("demo_test_post.asp",
-                {
-                    serviceName:$("fwName").val(),
-                    city:"Duckburg"
-                },
-                function(data,status){
-                    alert("Data: " + data + "\nStatus: " + status);
-                });
-    });*/
+$("#tijiaoBtn").click(function(){
+	if(check()){
+		$("#fbfwForm").submit();
+	}
+});
 
-    function addSer(){
-        $.ajax({
-            url:'${BASE_URL}/shopp/userCompanyService/toFabuService.html',
-            type:'POST', //GET
-            async:false,    //或false,是否异步
-            data:{
-                serviceName:$("#fwName").val(), //服务名称
-                serviceType:$("#fwType").val(), //服务类别
-                serviceContactUser:$("#fwLxr").val(), //服务联系人
-                serviceContactTel:$("#fwLxfs").val(),    //联系方式
-                serviceDirections:$("#fwJs").val()   //服务介绍
+function check(){
+	var serviceName = $("#serviceName").val();
+	if($.trim(serviceName).length <= 0){
+		alert("请输入服务名称");
+		 $("#serviceName").focus();
+		return false;
+	}
+	var serviceType = $("#serviceType").val();
+	if($.trim(serviceName).length <= 0){
+		alert("请选择服务类型");
+		 $("#serviceType").focus();
+		return false;
+	}
+	var serviceContactUser = $("#serviceContactUser").val();
+	if($.trim(serviceContactUser).length <= 0){
+		alert("请输入服务联系人");
+		 $("#serviceContactUser").focus();
+		return false;
+	}
+	var serviceContactTel = $("#serviceContactTel").val();
+	if($.trim(serviceContactTel).length <= 0){
+		alert("请输入服务联系方式");
+		 $("#serviceContactTel").focus();
+		return false;
+	}
+	if(!checkMob(serviceContactTel)){
+		alert("请输入正确服务联系方式");
+		 $("#serviceContactTel").focus();
+		return false;
+	}
+	var serviceDirections = $("#serviceDirections").val();
+	if($.trim(serviceDirections).length <= 0){
+		alert("请输入服务介绍");
+		 $("#serviceDirections").focus();
+		return false;
+	}
+	var picUrl = "";
+	$('.up_pic_img').each(function(){
+		picUrl = $(this).attr("srcpath");
+	});
+	if($.trim(picUrl).length <= 0){
+		alert("请上传服务图片");
+		return false;
+	}
+	$("#picUrl").val(picUrl);
+	return true;
+}
+var isMob = /^((13[0-9])|(14[0-9])|(15[0-9])|(18[0-9])|(17[0-9]))\d{8}$/;
+function checkMob(mobile) {
+	var isPhone = /^([0-9]{3,4}-)?[0-9]{7,8}$/;
+	if (isMob.test(mobile) || isPhone.test(mobile)) {
+		return true;
+	} else {
+		return false;
+	}
+}
 
-            },
-            timeout:20000,    //超时时间
-            dataType:'json',    //返回的数据格式：json/xml/html/script/jsonp/text
-            beforeSend:function(xhr){
-                console.log(xhr)
-                console.log('发送前')
-            },
-            success:function(data,textStatus,jqXHR){
-                console.log(data)
-                console.log(textStatus)
-                console.log(jqXHR)
-                alert(data.msg);
-                $("#fbfwForm")[0].reset();
-            },
-            error:function(xhr,textStatus){
-                console.log('错误')
-                console.log(xhr)
-                console.log(textStatus)
-            },
-            complete:function(){
+function doSelectPic() {
+	var imgSize = 0;
+	$('.up_pic_img').each(function(){
+		imgSize = imgSize+1;
+	});
+	if(imgSize <= 0 ){
+		$("#pic", $("#uploadPicFrame")[0].contentWindow.document).click();
+	}else{
+		alert("服务仅能上传一张图片");
+	}
+	return false;
+}
 
-                console.log('结束')
-            }
-        })
-    }
+initUploadPicFrame();
+function initUploadPicFrame(){
+	var frameSrc = "/user/getUploadPicForm.html";
+	var frameParam = new Object();
+	frameParam.formId= "upload";
+	frameParam.inputId= "pic";
+	frameParam.inputOnChange = "parent.picChange";
+	frameParam.jsonp = "parent.picUploadCallback";
+	frameSrc += "?"+parseParam(frameParam);
+	$("#uploadPicFrame").attr("src", frameSrc);
+}
+function picChange(inputFile){
+	var fileSize = 0;
+	if (navigator.userAgent.indexOf('MSIE') >= 0){
+	}else{
+		var files = inputFile.files;
+		if (files.length>0){
+			var targetFile = files[0];
+			fileSize = targetFile.size;
+		}
+		if(files.length > 1){
+			alert("请单张上传");
+    		initUploadPicFrame();
+		}
+	}
+	if (fileSize>2097152){
+		alert("上传图片大小超过2M");
+		initUploadPicFrame();
+	}else{
+		$("#upload", $("#uploadPicFrame")[0].contentWindow.document).submit();
+	}
+}
+function delPic(data){
+	$(data).remove();
+}
+//上传完成后回调的方法
+function picUploadCallback(data){
+	if (data.returnCode == "1"){
+		var picUrl = data.picPath;
+		if(picUrl.length > 0){
+    		var imgHtml = "<img title='点击删除' onclick='delPic(this)' srcpath='"+data.picPath+"' src='"+baseUrl+"/"+data.picPath+"' class='up_pic_img' />";
+    		$("#cimgs").append(imgHtml);
+		}else{
+			alert("上传失败,请稍后再试");
+		}
+	}else{
+		if(data.msg != ""){
+			alert(data.msg);
+		}else{
+			alert("上传失败,请稍后再试");
+		}
+	}
+	initUploadPicFrame();
+}
+//公共方法,用来将对象转化为URL参数
+function parseParam(param, key){
+  	var paramStr="";
+  	if(param instanceof String||param instanceof Number||param instanceof Boolean){
+    	paramStr+="&"+key+"="+encodeURIComponent(param);
+  	}else{
+    	jQuery.each(param,function(i){
+          	var k=key==null?i:key+(param instanceof Array?"["+i+"]":"."+i);
+          	paramStr+='&'+parseParam(this, k);
+    	});
+  	}
+  	return paramStr.substr(1);
+}
 
 
 </script>
+
+</body>
+</html>
+      

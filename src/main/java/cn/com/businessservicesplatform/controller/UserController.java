@@ -1,9 +1,16 @@
 package cn.com.businessservicesplatform.controller;
 
+import cn.com.businessservicesplatform.common.constants.BaseConfigTypeEnum;
+import cn.com.businessservicesplatform.model.mysql.BaseConfigData;
 import cn.com.businessservicesplatform.model.mysql.BaseUser;
+import cn.com.businessservicesplatform.model.vo.BaseConfigDataVo;
+import cn.com.businessservicesplatform.model.vo.BaseUserCompanyVo;
 import cn.com.businessservicesplatform.model.vo.BaseUserVo;
+import cn.com.businessservicesplatform.model.vo.UserServiceCommentVo;
+import cn.com.businessservicesplatform.service.BaseConfigDataService;
 import cn.com.businessservicesplatform.service.BaseUserCompanyService;
 import cn.com.businessservicesplatform.service.BaseUserService;
+import cn.com.businessservicesplatform.service.UserServiceCommentService;
 
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -12,6 +19,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -27,6 +36,10 @@ public class UserController extends BaseController{
 	BaseUserService baseUserService;
 	@Autowired
 	BaseUserCompanyService baseUserCompanyService;
+	@Autowired
+	UserServiceCommentService userServiceCommentService;
+	@Autowired
+	BaseConfigDataService baseConfigDataService;
 	
 	
 	/**
@@ -85,16 +98,16 @@ public class UserController extends BaseController{
     	if(null == baseUserVo){
     		return "密码信息为空";
     	}
-    	if(StringUtils.isBlank(baseUserVo.getOldLoginPwd())){
+    	if(StringUtils.isBlank(baseUserVo.getOldUserPassword())){
     		return "原密码为空";
     	}
-    	if(StringUtils.isBlank(baseUserVo.getLoginPwd())){
+    	if(StringUtils.isBlank(baseUserVo.getUserPassword())){
     		return "新密码为空";
     	}
-    	if(StringUtils.isBlank(baseUserVo.getLoginPwd2())){
+    	if(StringUtils.isBlank(baseUserVo.getUserPassword2())){
     		return "确认新为空";
     	}
-    	if(!baseUserVo.getLoginPwd().equals(baseUserVo.getLoginPwd2())){
+    	if(!baseUserVo.getUserPassword().equals(baseUserVo.getUserPassword2())){
     		return "新密码与确认新密码不相同";
     	}
     	return null;
@@ -144,19 +157,100 @@ public class UserController extends BaseController{
     	if(null == baseUserVo){
     		return "修改信息为空";
     	}
-    	if(StringUtils.isBlank(baseUserVo.getRaleName())){
+    	if(StringUtils.isBlank(baseUserVo.getTrueName())){
     		return "姓名为空";
     	}
-    	if(StringUtils.isBlank(baseUserVo.getMobilePhone())){
+    	if(StringUtils.isBlank(baseUserVo.getMobilePhoneNumber())){
     		return "联系方式为空";
     	}
     	if(StringUtils.isBlank(baseUserVo.getEmail())){
     		return "邮件为空";
     	}
-    	if(null == baseUserVo.getSex()){
+    	if(null == baseUserVo.getUserSex()){
     		return "性别为空";
     	}
     	return null;
     }
+    
+    @RequestMapping("/saveComment")
+    public ModelAndView saveComment(String callbackUrl,HttpServletRequest request,UserServiceCommentVo userServiceCommentVo) {
+    	ModelAndView model = new ModelAndView ( "/user/editUserinfo");
+    	try {
+    		BaseUserVo nowUser = this.getUser(request);
+    		if(null == nowUser){
+    			model = new ModelAndView ( "redirect:/login/toLogin.html?callbackUrl="+callbackUrl);
+				return model;
+    		}
+    		callbackUrl = "/home/serviceShow.html?id="+userServiceCommentVo.getServiceId()+"&code=";
+    		String checkMsg = checkUserInfo(userServiceCommentVo);
+			if(!StringUtils.isBlank(checkMsg)){
+				model.addObject("errorMsg", checkMsg);
+				log.error(String.format("UserController.saveComment.check.error:%s", checkMsg));
+				model = new ModelAndView ( "redirect:"+callbackUrl+checkMsg);
+				return model;
+			}
+			userServiceCommentVo.setCommentUserId(nowUser.getId());
+			userServiceCommentVo.setCommentUserName(nowUser.getUserName());
+        	model.addObject("user", nowUser);
+        	
+        	int result =  userServiceCommentService.insert(userServiceCommentVo);
+         
+			if(result > 0){
+				 model = new ModelAndView ( "redirect:"+callbackUrl+1);
+				 return model;
+			}else{
+				 model = new ModelAndView ("redirect:"+callbackUrl+1001);
+				model.addObject("errorMsg", "评论失败");
+				log.error(String.format("LoginController.saveComment.error:%s","修改失败，请稍后再试"));
+			}
+		} catch (Exception e) {
+			model = new ModelAndView ("redirect:"+callbackUrl+1003);
+			log.error(String.format("LoginController.saveComment.system.error:%s","系统繁忙，请稍后再试"),e);
+			model.addObject("errorMsg", "系统繁忙，请稍后再试");
+			return model;
+		}
+    	return model;
+    }
+    private String checkUserInfo(UserServiceCommentVo baseUserVo){
+    	if(null == baseUserVo){
+    		return "10101";
+    	}
+    	if(baseUserVo.getCommentType()== null){
+    		return "10101";
+    	}
+    	if(baseUserVo.getServiceId()== null){
+    		return "10102";
+    	}
+    	if(StringUtils.isBlank(baseUserVo.getCommentDirections())){
+    		return "10103";
+    	}
+    	 
+    	return null;
+    }
+    
+    /**
+	 * 跳转 统计页面
+	 * @param request
+	 * @return
+     */
+	@RequestMapping("/toStatistics")
+	public ModelAndView toStatistics(HttpServletRequest request) {
+		ModelAndView model = new ModelAndView ("/user/statistics");
+		try {
+			BaseUserVo baseUserVo = this.getUser(request);
+			model.addObject("user", baseUserVo);
+			if(null == baseUserVo){
+				model = new ModelAndView ( "redirect:/login/toLogin.html");
+				return model;
+			}
+			//经营范围
+			List<BaseConfigData>  serviceTypeList = baseConfigDataService.queryList(new BaseConfigDataVo(BaseConfigTypeEnum.SERVICES_TYPE.getId()));
+			model.addObject("serviceTypeList", serviceTypeList);
+			
+		} catch (Exception e) {
+			log.error("UserController.toStatistics.is.system.error",e);
+		}
+		return model;
+	}
     
 }

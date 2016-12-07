@@ -13,7 +13,6 @@
 <body>
 <form id="allCompany" action="${BASE_URL}/home/homeIndex.html" method="post">
 	<input id="baseUrl"   value="${BASE_URL}"  type="hidden"  />
-	<input id="page" name="page"   value="${basePage.page}"  type="hidden"  />
     <table width="100%" height="100%" border="0px" cellpadding="0px" cellspacing="0px" >
 	<tr><td width="250px" valign="top" class="con_left">
 		 <jsp:include page="../public/left.jsp" ></jsp:include>
@@ -105,6 +104,7 @@
         
         
 <script type="text/javascript">
+
 $("#queryBtn").click(function(){
 	$("#allCompany").submit();
 });

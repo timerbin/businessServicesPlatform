@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.regex.Pattern;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -102,11 +104,11 @@ public class LoginController extends BaseController{
 			    		return model;
 			    	}
 				}else{
-					log.error(String.format("LoginController.doLogin.setcookie.error:%s",baseUserVo.getLoginName()));
+					log.error(String.format("LoginController.doLogin.setcookie.error:%s",baseUserVo.getUserName()));
 					model.addObject("errorMsg", "用户名或密码输入错误");
 				}
 			}else{
-				log.error(String.format("LoginController.doLogin.loginName.null:%s",baseUserVo.getLoginName()));
+				log.error(String.format("LoginController.doLogin.UserName.null:%s",baseUserVo.getUserName()));
 				model.addObject("errorMsg", "用户名或密码输入错误");
 			}
 		} catch (Exception e) {
@@ -121,10 +123,10 @@ public class LoginController extends BaseController{
     	if(null == baseUserVo){
     		return "注册信息为空";
     	}
-    	if(StringUtils.isBlank(baseUserVo.getLoginName())){
+    	if(StringUtils.isBlank(baseUserVo.getUserName())){
     		return "登录名为空";
     	}
-    	if(StringUtils.isBlank(baseUserVo.getLoginPwd())){
+    	if(StringUtils.isBlank(baseUserVo.getUserPassword())){
     		return "密码为空";
     	}
     	if(StringUtils.isBlank(baseUserVo.getVerifyCode())){
@@ -175,7 +177,7 @@ public class LoginController extends BaseController{
 				model = new ModelAndView ( "redirect:/login/toLogin.html"); 
 				return model;
 			}else{
-				log.error(String.format("LoginController.doRegister.save.error:%s",baseUserVo.getLoginName()));
+				log.error(String.format("LoginController.doRegister.save.error:%s",baseUserVo.getUserName()));
 				model.addObject("errorMsg", "系统繁忙，请稍后再试");
 				return model;
 			}
@@ -189,32 +191,39 @@ public class LoginController extends BaseController{
     	if(null == baseUserVo){
     		return "注册信息为空";
     	}
-    	if(StringUtils.isBlank(baseUserVo.getLoginName())){
+    	if(StringUtils.isBlank(baseUserVo.getUserName())){
     		return "用户名为空";
     	}
-    	if(StringUtils.isBlank(baseUserVo.getLoginPwd())){
+    	if(baseUserVo.getUserName().length() < 6){
+    		return "用户名必须大于6位";
+    	}
+    	Pattern pattern = Pattern.compile("(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[^a-zA-Z0-9]).{6,16}");
+		if (!pattern.matcher(baseUserVo.getUserPassword()).matches()  ) {
+			return "密码过于简单";
+		}
+    	if(StringUtils.isBlank(baseUserVo.getUserPassword())){
     		return "密码为空";
     	}
-    	if(baseUserVo.getLoginPwd().length() < 6){
+    	if(baseUserVo.getUserPassword().length() < 6){
     		return "密码必须大于6位";
     	}
-    	if(StringUtils.isBlank(baseUserVo.getLoginPwd2())){
+    	if(StringUtils.isBlank(baseUserVo.getUserPassword2())){
     		return "确认密码为空";
     	}
-    	if(!baseUserVo.getLoginPwd().equals(baseUserVo.getLoginPwd2())){
+    	if(!baseUserVo.getUserPassword().equals(baseUserVo.getUserPassword2())){
     		return "密码与确认密码不相同";
     	}
-    	if(StringUtils.isBlank(baseUserVo.getMobilePhone())){
+    	if(StringUtils.isBlank(baseUserVo.getMobilePhoneNumber())){
     		return "联系方式为空";
     	}
     	if(StringUtils.isBlank(baseUserVo.getEmail())){
     		return "邮件为空";
     	}
-    	if(null == baseUserVo.getSex()){
+    	if(null == baseUserVo.getUserStatus()){
     		return "性别为空";
     	}
     	BaseUserVo param = new BaseUserVo();
-    	param.setMobilePhone(baseUserVo.getMobilePhone());
+    	param.setMobilePhoneNumber(baseUserVo.getMobilePhoneNumber());
     	BaseUser baseUser = baseUserService.findBaseUser(param);
     	if(null != baseUser && baseUser.getId() != null){
     		return "联系方式已经存在";
@@ -226,7 +235,7 @@ public class LoginController extends BaseController{
     		return "邮箱已经存在";
     	}
     	param = new BaseUserVo();
-    	param.setLoginName(baseUserVo.getLoginName());
+    	param.setUserName(baseUserVo.getUserName());
     	baseUser = baseUserService.findBaseUser(param);
     	if(null != baseUser && baseUser.getId() != null){
     		return "用户名已经存在";
@@ -238,17 +247,17 @@ public class LoginController extends BaseController{
     @RequestMapping("/checkRegister")
 	@ResponseBody
 	public String checkRegister(BaseUserVo baseUserVo) {
-    	if(StringUtils.isBlank(baseUserVo.getLoginName())){
+    	if(StringUtils.isBlank(baseUserVo.getUserName())){
     		return "用户名为空";
     	}
-    	if(StringUtils.isBlank(baseUserVo.getMobilePhone())){
+    	if(StringUtils.isBlank(baseUserVo.getMobilePhoneNumber())){
     		return "联系方式为空";
     	}
     	if(StringUtils.isBlank(baseUserVo.getEmail())){
     		return "邮件为空";
     	}
     	BaseUserVo param = new BaseUserVo();
-    	param.setMobilePhone(baseUserVo.getMobilePhone());
+    	param.setMobilePhoneNumber(baseUserVo.getMobilePhoneNumber());
     	BaseUser baseUser = baseUserService.findBaseUser(param);
     	if(null != baseUser && baseUser.getId() != null){
     		return "联系方式已经存在";
@@ -260,7 +269,7 @@ public class LoginController extends BaseController{
     		return "邮箱已经存在";
     	}
     	param = new BaseUserVo();
-    	param.setLoginName(baseUserVo.getLoginName());
+    	param.setUserName(baseUserVo.getUserName());
     	baseUser = baseUserService.findBaseUser(param);
     	if(null != baseUser && baseUser.getId() != null){
     		return "用户名已经存在";

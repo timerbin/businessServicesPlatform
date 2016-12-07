@@ -5,17 +5,28 @@ import java.util.Date;
 public class UserServiceCommentTag {
     private Integer id;
 
-    private String serviceId;
+    private Integer commentId;
 
     private Integer commentTagId;
+    
+    private String commentTagName;
 
     private Integer status;
 
     private Date modifyTime;
 
     private Date createTime;
+    
 
-    public Integer getId() {
+    public String getCommentTagName() {
+		return commentTagName;
+	}
+
+	public void setCommentTagName(String commentTagName) {
+		this.commentTagName = commentTagName;
+	}
+
+	public Integer getId() {
         return id;
     }
 
@@ -23,15 +34,15 @@ public class UserServiceCommentTag {
         this.id = id;
     }
 
-    public String getServiceId() {
-        return serviceId;
-    }
+	public Integer getCommentId() {
+		return commentId;
+	}
 
-    public void setServiceId(String serviceId) {
-        this.serviceId = serviceId == null ? null : serviceId.trim();
-    }
+	public void setCommentId(Integer commentId) {
+		this.commentId = commentId;
+	}
 
-    public Integer getCommentTagId() {
+	public Integer getCommentTagId() {
         return commentTagId;
     }
 

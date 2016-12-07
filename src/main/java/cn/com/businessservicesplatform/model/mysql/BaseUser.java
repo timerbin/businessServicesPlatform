@@ -5,23 +5,41 @@ import java.util.Date;
 public class BaseUser {
     private Integer id;
 
-    private Integer age;
+    private String userName;
 
-    private Integer sex;
+    private String trueName;
 
-    private String loginName;
+    private String userPassword;
 
-    private String loginPwd;
+    private Date registerTime;
 
-    private String raleName;
+    private Date lastLoginTime;
 
-    private String mobilePhone;
+    private String lastLoginIp;
+
+    private Date errorTime;
+
+    private Integer errorCount;
+
+    private String mobilePhoneNumber;
+
+    private String deptId;
+
+    private String registerUid;
+
+    private String wxOpenId;
+
+    private Integer userStatus;
+
+    private Integer userSex;
+
+    private String userDesc;
 
     private String email;
 
-    private Integer status;
-
     private Integer type;
+
+    private Integer age;
 
     private Date modifyTime;
 
@@ -35,52 +53,124 @@ public class BaseUser {
         this.id = id;
     }
 
-    public Integer getAge() {
-        return age;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setAge(Integer age) {
-        this.age = age;
+    public void setUserName(String userName) {
+        this.userName = userName == null ? null : userName.trim();
     }
 
-    public Integer getSex() {
-        return sex;
+    public String getTrueName() {
+        return trueName;
     }
 
-    public void setSex(Integer sex) {
-        this.sex = sex;
+    public void setTrueName(String trueName) {
+        this.trueName = trueName == null ? null : trueName.trim();
     }
 
-    public String getLoginName() {
-        return loginName;
+    public String getUserPassword() {
+        return userPassword;
     }
 
-    public void setLoginName(String loginName) {
-        this.loginName = loginName == null ? null : loginName.trim();
+    public void setUserPassword(String userPassword) {
+        this.userPassword = userPassword == null ? null : userPassword.trim();
     }
 
-    public String getLoginPwd() {
-        return loginPwd;
+    public Date getRegisterTime() {
+        return registerTime;
     }
 
-    public void setLoginPwd(String loginPwd) {
-        this.loginPwd = loginPwd == null ? null : loginPwd.trim();
+    public void setRegisterTime(Date registerTime) {
+        this.registerTime = registerTime;
     }
 
-    public String getRaleName() {
-        return raleName;
+    public Date getLastLoginTime() {
+        return lastLoginTime;
     }
 
-    public void setRaleName(String raleName) {
-        this.raleName = raleName == null ? null : raleName.trim();
+    public void setLastLoginTime(Date lastLoginTime) {
+        this.lastLoginTime = lastLoginTime;
     }
 
-    public String getMobilePhone() {
-        return mobilePhone;
+    public String getLastLoginIp() {
+        return lastLoginIp;
     }
 
-    public void setMobilePhone(String mobilePhone) {
-        this.mobilePhone = mobilePhone == null ? null : mobilePhone.trim();
+    public void setLastLoginIp(String lastLoginIp) {
+        this.lastLoginIp = lastLoginIp == null ? null : lastLoginIp.trim();
+    }
+
+    public Date getErrorTime() {
+        return errorTime;
+    }
+
+    public void setErrorTime(Date errorTime) {
+        this.errorTime = errorTime;
+    }
+
+    public Integer getErrorCount() {
+        return errorCount;
+    }
+
+    public void setErrorCount(Integer errorCount) {
+        this.errorCount = errorCount;
+    }
+
+    public String getMobilePhoneNumber() {
+        return mobilePhoneNumber;
+    }
+
+    public void setMobilePhoneNumber(String mobilePhoneNumber) {
+        this.mobilePhoneNumber = mobilePhoneNumber == null ? null : mobilePhoneNumber.trim();
+    }
+
+    public String getDeptId() {
+        return deptId;
+    }
+
+    public void setDeptId(String deptId) {
+        this.deptId = deptId == null ? null : deptId.trim();
+    }
+
+    public String getRegisterUid() {
+        return registerUid;
+    }
+
+    public void setRegisterUid(String registerUid) {
+        this.registerUid = registerUid == null ? null : registerUid.trim();
+    }
+
+    public String getWxOpenId() {
+        return wxOpenId;
+    }
+
+    public void setWxOpenId(String wxOpenId) {
+        this.wxOpenId = wxOpenId == null ? null : wxOpenId.trim();
+    }
+
+    public Integer getUserStatus() {
+        return userStatus;
+    }
+
+    public void setUserStatus(Integer userStatus) {
+        this.userStatus = userStatus;
+    }
+
+    public Integer getUserSex() {
+        return userSex;
+    }
+
+    public void setUserSex(Integer userSex) {
+        this.userSex = userSex;
+    }
+
+    public String getUserDesc() {
+        return userDesc;
+    }
+
+    public void setUserDesc(String userDesc) {
+        this.userDesc = userDesc == null ? null : userDesc.trim();
     }
 
     public String getEmail() {
@@ -91,20 +181,20 @@ public class BaseUser {
         this.email = email == null ? null : email.trim();
     }
 
-    public Integer getStatus() {
-        return status;
-    }
-
-    public void setStatus(Integer status) {
-        this.status = status;
-    }
-
     public Integer getType() {
         return type;
     }
 
     public void setType(Integer type) {
         this.type = type;
+    }
+
+    public Integer getAge() {
+        return age;
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
     }
 
     public Date getModifyTime() {

@@ -13,7 +13,7 @@
 <body>
 
 <form id="doRegister" action="${BASE_URL}/login/doRegister.html" method="post">
- <input id="sexStr"  value="${vo.sex}" type="hidden"/>
+ <input id="userSexStr"  value="${vo.userSex}" type="hidden"/>
 <div class="login_head">
 	<div class="login_title"><img src="${BASE_URL}/images/zhuce_h.png" /></div>
 </div>
@@ -26,28 +26,28 @@
 		</c:if>
     	<li class="border_bj margin_top20">
             <span class="login_img"><img src="${BASE_URL}/images/goin_yh.png" /></span>
-            <input id="loginName" maxlength="20" name="loginName" value="${vo.loginName}" type="text" placeholder="设置登录账号" class="login_input_text" />
+            <input id="userName" maxlength="20" name="userName" value="${vo.userName}" type="text" placeholder="设置登录账号" class="login_input_text" />
         </li>
         <li class="border_bj margin_top20">
             <span class="login_img"><img src="${BASE_URL}/images/goin_mm.png" /></span>
-            <input id="loginPwd" maxlength="20" name="loginPwd" type="password" placeholder="设置登录密码" class="login_input_text" />
+            <input id="userPassword" maxlength="20" name="userPassword" type="password" placeholder="设置登录密码" class="login_input_text" />
         </li>
         <li class="border_bj margin_top20">
             <span class="login_img"><img src="${BASE_URL}/images/goin_mm.png" /></span>
-            <input id="loginPwd2" maxlength="20" name="loginPwd2" type="password" placeholder="输入确认密码" class="login_input_text" />
+            <input id="userPassword2" maxlength="20" name="userPassword2" type="password" placeholder="输入确认密码" class="login_input_text" />
         </li>
         <li class="border_bj margin_top20">
             <span class="login_img"><img src="${BASE_URL}/images/zhuce_xm.png" /></span>
-            <input id="raleName" maxlength="10" name="raleName" value="${vo.raleName}"  type="text" placeholder="姓名" class="login_input_text" />
+            <input id="trueName" maxlength="10" name="trueName" value="${vo.trueName}"  type="text" placeholder="姓名" class="login_input_text" />
         </li>
         <li>
-        	<input id="sex1" name="sex" type="radio" value="0"   />
+        	<input id="userSex1" name="userSex" type="radio" value="0"   />
         	 男 &nbsp;&nbsp;&nbsp;&nbsp;
-        	<input id="sex2" name="sex" type="radio" value="1"  />
+        	<input id="userSex2" name="userSex" type="radio" value="1"  />
         	女</li>
         <li class="border_bj">
             <span class="login_img"><img src="${BASE_URL}/images/zhuce_sj.png" /></span>
-            <input id="mobilePhone" maxlength="11" name="mobilePhone" value="${vo.mobilePhone}"  type="text" placeholder="请输入您的手机号" class="login_input_text" />
+            <input id="mobilePhoneNumber" maxlength="11" name="mobilePhoneNumber" value="${vo.mobilePhoneNumber}"  type="text" placeholder="请输入您的手机号" class="login_input_text" />
         </li>
         <li class="border_bj margin_top20">
             <span class="login_img"><img src="${BASE_URL}/images/zhuce_yx.png" /></span>
@@ -67,70 +67,75 @@
     		$("#doRegister").submit();
     	}
     });
-    var sexStr = $("#sexStr").val();
-    if($.trim(sexStr).length <= 0){
-    	$("#sex1").attr("checked","checked");
-    	$("#sex2").removeAttr("checked");
+    var userSexStr = $("#userSexStr").val();
+    if($.trim(userSexStr).length <= 0){
+    	$("#userSex1").attr("checked","checked");
+    	$("#userSex2").removeAttr("checked");
     }else{
-    	if(sexStr == 0){
-    		$("#sex1").removeAttr("checked");
-        	$("#sex2").attr("checked","checked");
+    	if(userSexStr == 0){
+    		$("#userSex1").removeAttr("checked");
+        	$("#userSex2").attr("checked","checked");
     	}else{
-    		$("#sex1").attr("checked","checked");
-        	$("#sex2").removeAttr("checked");
+    		$("#userSex1").attr("checked","checked");
+        	$("#userSex2").removeAttr("checked");
     	}
     }
     
     function check(){
-    	var loginName = $("#loginName").val();
-    	if($.trim(loginName).length <= 0){
+    	var userName = $("#userName").val();
+    	if($.trim(userName).length <= 0){
     		alert("请输入登录名");
-    		 $("#loginName").focus();
+    		 $("#userName").focus();
     		return false;
     	}
     	var clearSymbol = /[^\a-\z\A-\Z0-9\u4E00-\u9FA5]/;
-		if(clearSymbol.test(loginName)){
+		if(clearSymbol.test(userName)){
 			alert("请输入正确的登录名(只能包含字母和数字)");
-			$("#loginName").focus();
+			$("#userName").focus();
 			return false;
 		}
-    	var loginPwd = $("#loginPwd").val();
-    	if($.trim(loginPwd).length <= 0){
+		if($.trim(userName).length < 6){
+    		alert("登录名必须大于6位");
+    		 $("#userName").focus();
+    		return false;
+    	}
+    	var userPassword = $("#userPassword").val();
+    	if($.trim(userPassword).length <= 0){
     		alert("请输入登录密码");
-    		 $("#loginPwd").focus();
+    		 $("#userPassword").focus();
     		return false;
     	}
-    	if($.trim(loginPwd).length < 6){
+    	if($.trim(userPassword).length < 6){
     		alert("登录密码必须大于6位");
-    		 $("#loginPwd").focus();
+    		 $("#userPassword").focus();
     		return false;
     	}
-    	var loginPwd2 = $("#loginPwd2").val();
-    	if($.trim(loginPwd2).length <= 0){
+    	var userPassword2 = $("#userPassword2").val();
+    	if($.trim(userPassword2).length <= 0){
     		alert("请输入确认密码");
-    		 $("#loginPwd2").focus();
+    		 $("#userPassword2").focus();
     		return false;
     	}
-    	if(loginPwd != loginPwd2){
+    	if(userPassword != userPassword2){
     		alert("登录密码与确认密码不相同");
-   		 	$("#loginPwd2").focus();
+   		 	$("#userPassword2").focus();
    			return false;
     	}
-    	var raleName = $("#raleName").val();
-    	if($.trim(raleName).length <= 0){
+    	var trueName = $("#trueName").val();
+    	if($.trim(trueName).length <= 0){
     		alert("请输入姓名");
-    		 $("#raleName").focus();
+    		 $("#trueName").focus();
     		return false;
     	}
-    	var mobilePhone = $("#mobilePhone").val();
-    	if($.trim(mobilePhone).length <= 0){
+    	var mobilePhoneNumber = $("#mobilePhoneNumber").val();
+    	if($.trim(mobilePhoneNumber).length <= 0){
     		alert("请输入联系方式");
-    		 $("#mobilePhone").focus();
+    		 $("#mobilePhoneNumber").focus();
     		return false;
     	}
-    	if(!checkMob(mobilePhone)){
+    	if(!checkMob(mobilePhoneNumber)){
 			alert("请输入正确联系方式");
-			$("#mobilePhone").focus();
+			$("#mobilePhoneNumber").focus();
 			return false;
 		}
     	var email = $("#email").val();

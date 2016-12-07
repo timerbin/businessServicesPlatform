@@ -117,7 +117,7 @@
 
     function addSer(){
         $.ajax({
-            url:'${BASE_URL}/shopp/userCompanyService/toFabuService.html',
+            url:'${BASE_URL}/user/toFabuService.html',
             type:'POST', //GET
             async:false,    //或false,是否异步
             data:{

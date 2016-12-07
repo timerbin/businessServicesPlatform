@@ -4,34 +4,29 @@ import cn.com.businessservicesplatform.common.constants.BaseConfigTypeEnum;
 import cn.com.businessservicesplatform.common.constants.RecommendEnum;
 import cn.com.businessservicesplatform.common.constants.UserServiceStatuesEnum;
 import cn.com.businessservicesplatform.model.mysql.BaseConfigData;
-import cn.com.businessservicesplatform.model.mysql.UserCompanyService;
 import cn.com.businessservicesplatform.model.vo.BaseConfigDataVo;
 import cn.com.businessservicesplatform.model.vo.BaseUserVo;
 import cn.com.businessservicesplatform.model.vo.UserCompanyServiceVo;
 import cn.com.businessservicesplatform.service.BaseConfigDataService;
 import cn.com.businessservicesplatform.service.UserCompanyServiceService;
+
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.View;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @Controller
-@RequestMapping("/shopp/userCompanyService")
+@RequestMapping("/user")
 public class UserCompanyServiceController extends BaseController{
-	
-
 
 	public static final Logger log = LoggerFactory.getLogger(UserCompanyServiceController.class);
 
@@ -47,8 +42,8 @@ public class UserCompanyServiceController extends BaseController{
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping("/toFabu")
-	protected ModelAndView fabu(HttpServletRequest request) {
+	@RequestMapping("/toSaveService")
+	protected ModelAndView toSaveService(HttpServletRequest request) {
 
 		ModelAndView model = new ModelAndView ("company/fabufuwu");
 		List<BaseConfigData> serTypeList = baseConfigDataService.queryList(new BaseConfigDataVo(BaseConfigTypeEnum.SERVICES_TYPE.getId()));
@@ -95,62 +90,78 @@ public class UserCompanyServiceController extends BaseController{
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping("/toFabuService")
-	@ResponseBody
-	protected Map<String,Object> fabuServ(HttpServletRequest request) {
-
-		Map<String,Object> map = new HashMap<String, Object>();
+	@RequestMapping("/saveService")
+	protected ModelAndView saveService(HttpServletRequest request,UserCompanyServiceVo serVo) {
+		ModelAndView model = new ModelAndView ("/company/fabufuwu");
 		try {
-
-
 			//判断是否为企业用户
-			BaseUserVo vo = getUser(request);
-
-//		if(vo!= null && null == vo.getCompanyId()){
-//			//如果为空 则不为企业用户 需要跳转到成为企业用户页面
-//			return new ModelAndView ( "company/chengweiqiye.jsp");
-//		}else{
-//			ModelAndView modelAndView =new ModelAndView();
-//			modelAndView.addObject("error","当前不是有效用户");
-//		}
-
-			//根据用户ID 查询企业信息
-
-			//发布服务
-			UserCompanyServiceVo serVo = new UserCompanyServiceVo();
-
-			String serviceName = request.getParameter("serviceName");
-			String serviceType = request.getParameter("serviceType");
-			String serviceContactUser = request.getParameter("serviceContactUser");
-			String serviceContactTel = request.getParameter("serviceContactTel");
-			String serviceDirections = request.getParameter("serviceDirections");
-
-			serVo.setCompanyId(12321);
-			serVo.setCreateTime(new Date());
-			serVo.setServiceContactTel(serviceContactTel);
-			serVo.setServiceContactUser(serviceContactUser);
-			serVo.setServiceDirections(serviceDirections);
-			serVo.setServiceName(serviceName);
-			serVo.setServiceType(BaseConfigTypeEnum.SERVICES_TYPE.getId());
-			serVo.setStatus(0);
-			serVo.setUserId(123);
-
-			int i = userCompanyServiceService.insert(serVo);
-			log.info("#############发布服务 " + i);
-			if(i>0){
-				map.put("msg","发布成功");
-			}else{
-				map.put("msg","发布失败");
+			BaseUserVo baseUserVo = getUser(request);
+			model.addObject("user", baseUserVo);
+			if(null == baseUserVo){
+				model = new ModelAndView ( "redirect:/login/toLogin.html");
+				return model;
 			}
-			return map;
-
+			List<BaseConfigData> serTypeList = baseConfigDataService.queryList(new BaseConfigDataVo(BaseConfigTypeEnum.SERVICES_TYPE.getId()));
+			model.addObject("serTypeList", serTypeList);
+			model.addObject("vo", serVo);
+			String checkLogin = check(serVo);
+			if(!StringUtils.isBlank(checkLogin)){
+				model.addObject("errorMsg", checkLogin);
+				log.error(String.format("UserCompanyServiceController.saveService.check.error:%s", checkLogin));
+				return model;
+			}
+			//发布服务
+			int result = userCompanyServiceService.insert(serVo);
+			if(result <= 0){
+				if(result == -2){
+					model.addObject("errorMsg","服务名称已经存在,不可以重复发布");
+					log.error("UserCompanyServiceController.saveService.save.error:");
+					return model;
+				}
+				model.addObject("errorMsg","系统繁忙,请稍后再试");
+				log.error("UserCompanyServiceController.saveService.save.error:");
+				return model;
+			}else{
+				model = new ModelAndView ( "redirect:/user/toCompany.html");
+	    		return model;
+			}
 		}catch (Exception e){
-
-			log.error("################### 发布服务失败" + e);
-			map.put("msg","系统繁忙，请稍后再试");
-			return map;
+			model.addObject("errorMsg","系统繁忙,请稍后再试");
+			log.error("BaseUserCompanyController.saveCompany.system.error:", e);
 		}
+		return model;
 	}
+	 private String check(UserCompanyServiceVo userCompanyServiceVo){
+	    	if(null == userCompanyServiceVo){
+	    		return "服务信息为空";
+	    	}
+	    	if(StringUtils.isBlank(userCompanyServiceVo.getServiceName())){
+	    		return "服务名称为空";
+	    	}
+	    	if(StringUtils.isBlank(userCompanyServiceVo.getServiceContactTel())){
+	    		return "服务联系方式为空";
+	    	}
+	    	if(StringUtils.isBlank(userCompanyServiceVo.getServiceContactUser())){
+	    		return "服务联系人为空";
+	    	}
+	    	if(StringUtils.isBlank(userCompanyServiceVo.getPicUrl())){
+	    		return "服务图片为空";
+	    	}
+	    	if(null == userCompanyServiceVo.getServiceType()){
+	    		return "服务类型为空";
+	    	}
+	    	if(StringUtils.isBlank(userCompanyServiceVo.getServiceDirections())){
+	    		return "服务简介为空";
+	    	}
+	    	UserCompanyServiceVo queryVo = new UserCompanyServiceVo();
+	    	queryVo.setServiceType(userCompanyServiceVo.getServiceType());
+	    	queryVo.setServiceName(userCompanyServiceVo.getServiceName());
+	    	UserCompanyServiceVo resulstVo = userCompanyServiceService.fetchCompanyService(queryVo);
+	    	if(null != resulstVo){
+	    		return "服务名称已经存在,不可以重复发布";
+	    	}
+	    	return null;
+		}
 
 
 
