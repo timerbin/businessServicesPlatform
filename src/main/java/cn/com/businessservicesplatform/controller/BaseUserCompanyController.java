@@ -223,5 +223,4 @@ public class BaseUserCompanyController extends BaseController{
 		return modelAndView;
 	}
 	
-	
 }

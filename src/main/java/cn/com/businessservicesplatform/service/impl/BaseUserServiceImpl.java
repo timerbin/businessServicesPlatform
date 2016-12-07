@@ -2,6 +2,7 @@ package cn.com.businessservicesplatform.service.impl;
 
 import java.util.Date;
 
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +39,9 @@ public class BaseUserServiceImpl implements BaseUserService{
 
 	@Override
 	public BaseUser findBaseUser(BaseUserVo baseUserVo) {
-		baseUserVo.setLoginPwd(MD5Util.getMD5(baseUserVo.getLoginPwd()));
+		if(!StringUtils.isBlank(baseUserVo.getLoginPwd())){
+			baseUserVo.setLoginPwd(MD5Util.getMD5(baseUserVo.getLoginPwd()));
+		}
 		return baseUserMapper.findBaseUser(baseUserVo);
 	}
 

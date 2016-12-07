@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.regex.Pattern;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -192,6 +194,13 @@ public class LoginController extends BaseController{
     	if(StringUtils.isBlank(baseUserVo.getLoginName())){
     		return "用户名为空";
     	}
+    	if(baseUserVo.getLoginName().length() < 6){
+    		return "用户名必须大于6位";
+    	}
+    	Pattern pattern = Pattern.compile("(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[^a-zA-Z0-9]).{6,16}");
+		if (!pattern.matcher(baseUserVo.getLoginPwd()).matches()  ) {
+			return "密码过于简单";
+		}
     	if(StringUtils.isBlank(baseUserVo.getLoginPwd())){
     		return "密码为空";
     	}

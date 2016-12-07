@@ -94,6 +94,11 @@
 			$("#loginName").focus();
 			return false;
 		}
+		if($.trim(loginName).length < 6){
+    		alert("登录名必须大于6位");
+    		 $("#loginName").focus();
+    		return false;
+    	}
     	var loginPwd = $("#loginPwd").val();
     	if($.trim(loginPwd).length <= 0){
     		alert("请输入登录密码");
