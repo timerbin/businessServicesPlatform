@@ -126,7 +126,17 @@ public class UserServiceCommentServiceImpl implements UserServiceCommentService{
 
 	@Override
 	public List<UserServiceCommentVo> queryPage(BasePage basePage, UserServiceCommentVo vo) {
-		return userServiceCommentMapper.queryPage(basePage, vo);
+		List<UserServiceCommentVo> commentVoList = userServiceCommentMapper.queryPage(basePage, vo);
+		if(null != commentVoList && commentVoList.size() > 0){
+			List<UserServiceCommentTag> tagList = null;
+			for(UserServiceCommentVo commentVo :commentVoList){
+				if(null != commentVo ){
+					tagList = userServiceCommentTagMapper.getList(commentVo.getId());
+					commentVo.setTagList(tagList);
+				}
+			}
+		}
+		return commentVoList;
 	}
  
 }

@@ -1,5 +1,7 @@
 package cn.com.businessservicesplatform.dao.mysql;
 
+import java.util.List;
+
 import cn.com.businessservicesplatform.model.mysql.UserServiceCommentTag;
 
 public interface UserServiceCommentTagMapper {
@@ -16,5 +18,5 @@ public interface UserServiceCommentTagMapper {
     int updateByPrimaryKey(UserServiceCommentTag record);
     
     
-    
+    List<UserServiceCommentTag> getList(Integer commentId);
 }

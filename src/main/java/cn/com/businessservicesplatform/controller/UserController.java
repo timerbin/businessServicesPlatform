@@ -2,8 +2,10 @@ package cn.com.businessservicesplatform.controller;
 
 import cn.com.businessservicesplatform.model.mysql.BaseUser;
 import cn.com.businessservicesplatform.model.vo.BaseUserVo;
+import cn.com.businessservicesplatform.model.vo.UserServiceCommentVo;
 import cn.com.businessservicesplatform.service.BaseUserCompanyService;
 import cn.com.businessservicesplatform.service.BaseUserService;
+import cn.com.businessservicesplatform.service.UserServiceCommentService;
 
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -27,6 +29,8 @@ public class UserController extends BaseController{
 	BaseUserService baseUserService;
 	@Autowired
 	BaseUserCompanyService baseUserCompanyService;
+	@Autowired
+	UserServiceCommentService userServiceCommentService;
 	
 	
 	/**
@@ -156,6 +160,62 @@ public class UserController extends BaseController{
     	if(null == baseUserVo.getSex()){
     		return "性别为空";
     	}
+    	return null;
+    }
+    
+    @RequestMapping("/saveComment")
+    public ModelAndView saveComment(String callbackUrl,HttpServletRequest request,UserServiceCommentVo userServiceCommentVo) {
+    	ModelAndView model = new ModelAndView ( "/user/editUserinfo");
+    	try {
+    		BaseUserVo nowUser = this.getUser(request);
+    		if(null == nowUser){
+    			model = new ModelAndView ( "redirect:/login/toLogin.html?callbackUrl="+callbackUrl);
+				return model;
+    		}
+    		callbackUrl = "/home/serviceShow.html?id="+userServiceCommentVo.getServiceId()+"&code=";
+    		String checkMsg = checkUserInfo(userServiceCommentVo);
+			if(!StringUtils.isBlank(checkMsg)){
+				model.addObject("errorMsg", checkMsg);
+				log.error(String.format("UserController.saveComment.check.error:%s", checkMsg));
+				model = new ModelAndView ( "redirect:"+callbackUrl+checkMsg);
+				return model;
+			}
+			userServiceCommentVo.setCommentUserId(nowUser.getId());
+			userServiceCommentVo.setCommentUserName(nowUser.getLoginName());
+        	model.addObject("user", nowUser);
+        	
+        	int result =  userServiceCommentService.insert(userServiceCommentVo);
+         
+			if(result > 0){
+				 model = new ModelAndView ( "redirect:"+callbackUrl+1);
+				 return model;
+			}else{
+				 model = new ModelAndView ("redirect:"+callbackUrl+1001);
+				model.addObject("errorMsg", "评论失败");
+				log.error(String.format("LoginController.saveComment.error:%s","修改失败，请稍后再试"));
+			}
+		} catch (Exception e) {
+			model = new ModelAndView ("redirect:"+callbackUrl+1003);
+			log.error(String.format("LoginController.saveComment.system.error:%s","系统繁忙，请稍后再试"),e);
+			model.addObject("errorMsg", "系统繁忙，请稍后再试");
+			return model;
+		}
+    	return model;
+    }
+    private String checkUserInfo(UserServiceCommentVo baseUserVo){
+    	if(null == baseUserVo){
+    		return "10101";
+    	}
+    	if(baseUserVo.getCommentType()== null){
+    		return "10101";
+    	}
+    	if(baseUserVo.getServiceId()== null){
+    		return "10102";
+    	}
+    	if(StringUtils.isBlank(baseUserVo.getCommentDirections())){
+    		return "10103";
+    	}
+    	 
     	return null;
     }
     

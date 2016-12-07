@@ -2,11 +2,20 @@ package cn.com.businessservicesplatform.model.vo;
 
 import java.util.List;
 
+
+import cn.com.businessservicesplatform.common.util.DateUtils;
 import cn.com.businessservicesplatform.model.mysql.UserServiceComment;
+import cn.com.businessservicesplatform.model.mysql.UserServiceCommentTag;
 
 public class UserServiceCommentVo extends UserServiceComment {
+	
+	public UserServiceCommentVo(){}
+	
+	public UserServiceCommentVo(Integer serviceId){
+		super.setServiceId(serviceId);
+	}
 
-	private List<UserServiceCommentTagVo>  tagList;
+	private List<UserServiceCommentTag>  tagList;
 	
 	private Integer querySize;
 	private Integer allSize;
@@ -15,6 +24,34 @@ public class UserServiceCommentVo extends UserServiceComment {
 	private Integer badSiz = 0;
 	private String tagIds;
 	
+	private String commentTypeStr;
+	
+	private String createTimeStr;
+	
+	public String getCreateTimeStr() {
+		try {
+			if(null != super.getCreateTime()){
+				setCreateTimeStr(DateUtils.getString(super.getCreateTime(), "yyyy-MM-dd HH:mm:ss"));
+			}
+		} catch (Exception e) {
+		}
+		return createTimeStr;
+	}
+	
+	
+
+	public String getCommentTypeStr() {
+		return commentTypeStr;
+	}
+
+	public void setCommentTypeStr(String commentTypeStr) {
+		this.commentTypeStr = commentTypeStr;
+	}
+
+	public void setCreateTimeStr(String createTimeStr) {
+		this.createTimeStr = createTimeStr;
+	}
+
 	public String getTagIds() {
 		return tagIds;
 	}
@@ -27,10 +64,11 @@ public class UserServiceCommentVo extends UserServiceComment {
 	public void setQuerySize(Integer querySize) {
 		this.querySize = querySize;
 	}
-	public List<UserServiceCommentTagVo> getTagList() {
+	
+	public List<UserServiceCommentTag> getTagList() {
 		return tagList;
 	}
-	public void setTagList(List<UserServiceCommentTagVo> tagList) {
+	public void setTagList(List<UserServiceCommentTag> tagList) {
 		this.tagList = tagList;
 	}
 	public Integer getAllSize() {
