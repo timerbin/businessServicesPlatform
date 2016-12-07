@@ -35,7 +35,30 @@ public class BaseUserCompanyController extends BaseController{
 	
 	@Value("${com.upload.file.path}")
 	private String uploadFilePath;
-	
+
+
+	/**
+	 * 企业详细页面 跳转
+	 * @param request
+	 * @return
+     *//*
+	@RequestMapping("/toCompanyDetail")
+	public ModelAndView toCompanyDetail(HttpServletRequest request) {
+
+		ModelAndView model = new ModelAndView ("/admin/detailCompany");
+		String id = request.getParameter("id");
+		if(id != null && !"".equals(id)){
+			int i = Integer.parseInt(id);
+			BaseUserCompanyVo vo = baseUserCompanyService.getBaseUserAllCompany(i);
+			model.addObject("comVo",vo);
+		}else{
+			model.addObject("errMsg","无效的企业ID");
+			return model;
+		}
+
+
+		return model;
+	}*/
 	
 	/**
 	 * @Description: 跳转到公司页面 <br>
@@ -90,6 +113,9 @@ public class BaseUserCompanyController extends BaseController{
 		model.addObject("companyVoLst",companyVoLst);
 		return model;
 	}
+
+
+
 
 
 
