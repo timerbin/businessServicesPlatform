@@ -126,6 +126,7 @@ public class BaseUserCompanyController extends BaseController{
 	    		return model;
 			}
 		} catch (Exception e) {
+			model.addObject("errorMsg","系统繁忙,请稍后再试");
 			log.error("BaseUserCompanyController.saveCompany.system.error:", e);
 		}
     	return model;
