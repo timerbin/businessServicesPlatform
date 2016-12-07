@@ -26,11 +26,11 @@
 		</c:if>
     	<li class="border_bj margin_top20">
             <span class="login_img"><img src="${BASE_URL}/images/goin_yh.png" /></span>
-            <input id="loginName" maxlength="20"  name="loginName" type="text" placeholder="请输入登录名" class="login_input_text" />
+            <input id="userName" maxlength="20"  name="userName" type="text" placeholder="请输入登录名" class="login_input_text" />
         </li>
         <li class="border_bj margin_top20">
             <span class="login_img"><img src="${BASE_URL}/images/goin_mm.png" /></span>
-            <input id="loginPwd" maxlength="20"  name="loginPwd" type="password" placeholder="请输入密码" class="login_input_text" />
+            <input id="userPassword" maxlength="20"  name="userPassword" type="password" placeholder="请输入密码" class="login_input_text" />
         </li>
         <li class="  margin_top20">
             <span><input id="verifyCode" maxlength="4"  name="verifyCode" type="text" placeholder="请输入验证码" class="login_input_text"  style="width:150px;" /></span>
@@ -57,21 +57,21 @@
     	}
     });
     function check(){
-    	var loginName = $("#loginName").val();
-    	if($.trim(loginName).length <= 0){
+    	var userName = $("#userName").val();
+    	if($.trim(userName).length <= 0){
     		alert("请输入登录名");
-    		 $("#loginName").focus();
+    		 $("#userName").focus();
     		return false;
     	}
-    	var loginPwd = $("#loginPwd").val();
-    	if($.trim(loginPwd).length <= 0){
+    	var userPassword = $("#userPassword").val();
+    	if($.trim(userPassword).length <= 0){
     		alert("请输入密码");
-    		 $("#loginPwd").focus();
+    		 $("#userPassword").focus();
     		return false;
     	}
-    	if($.trim(loginPwd).length < 6){
+    	if($.trim(userPassword).length < 6){
     		 alert("密码长度必须大于6位");
-    		 $("#loginPwd").focus();
+    		 $("#userPassword").focus();
     		return false;
     	}
     	var verifyCode = $("#verifyCode").val();

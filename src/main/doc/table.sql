@@ -18,23 +18,32 @@ create_time  TIMESTAMP NOT NULL COMMENT '创建时间',
 PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='基础配置信息';
 
-
--- 用户表 --
+  -- 用户信息--
 CREATE TABLE `BASE_USER` (
 `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '逻辑主键',
-age INT(11) DEFAULT NULL  COMMENT '年龄',
-sex INT(11) NOT NULL  COMMENT '性别 0 男 1 女',
-login_name VARCHAR(200) DEFAULT NULL COMMENT  '登录名',
-login_pwd VARCHAR(200) DEFAULT NULL COMMENT  '登录密码',
-rale_name VARCHAR(200) DEFAULT NULL  COMMENT '真实名称',
-mobile_phone  VARCHAR(16)  DEFAULT NULL  COMMENT '手机号码',
+user_name VARCHAR(50) DEFAULT NULL COMMENT  '登录名',
+true_name VARCHAR(50) DEFAULT NULL  COMMENT '真实名称',
+user_password VARCHAR(50) DEFAULT NULL COMMENT  '登录密码',
+register_time  DATETIME DEFAULT NULL COMMENT '注册时间',
+last_login_time  DATETIME DEFAULT NULL COMMENT '最后登录时间',
+last_login_ip VARCHAR(50) DEFAULT NULL  COMMENT '登录IP',
+error_time  DATETIME DEFAULT NULL COMMENT '登录错误时间',
+error_count int(11)   DEFAULT 0  COMMENT '登录错误次数',
+mobile_phone_number  VARCHAR(16)  DEFAULT NULL  COMMENT '手机号码',
+dept_id  VARCHAR(100)  DEFAULT NULL  COMMENT 'deptId',
+register_uid  VARCHAR(100)  DEFAULT NULL  COMMENT '注册Uid',
+wx_open_id  VARCHAR(100)  DEFAULT NULL  COMMENT '微信ID',
+user_status int(1) DEFAULT 0 COMMENT '状态  -1逻辑删除 0待验证 1正常',
+user_sex INT(11) NOT NULL  COMMENT '性别 0 男 1 女',
+user_desc VARCHAR(100) DEFAULT NULL  COMMENT '用户说明',
 email VARCHAR(200) NOT NULL COMMENT  '邮件',
-status int(1) DEFAULT 0 COMMENT '状态  -1逻辑删除 0待验证 1正常',
 type int(1) DEFAULT 1  COMMENT '类型 1普通用户',
-modify_time  TIMESTAMP NOT NULL DEFAULT  CURRENT_TIMESTAMP  ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
-create_time  TIMESTAMP NOT NULL DEFAULT  CURRENT_TIMESTAMP COMMENT '创建时间',
+age INT(11) DEFAULT NULL  COMMENT '年龄',
+modify_time  TIMESTAMP NOT NULL  ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
+create_time  TIMESTAMP NOT NULL   COMMENT '创建时间',
 PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户信息';
+
 
 
 -- 用户企业信息 --

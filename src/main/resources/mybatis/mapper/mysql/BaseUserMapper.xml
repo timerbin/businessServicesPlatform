@@ -3,21 +3,31 @@
 <mapper namespace="cn.com.businessservicesplatform.dao.mysql.BaseUserMapper" >
   <resultMap id="BaseResultMap" type="cn.com.businessservicesplatform.model.mysql.BaseUser" >
     <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="age" property="age" jdbcType="INTEGER" />
-    <result column="sex" property="sex" jdbcType="INTEGER" />
-    <result column="login_name" property="loginName" jdbcType="VARCHAR" />
-    <result column="login_pwd" property="loginPwd" jdbcType="VARCHAR" />
-    <result column="rale_name" property="raleName" jdbcType="VARCHAR" />
-    <result column="mobile_phone" property="mobilePhone" jdbcType="VARCHAR" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="true_name" property="trueName" jdbcType="VARCHAR" />
+    <result column="user_password" property="userPassword" jdbcType="VARCHAR" />
+    <result column="register_time" property="registerTime" jdbcType="TIMESTAMP" />
+    <result column="last_login_time" property="lastLoginTime" jdbcType="TIMESTAMP" />
+    <result column="last_login_ip" property="lastLoginIp" jdbcType="VARCHAR" />
+    <result column="error_time" property="errorTime" jdbcType="TIMESTAMP" />
+    <result column="error_count" property="errorCount" jdbcType="INTEGER" />
+    <result column="mobile_phone_number" property="mobilePhoneNumber" jdbcType="VARCHAR" />
+    <result column="dept_id" property="deptId" jdbcType="VARCHAR" />
+    <result column="register_uid" property="registerUid" jdbcType="VARCHAR" />
+    <result column="wx_open_id" property="wxOpenId" jdbcType="VARCHAR" />
+    <result column="user_status" property="userStatus" jdbcType="INTEGER" />
+    <result column="user_sex" property="userSex" jdbcType="INTEGER" />
+    <result column="user_desc" property="userDesc" jdbcType="VARCHAR" />
     <result column="email" property="email" jdbcType="VARCHAR" />
-    <result column="status" property="status" jdbcType="INTEGER" />
     <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="age" property="age" jdbcType="INTEGER" />
     <result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, age, sex, login_name, login_pwd, rale_name, mobile_phone, email, status, 
-    type, modify_time, create_time
+    id, user_name, true_name, user_password, register_time, last_login_time, last_login_ip, 
+    error_time, error_count, mobile_phone_number, dept_id, register_uid, wx_open_id, 
+    user_status, user_sex, user_desc, email, type, age, modify_time, create_time
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -31,19 +41,22 @@
     <include refid="Base_Column_List" />
     from base_user
     where 1=1 
-      <if test="loginName != null" >
-        and login_name = #{loginName,jdbcType=VARCHAR}
+      <if test="userName != null" >
+        and user_name = #{userName,jdbcType=VARCHAR}
       </if>
-    <if test="mobilePhone != null" >
-        and mobile_phone = #{mobilePhone,jdbcType=VARCHAR}
+    <if test="mobilePhoneNumber != null" >
+        and mobile_phone_number = #{mobilePhoneNumber,jdbcType=VARCHAR}
       </if>
       <if test="email != null" >
         and email = #{email,jdbcType=VARCHAR}
       </if>
-      <if test="loginPwd != null" >
-       and login_pwd =  #{loginPwd,jdbcType=VARCHAR}
+      <if test="userPassword != null" >
+       and user_password =  #{userPassword,jdbcType=VARCHAR}
       </if>
   </select>
+  
+  
+  
   
   
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
@@ -51,16 +64,22 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="cn.com.businessservicesplatform.model.mysql.BaseUser" >
-    insert into base_user (id, age, 
-      sex, login_name, login_pwd, 
-      rale_name, mobile_phone, email, 
-      status, type, modify_time, 
-      create_time)
-    values (#{id,jdbcType=INTEGER}, #{age,jdbcType=INTEGER}, 
-      #{sex,jdbcType=INTEGER}, #{loginName,jdbcType=VARCHAR}, #{loginPwd,jdbcType=VARCHAR}, 
-      #{raleName,jdbcType=VARCHAR}, #{mobilePhone,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
-      #{status,jdbcType=INTEGER}, #{type,jdbcType=INTEGER}, #{modifyTime,jdbcType=TIMESTAMP}, 
-      #{createTime,jdbcType=TIMESTAMP})
+    insert into base_user (id, user_name, true_name, 
+      user_password, register_time, last_login_time, 
+      last_login_ip, error_time, error_count, 
+      mobile_phone_number, dept_id, register_uid, 
+      wx_open_id, user_status, user_sex, 
+      user_desc, email, type, 
+      age, modify_time, create_time
+      )
+    values (#{id,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, #{trueName,jdbcType=VARCHAR}, 
+      #{userPassword,jdbcType=VARCHAR}, #{registerTime,jdbcType=TIMESTAMP}, #{lastLoginTime,jdbcType=TIMESTAMP}, 
+      #{lastLoginIp,jdbcType=VARCHAR}, #{errorTime,jdbcType=TIMESTAMP}, #{errorCount,jdbcType=INTEGER}, 
+      #{mobilePhoneNumber,jdbcType=VARCHAR}, #{deptId,jdbcType=VARCHAR}, #{registerUid,jdbcType=VARCHAR}, 
+      #{wxOpenId,jdbcType=VARCHAR}, #{userStatus,jdbcType=INTEGER}, #{userSex,jdbcType=INTEGER}, 
+      #{userDesc,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, 
+      #{age,jdbcType=INTEGER}, #{modifyTime,jdbcType=TIMESTAMP}, #{createTime,jdbcType=TIMESTAMP}
+      )
   </insert>
   <insert id="insertSelective" parameterType="cn.com.businessservicesplatform.model.mysql.BaseUser" >
     insert into base_user
@@ -68,32 +87,59 @@
       <if test="id != null" >
         id,
       </if>
-      <if test="age != null" >
-        age,
+      <if test="userName != null" >
+        user_name,
       </if>
-      <if test="sex != null" >
-        sex,
+      <if test="trueName != null" >
+        true_name,
       </if>
-      <if test="loginName != null" >
-        login_name,
+      <if test="userPassword != null" >
+        user_password,
       </if>
-      <if test="loginPwd != null" >
-        login_pwd,
+      <if test="registerTime != null" >
+        register_time,
       </if>
-      <if test="raleName != null" >
-        rale_name,
+      <if test="lastLoginTime != null" >
+        last_login_time,
       </if>
-      <if test="mobilePhone != null" >
-        mobile_phone,
+      <if test="lastLoginIp != null" >
+        last_login_ip,
+      </if>
+      <if test="errorTime != null" >
+        error_time,
+      </if>
+      <if test="errorCount != null" >
+        error_count,
+      </if>
+      <if test="mobilePhoneNumber != null" >
+        mobile_phone_number,
+      </if>
+      <if test="deptId != null" >
+        dept_id,
+      </if>
+      <if test="registerUid != null" >
+        register_uid,
+      </if>
+      <if test="wxOpenId != null" >
+        wx_open_id,
+      </if>
+      <if test="userStatus != null" >
+        user_status,
+      </if>
+      <if test="userSex != null" >
+        user_sex,
+      </if>
+      <if test="userDesc != null" >
+        user_desc,
       </if>
       <if test="email != null" >
         email,
       </if>
-      <if test="status != null" >
-        status,
-      </if>
       <if test="type != null" >
         type,
+      </if>
+      <if test="age != null" >
+        age,
       </if>
       <if test="modifyTime != null" >
         modify_time,
@@ -106,32 +152,59 @@
       <if test="id != null" >
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="age != null" >
-        #{age,jdbcType=INTEGER},
+      <if test="userName != null" >
+        #{userName,jdbcType=VARCHAR},
       </if>
-      <if test="sex != null" >
-        #{sex,jdbcType=INTEGER},
+      <if test="trueName != null" >
+        #{trueName,jdbcType=VARCHAR},
       </if>
-      <if test="loginName != null" >
-        #{loginName,jdbcType=VARCHAR},
+      <if test="userPassword != null" >
+        #{userPassword,jdbcType=VARCHAR},
       </if>
-      <if test="loginPwd != null" >
-        #{loginPwd,jdbcType=VARCHAR},
+      <if test="registerTime != null" >
+        #{registerTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="raleName != null" >
-        #{raleName,jdbcType=VARCHAR},
+      <if test="lastLoginTime != null" >
+        #{lastLoginTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="mobilePhone != null" >
-        #{mobilePhone,jdbcType=VARCHAR},
+      <if test="lastLoginIp != null" >
+        #{lastLoginIp,jdbcType=VARCHAR},
+      </if>
+      <if test="errorTime != null" >
+        #{errorTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="errorCount != null" >
+        #{errorCount,jdbcType=INTEGER},
+      </if>
+      <if test="mobilePhoneNumber != null" >
+        #{mobilePhoneNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="deptId != null" >
+        #{deptId,jdbcType=VARCHAR},
+      </if>
+      <if test="registerUid != null" >
+        #{registerUid,jdbcType=VARCHAR},
+      </if>
+      <if test="wxOpenId != null" >
+        #{wxOpenId,jdbcType=VARCHAR},
+      </if>
+      <if test="userStatus != null" >
+        #{userStatus,jdbcType=INTEGER},
+      </if>
+      <if test="userSex != null" >
+        #{userSex,jdbcType=INTEGER},
+      </if>
+      <if test="userDesc != null" >
+        #{userDesc,jdbcType=VARCHAR},
       </if>
       <if test="email != null" >
         #{email,jdbcType=VARCHAR},
       </if>
-      <if test="status != null" >
-        #{status,jdbcType=INTEGER},
-      </if>
       <if test="type != null" >
         #{type,jdbcType=INTEGER},
+      </if>
+      <if test="age != null" >
+        #{age,jdbcType=INTEGER},
       </if>
       <if test="modifyTime != null" >
         #{modifyTime,jdbcType=TIMESTAMP},
@@ -144,32 +217,59 @@
   <update id="updateByPrimaryKeySelective" parameterType="cn.com.businessservicesplatform.model.mysql.BaseUser" >
     update base_user
     <set >
-      <if test="age != null" >
-        age = #{age,jdbcType=INTEGER},
+      <if test="userName != null" >
+        user_name = #{userName,jdbcType=VARCHAR},
       </if>
-      <if test="sex != null" >
-        sex = #{sex,jdbcType=INTEGER},
+      <if test="trueName != null" >
+        true_name = #{trueName,jdbcType=VARCHAR},
       </if>
-      <if test="loginName != null" >
-        login_name = #{loginName,jdbcType=VARCHAR},
+      <if test="userPassword != null" >
+        user_password = #{userPassword,jdbcType=VARCHAR},
       </if>
-      <if test="loginPwd != null" >
-        login_pwd = #{loginPwd,jdbcType=VARCHAR},
+      <if test="registerTime != null" >
+        register_time = #{registerTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="raleName != null" >
-        rale_name = #{raleName,jdbcType=VARCHAR},
+      <if test="lastLoginTime != null" >
+        last_login_time = #{lastLoginTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="mobilePhone != null" >
-        mobile_phone = #{mobilePhone,jdbcType=VARCHAR},
+      <if test="lastLoginIp != null" >
+        last_login_ip = #{lastLoginIp,jdbcType=VARCHAR},
+      </if>
+      <if test="errorTime != null" >
+        error_time = #{errorTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="errorCount != null" >
+        error_count = #{errorCount,jdbcType=INTEGER},
+      </if>
+      <if test="mobilePhoneNumber != null" >
+        mobile_phone_number = #{mobilePhoneNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="deptId != null" >
+        dept_id = #{deptId,jdbcType=VARCHAR},
+      </if>
+      <if test="registerUid != null" >
+        register_uid = #{registerUid,jdbcType=VARCHAR},
+      </if>
+      <if test="wxOpenId != null" >
+        wx_open_id = #{wxOpenId,jdbcType=VARCHAR},
+      </if>
+      <if test="userStatus != null" >
+        user_status = #{userStatus,jdbcType=INTEGER},
+      </if>
+      <if test="userSex != null" >
+        user_sex = #{userSex,jdbcType=INTEGER},
+      </if>
+      <if test="userDesc != null" >
+        user_desc = #{userDesc,jdbcType=VARCHAR},
       </if>
       <if test="email != null" >
         email = #{email,jdbcType=VARCHAR},
       </if>
-      <if test="status != null" >
-        status = #{status,jdbcType=INTEGER},
-      </if>
       <if test="type != null" >
         type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="age != null" >
+        age = #{age,jdbcType=INTEGER},
       </if>
       <if test="modifyTime != null" >
         modify_time = #{modifyTime,jdbcType=TIMESTAMP},
@@ -182,16 +282,24 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="cn.com.businessservicesplatform.model.mysql.BaseUser" >
     update base_user
-    set  
-      age = #{age,jdbcType=INTEGER},
-      sex = #{sex,jdbcType=INTEGER},
-      login_name = #{loginName,jdbcType=VARCHAR},
-      login_pwd = #{loginPwd,jdbcType=VARCHAR},
-      rale_name = #{raleName,jdbcType=VARCHAR},
-      mobile_phone = #{mobilePhone,jdbcType=VARCHAR},
+    set user_name = #{userName,jdbcType=VARCHAR},
+      true_name = #{trueName,jdbcType=VARCHAR},
+      user_password = #{userPassword,jdbcType=VARCHAR},
+      register_time = #{registerTime,jdbcType=TIMESTAMP},
+      last_login_time = #{lastLoginTime,jdbcType=TIMESTAMP},
+      last_login_ip = #{lastLoginIp,jdbcType=VARCHAR},
+      error_time = #{errorTime,jdbcType=TIMESTAMP},
+      error_count = #{errorCount,jdbcType=INTEGER},
+      mobile_phone_number = #{mobilePhoneNumber,jdbcType=VARCHAR},
+      dept_id = #{deptId,jdbcType=VARCHAR},
+      register_uid = #{registerUid,jdbcType=VARCHAR},
+      wx_open_id = #{wxOpenId,jdbcType=VARCHAR},
+      user_status = #{userStatus,jdbcType=INTEGER},
+      user_sex = #{userSex,jdbcType=INTEGER},
+      user_desc = #{userDesc,jdbcType=VARCHAR},
       email = #{email,jdbcType=VARCHAR},
-      status = #{status,jdbcType=INTEGER},
       type = #{type,jdbcType=INTEGER},
+      age = #{age,jdbcType=INTEGER},
       modify_time = #{modifyTime,jdbcType=TIMESTAMP},
       create_time = #{createTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}

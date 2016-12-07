@@ -8,18 +8,18 @@ public class BaseUserVo extends BaseUser {
 	 
 	 public BaseUserVo(BaseUser baseUser){
 		 super.setEmail(baseUser.getEmail());
-		 super.setMobilePhone(baseUser.getMobilePhone());
+		 super.setMobilePhoneNumber(baseUser.getMobilePhoneNumber());
 		 super.setId(baseUser.getId());
-		 super.setLoginName(baseUser.getLoginName());
-		 super.setRaleName(baseUser.getRaleName());
+		 super.setUserName(baseUser.getUserName());
+		 super.setTrueName(baseUser.getTrueName());
 		 super.setType(baseUser.getType());
-		 super.setStatus(baseUser.getStatus());
-		 super.setSex(baseUser.getSex());
+		 super.setUserStatus(baseUser.getUserStatus());
+		 super.setUserSex(baseUser.getUserSex());
 	 }
 	
-	 private String loginPwd2;
+	 private String userPassword2;
 	 
-	 private String oldLoginPwd;
+	 private String oldUserPassword;
 	 
 	 private String callbackUrl;
 	 
@@ -28,14 +28,7 @@ public class BaseUserVo extends BaseUser {
 	 private Integer companyId;
 	 
 
-	public String getOldLoginPwd() {
-		return oldLoginPwd;
-	}
-
-	public void setOldLoginPwd(String oldLoginPwd) {
-		this.oldLoginPwd = oldLoginPwd;
-	}
-
+ 
 	public Integer getCompanyId() {
 		return companyId;
 	}
@@ -60,12 +53,21 @@ public class BaseUserVo extends BaseUser {
 		this.verifyCode = verifyCode;
 	}
 
-	public String getLoginPwd2() {
-		return loginPwd2;
+	public String getUserPassword2() {
+		return userPassword2;
 	}
 
-	public void setLoginPwd2(String loginPwd2) {
-		this.loginPwd2 = loginPwd2;
+	public void setUserPassword2(String userPassword2) {
+		this.userPassword2 = userPassword2;
 	}
 
+	public String getOldUserPassword() {
+		return oldUserPassword;
+	}
+
+	public void setOldUserPassword(String oldUserPassword) {
+		this.oldUserPassword = oldUserPassword;
+	}
+
+	 
 }

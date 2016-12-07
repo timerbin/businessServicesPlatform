@@ -29,9 +29,9 @@ public class BaseUserServiceImpl implements BaseUserService{
 
 	@Override
 	public Integer register(BaseUserVo baseUserVo) {
-		baseUserVo.setLoginPwd(MD5Util.getMD5(baseUserVo.getLoginPwd()));
+		baseUserVo.setUserPassword(MD5Util.getMD5(baseUserVo.getUserPassword()));
 		baseUserVo.setCreateTime(new Date());
-		baseUserVo.setStatus(1);
+		baseUserVo.setUserStatus(1);
 		baseUserVo.setModifyTime(new Date());
 		baseUserVo.setType(BaseUserTypeEnum.GENERAL_USER.getId());
 		return baseUserMapper.insert(baseUserVo);
@@ -39,8 +39,8 @@ public class BaseUserServiceImpl implements BaseUserService{
 
 	@Override
 	public BaseUser findBaseUser(BaseUserVo baseUserVo) {
-		if(!StringUtils.isBlank(baseUserVo.getLoginPwd())){
-			baseUserVo.setLoginPwd(MD5Util.getMD5(baseUserVo.getLoginPwd()));
+		if(!StringUtils.isBlank(baseUserVo.getUserPassword())){
+			baseUserVo.setUserPassword(MD5Util.getMD5(baseUserVo.getUserPassword()));
 		}
 		return baseUserMapper.findBaseUser(baseUserVo);
 	}
@@ -57,13 +57,13 @@ public class BaseUserServiceImpl implements BaseUserService{
 			log.error("BaseUserService.updatePassword.obj.is.null:"+baseUserVo.getId());
 			return result;
 		}
-		baseUserVo.setOldLoginPwd(MD5Util.getMD5(baseUserVo.getOldLoginPwd()));
-		if(!baseUserVo.getOldLoginPwd().equals(baseUser.getLoginPwd())){
+		baseUserVo.setOldUserPassword(MD5Util.getMD5(baseUserVo.getOldUserPassword()));
+		if(!baseUserVo.getOldUserPassword().equals(baseUser.getUserPassword())){
 			log.error("BaseUserService.updatePassword.oldPwd.is.error:"+baseUserVo.getId());
 			result = -2;
 			return result;
 		}
-		baseUser.setLoginPwd(MD5Util.getMD5(baseUserVo.getLoginPwd()));
+		baseUser.setUserPassword(MD5Util.getMD5(baseUserVo.getUserPassword()));
 		baseUser.setModifyTime(new Date());
 		result = baseUserMapper.updateByPrimaryKey(baseUser);
 		
@@ -82,11 +82,11 @@ public class BaseUserServiceImpl implements BaseUserService{
 			log.error("BaseUserService.updateUserInfo.obj.is.null:"+baseUserVo.getId());
 			return result;
 		}
-		baseUser.setRaleName(baseUserVo.getRaleName());
+		baseUser.setTrueName(baseUserVo.getTrueName());
 		baseUser.setAge(baseUserVo.getAge());
 		baseUser.setEmail(baseUserVo.getEmail());
-		baseUser.setMobilePhone(baseUserVo.getMobilePhone());
-		baseUser.setSex(baseUserVo.getSex());
+		baseUser.setMobilePhoneNumber(baseUserVo.getMobilePhoneNumber());
+		baseUser.setUserSex(baseUserVo.getUserSex());
 		baseUser.setModifyTime(new Date());
 		result = baseUserMapper.updateByPrimaryKey(baseUser);
 		return result;

@@ -98,16 +98,16 @@ public class UserController extends BaseController{
     	if(null == baseUserVo){
     		return "密码信息为空";
     	}
-    	if(StringUtils.isBlank(baseUserVo.getOldLoginPwd())){
+    	if(StringUtils.isBlank(baseUserVo.getOldUserPassword())){
     		return "原密码为空";
     	}
-    	if(StringUtils.isBlank(baseUserVo.getLoginPwd())){
+    	if(StringUtils.isBlank(baseUserVo.getUserPassword())){
     		return "新密码为空";
     	}
-    	if(StringUtils.isBlank(baseUserVo.getLoginPwd2())){
+    	if(StringUtils.isBlank(baseUserVo.getUserPassword2())){
     		return "确认新为空";
     	}
-    	if(!baseUserVo.getLoginPwd().equals(baseUserVo.getLoginPwd2())){
+    	if(!baseUserVo.getUserPassword().equals(baseUserVo.getUserPassword2())){
     		return "新密码与确认新密码不相同";
     	}
     	return null;
@@ -157,16 +157,16 @@ public class UserController extends BaseController{
     	if(null == baseUserVo){
     		return "修改信息为空";
     	}
-    	if(StringUtils.isBlank(baseUserVo.getRaleName())){
+    	if(StringUtils.isBlank(baseUserVo.getTrueName())){
     		return "姓名为空";
     	}
-    	if(StringUtils.isBlank(baseUserVo.getMobilePhone())){
+    	if(StringUtils.isBlank(baseUserVo.getMobilePhoneNumber())){
     		return "联系方式为空";
     	}
     	if(StringUtils.isBlank(baseUserVo.getEmail())){
     		return "邮件为空";
     	}
-    	if(null == baseUserVo.getSex()){
+    	if(null == baseUserVo.getUserSex()){
     		return "性别为空";
     	}
     	return null;
@@ -190,7 +190,7 @@ public class UserController extends BaseController{
 				return model;
 			}
 			userServiceCommentVo.setCommentUserId(nowUser.getId());
-			userServiceCommentVo.setCommentUserName(nowUser.getLoginName());
+			userServiceCommentVo.setCommentUserName(nowUser.getUserName());
         	model.addObject("user", nowUser);
         	
         	int result =  userServiceCommentService.insert(userServiceCommentVo);
