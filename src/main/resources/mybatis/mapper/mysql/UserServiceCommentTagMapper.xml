@@ -3,14 +3,15 @@
 <mapper namespace="cn.com.businessservicesplatform.dao.mysql.UserServiceCommentTagMapper" >
   <resultMap id="BaseResultMap" type="cn.com.businessservicesplatform.model.mysql.UserServiceCommentTag" >
     <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="service_id" property="serviceId" jdbcType="VARCHAR" />
+    <result column="comment_id" property="commentId" jdbcType="INTEGER" />
     <result column="comment_tag_id" property="commentTagId" jdbcType="INTEGER" />
+    <result column="comment_tag_name" property="commentTagName" jdbcType="VARCHAR" />
     <result column="status" property="status" jdbcType="INTEGER" />
     <result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, service_id, comment_tag_id, status, modify_time, create_time
+    id, comment_id, comment_tag_id,comment_tag_name, status, modify_time, create_time
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -23,24 +24,28 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="cn.com.businessservicesplatform.model.mysql.UserServiceCommentTag" >
-    insert into user_service_comment_tag (id, service_id, comment_tag_id, 
+    insert into user_service_comment_tag (id, comment_id, comment_tag_id, comment_tag_name,
       status, modify_time, create_time
       )
-    values (#{id,jdbcType=INTEGER}, #{serviceId,jdbcType=VARCHAR}, #{commentTagId,jdbcType=INTEGER}, 
+    values (#{id,jdbcType=INTEGER}, #{commentId,jdbcType=INTEGER}, #{commentTagId,jdbcType=INTEGER}, #{commentTagName,jdbcType=VARCHAR}, 
       #{status,jdbcType=INTEGER}, #{modifyTime,jdbcType=TIMESTAMP}, #{createTime,jdbcType=TIMESTAMP}
       )
   </insert>
+   
   <insert id="insertSelective" parameterType="cn.com.businessservicesplatform.model.mysql.UserServiceCommentTag" >
     insert into user_service_comment_tag
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         id,
       </if>
-      <if test="serviceId != null" >
-        service_id,
+      <if test="commentId != null" >
+        comment_id,
       </if>
       <if test="commentTagId != null" >
         comment_tag_id,
+      </if>
+      <if test="commentTagName != null" >
+        comment_tag_name,
       </if>
       <if test="status != null" >
         status,
@@ -56,11 +61,14 @@
       <if test="id != null" >
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="serviceId != null" >
-        #{serviceId,jdbcType=VARCHAR},
+      <if test="commentId != null" >
+        #{commentId,jdbcType=INTEGER},
       </if>
       <if test="commentTagId != null" >
         #{commentTagId,jdbcType=INTEGER},
+      </if>
+      <if test="commentTagName != null" >
+        #{commentTagName,jdbcType=VARCHAR},
       </if>
       <if test="status != null" >
         #{status,jdbcType=INTEGER},
@@ -76,11 +84,14 @@
   <update id="updateByPrimaryKeySelective" parameterType="cn.com.businessservicesplatform.model.mysql.UserServiceCommentTag" >
     update user_service_comment_tag
     <set >
-      <if test="serviceId != null" >
-        service_id = #{serviceId,jdbcType=VARCHAR},
+      <if test="commentId != null" >
+        comment_id = #{commentId,jdbcType=INTEGER},
       </if>
       <if test="commentTagId != null" >
         comment_tag_id = #{commentTagId,jdbcType=INTEGER},
+      </if>
+      <if test="commentTagName != null" >
+        	comment_tag_name = #{commentTagName,jdbcType=VARCHAR},
       </if>
       <if test="status != null" >
         status = #{status,jdbcType=INTEGER},
@@ -96,8 +107,9 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="cn.com.businessservicesplatform.model.mysql.UserServiceCommentTag" >
     update user_service_comment_tag
-    set service_id = #{serviceId,jdbcType=VARCHAR},
+    set comment_id = #{commentId,jdbcType=INTEGER},
       comment_tag_id = #{commentTagId,jdbcType=INTEGER},
+      comment_tag_name = #{commentTagName,jdbcType=VARCHAR},
       status = #{status,jdbcType=INTEGER},
       modify_time = #{modifyTime,jdbcType=TIMESTAMP},
       create_time = #{createTime,jdbcType=TIMESTAMP}

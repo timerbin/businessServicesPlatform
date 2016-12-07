@@ -147,7 +147,7 @@ CREATE TABLE `USER_SERVICE_COMMENT` (
 `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '逻辑主键',
 user_id INT(11) DEFAULT NULL  COMMENT '服务用户ID',
 company_id INT(11) DEFAULT NULL  COMMENT  '服务企业id',
-service_id VARCHAR(500) DEFAULT NULL COMMENT  '服务id',
+service_id INT(11) DEFAULT NULL COMMENT  '服务id',
 comment_user_id INT(11)  DEFAULT NULL  COMMENT '服务评论人',
 comment_user_name VARCHAR(200)  DEFAULT NULL  COMMENT '服务评论人名称',
 comment_directions   TEXT  DEFAULT NULL  COMMENT '服务评论简介',
@@ -165,11 +165,11 @@ PRIMARY KEY (`id`)
 -- 企业服务评论标签信息 --
 CREATE TABLE `USER_SERVICE_COMMENT_TAG` (
 `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '逻辑主键',
-service_id VARCHAR(500) DEFAULT NULL COMMENT  '服务id',
+service_id INT(11) DEFAULT NULL COMMENT  '服务id',
 comment_tag_id INT(11) NOT NULL  COMMENT '评论标签id',
+comment_tag_name VARCHAR(200) NOT NULL  COMMENT '评论标签说明',
 status int(1) DEFAULT 1 COMMENT '状态  -1逻辑删除 1正常',
 modify_time  TIMESTAMP NOT NULL  ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
 create_time  TIMESTAMP NOT NULL COMMENT '创建时间',
 PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='企业服务评论标签信息';
-

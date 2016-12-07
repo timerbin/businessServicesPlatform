@@ -8,11 +8,25 @@ public class UserServiceCommentVo extends UserServiceComment {
 
 	private List<UserServiceCommentTagVo>  tagList;
 	
+	private Integer querySize;
 	private Integer allSize;
-	private Integer goodSize;
-	private Integer middleSize;
-	private Integer badSiz;
-
+	private Integer goodSize=0;
+	private Integer middleSize=0;
+	private Integer badSiz = 0;
+	private String tagIds;
+	
+	public String getTagIds() {
+		return tagIds;
+	}
+	public void setTagIds(String tagIds) {
+		this.tagIds = tagIds;
+	}
+	public Integer getQuerySize() {
+		return querySize;
+	}
+	public void setQuerySize(Integer querySize) {
+		this.querySize = querySize;
+	}
 	public List<UserServiceCommentTagVo> getTagList() {
 		return tagList;
 	}
@@ -20,6 +34,7 @@ public class UserServiceCommentVo extends UserServiceComment {
 		this.tagList = tagList;
 	}
 	public Integer getAllSize() {
+		setAllSize(goodSize+middleSize+badSiz);
 		return allSize;
 	}
 	public void setAllSize(Integer allSize) {

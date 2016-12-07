@@ -24,4 +24,9 @@ public interface UserServiceCommentMapper {
     int updateByPrimaryKey(UserServiceComment record);
     
     public List<UserServiceCommentVo> queryPage(@Param("basePage")BasePage basePage, @Param("vo")UserServiceCommentVo vo); 
+    
+    public List<UserServiceCommentVo> getCommentSizeList(UserServiceCommentVo vo);
+    
+    
+    public UserServiceComment getCommentByUserId(UserServiceCommentVo vo);
 }

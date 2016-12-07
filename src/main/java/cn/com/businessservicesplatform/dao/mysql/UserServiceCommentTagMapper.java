@@ -14,4 +14,7 @@ public interface UserServiceCommentTagMapper {
     int updateByPrimaryKeySelective(UserServiceCommentTag record);
 
     int updateByPrimaryKey(UserServiceCommentTag record);
+    
+    
+    
 }

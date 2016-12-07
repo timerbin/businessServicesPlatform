@@ -2,6 +2,8 @@ package cn.com.businessservicesplatform.model.mysql;
 
 import java.util.Date;
 
+import cn.com.businessservicesplatform.model.vo.UserServiceCommentVo;
+
 public class UserServiceComment {
     private Integer id;
 
@@ -9,7 +11,7 @@ public class UserServiceComment {
 
     private Integer companyId;
 
-    private String serviceId;
+    private Integer serviceId;
 
     private Integer commentUserId;
 
@@ -32,8 +34,34 @@ public class UserServiceComment {
     private String verifyUserDes;
 
     private String commentDirections;
+    
+    public UserServiceComment(){}
+    
+    
+    
+    
+    public UserServiceComment(UserServiceCommentVo vo) {
+		this.userId = vo.getUserId();
+		this.companyId = vo.getCompanyId();
+		this.serviceId = vo.getServiceId();
+		this.commentUserId = vo.getCommentUserId();
+		this.commentUserName = vo.getCommentUserName();
+		this.commentType = vo.getCommentType();
+		this.commentDirections = vo.getCommentDirections();
+	}
 
-    public Integer getId() {
+
+
+
+	public Integer getServiceId() {
+		return serviceId;
+	}
+
+	public void setServiceId(Integer serviceId) {
+		this.serviceId = serviceId;
+	}
+
+	public Integer getId() {
         return id;
     }
 
@@ -55,14 +83,6 @@ public class UserServiceComment {
 
     public void setCompanyId(Integer companyId) {
         this.companyId = companyId;
-    }
-
-    public String getServiceId() {
-        return serviceId;
-    }
-
-    public void setServiceId(String serviceId) {
-        this.serviceId = serviceId == null ? null : serviceId.trim();
     }
 
     public Integer getCommentUserId() {

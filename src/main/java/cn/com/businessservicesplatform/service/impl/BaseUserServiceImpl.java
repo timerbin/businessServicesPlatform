@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import cn.com.businessservicesplatform.common.constants.BaseUserTypeEnum;
 import cn.com.businessservicesplatform.common.util.MD5Util;
-import cn.com.businessservicesplatform.controller.UserController;
 import cn.com.businessservicesplatform.dao.mysql.BaseUserMapper;
 import cn.com.businessservicesplatform.model.mysql.BaseUser;
 import cn.com.businessservicesplatform.model.vo.BaseUserVo;
