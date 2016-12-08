@@ -13,8 +13,8 @@
 </head>
 <body>
 <form id="allCompany" action="${BASE_URL}/home/allCompany.html" method="post">
-	<input id="baseUrl"   value="${BASE_URL}"  type="hidden"  />
-	<input id="page" name="page" type="hidden"/>
+	<input id="baseUrl"   value="${BASE_URL}"  type="hidden"   />
+	<input id="page" name="page" type="hidden" value="${basePage.page}"/>
     <input id="curPage" name="curPage"  value="${basePage.page}" type="hidden"/>
    	<input id="pageCount" name="pageCount" value="${basePage.pages}" type="hidden"/>
     <table width="100%" height="100%" border="0px" cellpadding="0px" cellspacing="0px" >
@@ -22,7 +22,7 @@
 		 <jsp:include page="../public/left.jsp" ></jsp:include>
 	</td>
     <td  valign="top">
-		<jsp:include page="../public/loginheader.jsp" ></jsp:include>
+		<jsp:include page="../public/header.jsp" ></jsp:include>
     	 <div class="right_search">
             <div class="search_box">
                 <table border="0" cellspacing="0" cellpadding="0">

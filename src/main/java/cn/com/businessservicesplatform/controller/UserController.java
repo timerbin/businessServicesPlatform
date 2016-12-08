@@ -272,13 +272,13 @@ public class UserController extends BaseController{
 				model = new ModelAndView ( "redirect:/login/toLogin.html");
 				return model;
 			}
+			
 			BasePage basePage = new BasePage(page,10);
 			List<BaseUser> userList = baseUserService.queryPage(basePage, baseUserVo);
 			model.addObject("userList", userList);
 			model.addObject("basePage", basePage);
 			model.addObject("vo", baseUserVo);
 			baseUserService.updateUserStatus(baseUserVo);
-			
 		} catch (Exception e) {
 			log.error("UserController.userManagement.is.system.error",e);
 		}

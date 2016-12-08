@@ -1,5 +1,6 @@
 package cn.com.businessservicesplatform.model.vo;
 
+import cn.com.businessservicesplatform.common.constants.BaseConfigTypeEnum;
 import cn.com.businessservicesplatform.model.mysql.BaseConfigData;
 
 public class BaseConfigDataVo extends BaseConfigData {
@@ -11,6 +12,15 @@ public class BaseConfigDataVo extends BaseConfigData {
 		super.setType(type);
 	}
 	
+	public BaseConfigDataVo(BaseConfigData data){
+		super.setType(data.getType());
+		super.setId(data.getId());
+		super.setShowName(data.getShowName());
+		super.setStatus(data.getStatus());
+		super.setDirections(data.getDirections());
+	}
+	
+	
 	
 	/**
 	  * Enabled 启用
@@ -19,7 +29,22 @@ public class BaseConfigDataVo extends BaseConfigData {
 	  */
 	 private String updateCode;
 	 private String errorMsg;
+	 private String typeStr;
 	 
+	public String getTypeStr() {
+		if(null != super.getType()){
+			BaseConfigTypeEnum typeEnum = BaseConfigTypeEnum.get(super.getType());
+			if(null != typeEnum){
+				setTypeStr(typeEnum.getDes());
+			}
+		}
+		return typeStr;
+	}
+
+	public void setTypeStr(String typeStr) {
+		this.typeStr = typeStr;
+	}
+
 	public String getErrorMsg() {
 		return errorMsg;
 	}

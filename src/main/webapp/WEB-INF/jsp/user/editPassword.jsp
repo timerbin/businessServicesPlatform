@@ -49,6 +49,7 @@
   </div>
 </div>
 <script type="text/javascript">
+$("#toEditPassword").addClass("li_atab");
 $("#saveBtn").click(function(){
 	if(check()){
 		$("#doEditPassword").submit();

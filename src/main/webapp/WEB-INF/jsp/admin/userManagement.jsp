@@ -12,7 +12,7 @@
 
 <body>
 <form id="userList" action="${BASE_URL}/user/userManagement.html" method="post">
-<input id="page" name="page" type="hidden"/>
+<input id="page" name="page" type="hidden" value="${basePage.page}"/>
 <input id="curPage" name="curPage"  value="${basePage.page}" type="hidden"/>
 <input id="pageCount" name="pageCount" value="${basePage.pages}" type="hidden"/>
 <input id="updateCode" name="updateCode" type="hidden"/>
@@ -34,18 +34,18 @@
         <table width="929" border="0" cellspacing="1" cellpadding="0" class="fuwugl_table">
           <thead>
           <tr>
-            <td width="196" height="38" align="center">用户名称</td>
-            <td width="187" align="center">真实姓名</td>
-            <td width="109" align="center">联系方式</td>
-            <td width="102" align="center">邮箱</td>
-            <td width="102" align="center">用户类型</td>
+            <td width="110" height="38" align="center">用户名称</td>
+            <td width="110" align="center">真实姓名</td>
+            <td width="100" align="center">联系方式</td>
+            <td width="182" align="center">邮箱</td>
+            <td width="100" align="center">用户类型</td>
             <td width="217" align="center">操作</td>
           </tr>
           </thead>
           <tbody>
           	<c:forEach items="${userList}" var="user">
                 <tr>
-		            <td height="40">${user.userName}</td>
+		            <td height="40" align="center">${user.userName}</td>
 		            <td align="center">${user.trueName}</td>
 		            <td align="center">${user.mobilePhoneNumber}</td>
 		            <td align="center">${user.email}</td>
@@ -63,7 +63,7 @@
 		            	</c:if>
 		            	<c:if test="${user.userStatus==1}">
 		            		<a id="Disable" data-id="${user.id}" href="javascript:;" class="hongzi_a">停用</a>
-		            	</c:if>
+		            	</c:if>&nbsp;|&nbsp;
 		            	<c:if test="${user.type==1}">
 		            		<a id="doAdmin" data-id="${user.id}" href="javascript:;" class="hongzi_a">升为管理员</a>
 		            	</c:if>
@@ -81,9 +81,10 @@
         </table>
   </div>
 </div>
-<jsp:include page="../public/footer.jsp" ></jsp:include>
 </form>
 <script type="text/javascript">
+$("#userManagement").addClass("li_atab");
+
 //分页  begin
 var cur_page = $("#curPage").val();
 var page_count = $("#pageCount").val();

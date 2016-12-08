@@ -102,7 +102,7 @@ public class BaseUserServiceImpl implements BaseUserService{
 	public void updateUserStatus(BaseUserVo baseUserVo){
 		if(null != baseUserVo && null != baseUserVo.getId()){
 			BaseUser baseUsr = baseUserMapper.selectByPrimaryKey(baseUserVo.getId());
-			if(StringUtils.isBlank(baseUserVo.getUpdateCode())){
+			if(!StringUtils.isBlank(baseUserVo.getUpdateCode())){
 				if(baseUserVo.getUpdateCode().equals("Enabled")){
 					baseUsr.setUserStatus(1);
 				}else if(baseUserVo.getUpdateCode().equals("Disable")){

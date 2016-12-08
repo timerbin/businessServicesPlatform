@@ -109,6 +109,7 @@ display:none
   </div>
 </div>
 <script type="text/javascript">
+$("#toEditUserInfo").addClass("li_atab");
 var baseUrl = $("#baseUrl").val();
 $("#updateBtn").click(function(){
 	$('.td_dis').each(function(){
