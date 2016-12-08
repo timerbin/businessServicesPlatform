@@ -1,8 +1,13 @@
 package cn.com.businessservicesplatform.model.vo;
 
 
+import cn.com.businessservicesplatform.common.constants.BaseConfigTypeEnum;
+import cn.com.businessservicesplatform.common.constants.RecommendEnum;
 import cn.com.businessservicesplatform.common.util.DateUtils;
+import cn.com.businessservicesplatform.model.mysql.BaseConfigData;
 import cn.com.businessservicesplatform.model.mysql.UserCompanyService;
+
+import java.util.List;
 
 public class UserCompanyServiceVo extends UserCompanyService {
 	
@@ -18,8 +23,17 @@ public class UserCompanyServiceVo extends UserCompanyService {
 	private String recommendStr; //是否推荐
 	
 	private Integer code;
+	private String msg;
 
-    public UserCompanyServiceVo(UserCompanyService userCompanyService){
+	public String getMsg() {
+		return msg;
+	}
+
+	public void setMsg(String msg) {
+		this.msg = msg;
+	}
+
+	public UserCompanyServiceVo(UserCompanyService userCompanyService){
     	super.setCompanyId(userCompanyService.getCompanyId());
     	super.setServiceContactTel(userCompanyService.getServiceContactTel());
     	super.setServiceContactUser(userCompanyService.getServiceContactUser());
@@ -52,7 +66,7 @@ public class UserCompanyServiceVo extends UserCompanyService {
 	public String getCreateTimeStr() {
 		try {
 			if(null != super.getCreateTime()){
-				setCreateTimeStr(DateUtils.getString(super.getCreateTime(), "yyyy-MM-dd HH:mm"));
+				this.setCreateTimeStr(DateUtils.getString(super.getCreateTime(), "yyyy-MM-dd HH:mm"));
 			}
 		} catch (Exception e) {
 		}
@@ -80,6 +94,7 @@ public class UserCompanyServiceVo extends UserCompanyService {
 	}
 
 	public String getServiceTypeStr() {
+
 		return serviceTypeStr;
 	}
 
@@ -89,6 +104,12 @@ public class UserCompanyServiceVo extends UserCompanyService {
 
 
 	public String getRecommendStr() {
+		try {
+			if(null != super.getRecommend()){
+				this.setRecommendStr(RecommendEnum.get(super.getRecommend()).getDes());
+			}
+		} catch (Exception e) {
+		}
 		return recommendStr;
 	}
 

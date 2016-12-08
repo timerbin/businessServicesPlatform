@@ -5,17 +5,18 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>服务管理</title>
-<link href="/images/gerenzx.css" rel="stylesheet" type="text/css" />
+<link href="${BASE_URL}/images/gerenzx.css" rel="stylesheet" type="text/css" />
     <jsp:include page="../public/baseData.jsp" />
+    <jsp:include page="../public/pager.jsp" />
 </head>
 
 <body>
 <div class="head_box">
-	<span class="head_logo"><img src="/images/gerenzx_logo.png" width="220" height="60" /></span>
+	<span class="head_logo"><img src="${BASE_URL}/images/gerenzx_logo.png" width="220" height="60" /></span>
 	<ul class="header_yh">
         <li class="header_xiala"><a href="#"></a></li>
         <li class="header_name">张小二</li>
-        <li class="header_touxiang"><img src="/images/touxiang_03.jpg" width="38" height="38" /></li>
+        <li class="header_touxiang"><img src="${BASE_URL}/images/touxiang_03.jpg" width="38" height="38" /></li>
     </ul>
     <ul class="head_grzcdl">
         <li class="head_gr"><a href="#">个人中心</a></li>
@@ -46,8 +47,23 @@
         <jsp:include page="../public/loginLeft.jsp" />
     <div class="gerenzx_right">
     	<div class="grzx_h2"><h2>服务管理</h2></div>
-        <form action="" id="" name="">
+        <form action="${BASE_URL}/user/toUpdateService.html" id="serManageForm" name="serManageForm">
       <table border="0" cellspacing="10" cellpadding="0" class="gerenzx_table">
+
+
+          <c:if test="${not empty msg}">
+              <tr>
+                  <td width="121" align="right"><span style="color:green;">${msg}</span></td>
+                  <td colspan="2">&nbsp;</td>
+              </tr>
+          </c:if>
+          <input id="recommend" name="recommend" type="hidden"/>
+         <input id="baseUrl"   value="${BASE_URL}"  type="hidden"  />
+         <input id="page" name="page" type="hidden" value="${basePage.page}"/>
+         <input id="curPage" name="curPage"  value="${basePage.page}" type="hidden"/>
+         <input id="pageCount" name="pageCount" value="${basePage.pages}" type="hidden"/>
+         <input id="id" name="id" type="hidden"/>
+          <input id="baseUrl"   value="${BASE_URL}"  type="hidden"  />
 
           <tr>
             <td width="78" align="right">服务名称：</td>
@@ -88,36 +104,30 @@
           <c:forEach var="fwVo" items="${voList}">
               <tr>
                   <td height="40">${fwVo.serviceName}</td>
-                  <td align="center">${fwVo.createTime}</td>
+                  <td align="center">${fwVo.createTimeStr}</td>
                   <td align="center">${fwVo.serviceTypeStr}</td>
                   <td align="center">${fwVo.statusStr}</td>
                   <td align="center">${fwVo.id}</td>
                   <td align="center">${fwVo.recommendStr}</td>
                   <td align="center">
                       <c:if test="${fwVo.recommend == 0}">
-                          <a href="${BASE_URL}/user/doEditUserInfo.html?recommend=0" class="hongzi_a">不推荐</a>
+                          <a id="butuijian" name="butuijian" data-id="${fwVo.id}" href=""  class="hongzi_a" >不推荐</a>
                       </c:if>
                       <c:if test="${fwVo.recommend == 1}">
-                          <a href="${BASE_URL}/user/doEditUserInfo.html?recommend=1" class="hongzi_a">推荐</a>
+                          <a id="tuijian" name="tuijian" href="" data-id="${fwVo.id}" class="hongzi_a">推荐</a>
                       </c:if>
 
-
-                      <a href="#" class="lanzi_a">编辑</a>
-                      <a href="#" class="hongzi_a">删除</a>
-                      <a href="#" class="lanzi_a">详情</a>
+                      <a href="${BASE_URL}/user/toFindService.html?id=${fwVo.id}&flag=edit" class="lanzi_a">编辑</a>
+                      <a href="${BASE_URL}/user/toDelService.html?id=${fwVo.id}" class="hongzi_a">删除</a>
+                      <a href="${BASE_URL}/user/toFindService.html?id=${fwVo.id}&flag=detail" class="lanzi_a">详情</a>
                   </td>
               </tr>
+
           </c:forEach>
 
-         <%-- <tr>
-            <td height="40">***快捷服务</td>
-            <td align="center">2016-10-10 12：00</td>
-            <td align="center">注册服务</td>
-            <td align="center">上线</td>
-            <td align="center">6</td>
-            <td align="center">是</td>
-            <td align="center"><a href="#" class="hongzi_a">推荐</a> <a href="#" class="lanzi_a">编辑</a> <a href="#" class="hongzi_a">删除</a> <a href="#" class="lanzi_a">详情</a></td>
-          </tr>--%>
+          <tr>
+              <td height="40" colspan ="7"> <div class="pages" id="pager"></div></td>
+          </tr>
           </tbody>
         </table>
         </form>
@@ -126,3 +136,70 @@
 <jsp:include page="../public/footer.jsp" ></jsp:include>
 </body>
 </html>
+<script type="application/javascript">
+
+var baseUrl = $("#baseUrl").val();
+$("#baseList").addClass("li_atab");
+
+    //分页  begin
+    var cur_page = $("#curPage").val();
+    var page_count = $("#pageCount").val();
+    jQuery("#pager").pager({pagenumber: cur_page, pagecount: page_count, buttonClickCallback: change_page });
+
+    function change_page(cur_page) {
+        jQuery("#page").val(cur_page);
+        jQuery("#serManageForm").submit();
+    }
+
+    $("#butuijian").click(function(){
+        $("#serManageForm").attr("action",baseUrl+"/user/toUpdateService.html");
+        $("#recommend").val(1);
+        $(this).val($("#butuijian").attr("data-id"));
+        jQuery("#serManageForm").submit();
+    });
+    $("#tuijian").click(function(){
+        alert(123);
+        $("#serManageForm").attr("action",baseUrl+"/user/toUpdateService.html");
+        $("#recommend").val(0);
+        $(this).val($("#tuijian").attr("data-id"));
+        jQuery("#serManageForm").submit();
+
+    });
+
+
+
+    function updateEditSer(recommend,id){
+        $.ajax({
+            url:'${BASE_URL}/user/toUpdateService.html',
+            type:'POST', //GET
+            async:false,    //或false,是否异步
+            data:{
+                id:id,
+                recommend:recommend
+            },
+            timeout:20000,    //超时时间
+            dataType:'json',    //返回的数据格式：json/xml/html/script/jsonp/text
+            beforeSend:function(xhr){
+                console.log(xhr)
+                console.log('发送前')
+            },
+            success:function(data,textStatus,jqXHR){
+                console.log(data)
+                console.log(textStatus)
+                console.log(jqXHR)
+                alert(data.msg);
+                /* $("#fbfwForm")[0].reset();*/
+            },
+            error:function(xhr,textStatus){
+                console.log('错误')
+                console.log(xhr)
+                console.log(textStatus)
+            },
+            complete:function(){
+
+                console.log('结束')
+            }
+        })
+    }
+</script>
+

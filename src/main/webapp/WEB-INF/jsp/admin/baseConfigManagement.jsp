@@ -99,13 +99,15 @@ function change_page(cur_page) {
 $("#Enabled").click(function(){
 	$("#userList").attr("action",baseUrl+"/user/updateList.html");
 	 $("#updateCode").val("Enabled");
-	 $("#id").val($("#Enabled").attr("data-id"));
+	$(this).val($("#Enabled").attr("data-id"));
+	/*$("#id").val($("#Enabled").attr("data-id"));*/
 	 jQuery("#userList").submit();
 });
 $("#Disable").click(function(){
 	 $("#userList").attr("action",baseUrl+"/user/updateList.html");
 	 $("#updateCode").val("Disable");
-	 $("#id").val($("#Disable").attr("data-id"));
+	/* $("#id").val($("#Disable").attr("data-id"));*/
+	$(this).val($("#Disable").attr("data-id"));
 	 jQuery("#userList").submit();
 	 
 });

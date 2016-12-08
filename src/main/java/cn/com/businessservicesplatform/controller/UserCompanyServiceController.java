@@ -3,7 +3,9 @@ package cn.com.businessservicesplatform.controller;
 import cn.com.businessservicesplatform.common.constants.BaseConfigTypeEnum;
 import cn.com.businessservicesplatform.common.constants.RecommendEnum;
 import cn.com.businessservicesplatform.common.constants.UserServiceStatuesEnum;
+import cn.com.businessservicesplatform.common.util.BasePage;
 import cn.com.businessservicesplatform.model.mysql.BaseConfigData;
+import cn.com.businessservicesplatform.model.mysql.UserCompanyService;
 import cn.com.businessservicesplatform.model.vo.BaseConfigDataVo;
 import cn.com.businessservicesplatform.model.vo.BaseUserVo;
 import cn.com.businessservicesplatform.model.vo.UserCompanyServiceVo;
@@ -16,10 +18,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistration;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -55,38 +60,44 @@ public class UserCompanyServiceController extends BaseController{
 
 	/**
 	 * 服务管理 跳转
-	 * @param request
+	 * @param
 	 * @return
 	 */
 	@RequestMapping("/toServiceManage")
-	protected ModelAndView toServiceManage(HttpServletRequest request) {
+	protected ModelAndView toServiceManage(@RequestParam(required = false, value = "page", defaultValue = "1")Integer page, UserCompanyServiceVo userCompanyServiceVo) {
 
 		ModelAndView model = new ModelAndView ("admin/grzx_fwgl");
-		List<BaseConfigData> serTypeList = baseConfigDataService.queryList(new BaseConfigDataVo(BaseConfigTypeEnum.SERVICES_TYPE.getId()));
+		try {
 
-		UserCompanyServiceVo vo = new UserCompanyServiceVo();
-		List<UserCompanyServiceVo> voList = userCompanyServiceService.getAllUserCompanyServices(vo);
+			List<BaseConfigData> serTypeList = baseConfigDataService.queryList(new BaseConfigDataVo(BaseConfigTypeEnum.SERVICES_TYPE.getId()));
+			BasePage basePage = new BasePage(page,10);
+			List<UserCompanyServiceVo> voList = userCompanyServiceService.queryPage(basePage,userCompanyServiceVo);
 
-		for (UserCompanyServiceVo serVo:voList) {
-			for (BaseConfigData configs:serTypeList) {
-				if(serVo.getServiceType() == configs.getId()){
-					serVo.setServiceTypeStr(configs.getShowName());
-					serVo.setStatusStr(UserServiceStatuesEnum.get(serVo.getStatus()).getDes());
-					serVo.setRecommendStr(RecommendEnum.get(serVo.getRecommend()).getDes());
+			for (UserCompanyServiceVo vo:voList) {
+				for (BaseConfigData config:serTypeList) {
+					if(vo.getServiceType() == config.getId()){
+						vo.setServiceTypeStr(config.getShowName());
+					}
 				}
+
 			}
+
+
+			model.addObject("basePage",basePage);
+			model.addObject("serTypeList", serTypeList);
+			model.addObject("voList", voList);
+		}catch (Exception e){
+			e.printStackTrace();
+			log.error("###########服务管理 分页查询错误",e);
 
 		}
 
-
-		model.addObject("serTypeList", serTypeList);
-		model.addObject("voList", voList);
 		return model;
 	}
 
 	
 	/**
-	 * 发布服务
+	 * 发布服务 保存
 	 * @param request
 	 * @return
 	 */
@@ -166,22 +177,46 @@ public class UserCompanyServiceController extends BaseController{
 
 
 	/**
-	 * 编辑 推荐 不推荐 更新保存
+	 * 编辑 更新保存
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping("/toUpdateService")
+	@RequestMapping("/toUpdateEditService")
 	@ResponseBody
-	protected Map<String,Object> updateServ(HttpServletRequest request) {
-
+	protected Map<String,Object> updateEditServ(HttpServletRequest request) {
 		Map<String,Object> map = new HashMap<String, Object>();
+
+		String errMsg = "";
+		String serType = request.getParameter("serviceTypeEdit");
+		int serTypeInt = 0;
+		if(serType != null && !"".equals(serType)){
+			serTypeInt = Integer.parseInt(serType);
+		}else{
+			errMsg = "服务类型为空";
+			map.put("errMsg",errMsg);
+			return map;
+		}
+		//校验
+		UserCompanyServiceVo voSer = new UserCompanyServiceVo();
+		voSer.setServiceName(request.getParameter("serviceName"));
+		voSer.setServiceContactTel(request.getParameter("fwLxfsEdit"));
+		voSer.setServiceContactUser(request.getParameter("fwLxrEdit"));
+		voSer.setPicUrl(request.getParameter("id"));
+		voSer.setServiceType(serTypeInt);
+		voSer.setServiceDirections(request.getParameter("fwJsEdit"));
+
+		errMsg = this.check(voSer);
+		map.put("errMsg",errMsg);
+
+
+
 		try {
 			String recommend = request.getParameter("recommend");
 			String id = request.getParameter("id");
-			UserCompanyServiceVo vo = new UserCompanyServiceVo();
-			vo.setUserId(Integer.parseInt(id));
-			vo.setRecommend(Integer.parseInt(recommend));
-			int i = userCompanyServiceService.updateByPrimaryKeySelective(vo);
+			voSer = new UserCompanyServiceVo();
+			voSer.setUserId(Integer.parseInt(id));
+			voSer.setRecommend(Integer.parseInt(recommend));
+			int i = userCompanyServiceService.updateByPrimaryKeySelective(voSer);
 
 			if(i>0){
 				map.put("msg","成功");
@@ -190,10 +225,62 @@ public class UserCompanyServiceController extends BaseController{
 			}
 			return map;
 		}catch (Exception e){
-			log.error("################### updateServ 编辑服务失败" + e);
+			log.error("################### updateServ 推荐不推荐 服务失败" + e);
 			map.put("msg","系统繁忙，请稍后再试");
 			return map;
 		}
+	}
+
+
+	/**
+	 * 推荐 更新保存
+	 * @param
+	 * @return
+	 */
+	@RequestMapping("/toUpdateService")
+	protected ModelAndView updateServ(@RequestParam(required = false, value = "page", defaultValue = "1")Integer page,UserCompanyServiceVo userCompanyServiceVo) {
+
+		try {
+			if(null == userCompanyServiceVo || userCompanyServiceVo.getId() == null){
+				return toServiceManage(page,userCompanyServiceVo);
+			}
+			int result = userCompanyServiceService.updateByPrimaryKeySelective(userCompanyServiceVo);
+
+			if(result <0){
+				userCompanyServiceVo.setMsg("修改失败");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			log.error("########更新服务失败",e);
+		}
+		return toServiceManage(page,userCompanyServiceVo);
+
+
+
+
+
+
+//		ModelAndView modle = new ModelAndView("admin/grzx_fwgl");
+//		Map<String,Object> map = new HashMap<String, Object>();
+//		try {
+//			String recommend = request.getParameter("tuijianflag");
+//			String id = request.getParameter("id");
+//			UserCompanyServiceVo vo = new UserCompanyServiceVo();
+//			vo.setId(Integer.parseInt(id));
+//			vo.setRecommend(Integer.parseInt(recommend));
+//			int i = userCompanyServiceService.updateByPrimaryKeySelective(vo);
+//
+//			if(i>0){
+//				modle.addObject("msg","成功");
+//			}else{
+//				modle.addObject("msg","失败");
+//			}
+//			return modle;
+//		}catch (Exception e){
+//			log.error("################### updateServ 推荐不推荐 服务失败" + e);
+//			modle.addObject("errorMsg","系统繁忙，请稍后再试");
+//			return modle;
+//		}
 	}
 
 

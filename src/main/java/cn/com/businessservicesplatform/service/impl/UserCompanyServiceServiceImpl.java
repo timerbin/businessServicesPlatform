@@ -1,10 +1,14 @@
 package cn.com.businessservicesplatform.service.impl;
 
+import cn.com.businessservicesplatform.common.constants.BaseConfigTypeEnum;
+import cn.com.businessservicesplatform.common.constants.UserServiceStatuesEnum;
 import cn.com.businessservicesplatform.common.util.BasePage;
 import cn.com.businessservicesplatform.dao.mysql.BaseConfigDataMapper;
 import cn.com.businessservicesplatform.dao.mysql.UserCompanyServiceMapper;
+import cn.com.businessservicesplatform.model.mysql.BaseConfigData;
 import cn.com.businessservicesplatform.model.mysql.UserCompanyService;
 import cn.com.businessservicesplatform.model.mysql.UserLookHistory;
+import cn.com.businessservicesplatform.model.vo.BaseConfigDataVo;
 import cn.com.businessservicesplatform.model.vo.BaseUserCompanyVo;
 import cn.com.businessservicesplatform.model.vo.UserCompanyServiceVo;
 import cn.com.businessservicesplatform.model.vo.UserLookHistoryVo;
@@ -12,6 +16,7 @@ import cn.com.businessservicesplatform.service.BaseUserCompanyService;
 import cn.com.businessservicesplatform.service.UserCompanyServiceService;
 import cn.com.businessservicesplatform.service.UserLookHistoryService;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -31,8 +36,8 @@ public class UserCompanyServiceServiceImpl implements UserCompanyServiceService{
 	
 	private static final Logger log = LoggerFactory.getLogger(UserCompanyServiceService.class);
 
-    @Autowired
-    UserCompanyServiceMapper userCompanyServiceMapper;
+	@Autowired
+	UserCompanyServiceMapper userCompanyServiceMapper;
     @Autowired
     BaseConfigDataMapper baseConfigDataMapper;
     @Autowired
@@ -84,16 +89,26 @@ public class UserCompanyServiceServiceImpl implements UserCompanyServiceService{
 	
 	@Override
 	public List<UserCompanyServiceVo> queryPage(BasePage basePage,UserCompanyServiceVo vo){
-		List<UserCompanyServiceVo> list = userCompanyServiceMapper.queryPage(basePage, vo);
+		List<UserCompanyService> list = userCompanyServiceMapper.queryPage(basePage, vo);
+		List<UserCompanyServiceVo> voList = new ArrayList<UserCompanyServiceVo>();
+
+
 		if(null != list && list.size()>0){
-			for(UserCompanyServiceVo serviceVo :list){
-				if(null != serviceVo && serviceVo.getCompanyId() != null){
-					BaseUserCompanyVo baseUserCompanyVo = baseUserCompanyService.getUserAllCompany(serviceVo.getCompanyId());
+			for(UserCompanyService service :list){
+				if(null != service && service.getCompanyId() != null){
+					UserCompanyServiceVo serviceVo = new UserCompanyServiceVo(service);
+					BaseUserCompanyVo baseUserCompanyVo = baseUserCompanyService.getUserAllCompany(service.getCompanyId());
 					serviceVo.setBaseUserCompanyVo(baseUserCompanyVo);
+					serviceVo.setStatusStr(UserServiceStatuesEnum.get(service.getStatus()).getDes());
+//					serviceVo.setServiceTypeStr();
+//					SimpleDateFormat dft = new SimpleDateFormat("yyyyMMdd HH:mm:ss");
+//					String dateStr = dft.format(service.getCreateTime());
+//					serviceVo.setCreateTimeStr(dateStr);
+					voList.add(serviceVo);
 				}
 			}
 		}
-		return list;
+		return voList;
 	}
 	@Override
 	 public List<UserCompanyServiceVo> queryList(UserCompanyServiceVo vo){
