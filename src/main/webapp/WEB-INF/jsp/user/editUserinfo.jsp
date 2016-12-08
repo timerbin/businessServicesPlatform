@@ -18,6 +18,7 @@ display:none
 
 <body>
 <form id="doEditUserInfo" action="${BASE_URL}/user/doEditUserInfo.html" method="post">
+ 		<input id="userLogo" name="userLogo" value="${vo.userLogo}"  type="hidden"  />
 	<jsp:include page="../public/loginheader.jsp" />
 	<div class="top_tiao"></div>
 	<div class="gerenzx_main">
@@ -34,6 +35,28 @@ display:none
 	            <td width="260" class="td_dis" colspan="2" >&nbsp;</td>
 	        </tr>
 		 </c:if>
+		 <tr>
+            <td width="120" align="right">头像：</td>
+            <td width="260" > 
+	            <c:if test="${empty vo.userLogo}">
+	            	 <img src="${BASE_URL}/images/touxiang_03.jpg" width="38" height="38" />
+				</c:if>
+				<c:if test="${empty vo.logo}">
+					 <img src="${BASE_URL}/${vo.userLogo}" width="38" height="38" />
+				</c:if>
+            </td>
+            <td width="120" class="td_dis" align="right">头像：</td>
+            <td width="260" class="td_dis">
+            		<c:if test="${empty vo.userLogo}">
+		            	 <img id="userLogoImg"  src="${BASE_URL}/images/touxiang_03.jpg" data-src="images/touxiang_03.jpg" width="38" height="38" />
+					</c:if>
+					<c:if test="${empty vo.userLogo}">
+						 <img id="userLogoImg" src="${BASE_URL}/${vo.userLogo}" data-src="${vo.userLogo}"  width="38" height="38"  />
+					</c:if>
+                	<input  onclick="doSelectPic()"  type="button" value="上传图片" class="form_shangchuan" />
+                	<iframe id="uploadPicFrame" src="" style="display:none;"></iframe>
+           	</td>
+          </tr>
           <tr>
             <td width="120" align="right">姓名：</td>
             <td width="260" >${vo.raleName}</td>
@@ -97,6 +120,12 @@ $("#saveBtn").click(function(){
 	}
 });
 function check(){
+	var logo = $("#userLogoImg").attr("data-src");
+	if($.trim(logo).length <= 0){
+		alert("请上传头像");
+		return false;
+	}
+	$("#userLogo").val(logo);
 	var raleName = $("#raleName").val();
 	if($.trim(raleName).length <= 0){
 		alert("请输入姓名");
@@ -137,6 +166,85 @@ function checkMob(mobile) {
 		return false;
 	}
 }
+
+function doSelectPic() {
+	var imgSize = 0;
+	$("#pic", $("#uploadPicFrame")[0].contentWindow.document).click();
+	return false;
+}
+
+initUploadPicFrame();
+function initUploadPicFrame(){
+	var frameSrc = "/user/getUploadPicForm.html";
+	var frameParam = new Object();
+	frameParam.formId= "upload";
+	frameParam.inputId= "pic";
+	frameParam.inputOnChange = "parent.picChange";
+	frameParam.jsonp = "parent.picUploadCallback";
+	frameSrc += "?"+parseParam(frameParam);
+	$("#uploadPicFrame").attr("src", frameSrc);
+}
+function picChange(inputFile){
+	var fileSize = 0;
+	if (navigator.userAgent.indexOf('MSIE') >= 0){
+	}else{
+		var files = inputFile.files;
+		if (files.length>0){
+			var targetFile = files[0];
+			fileSize = targetFile.size;
+		}
+		if(files.length > 1){
+			alert("请单张上传");
+    		initUploadPicFrame();
+		}
+	}
+	if (fileSize>2097152){
+		alert("上传图片大小超过2M");
+		initUploadPicFrame();
+	}else{
+		$("#upload", $("#uploadPicFrame")[0].contentWindow.document).submit();
+	}
+}
+function delPic(data){
+	$(data).remove();
+}
+//上传完成后回调的方法
+function picUploadCallback(data){
+	if (data.returnCode == "1"){
+		
+		var picUrl = data.picPath;
+		if(picUrl.length > 0){
+			$("#userLogoImg").attr("data-src",data.picPath);
+			$("#userLogoImg").attr("src",baseUrl+"/"+data.picPath);
+		}else{
+			alert("上传失败,请稍后再试");
+		}
+	}else{
+		if(data.msg != ""){
+			alert(data.msg);
+		}else{
+			alert("上传失败,请稍后再试");
+		}
+	}
+	initUploadPicFrame();
+}
+//公共方法,用来将对象转化为URL参数
+function parseParam(param, key){
+  	var paramStr="";
+  	if(param instanceof String||param instanceof Number||param instanceof Boolean){
+    	paramStr+="&"+key+"="+encodeURIComponent(param);
+  	}else{
+    	jQuery.each(param,function(i){
+          	var k=key==null?i:key+(param instanceof Array?"["+i+"]":"."+i);
+          	paramStr+='&'+parseParam(this, k);
+    	});
+  	}
+  	return paramStr.substr(1);
+}
+
+
+
+
 </script>
 
 </form>

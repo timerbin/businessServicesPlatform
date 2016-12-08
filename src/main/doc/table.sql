@@ -18,7 +18,6 @@ create_time  TIMESTAMP NOT NULL COMMENT '创建时间',
 PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='基础配置信息';
 
-  -- 用户信息--
 CREATE TABLE `BASE_USER` (
 `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '逻辑主键',
 user_name VARCHAR(50) DEFAULT NULL COMMENT  '登录名',
@@ -30,6 +29,7 @@ last_login_ip VARCHAR(50) DEFAULT NULL  COMMENT '登录IP',
 error_time  DATETIME DEFAULT NULL COMMENT '登录错误时间',
 error_count int(11)   DEFAULT 0  COMMENT '登录错误次数',
 mobile_phone_number  VARCHAR(16)  DEFAULT NULL  COMMENT '手机号码',
+user_logo VARCHAR(100) DEFAULT NULL COMMENT  '用户头像',
 dept_id  VARCHAR(100)  DEFAULT NULL  COMMENT 'deptId',
 register_uid  VARCHAR(100)  DEFAULT NULL  COMMENT '注册Uid',
 wx_open_id  VARCHAR(100)  DEFAULT NULL  COMMENT '微信ID',

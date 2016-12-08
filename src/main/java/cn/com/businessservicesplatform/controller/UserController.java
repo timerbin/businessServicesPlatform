@@ -159,6 +159,9 @@ public class UserController extends BaseController{
     	if(null == baseUserVo){
     		return "修改信息为空";
     	}
+    	if(StringUtils.isBlank(baseUserVo.getUserLogo())){
+    		return "头像为空";
+    	}
     	if(StringUtils.isBlank(baseUserVo.getTrueName())){
     		return "姓名为空";
     	}

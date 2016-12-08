@@ -24,7 +24,7 @@ import cn.com.businessservicesplatform.service.BaseUserCompanyService;
 import cn.com.businessservicesplatform.service.UserCompanyServiceService;
 import cn.com.businessservicesplatform.service.UserServiceCommentService;
 @Controller
-@RequestMapping("/home")
+@RequestMapping("")
 public class HomeController extends BaseController{
 
 	@Autowired
@@ -37,6 +37,10 @@ public class HomeController extends BaseController{
 	@Autowired
 	UserServiceCommentService userServiceCommentService;
 	 
+	@RequestMapping("/")
+    public ModelAndView homeIndex(HttpServletRequest request,BaseUserCompanyVo baseUserCompanyVo) {
+		return home(request,baseUserCompanyVo);
+	}
 
 	/**
 	 * @Description:所有企业 <br>
@@ -47,7 +51,7 @@ public class HomeController extends BaseController{
 	 * @return ModelAndView <br>
 	 * @throws
 	 */
-	@RequestMapping("/allCompany")
+	@RequestMapping("/home/allCompany")
     public ModelAndView allCompany(@RequestParam(required = false, value = "page", defaultValue = "1")Integer page,HttpServletRequest request,BaseUserCompanyVo baseUserCompanyVo) {
     	ModelAndView model = new ModelAndView ("/home/allCompany");
     	try {
@@ -82,7 +86,7 @@ public class HomeController extends BaseController{
 	 * @return ModelAndView <br>
 	 * @throws
 	 */
-	@RequestMapping("/allService")
+	@RequestMapping("/home/allService")
     public ModelAndView allService(@RequestParam(required = false, value = "page", defaultValue = "1")Integer page,HttpServletRequest request,UserCompanyServiceVo userCompanyServiceVo) {
     	ModelAndView model = new ModelAndView ("/home/allService");
     	try {
@@ -113,6 +117,7 @@ public class HomeController extends BaseController{
     	return model;
     }
 	
+	
 	/**
 	 * @Description:所有企业 <br>
 	 * @Author: wangwenbin <br>
@@ -122,7 +127,7 @@ public class HomeController extends BaseController{
 	 * @return ModelAndView <br>
 	 * @throws
 	 */
-	@RequestMapping("/homeIndex")
+	@RequestMapping("/home/homeIndex")
     public ModelAndView home(HttpServletRequest request,BaseUserCompanyVo baseUserCompanyVo) {
     	ModelAndView model = new ModelAndView ("/home/home");
     	try {
@@ -167,7 +172,7 @@ public class HomeController extends BaseController{
 	 * @return ModelAndView <br>
 	 * @throws
 	 */
-	@RequestMapping("/serviceShow")
+	@RequestMapping("/home/serviceShow")
     public ModelAndView serviceShow(@RequestParam(required = false, value = "page", defaultValue = "1")Integer page,Integer commentType,HttpServletRequest request,UserCompanyServiceVo userCompanyServiceVo) {
     	ModelAndView model = new ModelAndView ("/home/serviceShow");
     	try {
