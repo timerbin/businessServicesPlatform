@@ -1,5 +1,6 @@
 package cn.com.businessservicesplatform.service.impl;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -18,8 +19,16 @@ public class BaseConfigDataServiceImpl implements BaseConfigDataService{
 	@Autowired
 	BaseConfigDataMapper baseConfigDataMapper;
 
-	public List<BaseConfigData> queryPage(BasePage basePage, BaseConfigDataVo baseConfigDataVo) {
-		return baseConfigDataMapper.queryPage(basePage, baseConfigDataVo);
+	public List<BaseConfigDataVo> queryPage(BasePage basePage, BaseConfigDataVo baseConfigDataVo) {
+		List<BaseConfigDataVo>  result = null;
+		List<BaseConfigData>  list = baseConfigDataMapper.queryPage(basePage, baseConfigDataVo);
+		if(null != list && list.size()>0 ){
+			result = new ArrayList<BaseConfigDataVo>();
+			for(BaseConfigData data :list){
+				result.add(new BaseConfigDataVo(data));
+			}
+		}
+		return result;
 	}
 
 	@Override

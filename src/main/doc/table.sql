@@ -18,7 +18,6 @@ create_time  TIMESTAMP NOT NULL COMMENT '创建时间',
 PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='基础配置信息';
 
-  -- 用户信息--
 CREATE TABLE `BASE_USER` (
 `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '逻辑主键',
 user_name VARCHAR(50) DEFAULT NULL COMMENT  '登录名',
@@ -30,6 +29,7 @@ last_login_ip VARCHAR(50) DEFAULT NULL  COMMENT '登录IP',
 error_time  DATETIME DEFAULT NULL COMMENT '登录错误时间',
 error_count int(11)   DEFAULT 0  COMMENT '登录错误次数',
 mobile_phone_number  VARCHAR(16)  DEFAULT NULL  COMMENT '手机号码',
+user_logo VARCHAR(100) DEFAULT NULL COMMENT  '用户头像',
 dept_id  VARCHAR(100)  DEFAULT NULL  COMMENT 'deptId',
 register_uid  VARCHAR(100)  DEFAULT NULL  COMMENT '注册Uid',
 wx_open_id  VARCHAR(100)  DEFAULT NULL  COMMENT '微信ID',
@@ -151,6 +151,7 @@ PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户企业发布服务信息';
 
 
+
 -- 企业服务评论信息 --
 CREATE TABLE `USER_SERVICE_COMMENT` (
 `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '逻辑主键',
@@ -159,7 +160,7 @@ company_id INT(11) DEFAULT NULL  COMMENT  '服务企业id',
 service_id INT(11) DEFAULT NULL COMMENT  '服务id',
 comment_user_id INT(11)  DEFAULT NULL  COMMENT '服务评论人',
 comment_user_name VARCHAR(200)  DEFAULT NULL  COMMENT '服务评论人名称',
-comment_directions   TEXT  DEFAULT NULL  COMMENT '服务评论简介',
+comment_directions   VARCHAR(2000)  DEFAULT NULL  COMMENT '服务评论简介',
 comment_type INT(11) NOT NULL  COMMENT '评论类型 1好评 2 中评  3差评',
 status int(1) DEFAULT 1 COMMENT '状态  -1逻辑删除 1正常',
 modify_time  TIMESTAMP NOT NULL  ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
@@ -171,10 +172,11 @@ verify_user_des  VARCHAR(200) DEFAULT NULL COMMENT '审核说明',
 PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='企业服务评论信息';
 
+
 -- 企业服务评论标签信息 --
 CREATE TABLE `USER_SERVICE_COMMENT_TAG` (
 `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '逻辑主键',
-service_id INT(11) DEFAULT NULL COMMENT  '服务id',
+comment_id INT(11) DEFAULT NULL COMMENT  '服务id',
 comment_tag_id INT(11) NOT NULL  COMMENT '评论标签id',
 comment_tag_name VARCHAR(200) NOT NULL  COMMENT '评论标签说明',
 status int(1) DEFAULT 1 COMMENT '状态  -1逻辑删除 1正常',

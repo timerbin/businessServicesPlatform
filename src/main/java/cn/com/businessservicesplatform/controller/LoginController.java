@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -100,7 +99,7 @@ public class LoginController extends BaseController{
 						model = new ModelAndView ( "redirect:"+baseUserVo.getCallbackUrl());
 			    		return model;
 			    	}else{
-			    		model = new ModelAndView ( "redirect:/user/index.html");
+			    		model = new ModelAndView ( "redirect:/");
 			    		return model;
 			    	}
 				}else{
@@ -135,6 +134,19 @@ public class LoginController extends BaseController{
     	return null;
     }
     
+    
+    @RequestMapping("/loginOut")
+    public ModelAndView loginOut(HttpServletRequest request,HttpServletResponse response) {
+    	ModelAndView model = new ModelAndView ( "redirect:/");
+    	try {
+    		CookieUtil.removeCookieUser(request, response);
+		} catch (Exception e) {
+			log.error(String.format("LoginController.loginOut.system.error:%s","系统繁忙，请稍后再试"),e);
+			model.addObject("errorMsg", "系统繁忙，请稍后再试");
+			return model;
+		}
+    	return model;
+    }
     
     /**
      * @Description: 跳转到注册页面 <br>
@@ -197,10 +209,10 @@ public class LoginController extends BaseController{
     	if(baseUserVo.getUserName().length() < 6){
     		return "用户名必须大于6位";
     	}
-    	Pattern pattern = Pattern.compile("(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[^a-zA-Z0-9]).{6,16}");
-		if (!pattern.matcher(baseUserVo.getUserPassword()).matches()  ) {
-			return "密码过于简单";
-		}
+//    	Pattern pattern = Pattern.compile("(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[^a-zA-Z0-9]).{6,16}");
+//		if (!pattern.matcher(baseUserVo.getUserPassword()).matches()  ) {
+//			return "密码过于简单";
+//		}
     	if(StringUtils.isBlank(baseUserVo.getUserPassword())){
     		return "密码为空";
     	}
@@ -219,7 +231,7 @@ public class LoginController extends BaseController{
     	if(StringUtils.isBlank(baseUserVo.getEmail())){
     		return "邮件为空";
     	}
-    	if(null == baseUserVo.getUserStatus()){
+    	if(null == baseUserVo.getUserSex()){
     		return "性别为空";
     	}
     	BaseUserVo param = new BaseUserVo();

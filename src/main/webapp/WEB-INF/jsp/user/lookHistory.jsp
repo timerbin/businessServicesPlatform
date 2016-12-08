@@ -147,7 +147,7 @@
 </html>
 
 <script type="application/javascript">
-
+$("#toLookList").addClass("li_atab");
     function typeAll(){
         $('#tyAll').addClass("llls_button");
         $('#comAll').addClass("llls_button2");

@@ -14,6 +14,7 @@
 </head>
 <body>
 <form id="doLogin" action="${BASE_URL}/login/doLogin.html" method="post">
+<input id="callbackUrl" name="callbackUrl"   value="${callbackUrl}"  type="hidden"  />
 <div class="login_head">
 	<div class="login_title"><img src="${BASE_URL}/images/goin_h.png" width="301" height="57" /></div>
 </div>

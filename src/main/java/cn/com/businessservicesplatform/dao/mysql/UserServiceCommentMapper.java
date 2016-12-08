@@ -25,8 +25,8 @@ public interface UserServiceCommentMapper {
     
     public List<UserServiceCommentVo> queryPage(@Param("basePage")BasePage basePage, @Param("vo")UserServiceCommentVo vo); 
     
-    public List<UserServiceCommentVo> getCommentSizeList(UserServiceCommentVo vo);
+    public List<UserServiceCommentVo> getCommentSizeList(@Param("vo")UserServiceCommentVo vo);
     
     
-    public UserServiceComment getCommentByUserId(UserServiceCommentVo vo);
+    public UserServiceComment getCommentByUserId(@Param("vo")UserServiceCommentVo vo);
 }

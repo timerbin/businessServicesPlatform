@@ -74,6 +74,7 @@
   </div>
 </div>
 <script type="text/javascript">
+$("#collectList").addClass("li_atab");
 var baseUrl = $("#baseUrl").val();
 $(".serviceBtn").click(function(){
 	var serviceId = $(this).attr("dataId");

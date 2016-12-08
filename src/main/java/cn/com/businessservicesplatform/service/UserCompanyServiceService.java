@@ -1,13 +1,10 @@
 package cn.com.businessservicesplatform.service;
 
-import cn.com.businessservicesplatform.model.mysql.UserCompanyService;
 import java.util.List;
 
-import cn.com.businessservicesplatform.common.util.BasePage;
 import cn.com.businessservicesplatform.common.util.BasePage;
 import cn.com.businessservicesplatform.model.vo.UserCompanyServiceVo;
 
-import java.util.List;
 
 
 /**

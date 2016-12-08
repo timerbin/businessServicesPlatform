@@ -13,7 +13,7 @@
 <body>
 <form id="userList" action="${BASE_URL}/user/baseList.html" method="post">
 <input id="baseUrl"   value="${BASE_URL}"  type="hidden"  />
-<input id="page" name="page" type="hidden"/>
+<input id="page" name="page" type="hidden" value="${basePage.page}"/>
 <input id="curPage" name="curPage"  value="${basePage.page}" type="hidden"/>
 <input id="pageCount" name="pageCount" value="${basePage.pages}" type="hidden"/>
 <input id="id" name="id" type="hidden"/>
@@ -43,7 +43,10 @@
             </td>
             <td width="78" align="right">显示名称：</td>
             <td width="155"><input id="showName" name="showName" value="${vo.showName}" type="text" class="grzx_input" /></td>
-            <td width="90"><input id="addBtn"   type="button" value="添加" class="grzx_button2" /><input id="queryBtn" type="button" value="查询" class="grzx_button2" /></td>
+            <td width="200">
+            		<input id="addBtn"   type="button" value="添加" class="grzx_button2" />&nbsp;&nbsp;
+            		<input id="queryBtn" type="button" value="查询" class="grzx_button2" />
+            </td>
           </tr>
         </table>
         <table width="929" border="0" cellspacing="1" cellpadding="0" class="fuwugl_table">
@@ -57,7 +60,9 @@
           <tbody>
           	<c:forEach items="${baseList}" var="base">
                 <tr>
-		            <td height="40">${base.showName}</td>
+		            <td height="40" align="center">
+		            	${base.typeStr}
+		            </td>
 		            <td align="center">${base.showName}</td>
 		            <td align="center">
 		            	<c:if test="${base.status!=1}">
@@ -71,16 +76,17 @@
 			</c:forEach>
           
           <tr>
-            <td height="40" colspan ="7"> <div class="pages" id="pager"></div></td>
+            <td height="40" colspan ="3"> <div class="pages" id="pager"></div></td>
           </tr>
           </tbody>
         </table>
   </div>
 </div>
-<jsp:include page="../public/footer.jsp" ></jsp:include>
 </form>
 <script type="text/javascript">
 var baseUrl = $("#baseUrl").val();
+$("#baseList").addClass("li_atab");
+
 //分页  begin
 var cur_page = $("#curPage").val();
 var page_count = $("#pageCount").val();
@@ -91,25 +97,25 @@ function change_page(cur_page) {
     jQuery("#userList").submit();
 }
 $("#Enabled").click(function(){
-	$("#userList").attr("ation",baseUrl+"/user/updateList.html");
+	$("#userList").attr("action",baseUrl+"/user/updateList.html");
 	 $("#updateCode").val("Enabled");
 	 $("#id").val($("#Enabled").attr("data-id"));
 	 jQuery("#userList").submit();
 });
 $("#Disable").click(function(){
-	 $("#userList").attr("ation",baseUrl+"/user/updateList.html");
+	 $("#userList").attr("action",baseUrl+"/user/updateList.html");
 	 $("#updateCode").val("Disable");
 	 $("#id").val($("#Disable").attr("data-id"));
 	 jQuery("#userList").submit();
 	 
 });
 $("#queryBtn").click(function(){
-	$("#userList").attr("ation",baseUrl+"/user/baseList.html");
+	$("#userList").attr("action",baseUrl+"/user/baseList.html");
 	 jQuery("#userList").submit();
 });
 $("#addBtn").click(function(){
    	if(check()){
-   		$("#userList").attr("ation",baseUrl+"/user/addBase.html");
+   		$("#userList").attr("action",baseUrl+"/user/addBase.html");
    		$("#userList").submit();
    	}
 });

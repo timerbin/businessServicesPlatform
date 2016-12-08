@@ -19,7 +19,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -159,6 +158,9 @@ public class UserController extends BaseController{
     	if(null == baseUserVo){
     		return "修改信息为空";
     	}
+    	if(StringUtils.isBlank(baseUserVo.getUserLogo())){
+    		return "头像为空";
+    	}
     	if(StringUtils.isBlank(baseUserVo.getTrueName())){
     		return "姓名为空";
     	}
@@ -183,10 +185,14 @@ public class UserController extends BaseController{
     			model = new ModelAndView ( "redirect:/login/toLogin.html?callbackUrl="+callbackUrl);
 				return model;
     		}
+    		if(null == userServiceCommentVo.getServiceId()){
+    			model = new ModelAndView ( "redirect:/home/allService.html");
+				return model;
+    		}
     		callbackUrl = "/home/serviceShow.html?id="+userServiceCommentVo.getServiceId()+"&code=";
     		String checkMsg = checkUserInfo(userServiceCommentVo);
 			if(!StringUtils.isBlank(checkMsg)){
-				model.addObject("errorMsg", checkMsg);
+				//model.addObject("errorMsg", checkMsg);
 				log.error(String.format("UserController.saveComment.check.error:%s", checkMsg));
 				model = new ModelAndView ( "redirect:"+callbackUrl+checkMsg);
 				return model;
@@ -201,14 +207,21 @@ public class UserController extends BaseController{
 				 model = new ModelAndView ( "redirect:"+callbackUrl+1);
 				 return model;
 			}else{
-				 model = new ModelAndView ("redirect:"+callbackUrl+1001);
-				model.addObject("errorMsg", "评论失败");
-				log.error(String.format("LoginController.saveComment.error:%s","修改失败，请稍后再试"));
+				if(result == -2){
+					 model = new ModelAndView ("redirect:"+callbackUrl+1002);
+					//model.addObject("errorMsg", "评论失败");
+					log.error(String.format("LoginController.saveComment.error:%s","修改失败，请稍后再试"));
+				}else{
+					 model = new ModelAndView ("redirect:"+callbackUrl+1001);
+					//model.addObject("errorMsg", "评论失败");
+					log.error(String.format("LoginController.saveComment.error:%s","修改失败，请稍后再试"));
+				}
+				
 			}
 		} catch (Exception e) {
 			model = new ModelAndView ("redirect:"+callbackUrl+1003);
 			log.error(String.format("LoginController.saveComment.system.error:%s","系统繁忙，请稍后再试"),e);
-			model.addObject("errorMsg", "系统繁忙，请稍后再试");
+			//model.addObject("errorMsg", "系统繁忙，请稍后再试");
 			return model;
 		}
     	return model;
@@ -270,13 +283,13 @@ public class UserController extends BaseController{
 				model = new ModelAndView ( "redirect:/login/toLogin.html");
 				return model;
 			}
+			
 			BasePage basePage = new BasePage(page,10);
 			List<BaseUser> userList = baseUserService.queryPage(basePage, baseUserVo);
 			model.addObject("userList", userList);
 			model.addObject("basePage", basePage);
 			model.addObject("vo", baseUserVo);
 			baseUserService.updateUserStatus(baseUserVo);
-			
 		} catch (Exception e) {
 			log.error("UserController.userManagement.is.system.error",e);
 		}

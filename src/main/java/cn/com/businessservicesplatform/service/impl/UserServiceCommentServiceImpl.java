@@ -116,7 +116,7 @@ public class UserServiceCommentServiceImpl implements UserServiceCommentService{
 					}else if(commentVo.getCommentType().intValue() == UserServiceCommentTypeEnum.MIDDLE.getId()){
 						vo.setMiddleSize(null != commentVo.getQuerySize()?commentVo.getQuerySize():0);
 					}else if(commentVo.getCommentType().intValue() == UserServiceCommentTypeEnum.BAD.getId()){
-						vo.setBadSiz(null != commentVo.getQuerySize()?commentVo.getQuerySize():0);
+						vo.setBadSize(null != commentVo.getQuerySize()?commentVo.getQuerySize():0);
 					}
 				}
 			}

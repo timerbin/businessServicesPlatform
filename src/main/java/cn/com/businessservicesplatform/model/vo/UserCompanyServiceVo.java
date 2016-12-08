@@ -16,6 +16,8 @@ public class UserCompanyServiceVo extends UserCompanyService {
 	public BaseUserCompanyVo baseUserCompanyVo;
 	private String statusStr;
 	private String recommendStr; //是否推荐
+	
+	private Integer code;
 
     public UserCompanyServiceVo(UserCompanyService userCompanyService){
     	super.setCompanyId(userCompanyService.getCompanyId());
@@ -32,7 +34,20 @@ public class UserCompanyServiceVo extends UserCompanyService {
 		super.setRecommend(userCompanyService.getRecommend());
     }
     
-    
+
+	public Integer getCode() {
+		return code;
+	}
+
+
+
+
+	public void setCode(Integer code) {
+		this.code = code;
+	}
+
+
+
 
 	public String getCreateTimeStr() {
 		try {

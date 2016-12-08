@@ -10,20 +10,52 @@
 <meta name="renderer" content="webkit" />
 	<jsp:include page="../public/baseData.jsp" />
 	<jsp:include page="../public/pager.jsp" />
+<style>
+.comment-rate {
+    float: left;
+    width: 256px;
+}
+.comment-rate dl {
+    padding: 9px 0;
+    overflow: hidden;
+    zoom: 1;
+}
+.comment-rate dt {
+    width: 100px;
+    color: #4c515c;
+    font-size: 14px;
+}
+.comment-rate dd {
+    width: 150px;
+    height: 12px;
+    overflow: hidden;
+    background-color: #DEDEDE;
+}
+.comment-rate dd, .comment-rate dt {
+    float: left;
+}
+.comment-rate dd div {
+    overflow: hidden;
+    height: 12px;
+    width: 0;
+    background-color: #F43B00;
+}
+</style>
 </head>
 <body>
+<input id="userId" name="userId"   value="${services_user_info.id}"  type="hidden"  />
 <form id="saveComment" action="${BASE_URL}/user/saveComment.html" method="post">
 	<input id="serviceId" name="serviceId"   value="${queryVo.id}"  type="hidden"  />
 	<input id="tagIds" name="tagIds"    type="hidden"  />
 	<input id="commentDirections" name="commentDirections"    type="hidden"  />
 	<input id="callbackUrl" name="callbackUrl" type="hidden" value="${BASE_URL}/home/serviceShow.html?id=${queryVo.id}" />
-	<input id="commentTypeStr" name="commentTypeStr"    type="hidden"  />
+	<input id="commentType" name="commentType"    type="hidden"  />
 	
 </form>
 <form id="allService" action="${BASE_URL}/home/allService.html" method="post">
 	<input id="baseUrl"   value="${BASE_URL}"  type="hidden"  />
 	<input id="id" name="id"   value="${queryVo.id}"  type="hidden"  />
-	 <input id="page" name="page" type="hidden"/>
+	 <input id="page" name="page" type="hidden" value="${basePage.page}"/>
     <input id="curPage" name="curPage"  value="${basePage.page}" type="hidden"/>
    	<input id="pageCount" name="pageCount" value="${basePage.pages}" type="hidden"/>
 	
@@ -73,11 +105,12 @@
                     <span class="fuwu_time">${vo.createTimeStr}</span>
                     <span class="fuwu_pingjia">
                     	服务评价 
-	                    <img src="${BASE_URL}/images/wuxing_huang.png"/> 
-	                    <img src="${BASE_URL}/images/wuxing_huang.png"/> 
-	                    <img src="${BASE_URL}/images/wuxing_huang.png"/>
-	                    <img src="${BASE_URL}/images/wuxing_huang.png"/> 
-	                    <img src="${BASE_URL}/images/wuxing_hui.png"/>
+                    	<c:forEach var="s"  begin="1" end="${commentSize.star}">
+                    		 <img src="${BASE_URL}/images/wuxing_huang.png"/> 
+						</c:forEach>
+						<c:forEach var="s"  begin="1" end="${5-commentSize.star}">
+                    		 <img src="${BASE_URL}/images/wuxing_hui.png"/> 
+						</c:forEach>
                     </span>
                 </div>
                 
@@ -89,12 +122,21 @@
                     <p>联系方式：${vo.serviceContactTel}</p>
                 	<h4>服务评价</h4>
                 	<div class="fwpj_fwpj">
-                        <ul>
-                          <li><img src="${BASE_URL}/images/shou_03.jpg" /> <span class="haoping">好评</span> <span class="hp_tiao bjse_cheng"></span>${commentSize.goodSize}人</li>
-                          <li><img src="${BASE_URL}/images/shou_07.jpg" /> <span class="haoping">中评</span> <span class="hp_tiao bjse_hui"></span>${commentSize.middleSize}人</li>
-                          <li><img src="${BASE_URL}/images/shou_11.jpg" /> <span class="haoping">差评</span> <span class="hp_tiao bjse_hui"></span>${commentSize.badSiz}人</li>
-                        </ul>
-                        <div class="haopingdu">好评度 <span>100%</span></div>
+                		<div class="comment-rate">
+							 <dl>
+								 <dt><img src="${BASE_URL}/images/shou_03.jpg" />好评</dt>
+								 <dd><div style="width:${commentSize.goodSizeRate}%;"></div>${commentSize.goodSize}人</dd>
+							 </dl>
+							 <dl>
+								 <dt><img src="${BASE_URL}/images/shou_07.jpg" />中评  </dt>
+								 <dd><div style="width: ${commentSize.middleSizeRate}%;"></div>${commentSize.middleSize}人</dd>
+							 </dl>
+							 <dl>
+								 <dt><img src="${BASE_URL}/images/shou_11.jpg" />差评 </dt>
+								 <dd><div style="width:${commentSize.badSizeRate}%;"></div>${commentSize.badSize}人</dd>
+							 </dl>
+						 </div>
+                        <div class="haopingdu">好评度 <span>${commentSize.goodSizeRate}%</span></div>
                         <div class="clear"></div>
                     </div>
                     <div id="saveComment" class="tjfw_article">
@@ -109,23 +151,23 @@
 	                    </p>
 	                    <h4>评论内容</h4>
 	                     <p>
-	                     	<input name="commentType" type="radio" value="1" />好评
-	                        <input name="commentType" type="radio" value="2" />中评 
-	                        <input name="commentType" type="radio" value="3" />差评
+	                     	<input name="commentTypeBtn" type="radio" value="1" checked="checked" />好评
+	                        <input name="commentTypeBtn" type="radio" value="2" />中评 
+	                        <input name="commentTypeBtn" type="radio" value="3" />差评
 	                    </p>
 	                    <p>
 	                    	 <textarea id="commentDirectionsStr"  cols="" rows="" class="form_textarea"></textarea>
 	                    </p>
                     </div>
-                    <div class="tjfw_button"><input name="" type="button" / value="我要点评" class="form_button bjse_hong"></div>
+                    <div class="tjfw_button"><input id="addComment"  type="button" / value="我要点评" class="form_button bjse_hong"></div>
             	</div>
                 
               <div class="tjfw_evaluation">
                 	<ul class="evaluation">
-                    	<li><input name="commentType" type="radio" value="" />全部 （${commentSize.allSize}）</li>
-                        <li><input name="commentType" type="radio" value="1" />好评 （${commentSize.goodSize}）</li>
-                        <li><input name="commentType" type="radio" value="2" />中评 （${commentSize.middleSize}）</li>
-                        <li><input name="commentType" type="radio" value="3" />差评 （${commentSize.badSiz}）</li>
+                    	<li><input name="queryType" type="radio" value="" />全部 （${commentSize.allSize}）</li>
+                        <li><input name="queryType" type="radio" value="1" />好评 （${commentSize.goodSize}）</li>
+                        <li><input name="queryType" type="radio" value="2" />中评 （${commentSize.middleSize}）</li>
+                        <li><input name="queryType" type="radio" value="3" />差评 （${commentSize.badSize}）</li>
                     </ul>
                     <c:forEach items="${commentList}" var="comment">
                   			<div class="evaluation_ar">
@@ -144,7 +186,7 @@
 		                    		</c:forEach>
 		                    	</h3>
 	                        	<p>${comment.commentDirections}</p>
-	                        	<span class="hui_zi">${comment.getCreateTimeStr}</span>
+	                        	<span class="hui_zi">${comment.createTimeStr}</span>
 	                    	</div>
 					</c:forEach>
                     <div class="pages" id="pager"></div>
@@ -184,6 +226,7 @@
 </table>
          
 <script type="text/javascript">
+var baseUrl = $("#baseUrl").val();
 //分页  begin
 var cur_page = $("#curPage").val();
 var page_count = $("#pageCount").val();
@@ -193,15 +236,38 @@ function change_page(cur_page) {
     jQuery("#page").val(cur_page);
     jQuery("#allCompany").submit();
 }
-
 //分页 end
 
 $("#queryBtn").click(function(){
 	$("#allCompany").submit();
 });
-$("#addService").click(function(){
-	$("#allCompany").submit();
+$("#addComment").click(function(){
+	var userId = $("#userId").val();
+	if($.trim(userId).length <= 0){
+		window.location.href =baseUrl+"/login/toLogin.html?callbackUrl='"+$("#callbackUrl").val()+"'";
+		return false;
+	}else{
+		if(check()){
+			$("#saveComment").submit();
+		}
+	}
 });
+function check(){
+	var commentDirectionsStr = $("#commentDirectionsStr").val();
+	if($.trim(commentDirectionsStr).length <= 0){
+		alert("请输入评论内容");
+		 $("#commentDirectionsStr").focus();
+		return false;
+	}
+	$("#commentDirections").val(commentDirections);
+	var commentTypeBtn = $("input[name='commentTypeBtn']:checked").val();
+	if($.trim(commentTypeBtn).length <= 0){
+		alert("请输入评论类型");
+		return false;
+	}
+	$("#commentType").val(commentTypeBtn);
+	return true
+}
 </script>
 
 </form>

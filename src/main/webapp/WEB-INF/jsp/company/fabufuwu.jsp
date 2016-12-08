@@ -91,6 +91,7 @@
  </form>
 <jsp:include page="../public/footer.jsp" ></jsp:include>
 <script type="application/javascript">
+var baseUrl = $("#baseUrl").val();
 $("#tijiaoBtn").click(function(){
 	if(check()){
 		$("#fbfwForm").submit();

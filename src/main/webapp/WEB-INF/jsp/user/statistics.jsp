@@ -55,6 +55,7 @@
 </div>
 <script type="text/javascript">
 var baseUrl = $("#baseUrl").val();
+$("#toStatistics").addClass("li_atab");
 var option = {
 	    title : {
 	        text: '服务申请处理情况趋势分析',

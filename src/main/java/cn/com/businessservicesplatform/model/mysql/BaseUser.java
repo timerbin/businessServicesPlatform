@@ -44,8 +44,18 @@ public class BaseUser {
     private Date modifyTime;
 
     private Date createTime;
+    
+    private String userLogo;
 
-    public Integer getId() {
+    public String getUserLogo() {
+		return userLogo;
+	}
+
+	public void setUserLogo(String userLogo) {
+		this.userLogo = userLogo;
+	}
+
+	public Integer getId() {
         return id;
     }
 

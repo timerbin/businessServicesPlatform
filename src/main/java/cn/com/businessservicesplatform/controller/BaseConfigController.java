@@ -9,7 +9,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import cn.com.businessservicesplatform.common.constants.BaseConfigTypeEnum;
 import cn.com.businessservicesplatform.common.util.BasePage;
-import cn.com.businessservicesplatform.model.mysql.BaseConfigData;
 import cn.com.businessservicesplatform.model.vo.BaseConfigDataVo;
 import cn.com.businessservicesplatform.service.BaseConfigDataService;
 
@@ -28,7 +27,7 @@ public class BaseConfigController extends BaseController {
     	ModelAndView modelView = new ModelAndView ( "/admin/baseConfigManagement");
     	try {
 			BasePage basePage = new BasePage(page,10);
-			List<BaseConfigData> list = baseConfigDataService.queryPage(basePage, baseConfigDataVo);
+			List<BaseConfigDataVo> list = baseConfigDataService.queryPage(basePage, baseConfigDataVo);
 			modelView.addObject("basePage", basePage);
 			modelView.addObject("vo", baseConfigDataVo);
 			modelView.addObject("baseList", list);

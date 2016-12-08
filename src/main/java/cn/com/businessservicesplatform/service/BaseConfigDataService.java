@@ -14,7 +14,7 @@ public interface BaseConfigDataService {
 	 * @param baseConfigDataVo
 	 * @return
 	 */
-	public List<BaseConfigData> queryPage(BasePage basePage,BaseConfigDataVo baseConfigDataVo);
+	public List<BaseConfigDataVo> queryPage(BasePage basePage,BaseConfigDataVo baseConfigDataVo);
 	
 	public List<BaseConfigData> queryList(BaseConfigDataVo baseConfigDataVo);
 	

@@ -23,11 +23,12 @@
     <result column="age" property="age" jdbcType="INTEGER" />
     <result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="user_logo" property="userLogo" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
     id, user_name, true_name, user_password, register_time, last_login_time, last_login_ip, 
     error_time, error_count, mobile_phone_number, dept_id, register_uid, wx_open_id, 
-    user_status, user_sex, user_desc, email, type, age, modify_time, create_time
+    user_status, user_sex, user_desc, email, type, age, modify_time, create_time,user_logo
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -41,9 +42,10 @@
     <include refid="Base_Column_List" />
     from base_user
     where 1=1 
-      <if test="userName != null" >
-        and user_name = #{userName,jdbcType=VARCHAR}
+      <if test="vo.userName != null" >
+        and user_name =  like CONCAT('%',#{vo.userName,jdbcType=VARCHAR},'%') 
       </if>
+      order by create_time desc
   </select>
   
   <select id="findBaseUser" resultMap="BaseResultMap" parameterType="cn.com.businessservicesplatform.model.vo.BaseUserVo" >
@@ -80,7 +82,7 @@
       mobile_phone_number, dept_id, register_uid, 
       wx_open_id, user_status, user_sex, 
       user_desc, email, type, 
-      age, modify_time, create_time
+      age, modify_time, create_time,user_logo
       )
     values (#{id,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, #{trueName,jdbcType=VARCHAR}, 
       #{userPassword,jdbcType=VARCHAR}, #{registerTime,jdbcType=TIMESTAMP}, #{lastLoginTime,jdbcType=TIMESTAMP}, 
@@ -88,9 +90,10 @@
       #{mobilePhoneNumber,jdbcType=VARCHAR}, #{deptId,jdbcType=VARCHAR}, #{registerUid,jdbcType=VARCHAR}, 
       #{wxOpenId,jdbcType=VARCHAR}, #{userStatus,jdbcType=INTEGER}, #{userSex,jdbcType=INTEGER}, 
       #{userDesc,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, 
-      #{age,jdbcType=INTEGER}, #{modifyTime,jdbcType=TIMESTAMP}, #{createTime,jdbcType=TIMESTAMP}
+      #{age,jdbcType=INTEGER}, #{modifyTime,jdbcType=TIMESTAMP}, #{createTime,jdbcType=TIMESTAMP},#{userLogo,jdbcType=VARCHAR}
       )
   </insert>
+  
   <insert id="insertSelective" parameterType="cn.com.businessservicesplatform.model.mysql.BaseUser" >
     insert into base_user
     <trim prefix="(" suffix=")" suffixOverrides="," >
@@ -157,6 +160,9 @@
       <if test="createTime != null" >
         create_time,
       </if>
+      <if test="userLogo != null" >
+        user_logo,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -221,6 +227,9 @@
       </if>
       <if test="createTime != null" >
         #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userLogo != null" >
+        #{userLogo,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -287,6 +296,9 @@
       <if test="createTime != null" >
         create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="userLogo != null" >
+        user_logo = #{userLogo,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -311,7 +323,8 @@
       type = #{type,jdbcType=INTEGER},
       age = #{age,jdbcType=INTEGER},
       modify_time = #{modifyTime,jdbcType=TIMESTAMP},
-      create_time = #{createTime,jdbcType=TIMESTAMP}
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      user_logo = #{userLogo,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>
