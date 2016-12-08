@@ -43,6 +43,7 @@
 </style>
 </head>
 <body>
+<input id="userId" name="userId"   value="${services_user_info.id}"  type="hidden"  />
 <form id="saveComment" action="${BASE_URL}/user/saveComment.html" method="post">
 	<input id="serviceId" name="serviceId"   value="${queryVo.id}"  type="hidden"  />
 	<input id="tagIds" name="tagIds"    type="hidden"  />
@@ -225,6 +226,7 @@
 </table>
          
 <script type="text/javascript">
+var baseUrl = $("#baseUrl").val();
 //分页  begin
 var cur_page = $("#curPage").val();
 var page_count = $("#pageCount").val();
@@ -240,8 +242,14 @@ $("#queryBtn").click(function(){
 	$("#allCompany").submit();
 });
 $("#addComment").click(function(){
-	if(check()){
-		$("#saveComment").submit();
+	var userId = $("#userId").val();
+	if($.trim(userId).length <= 0){
+		window.location.href =baseUrl+"/login/toLogin.html?callbackUrl='"+$("#callbackUrl").val()+"'";
+		return false;
+	}else{
+		if(check()){
+			$("#saveComment").submit();
+		}
 	}
 });
 function check(){
