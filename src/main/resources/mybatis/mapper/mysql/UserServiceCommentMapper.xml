@@ -16,15 +16,13 @@
     <result column="verify_user_id" property="verifyUserId" jdbcType="INTEGER" />
     <result column="verify_user_name" property="verifyUserName" jdbcType="VARCHAR" />
     <result column="verify_user_des" property="verifyUserDes" jdbcType="VARCHAR" />
+    <result column="comment_directions" property="commentDirections" jdbcType="VARCHAR" />
   </resultMap>
   <resultMap id="BaseResultMapVo" type="cn.com.businessservicesplatform.model.vo.UserServiceCommentVo" extends="BaseResultMap" >
   		<result column="good_size" property="goodSize" jdbcType="INTEGER" />
   		<result column="middle_size" property="middleSize" jdbcType="INTEGER" />
   		<result column="bad_size" property="badSiz" jdbcType="INTEGER" />
   		<result column="query_size" property="querySize" jdbcType="INTEGER" />
-  </resultMap>
-  <resultMap id="ResultMapWithBLOBs" type="cn.com.businessservicesplatform.model.mysql.UserServiceComment" extends="BaseResultMap" >
-    <result column="comment_directions" property="commentDirections" jdbcType="LONGVARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
     id, user_id, company_id, service_id, comment_user_id, comment_user_name, comment_type, 
@@ -34,7 +32,7 @@
   <sql id="Blob_Column_List" >
     comment_directions
   </sql>
-  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
     from user_service_comment
@@ -56,7 +54,7 @@
   
   
   
-   <select id="getCommentSizeList" resultMap="ResultMapWithBLOBs" parameterType="cn.com.businessservicesplatform.model.vo.UserServiceCommentVo" >
+   <select id="getCommentSizeList" resultMap="BaseResultMapVo" parameterType="cn.com.businessservicesplatform.model.vo.UserServiceCommentVo" >
     select count(1) as query_size,comment_type from user_service_comment
     where  status = 1
     <if test="vo.serviceId != null" >
@@ -68,19 +66,18 @@
    group by comment_type
   </select>
   
-  
-  <select id="queryPage" resultMap="BaseResultMap" parameterType="cn.com.businessservicesplatform.model.vo.UserServiceCommentVo" >
+  <select id="queryPage" resultMap="BaseResultMapVo" parameterType="cn.com.businessservicesplatform.model.vo.UserServiceCommentVo" >
     select 
     <include refid="Base_Column_List" />
-    from user_service_comment
-    where  status = 1
+    from user_service_comment 
+    where  status = 1 
     <if test="vo.serviceId != null" >
        and service_id =  #{vo.serviceId,jdbcType=INTEGER}
     </if>
     <if test="vo.commentType != null" >
        and comment_type =  #{vo.commentType,jdbcType=INTEGER}
     </if>
-    order by create_time desc
+    order by create_time desc 
   </select>
   
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
@@ -98,7 +95,7 @@
       #{serviceId,jdbcType=INTEGER}, #{commentUserId,jdbcType=INTEGER}, #{commentUserName,jdbcType=VARCHAR}, 
       #{commentType,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, #{modifyTime,jdbcType=TIMESTAMP}, 
       #{createTime,jdbcType=TIMESTAMP}, #{verifyTime,jdbcType=TIMESTAMP}, #{verifyUserId,jdbcType=INTEGER}, 
-      #{verifyUserName,jdbcType=VARCHAR}, #{verifyUserDes,jdbcType=VARCHAR}, #{commentDirections,jdbcType=LONGVARCHAR}
+      #{verifyUserName,jdbcType=VARCHAR}, #{verifyUserDes,jdbcType=VARCHAR}, #{commentDirections,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" useGeneratedKeys="true" keyProperty="id" parameterType="cn.com.businessservicesplatform.model.mysql.UserServiceComment" >
@@ -194,7 +191,7 @@
         #{verifyUserDes,jdbcType=VARCHAR},
       </if>
       <if test="commentDirections != null" >
-        #{commentDirections,jdbcType=LONGVARCHAR},
+        #{commentDirections,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -241,7 +238,7 @@
         verify_user_des = #{verifyUserDes,jdbcType=VARCHAR},
       </if>
       <if test="commentDirections != null" >
-        comment_directions = #{commentDirections,jdbcType=LONGVARCHAR},
+        comment_directions = #{commentDirections,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
@@ -261,7 +258,7 @@
       verify_user_id = #{verifyUserId,jdbcType=INTEGER},
       verify_user_name = #{verifyUserName,jdbcType=VARCHAR},
       verify_user_des = #{verifyUserDes,jdbcType=VARCHAR},
-      comment_directions = #{commentDirections,jdbcType=LONGVARCHAR}
+      comment_directions = #{commentDirections,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="cn.com.businessservicesplatform.model.mysql.UserServiceComment" >

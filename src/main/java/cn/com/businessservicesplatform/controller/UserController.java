@@ -185,10 +185,14 @@ public class UserController extends BaseController{
     			model = new ModelAndView ( "redirect:/login/toLogin.html?callbackUrl="+callbackUrl);
 				return model;
     		}
+    		if(null == userServiceCommentVo.getServiceId()){
+    			model = new ModelAndView ( "redirect:/home/allService.html");
+				return model;
+    		}
     		callbackUrl = "/home/serviceShow.html?id="+userServiceCommentVo.getServiceId()+"&code=";
     		String checkMsg = checkUserInfo(userServiceCommentVo);
 			if(!StringUtils.isBlank(checkMsg)){
-				model.addObject("errorMsg", checkMsg);
+				//model.addObject("errorMsg", checkMsg);
 				log.error(String.format("UserController.saveComment.check.error:%s", checkMsg));
 				model = new ModelAndView ( "redirect:"+callbackUrl+checkMsg);
 				return model;
@@ -203,14 +207,21 @@ public class UserController extends BaseController{
 				 model = new ModelAndView ( "redirect:"+callbackUrl+1);
 				 return model;
 			}else{
-				 model = new ModelAndView ("redirect:"+callbackUrl+1001);
-				model.addObject("errorMsg", "评论失败");
-				log.error(String.format("LoginController.saveComment.error:%s","修改失败，请稍后再试"));
+				if(result == -2){
+					 model = new ModelAndView ("redirect:"+callbackUrl+1002);
+					//model.addObject("errorMsg", "评论失败");
+					log.error(String.format("LoginController.saveComment.error:%s","修改失败，请稍后再试"));
+				}else{
+					 model = new ModelAndView ("redirect:"+callbackUrl+1001);
+					//model.addObject("errorMsg", "评论失败");
+					log.error(String.format("LoginController.saveComment.error:%s","修改失败，请稍后再试"));
+				}
+				
 			}
 		} catch (Exception e) {
 			model = new ModelAndView ("redirect:"+callbackUrl+1003);
 			log.error(String.format("LoginController.saveComment.system.error:%s","系统繁忙，请稍后再试"),e);
-			model.addObject("errorMsg", "系统繁忙，请稍后再试");
+			//model.addObject("errorMsg", "系统繁忙，请稍后再试");
 			return model;
 		}
     	return model;

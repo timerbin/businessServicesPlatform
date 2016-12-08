@@ -209,6 +209,13 @@ public class HomeController extends BaseController{
 			UserServiceCommentVo commentSize = userServiceCommentService.getCommentSize(commentParam);
 			model.addObject("commentSize", commentSize);
 			model.addObject("basePage", basePage);
+			if(null != userCompanyServiceVo.getCode() && userCompanyServiceVo.getCode() > 1){
+				if(userCompanyServiceVo.getCode()  == 1002){
+					model.addObject("errorMsg", "评论失败:您已经评论");
+				}else{
+					model.addObject("errorMsg", "评论失败");
+				}
+			}
 		} catch (Exception e) {
 			log.error("HomeController.serviceShow.is.system.error",e);
 			model = new ModelAndView ( "redirect:/home/allService.html");
