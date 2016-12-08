@@ -155,7 +155,7 @@ public class UserCompanyServiceServiceImpl implements UserCompanyServiceService{
 	 * @return
      */
 	@Override
-	public List<UserCompanyServiceVo> getAllUserCompanyServices(UserCompanyServiceVo record) {
+	public List<UserCompanyService> getAllUserCompanyServices(UserCompanyServiceVo record) {
 		return userCompanyServiceMapper.getAllUserCompanyServices(record);
 	}
 
