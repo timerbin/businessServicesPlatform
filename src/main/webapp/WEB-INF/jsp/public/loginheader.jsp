@@ -21,8 +21,9 @@
 	        <li class="head_zc"><a href="${BASE_URL}/login/toRegister.html">注册</a></li>
         	<li class="head_dl"><a href="${BASE_URL}/login/toLogin.html">登录</a></li>
 		</c:if>
-		<c:if test="${not empty services_user_info}">
+		<c:if test="${not empty errorMsg}">
 	        <li class="head_gr"><a href="${BASE_URL}/user/toEditUserInfo.html">个人中心</a></li>
+	        <li class="head_dl"><a href="${BASE_URL}/login/loginOut.html">退出</a></li>
 		</c:if>
         
     </ul>

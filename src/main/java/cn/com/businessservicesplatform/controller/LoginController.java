@@ -135,6 +135,19 @@ public class LoginController extends BaseController{
     }
     
     
+    @RequestMapping("/loginOut")
+    public ModelAndView loginOut(HttpServletRequest request,HttpServletResponse response) {
+    	ModelAndView model = new ModelAndView ( "redirect:/");
+    	try {
+    		CookieUtil.removeCookieUser(request, response);
+		} catch (Exception e) {
+			log.error(String.format("LoginController.loginOut.system.error:%s","系统繁忙，请稍后再试"),e);
+			model.addObject("errorMsg", "系统繁忙，请稍后再试");
+			return model;
+		}
+    	return model;
+    }
+    
     /**
      * @Description: 跳转到注册页面 <br>
      * @Author: wangwenbin <br>

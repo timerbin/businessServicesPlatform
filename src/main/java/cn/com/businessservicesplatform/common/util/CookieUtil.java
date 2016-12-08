@@ -104,6 +104,25 @@ public class CookieUtil {
 		return Boolean.FALSE;
 	}
 	
+	public static void removeCookieUser(HttpServletRequest request,HttpServletResponse response){
+		 try {
+			 int maxAge = 0;
+			 addCookie(response,DEFAULT_COOKIE_KEY,null,maxAge);
+			 removeSession(request);
+		} catch (Exception e) {
+			log.error("CookieUtil.removeCookieUser.is.system.error",e);
+		}
+	}
+	/**
+	 * session 赋值
+	 * @param request
+	 * @param BaseUserVo
+	 */
+	public static void removeSession(HttpServletRequest request){
+		HttpSession  httpSession = request.getSession();
+		httpSession.setAttribute(DEFAULT_COOKIE_KEY,null);
+	}
+	
 	/**
 	 * session 赋值
 	 * @param request
