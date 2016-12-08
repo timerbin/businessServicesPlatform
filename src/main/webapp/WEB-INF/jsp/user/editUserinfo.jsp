@@ -18,7 +18,8 @@ display:none
 
 <body>
 <form id="doEditUserInfo" action="${BASE_URL}/user/doEditUserInfo.html" method="post">
- 		<input id="userLogo" name="userLogo" value="${vo.userLogo}"  type="hidden"  />
+	<input id="baseUrl"   value="${BASE_URL}"  type="hidden"  /> 
+ 	<input id="userLogo" name="userLogo" value="${vo.userLogo}"  type="hidden"  />
 	<jsp:include page="../public/loginheader.jsp" />
 	<div class="top_tiao"></div>
 	<div class="gerenzx_main">
@@ -41,7 +42,7 @@ display:none
 	            <c:if test="${empty vo.userLogo}">
 	            	 <img src="${BASE_URL}/images/touxiang_03.jpg" width="38" height="38" />
 				</c:if>
-				<c:if test="${empty vo.logo}">
+				<c:if test="${not empty vo.userLogo}">
 					 <img src="${BASE_URL}/${vo.userLogo}" width="38" height="38" />
 				</c:if>
             </td>
@@ -50,7 +51,7 @@ display:none
             		<c:if test="${empty vo.userLogo}">
 		            	 <img id="userLogoImg"  src="${BASE_URL}/images/touxiang_03.jpg" data-src="images/touxiang_03.jpg" width="38" height="38" />
 					</c:if>
-					<c:if test="${empty vo.userLogo}">
+					<c:if test="${not empty vo.userLogo}">
 						 <img id="userLogoImg" src="${BASE_URL}/${vo.userLogo}" data-src="${vo.userLogo}"  width="38" height="38"  />
 					</c:if>
                 	<input  onclick="doSelectPic()"  type="button" value="上传图片" class="form_shangchuan" />
@@ -59,9 +60,9 @@ display:none
           </tr>
           <tr>
             <td width="120" align="right">姓名：</td>
-            <td width="260" >${vo.raleName}</td>
+            <td width="260" >${vo.trueName}</td>
             <td width="120" class="td_dis" align="right">姓名：</td>
-            <td width="260" class="td_dis"><input id="raleName" name="raleName" value="${vo.raleName}" maxlength="10"  type="text" class="grzx_input" /></td>
+            <td width="260" class="td_dis"><input id="trueName" name="trueName" value="${vo.trueName}" maxlength="10"  type="text" class="grzx_input" /></td>
           </tr>
           <tr>
             <td align="right">年龄：</td>
@@ -72,26 +73,26 @@ display:none
           <tr>
             <td align="right">性别：</td>
             <td>
-            	<c:if test="${vo.sex==0}">男 </c:if>
-            	<c:if test="${vo.sex==1}">女</c:if>
+            	<c:if test="${vo.userSex==0}">男 </c:if>
+            	<c:if test="${vo.userSex==1}">女</c:if>
             </td>
             <td align="right" class="td_dis">性别：</td>
             <td class="td_dis">
-            	<c:if test="${vo.sex==0}">
-            		<input name="sex" type="radio" value="0" checked="checked"/> 男 &nbsp;&nbsp;&nbsp;&nbsp;
-            		<input name="sex" type="radio" value="1" /> 女
+            	<c:if test="${vo.userSex==0}">
+            		<input name="userSex" type="radio" value="0" checked="checked"/> 男 &nbsp;&nbsp;&nbsp;&nbsp;
+            		<input name="userSex" type="radio" value="1" /> 女
             	</c:if>
-            	<c:if test="${vo.sex==1}">
-            		<input name="sex" type="radio" value="0"/> 男 &nbsp;&nbsp;&nbsp;&nbsp;
-            		<input name="sex" type="radio" value="1"  checked="checked" /> 女
+            	<c:if test="${vo.userSex==1}">
+            		<input name="userSex" type="radio" value="0"/> 男 &nbsp;&nbsp;&nbsp;&nbsp;
+            		<input name="userSex" type="radio" value="1"  checked="checked" /> 女
             	</c:if>
             </td>
           </tr>
           <tr>
             <td align="right">联系方式：</td>
-            <td>${vo.mobilePhone}</td>
+            <td>${vo.mobilePhoneNumber}</td>
             <td align="right" class="td_dis">联系方式：</td>
-            <td class="td_dis"><input id="mobilePhone" name="mobilePhone" value="${vo.mobilePhone}" maxlength="11" type="text" class="grzx_input" /></td>
+            <td class="td_dis"><input id="mobilePhoneNumber" name="mobilePhoneNumber" value="${vo.mobilePhoneNumber}" maxlength="11" type="text" class="grzx_input" /></td>
           </tr>
           <tr>
             <td align="right">邮箱：</td>
@@ -108,6 +109,7 @@ display:none
   </div>
 </div>
 <script type="text/javascript">
+var baseUrl = $("#baseUrl").val();
 $("#updateBtn").click(function(){
 	$('.td_dis').each(function(){
 		 $(this).removeClass("td_dis");
@@ -126,21 +128,21 @@ function check(){
 		return false;
 	}
 	$("#userLogo").val(logo);
-	var raleName = $("#raleName").val();
-	if($.trim(raleName).length <= 0){
+	var trueName = $("#trueName").val();
+	if($.trim(trueName).length <= 0){
 		alert("请输入姓名");
-		 $("#raleName").focus();
+		 $("#trueName").focus();
 		return false;
 	}
-	var mobilePhone = $("#mobilePhone").val();
-	if($.trim(mobilePhone).length <= 0){
+	var mobilePhoneNumber = $("#mobilePhoneNumber").val();
+	if($.trim(mobilePhoneNumber).length <= 0){
 		alert("请输入联系方式");
-		 $("#mobilePhone").focus();
+		 $("#mobilePhoneNumber").focus();
 		return false;
 	}
-	if(!checkMob(mobilePhone)){
+	if(!checkMob(mobilePhoneNumber)){
 		alert("请输入正确联系方式");
-		$("#mobilePhone").focus();
+		$("#mobilePhoneNumber").focus();
 		return false;
 	}
 	var email = $("#email").val();

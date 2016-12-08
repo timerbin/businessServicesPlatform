@@ -2,6 +2,7 @@ package cn.com.businessservicesplatform.common.util;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.web.servlet.view.JstlView;
 
 import cn.com.businessservicesplatform.service.SettingConfigService;
@@ -12,7 +13,11 @@ public class JspJstlView extends JstlView {
 	
 	@Override
 	protected void exposeHelpers(HttpServletRequest request) throws Exception {
-		request.setAttribute("BASE_URL", settingConfigService.getBaseUrl());
+		String baseUrl = settingConfigService.getBaseUrl();
+		if(StringUtils.isBlank(baseUrl)){
+			baseUrl = request.getScheme()+"://"+request.getServerName();
+		}
+		request.setAttribute("BASE_URL",baseUrl );
 		super.exposeHelpers(request);
 		
 	}

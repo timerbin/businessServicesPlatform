@@ -90,6 +90,7 @@ public class BaseUserServiceImpl implements BaseUserService{
 		baseUser.setMobilePhoneNumber(baseUserVo.getMobilePhoneNumber());
 		baseUser.setUserSex(baseUserVo.getUserSex());
 		baseUser.setModifyTime(new Date());
+		baseUser.setUserLogo(baseUserVo.getUserLogo());
 		result = baseUserMapper.updateByPrimaryKey(baseUser);
 		return result;
 	}

@@ -18,7 +18,7 @@
         <jsp:include page="../public/left.jsp" ></jsp:include>
 	</td>
     <td  valign="top">
-        <jsp:include page="../public/header.jsp" ></jsp:include>
+        <jsp:include page="../public/loginheader.jsp" ></jsp:include>
         <div class="location">发布服务</div>
         <div class="form_box">
            
@@ -91,6 +91,7 @@
  </form>
 <jsp:include page="../public/footer.jsp" ></jsp:include>
 <script type="application/javascript">
+var baseUrl = $("#baseUrl").val();
 $("#tijiaoBtn").click(function(){
 	if(check()){
 		$("#fbfwForm").submit();

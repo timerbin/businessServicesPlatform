@@ -28,7 +28,7 @@
   <sql id="Base_Column_List" >
     id, user_name, true_name, user_password, register_time, last_login_time, last_login_ip, 
     error_time, error_count, mobile_phone_number, dept_id, register_uid, wx_open_id, 
-    user_status, user_sex, user_desc, email, type, age, modify_time, create_time,userLogo
+    user_status, user_sex, user_desc, email, type, age, modify_time, create_time,user_logo
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 

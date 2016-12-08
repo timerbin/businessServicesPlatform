@@ -22,7 +22,7 @@
 		 <jsp:include page="../public/left.jsp" ></jsp:include>
 	</td>
     <td  valign="top">
-		<jsp:include page="../public/header.jsp" ></jsp:include>
+		<jsp:include page="../public/loginheader.jsp" ></jsp:include>
     	 <div class="right_search">
             <div class="search_box">
                 <table border="0" cellspacing="0" cellpadding="0">
