@@ -2,6 +2,7 @@ package cn.com.businessservicesplatform.model.vo;
 
 import java.util.List;
 
+import cn.com.businessservicesplatform.common.constants.UserServiceStatuesEnum;
 import org.apache.commons.lang.StringUtils;
 
 import cn.com.businessservicesplatform.common.util.DateUtils;
@@ -21,7 +22,22 @@ public class BaseUserCompanyVo extends BaseUserCompany {
 	private String queryStr;
 	
 	private Integer queryRows=10;
-	
+
+	private String statusStr;
+
+	public String getStatusStr() {
+		String str = "";
+		if(super.getStatus() != null){
+			str = UserServiceStatuesEnum.get(super.getStatus()).getDes();
+			this.setStatusStr(str);
+		}
+		return statusStr;
+	}
+
+	public void setStatusStr(String statusStr) {
+		this.statusStr = statusStr;
+	}
+
 	public Integer getQueryRows() {
 		return queryRows;
 	}

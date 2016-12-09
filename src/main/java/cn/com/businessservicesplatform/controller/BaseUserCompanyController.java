@@ -3,6 +3,8 @@ package cn.com.businessservicesplatform.controller;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
+import cn.com.businessservicesplatform.common.util.BasePage;
+import cn.com.businessservicesplatform.model.vo.*;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -17,10 +19,6 @@ import com.alibaba.fastjson.JSON;
 import cn.com.businessservicesplatform.common.constants.BaseConfigTypeEnum;
 import cn.com.businessservicesplatform.common.util.UploadUtil;
 import cn.com.businessservicesplatform.model.mysql.BaseConfigData;
-import cn.com.businessservicesplatform.model.vo.BaseConfigDataVo;
-import cn.com.businessservicesplatform.model.vo.BaseUserCompanyVo;
-import cn.com.businessservicesplatform.model.vo.BaseUserVo;
-import cn.com.businessservicesplatform.model.vo.UploadResultVo;
 import cn.com.businessservicesplatform.service.BaseConfigDataService;
 import cn.com.businessservicesplatform.service.BaseUserCompanyService;
 @Controller
@@ -94,23 +92,19 @@ public class BaseUserCompanyController extends BaseController{
 
 	/**
 	 * 跳转 到企业管理页面
-	 * @param request
+	 * @param
 	 * @return
      */
 	@RequestMapping("/toAllCompany")
-	public ModelAndView toAllCompany(HttpServletRequest request) {
+	public ModelAndView toAllCompany(@RequestParam(required = false, value = "page", defaultValue = "1")Integer page, BaseUserCompanyVo baseUserCompanyVo) {
 		ModelAndView model = new ModelAndView ("/admin/grzx_qygl");
-		BaseUserVo baseUserVo = this.getUser(request);
-		model.addObject("user", baseUserVo);
-		if(null == baseUserVo){
-			model = new ModelAndView ( "redirect:/login/toLogin.html");
-			return model;
+		if(page == null){
+			page =1;
 		}
-
-
-		BaseUserCompanyVo companyVo = new BaseUserCompanyVo();
-		List<BaseUserCompanyVo> companyVoLst =	baseUserCompanyService.getAllUserCompanys(companyVo);
-		model.addObject("companyVoLst",companyVoLst);
+		BasePage basePage = new BasePage(page,10);
+		List<BaseUserCompanyVo> companyVoLst =	baseUserCompanyService.queryPage(basePage,baseUserCompanyVo);
+		model.addObject("comVoLst",companyVoLst);
+		model.addObject("basePage",basePage);
 		return model;
 	}
 

@@ -30,12 +30,11 @@
               </tr>
           </c:if>
           <input id="recommend" name="recommend" type="hidden"/>
-         <input id="baseUrl"   value="${BASE_URL}"  type="hidden"  />
-         <input id="page" name="page" type="hidden" value="${basePage.page}"/>
-         <input id="curPage" name="curPage"  value="${basePage.page}" type="hidden"/>
-         <input id="pageCount" name="pageCount" value="${basePage.count}" type="hidden"/>
-         <input id="id" name="id" type="hidden"/>
           <input id="baseUrl"   value="${BASE_URL}"  type="hidden"  />
+          <input id="page" name="page" type="hidden" value="${basePage.page}"/>
+          <input id="curPage" name="curPage"  value="${basePage.page}" type="hidden"/>
+          <input id="pageCount" name="pageCount" value="${basePage.count}" type="hidden"/>
+          <input id="id" name="id" type="hidden"/>
           <input id="serviceType" name="serviceType" type="hidden"/>
 
           <tr>

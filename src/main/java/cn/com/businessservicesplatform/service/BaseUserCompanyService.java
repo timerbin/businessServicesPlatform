@@ -15,11 +15,7 @@ public interface BaseUserCompanyService {
 	public BaseUserCompany getUserCompany(BaseUserCompanyVo baseUserCompanyVo);
 	
 	public BaseUserCompanyVo getUserAllCompany(Integer id);
-	/**
-	 * 获取所有的企业
-	 * @param baseUserCompanyVo
-	 * @return
-	 */
+
 	List<BaseUserCompanyVo> getAllUserCompanys(BaseUserCompanyVo baseUserCompanyVo);
 
 	public List<BaseUserCompanyVo> queryPage(BasePage basePage,BaseUserCompanyVo vo);
