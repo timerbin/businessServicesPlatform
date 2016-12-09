@@ -100,7 +100,7 @@
               </tr>
               <tr>
                 <td align="right" valign="top"><span class="hong_xing">*</span>服务介绍：</td>
-                <td colspan="2"><textarea name="fwJsDetail" id="fwJsDetail" cols="" rows="" class="form_textarea" value="${serVo.serviceDirections}" readonly="readonly"></textarea></td>
+                <td colspan="2"><textarea name="fwJsDetail" id="fwJsDetail" cols="" rows="" class="form_textarea" readonly="readonly">${serVo.serviceDirections}</textarea></td>
               </tr>
               <tr>
                 <td align="right">&nbsp;</td>

@@ -11,39 +11,11 @@
 </head>
 
 <body>
-<div class="head_box">
-	<span class="head_logo"><img src="${BASE_URL}/images/gerenzx_logo.png" width="220" height="60" /></span>
-	<ul class="header_yh">
-        <li class="header_xiala"><a href="#"></a></li>
-        <li class="header_name">张小二</li>
-        <li class="header_touxiang"><img src="${BASE_URL}/images/touxiang_03.jpg" width="38" height="38" /></li>
-    </ul>
-    <ul class="head_grzcdl">
-        <li class="head_gr"><a href="#">个人中心</a></li>
-        <li class="head_zc"><a href="#">注册</a></li>
-        <li class="head_dl"><a href="#">登录</a></li>
-    </ul>
-</div>
+
+<jsp:include page="../public/loginheader.jsp" />
 <div class="top_tiao"></div>
 <div class="gerenzx_main">
-	<%--<div class="gerenzx_left">
-    	<h2><span><img src="/images/gerenzx_d1.png" /></span>账户管理</h2>
-        <ul>
-       		<li class="li_atab"><span><img src="/images/gerenzx_x1.png" /></span><a href="#">个人信息</a></li>
-            <li><span><img src="/images/gerenzx_x2.png" /></span><a href="#">修改密码</a></li>
-        </ul>
-        <h2><span><img src="/images/gerenzx_d2.png" /></span>服务相关</h2>
-        <ul>
-       		<li><span><img src="/images/gerenzx_x3.png" /></span><a href="#">浏览历史</a></li>
-            <li><span><img src="/images/gerenzx_x4.png" /></span><a href="#">我的收藏</a></li>
-            <li><span><img src="/images/gerenzx_x5.png" /></span><a href="#">企业管理</a></li>
-            <li><span><img src="/images/gerenzx_x6.png" /></span><a href="#">服务管理</a></li>
-        </ul>
-        <h2><span><img src="/images/gerenzx_d3.png" /></span>统计分析</h2>
-        <ul>
-       		<li><span><img src="/images/gerenzx_x7.png" /></span><a href="#">访问情况分析</a></li>
-        </ul>
-  </div>--%>
+
         <jsp:include page="../public/loginLeft.jsp" />
     <div class="gerenzx_right">
     	<div class="grzx_h2"><h2>服务管理</h2></div>
@@ -53,23 +25,24 @@
 
           <c:if test="${not empty msg}">
               <tr>
-                  <td width="121" align="right"><span style="color:green;">${msg}</span></td>
-                  <td colspan="2">&nbsp;</td>
+                  <td width="121" align="right"><span style="color:red;">${msg}</span></td>
+                  <td colspan="6">&nbsp;</td>
               </tr>
           </c:if>
           <input id="recommend" name="recommend" type="hidden"/>
          <input id="baseUrl"   value="${BASE_URL}"  type="hidden"  />
          <input id="page" name="page" type="hidden" value="${basePage.page}"/>
          <input id="curPage" name="curPage"  value="${basePage.page}" type="hidden"/>
-         <input id="pageCount" name="pageCount" value="${basePage.pages}" type="hidden"/>
+         <input id="pageCount" name="pageCount" value="${basePage.count}" type="hidden"/>
          <input id="id" name="id" type="hidden"/>
           <input id="baseUrl"   value="${BASE_URL}"  type="hidden"  />
+          <input id="serviceType" name="serviceType" type="hidden"/>
 
           <tr>
             <td width="78" align="right">服务名称：</td>
-            <td width="155"><input name="" type="text" class="grzx_input" /></td>
-            <td width="78" align="right">创建时间：</td>
-            <td width="150"><input name="" type="text" class="grzx_input" /></td>
+            <td width="155"><input id="serviceName" name="serviceName" type="text" class="grzx_input" /></td>
+            <%--<td width="78" align="right">创建时间：</td>
+            <td width="150"><input name="" type="text" class="grzx_input" /></td>--%>
             <td width="78" align="right">服务类别：</td>
             <td width="140">
                 <%--<select name="" class="grzx_input"></select>--%>
@@ -83,8 +56,8 @@
                     </select>
 
             </td>
-            <td width="90"><input name="" type="button" value="查询" class="grzx_button2" /></td>
-            <td width="90"><input name="" type="button" value="新增" class="grzx_button2" /></td>
+            <td width="90"><input name="" type="button" value="查询" class="grzx_button2" onclick="serAllService()"/></td>
+            <td width="90"><input name="" type="button" value="新增" class="grzx_button2" onclick="pushService()"/></td>
           </tr>
         </table>
         <table width="950" border="0" cellspacing="1" cellpadding="0" class="fuwugl_table">
@@ -111,10 +84,10 @@
                   <td align="center">${fwVo.recommendStr}</td>
                   <td align="center">
                       <c:if test="${fwVo.recommend == 0}">
-                          <a id="butuijian" name="butuijian" data-id="${fwVo.id}" href=""  class="hongzi_a" >不推荐</a>
+                          <a id="butuijian" name="butuijian" data-id="${fwVo.id}" href="javascript:;"  class="hongzi_a" >不推荐</a>
                       </c:if>
                       <c:if test="${fwVo.recommend == 1}">
-                          <a id="tuijian" name="tuijian" href="" data-id="${fwVo.id}" class="hongzi_a">推荐</a>
+                          <a id="tuijian" name="tuijian" href="javascript:;" data-id="${fwVo.id}" class="hongzi_a">推荐</a>
                       </c:if>
 
                       <a href="${BASE_URL}/user/toFindService.html?id=${fwVo.id}&flag=edit" class="lanzi_a">编辑</a>
@@ -138,8 +111,8 @@
 </html>
 <script type="application/javascript">
 
-var baseUrl = $("#baseUrl").val();
-$("#baseList").addClass("li_atab");
+    var baseUrl = $("#baseUrl").val();
+    $("#baseList").addClass("li_atab");
 
     //分页  begin
     var cur_page = $("#curPage").val();
@@ -158,7 +131,7 @@ $("#baseList").addClass("li_atab");
         jQuery("#serManageForm").submit();
     });
     $("#tuijian").click(function(){
-        alert(123);
+
         $("#serManageForm").attr("action",baseUrl+"/user/toUpdateService.html");
         $("#recommend").val(0);
         $(this).val($("#tuijian").attr("data-id"));
@@ -167,6 +140,10 @@ $("#baseList").addClass("li_atab");
     });
 
 
+    function pushService() {
+        $("#serManageForm").attr("action",baseUrl+"/user/toPushService.html");
+        jQuery("#serManageForm").submit();
+    }
 
     function updateEditSer(recommend,id){
         $.ajax({
@@ -201,5 +178,15 @@ $("#baseList").addClass("li_atab");
             }
         })
     }
+
+    function serAllService() {
+        $("#serManageForm").attr("action",baseUrl+"/user/toServiceManage.html");
+        jQuery("#serManageForm").submit();
+    }
+
+    $("#fwMaType").change(function(){
+        alert($("#fwMaType").val());
+        $("#serviceType").val($("#fwMaType").val());
+    });
 </script>
 

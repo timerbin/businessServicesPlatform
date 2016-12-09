@@ -47,7 +47,7 @@
         <div class="location">编辑服务</div>
         <div class="form_box">
 
-            <form action="" id="bjfwForm" name="bjfwForm">
+            <form action="" id="bjfwForm" name="bjfwForm" method="post">
 
                 <input type="hidden" name="id_edit" id="id_edit" value="${serVo.id}"/>
             <table width="900" border="0" cellspacing="20" cellpadding="0">
@@ -112,7 +112,7 @@
 
               <tr>
                 <td align="right" valign="top"><span class="hong_xing">*</span>服务介绍：</td>
-                <td colspan="2"><textarea name="fwJsEdit" id="fwJsEdit" cols="" rows="" class="form_textarea" value="${serVo.serviceDirections}"></textarea></td>
+                <td colspan="2"><textarea name="fwJsEdit" id="fwJsEdit" cols="" rows="" class="form_textarea" >${serVo.serviceDirections}</textarea></td>
               </tr>
               <tr>
                 <td align="right">&nbsp;</td>
@@ -149,7 +149,7 @@
         window.location.href="${BASE_URL}/user/toServiceManage.html";
     }
 
-    $("#tijiaoBtn").click(function(){
+    $("#baocunBtn").click(function(){
         if(check()){
             $("#bjfwForm").submit();
         }

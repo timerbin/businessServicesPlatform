@@ -47,7 +47,7 @@ public class UserCompanyServiceController extends BaseController{
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping("/toSaveService")
+	@RequestMapping("/toPushService")
 	protected ModelAndView toSaveService(HttpServletRequest request) {
 
 		ModelAndView model = new ModelAndView ("company/fabufuwu");
@@ -70,7 +70,10 @@ public class UserCompanyServiceController extends BaseController{
 		try {
 
 			List<BaseConfigData> serTypeList = baseConfigDataService.queryList(new BaseConfigDataVo(BaseConfigTypeEnum.SERVICES_TYPE.getId()));
-			BasePage basePage = new BasePage(page,10);
+			if(page == null){
+                page =1;
+            }
+            BasePage basePage = new BasePage(page,10);
 			List<UserCompanyServiceVo> voList = userCompanyServiceService.queryPage(basePage,userCompanyServiceVo);
 
 			for (UserCompanyServiceVo vo:voList) {
@@ -182,9 +185,8 @@ public class UserCompanyServiceController extends BaseController{
 	 * @return
 	 */
 	@RequestMapping("/toUpdateEditService")
-	@ResponseBody
-	protected Map<String,Object> updateEditServ(HttpServletRequest request) {
-		Map<String,Object> map = new HashMap<String, Object>();
+	protected ModelAndView updateEditServ(HttpServletRequest request) {
+        ModelAndView model = new ModelAndView();
 
 		String errMsg = "";
 		String serType = request.getParameter("serviceTypeEdit");
@@ -193,8 +195,8 @@ public class UserCompanyServiceController extends BaseController{
 			serTypeInt = Integer.parseInt(serType);
 		}else{
 			errMsg = "服务类型为空";
-			map.put("errMsg",errMsg);
-			return map;
+            model.addObject("msg",errMsg);
+			return model;
 		}
 		//校验
 		UserCompanyServiceVo voSer = new UserCompanyServiceVo();
@@ -206,7 +208,7 @@ public class UserCompanyServiceController extends BaseController{
 		voSer.setServiceDirections(request.getParameter("fwJsEdit"));
 
 		errMsg = this.check(voSer);
-		map.put("errMsg",errMsg);
+        model.addObject("msg",errMsg);
 
 
 
@@ -218,16 +220,14 @@ public class UserCompanyServiceController extends BaseController{
 			voSer.setRecommend(Integer.parseInt(recommend));
 			int i = userCompanyServiceService.updateByPrimaryKeySelective(voSer);
 
-			if(i>0){
-				map.put("msg","成功");
-			}else{
-				map.put("msg","失败");
+			if(i<0){
+                model.addObject("msg","失败");
 			}
-			return map;
+			return model;
 		}catch (Exception e){
 			log.error("################### updateServ 推荐不推荐 服务失败" + e);
-			map.put("msg","系统繁忙，请稍后再试");
-			return map;
+            model.addObject("msg","系统繁忙，请稍后再试");
+			return model;
 		}
 	}
 
