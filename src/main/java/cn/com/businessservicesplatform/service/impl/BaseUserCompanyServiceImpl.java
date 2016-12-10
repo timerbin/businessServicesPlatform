@@ -21,10 +21,6 @@ import cn.com.businessservicesplatform.model.mysql.BaseUserCompany;
 import cn.com.businessservicesplatform.model.mysql.BaseUserCompanyPic;
 import cn.com.businessservicesplatform.model.vo.BaseUserCompanyVo;
 import cn.com.businessservicesplatform.service.BaseUserCompanyService;
-import org.springframework.transaction.TransactionStatus;
-import org.springframework.transaction.support.TransactionCallback;
-import org.springframework.transaction.support.TransactionCallbackWithoutResult;
-import org.springframework.transaction.support.TransactionTemplate;
 
 /**
  * Created by John on 2016/12/2.
@@ -284,6 +280,10 @@ public class BaseUserCompanyServiceImpl implements BaseUserCompanyService {
         userCompanyServiceMapper.updateStatusByComId(serVo);
         //删除公司图片信息
 //        baseUserCompanyMapper.deleteAllPic(vo.getId());
+    }
+    @Override
+    public List<BaseUserCompanyVo> queryAllList(BaseUserCompanyVo vo){
+    	return baseUserCompanyMapper.queryAllList(vo);
     }
 
 }

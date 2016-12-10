@@ -7,9 +7,11 @@ import cn.com.businessservicesplatform.common.util.BasePage;
 import cn.com.businessservicesplatform.model.mysql.BaseConfigData;
 import cn.com.businessservicesplatform.model.mysql.UserCompanyService;
 import cn.com.businessservicesplatform.model.vo.BaseConfigDataVo;
+import cn.com.businessservicesplatform.model.vo.BaseUserCompanyVo;
 import cn.com.businessservicesplatform.model.vo.BaseUserVo;
 import cn.com.businessservicesplatform.model.vo.UserCompanyServiceVo;
 import cn.com.businessservicesplatform.service.BaseConfigDataService;
+import cn.com.businessservicesplatform.service.BaseUserCompanyService;
 import cn.com.businessservicesplatform.service.UserCompanyServiceService;
 
 import org.apache.commons.lang.StringUtils;
@@ -40,6 +42,9 @@ public class UserCompanyServiceController extends BaseController{
 
 	@Autowired
 	BaseConfigDataService baseConfigDataService;
+	
+	@Autowired
+	BaseUserCompanyService baseUserCompanyService;
 
 
 	/**
@@ -124,6 +129,8 @@ public class UserCompanyServiceController extends BaseController{
 				log.error(String.format("UserCompanyServiceController.saveService.check.error:%s", checkLogin));
 				return model;
 			}
+			serVo.setCompanyId(baseUserVo.getCompanyId());
+			serVo.setUserId(baseUserVo.getId());
 			//发布服务
 			int result = userCompanyServiceService.insert(serVo);
 			if(result <= 0){
@@ -352,6 +359,90 @@ public class UserCompanyServiceController extends BaseController{
 			model.addObject("msg","系统繁忙，请稍后再试");
 			return model;
 		}
+	}
+	/**
+	 * 管理员发布服务
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/toAdminAddService")
+	protected ModelAndView toAdminAddService(HttpServletRequest request) {
+		ModelAndView model = new ModelAndView ("/admin/adminAddService");
+		try {
+			List<BaseConfigData> serTypeList = baseConfigDataService.queryList(new BaseConfigDataVo(BaseConfigTypeEnum.SERVICES_TYPE.getId()));
+			model.addObject("serTypeList", serTypeList);
+			BaseUserCompanyVo vo = new BaseUserCompanyVo();
+			List<BaseUserCompanyVo> comanyList = baseUserCompanyService.queryAllList(vo);
+			model.addObject("comanyList", comanyList);
+		} catch (Exception e) {
+			log.error("toAdminAddService.is.system.error",e);
+		}
+		return model;
+	}
+	
+	/**
+	 * 管理员发布服务
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/doAdminAddService")
+	protected ModelAndView doAdminAddService(HttpServletRequest request,UserCompanyServiceVo serVo) {
+		ModelAndView model = new ModelAndView ("/admin/adminAddService");
+		try {
+			//判断是否为企业用户
+			BaseUserVo baseUserVo = getUser(request);
+			model.addObject("user", baseUserVo);
+			if(null == baseUserVo){
+				model = new ModelAndView ( "redirect:/login/toLogin.html");
+				return model;
+			}
+			List<BaseConfigData> serTypeList = baseConfigDataService.queryList(new BaseConfigDataVo(BaseConfigTypeEnum.SERVICES_TYPE.getId()));
+			model.addObject("serTypeList", serTypeList);
+			model.addObject("vo", serVo);
+			BaseUserCompanyVo vo = new BaseUserCompanyVo();
+			List<BaseUserCompanyVo> comanyList = baseUserCompanyService.queryAllList(vo);
+			model.addObject("comanyList", comanyList);
+			String checkLogin = checkService(serVo);
+			if(!StringUtils.isBlank(checkLogin)){
+				model.addObject("errorMsg", checkLogin);
+				log.error(String.format("UserCompanyServiceController.doAdminAddService.check.error:%s", checkLogin));
+				return model;
+			}
+			//发布服务
+			int result = userCompanyServiceService.insert(serVo);
+			if(result <= 0){
+				if(result == -2){
+					model.addObject("errorMsg","服务名称已经存在,不可以重复发布");
+					log.error("UserCompanyServiceController.doAdminAddService.save.error:");
+					return model;
+				}
+				model.addObject("errorMsg","系统繁忙,请稍后再试");
+				log.error("UserCompanyServiceController.doAdminAddService.save.error:");
+				return model;
+			}else{
+				model = new ModelAndView ( "redirect:/user/toServiceManage.html");
+	    		return model;
+			}
+		}catch (Exception e){
+			model.addObject("errorMsg","系统繁忙,请稍后再试");
+			log.error("BaseUserCompanyController.doAdminAddService.system.error:", e);
+		}
+		return model;
+	}
+	
+	 private String checkService(UserCompanyServiceVo userCompanyServiceVo){
+	    	
+		 String result = check(userCompanyServiceVo);
+		 if(!StringUtils.isBlank(result)){
+    		return result;
+    	 }
+		 if(null == userCompanyServiceVo.getCompanyId()){
+			 return "请重新选择公司信息";
+		 }
+		 if(null == userCompanyServiceVo.getUserId()){
+			 return "请重新选择公司信息";
+		 }
+	    	return null;
 	}
 	
 	

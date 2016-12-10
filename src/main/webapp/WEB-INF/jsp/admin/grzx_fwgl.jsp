@@ -9,107 +9,97 @@
     <jsp:include page="../public/baseData.jsp" />
     <jsp:include page="../public/pager.jsp" />
 </head>
-
 <body>
-
-<jsp:include page="../public/loginheader.jsp" />
-<div class="top_tiao"></div>
-<div class="gerenzx_main">
-
-        <jsp:include page="../public/loginLeft.jsp" />
-    <div class="gerenzx_right">
-    	<div class="grzx_h2"><h2>服务管理</h2></div>
-        <form action="${BASE_URL}/user/toUpdateService.html" id="serManageForm" name="serManageForm">
-      <table border="0" cellspacing="10" cellpadding="0" class="gerenzx_table">
-
-
-          <c:if test="${not empty msg}">
-              <tr>
-                  <td width="121" align="right"><span style="color:red;">${msg}</span></td>
-                  <td colspan="6">&nbsp;</td>
-              </tr>
-          </c:if>
-          <input id="recommend" name="recommend" type="hidden"/>
-          <input id="baseUrl"   value="${BASE_URL}"  type="hidden"  />
-          <input id="page" name="page" type="hidden" value="${basePage.page}"/>
-          <input id="curPage" name="curPage"  value="${basePage.page}" type="hidden"/>
-          <input id="pageCount" name="pageCount" value="${basePage.count}" type="hidden"/>
-          <input id="id" name="id" type="hidden"/>
-          <input id="serviceType" name="serviceType" type="hidden"/>
-
-          <tr>
-            <td width="78" align="right">服务名称：</td>
-            <td width="155"><input id="serviceName" name="serviceName" type="text" class="grzx_input" /></td>
-            <%--<td width="78" align="right">创建时间：</td>
-            <td width="150"><input name="" type="text" class="grzx_input" /></td>--%>
-            <td width="78" align="right">服务类别：</td>
-            <td width="140">
-                <%--<select name="" class="grzx_input"></select>--%>
-                    <select name="fwMaType" id="fwMaType" class="grzx_input">
-                        <%--<c:if test="${not empty serTypeList}">--%>
-                        <c:forEach var="serType" items="${serTypeList}">
-                            <option value="${serType.id}">
-                                    ${serType.showName}
-                            </option>
-                        </c:forEach>
-                    </select>
-
-            </td>
-            <td width="90"><input name="" type="button" value="查询" class="grzx_button2" onclick="serAllService()"/></td>
-            <%--<td width="90"><input name="" type="button" value="新增" class="grzx_button2" onclick="pushService()"/></td>--%>
-          </tr>
-        </table>
-        <table width="950" border="0" cellspacing="1" cellpadding="0" class="fuwugl_table">
-          <thead>
-          <tr>
-            <td width="196" height="38" align="center">服务名称</td>
-            <td width="143" align="center">创建时间</td>
-            <td width="113" align="center">服务类型</td>
-            <td width="73" align="center">状态</td>
-            <td width="78" align="center">序号</td>
-            <td width="111" align="center">是否推荐</td>
-            <td width="228" align="center">操作</td>
-          </tr>
-          </thead>
-          <tbody>
-
-          <c:forEach var="fwVo" items="${voList}">
-              <tr>
-                  <td height="40">${fwVo.serviceName}</td>
-                  <td align="center">${fwVo.createTimeStr}</td>
-                  <td align="center">${fwVo.serviceTypeStr}</td>
-                  <td align="center">${fwVo.statusStr}</td>
-                  <td align="center">${fwVo.id}</td>
-                  <td align="center">${fwVo.recommendStr}</td>
-                  <td align="center">
-                      <c:if test="${fwVo.recommend == 0}">
-                          <a id="butuijian" name="butuijian" data-id="${fwVo.id}" href="javascript:;"  class="hongzi_a" >不推荐</a>
-                      </c:if>
-                      <c:if test="${fwVo.recommend == 1}">
-                          <a id="tuijian" name="tuijian" href="javascript:;" data-id="${fwVo.id}" class="hongzi_a">推荐</a>
-                      </c:if>
-
-                      <a href="${BASE_URL}/user/toFindService.html?id=${fwVo.id}&flag=edit" class="lanzi_a">编辑</a>
-                      <a href="${BASE_URL}/user/toDelService.html?id=${fwVo.id}" class="hongzi_a">删除</a>
-                      <a href="${BASE_URL}/user/toFindService.html?id=${fwVo.id}&flag=detail" class="lanzi_a">详情</a>
-                  </td>
-              </tr>
-
-          </c:forEach>
-
-          <tr>
-              <td height="40" colspan ="7"> <div class="pages" id="pager"></div></td>
-          </tr>
-          </tbody>
-        </table>
-        </form>
-  </div>
-</div>
-<jsp:include page="../public/footer.jsp" ></jsp:include>
-</body>
-</html>
+<form action="${BASE_URL}/user/toUpdateService.html" id="serManageForm" name="serManageForm">
+	<input id="recommend" name="recommend" type="hidden" />
+	<input id="baseUrl"   value="${BASE_URL}"  type="hidden"  />
+	<input id="page" name="page" type="hidden" value="${basePage.page}"/>
+	<input id="curPage" name="curPage"  value="${basePage.page}" type="hidden"/>
+	<input id="pageCount" name="pageCount" value="${basePage.count}" type="hidden"/>
+	<input id="id" name="id" type="hidden"/>
+	<input id="serviceType" name="serviceType" type="hidden"/>
+	
+	<jsp:include page="../public/loginheader.jsp" />
+	<div class="top_tiao"></div>
+	<div class="gerenzx_main">
+		<jsp:include page="../public/loginLeft.jsp" />
+    	<div class="gerenzx_right">
+    		<div class="grzx_h2"><h2>服务管理</h2></div>
+      			<table border="0" cellspacing="10" cellpadding="0" class="gerenzx_table">
+			          <c:if test="${not empty msg}">
+			              <tr>
+			                  <td width="121" align="right"><span style="color:red;">${msg}</span></td>
+			                  <td colspan="6">&nbsp;</td>
+			              </tr>
+			          </c:if>
+			          <tr>
+			            <td width="78" align="right">服务名称：</td>
+			            <td width="155"><input id="serviceName" name="serviceName" type="text" class="grzx_input" /></td>
+			            <%--<td width="78" align="right">创建时间：</td>
+			            <td width="150"><input name="" type="text" class="grzx_input" /></td>--%>
+			            <td width="78" align="right">服务类别：</td>
+			            <td width="140">
+			                <%--<select name="" class="grzx_input"></select>--%>
+			                    <select name="fwMaType" id="fwMaType" class="grzx_input">
+			                        <%--<c:if test="${not empty serTypeList}">--%>
+			                        <c:forEach var="serType" items="${serTypeList}">
+			                            <option value="${serType.id}">
+			                                    ${serType.showName}
+			                            </option>
+			                        </c:forEach>
+			                    </select>
+			
+			            </td>
+			            <td width="90"><input type="button" value="查询" class="grzx_button2" onclick="serAllService()"/></td>
+			            <td width="90"><input id="addBtn" type="button" value="新增" class="grzx_button2"  /></td>
+			          </tr>
+			        </table>
+			        <table width="950" border="0" cellspacing="1" cellpadding="0" class="fuwugl_table">
+			          <thead>
+				          <tr>
+				            <td width="196" height="38" align="center">服务名称</td>
+				            <td width="143" align="center">创建时间</td>
+				            <td width="113" align="center">服务类型</td>
+				            <td width="73" align="center">状态</td>
+				            <td width="78" align="center">序号</td>
+				            <td width="111" align="center">是否推荐</td>
+				            <td width="228" align="center">操作</td>
+				          </tr>
+			          </thead>
+			          <tbody>
+				          	<c:forEach var="fwVo" items="${voList}">
+				              <tr>
+				                  <td height="40" align="center">${fwVo.serviceName}</td>
+				                  <td align="center">${fwVo.createTimeStr}</td>
+				                  <td align="center">${fwVo.serviceTypeStr}</td>
+				                  <td align="center">${fwVo.statusStr}</td>
+				                  <td align="center">${fwVo.id}</td>
+				                  <td align="center">${fwVo.recommendStr}</td>
+				                  <td align="center">
+				                      <c:if test="${fwVo.recommend == 0}">
+				                          <a id="butuijian" name="butuijian" data-id="${fwVo.id}" href="javascript:;"  class="hongzi_a" >不推荐</a>
+				                      </c:if>
+				                      <c:if test="${fwVo.recommend == 1}">
+				                          <a id="tuijian" name="tuijian" href="javascript:;" data-id="${fwVo.id}" class="hongzi_a">推荐</a>
+				                      </c:if>
+				
+				                      <a href="${BASE_URL}/user/toFindService.html?id=${fwVo.id}&flag=edit" class="lanzi_a">编辑</a>
+				                      <a href="${BASE_URL}/user/toDelService.html?id=${fwVo.id}" class="hongzi_a">删除</a>
+				                      <a href="${BASE_URL}/user/toFindService.html?id=${fwVo.id}&flag=detail" class="lanzi_a">详情</a>
+				                  </td>
+				              </tr>
+				
+				          </c:forEach>
+				          <tr>
+				              <td height="40" colspan ="7"> <div class="pages" id="pager"></div></td>
+				          </tr>
+			          </tbody>
+			     </table>
+  			</div>
+		</div>
+</form>
 <script type="application/javascript">
-
+$("#serviceManage").addClass("li_atab");
     var baseUrl = $("#baseUrl").val();
     $("#baseList").addClass("li_atab");
 
@@ -122,6 +112,12 @@
         jQuery("#page").val(cur_page);
         jQuery("#serManageForm").submit();
     }
+    
+    $("#addBtn").click(function(){
+        window.location.href=baseUrl+"/user/toAdminAddService.html";
+    });
+    
+    
 
     $("#butuijian").click(function(){
         $("#serManageForm").attr("action",baseUrl+"/user/toUpdateService.html");
@@ -189,4 +185,6 @@
         $("#serviceType").val($("#fwMaType").val());
     });
 </script>
+</body>
+</html>
 

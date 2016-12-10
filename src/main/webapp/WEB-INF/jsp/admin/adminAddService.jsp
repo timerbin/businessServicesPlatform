@@ -10,9 +10,12 @@
 </head>
 
 <body>
- <form action="${BASE_URL}/user/saveService.html" id="fbfwForm" name="fbfwForm">
+ <form action="${BASE_URL}/user/doAdminAddService.html" id="fbfwForm" name="fbfwForm">
  <input id="baseUrl"   value="${BASE_URL}"  type="hidden"  /> 
  <input id="picUrl" name="picUrl" value="${vo.picUrl}"  type="hidden" />
+ <input id="userId" name="userId" value="${vo.userId}"  type="hidden" />
+ <input id="companyId" name="companyId" value="${vo.companyId}"  type="hidden" />
+ 
 <table width="100%" height="100%" border="0px" cellpadding="0px" cellspacing="0px" >
 	<tr><td width="250px"  class="con_left" valign="top" height="100%">
         <jsp:include page="../public/left.jsp" ></jsp:include>
@@ -25,10 +28,26 @@
             <table width="900" border="0" cellspacing="20" cellpadding="0">
             	<c:if test="${not empty errorMsg}">
 	            	<tr>
-	            		<td width="121" align="right"><span style="color:red;">${errorMsg}</span></td>
-	            		<td colspan="2">&nbsp;</td>
+	            		<td colspan="3" align="right"><span style="color:red;">${errorMsg}</span></td>
 	            	 </tr>
 			   </c:if>
+			   <tr>
+                <td width="121" align="right"><span class="hong_xing">*</span>公司名称：</td>
+                <td width="550">
+                	 <select name="companySel" id="companySel" class="form_input">
+                	 	  <option value="">请选择</option>
+                          <c:forEach var="comany" items="${comanyList}">
+                             <c:if test="${comany.id==vo.companyId}">
+	            	 			<option value="${comany.id}" data-id="${comany.userId}" selected="selected">${comany.companyName}</option>
+			   				</c:if>
+			   				<c:if test="${comany.id!=vo.companyId}">
+			   				 	<option value="${comany.id}" data-id="${comany.userId}" >${comany.companyName}</option>
+			   				</c:if>
+                          </c:forEach>
+                    </select>
+                </td>
+                <td width="149">&nbsp;</td>
+              </tr>
               <tr>
                 <td width="121" align="right"><span class="hong_xing">*</span>服务名称：</td>
                 <td width="550">
@@ -93,6 +112,7 @@
 <script type="application/javascript">
 var baseUrl = $("#baseUrl").val();
 
+
 var picUrl = $("#picUrl").val();
 if($.trim(picUrl).length > 0){
 	$("#cimgs").html("");
@@ -100,13 +120,30 @@ if($.trim(picUrl).length > 0){
 	$("#cimgs").append(imgHtml);
 }
 
+
+$('#companySel').change(function(){ 
+	$("#companyId").val($(this).children('option:selected').val());
+	$("#userId").val($(this).children('option:selected').attr("data-id"));
+}); 
+
 $("#tijiaoBtn").click(function(){
 	if(check()){
 		$("#fbfwForm").submit();
 	}
 });
-
 function check(){
+	var companyId = $("#companyId").val();
+	if($.trim(companyId).length <= 0){
+		alert("请选择公司信息");
+		 $("#companySel").focus();
+		return false;
+	}
+	var userId = $("#userId").val();
+	if($.trim(userId).length <= 0){
+		alert("请选择公司信息");
+		$("#companySel").focus();
+		return false;
+	}
 	var serviceName = $("#serviceName").val();
 	if($.trim(serviceName).length <= 0){
 		alert("请输入服务名称");

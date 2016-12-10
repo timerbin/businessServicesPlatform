@@ -75,6 +75,13 @@
         and company_type = #{vo.companyType,jdbcType=INTEGER}
       </if>
   </select>
+  
+  <select id="queryAllList" resultMap="BaseResultMapVo" parameterType="cn.com.businessservicesplatform.model.vo.BaseUserCompanyVo" >
+    select 
+    <include refid="Base_Column_List" />
+    from base_user_company where status = 1
+    order by create_time desc
+  </select>
 
 
 
