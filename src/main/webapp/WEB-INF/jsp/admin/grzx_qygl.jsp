@@ -88,7 +88,7 @@
         </form>
     </div>
 </div>
-<jsp:include page="../public/footer.jsp"></jsp:include>
+<%--<jsp:include page="../public/footer.jsp"></jsp:include>--%>
 </body>
 </html>
 
@@ -125,7 +125,6 @@
 
 
     $("#delCom").click(function () {
-        debugger;
         $("#companyName").val(null);
         $("#comManageForm").attr("action", baseUrl + "/user/toDelCompany.html");
         $("#id").val($("#delCom").attr("data-id"));
@@ -147,8 +146,8 @@
      * 查询企业
      */
     function serAllCom() {
-        $("#serManageForm").attr("action", baseUrl + "/user/toAllCompany.html");
-        jQuery("#serManageForm").submit();
+        $("#comManageForm").attr("action", baseUrl + "/user/toAllCompany.html");
+        jQuery("#comManageForm").submit();
     }
 
 </script>

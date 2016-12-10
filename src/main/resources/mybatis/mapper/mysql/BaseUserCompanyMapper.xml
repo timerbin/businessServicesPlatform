@@ -98,6 +98,9 @@
     <if test="vo.companyType != null" >
       and company_type = #{vo.companyType,jdbcType=INTEGER}
     </if>
+    <if test="vo.companyName != null and vo.companyName != ''" >
+      and company_name like CONCAT('%',#{vo.companyName,jdbcType=VARCHAR},'%')
+    </if>
   </select>
 
   
