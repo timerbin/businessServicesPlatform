@@ -16,6 +16,7 @@ public class BaseUserVo extends BaseUser {
 		 super.setUserStatus(baseUser.getUserStatus());
 		 super.setUserSex(baseUser.getUserSex());
 		 super.setUserLogo(baseUser.getUserLogo());
+		 super.setUserPassword(baseUser.getUserPassword());
 	 }
 	
 	 private String userPassword2;

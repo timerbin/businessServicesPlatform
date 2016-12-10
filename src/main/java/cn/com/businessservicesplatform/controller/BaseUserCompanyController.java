@@ -4,8 +4,10 @@ import java.util.Date;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
+import cn.com.businessservicesplatform.common.constants.RecommendEnum;
 import cn.com.businessservicesplatform.common.constants.UserServiceStatuesEnum;
 import cn.com.businessservicesplatform.common.util.BasePage;
+import cn.com.businessservicesplatform.common.util.MD5Util;
 import cn.com.businessservicesplatform.model.mysql.BaseUser;
 import cn.com.businessservicesplatform.model.vo.*;
 import cn.com.businessservicesplatform.service.BaseUserService;
@@ -75,8 +77,6 @@ public class BaseUserCompanyController extends BaseController{
 
 	/**
 	 * 跳转 到企业管理页面
-	 * @param
-	 * @return
      */
 	@RequestMapping("/toAllCompany")
 	public ModelAndView toAllCompany(@RequestParam(required = false, value = "page", defaultValue = "1")Integer page, BaseUserCompanyVo baseUserCompanyVo) {
@@ -107,6 +107,7 @@ public class BaseUserCompanyController extends BaseController{
         		return model;
         	}
         	baseUserCompanyVo.setUserId(baseUserVo.getId());
+			baseUserCompanyVo.setRecommend(RecommendEnum.UN_RECCOMEND.getId());
     		List<BaseConfigData>  managementList = baseConfigDataService.queryList(new BaseConfigDataVo(BaseConfigTypeEnum.MANAGEMENT.getId()));
         	model.addObject("managementList", managementList);
         	//企业性质
@@ -144,7 +145,7 @@ public class BaseUserCompanyController extends BaseController{
      */
 	@RequestMapping("/createCompany")
 	public ModelAndView createCompany(HttpServletRequest request,BaseUserCompanyVo baseUserCompanyVo) {
-		ModelAndView model = new ModelAndView ( "/user/toAllCompany");
+		ModelAndView model = new ModelAndView ( "/admin/grzx_qygl");
 		try {
 			BaseUserVo baseUserVo = this.getUser(request);
 			model.addObject("user", baseUserVo);
@@ -160,28 +161,15 @@ public class BaseUserCompanyController extends BaseController{
 			String userName = request.getParameter("userName");
 			String trueName = request.getParameter("trueName");
 			String userPassword  = request.getParameter("userPassword");
+			String userPassword2  = request.getParameter("userPassword2");
 			Date registerTime = new Date();
-//			Date lastLoginTime;
-//			String lastLoginIp;
-//			Date errorTime;
-//			Integer errorCount;
 			String mobilePhoneNumber = request.getParameter("mobilePhoneNumber");
-//			String deptId;
-//			String registerUid;
-//			String wxOpenId;
 			Integer userStatus = 1;
-
 			String sex = request.getParameter("userSex");
-
 			Integer userSex = sex == null?null:Integer.parseInt(sex);
-//			String userDesc;
 			String email = request.getParameter("email");
 			Integer type = 1;
 			Integer age = request.getParameter("age") == null ? null : Integer.parseInt(request.getParameter("age"));
-//			Date modifyTime;
-//			Date createTime;
-//			String userLogo;
-
 
 
 			BaseUser baseUser = new BaseUser();
@@ -197,11 +185,14 @@ public class BaseUserCompanyController extends BaseController{
 			baseUser.setUserSex(userSex);
 			baseUser.setUserStatus(userStatus);
 			baseUserVo = new BaseUserVo(baseUser);
+			baseUserVo.setUserPassword2(userPassword2);
 
 			String checkResult = checkRegisterMsg(baseUserVo);
 			if(!StringUtils.isBlank(checkResult)){
 				model.addObject("errorMsg", checkResult);
 				log.error(String.format("BaseUserCompanyController.createCompany.check.error:%s",checkResult));
+				model.addObject("flag","create");
+				model.setViewName("redirect:/user/toOneCompany.html");
 				return model;
 			}
 			Integer result = baseUserService.register(baseUserVo);
@@ -210,12 +201,24 @@ public class BaseUserCompanyController extends BaseController{
 				log.info("############管理员 创建企业 用户创建成功 新用户" + baseUserVo.getUserName());
 			}else{
 				log.error(String.format("BaseUserCompanyController.createCompany.save.error  .....Current create user:%s",baseUserVo.getUserName()));
-				model.setViewName("/user/toOneCompany.html?flag=create");
+//				model.addObject("flag","create");
+				model.setViewName("redirect:/user/toOneCompany.html?flag=create");
 				model.addObject("errorMsg", "系统繁忙，请稍后再试");
 				return model;
 			}
+
+
 		   /****************end***********/
 
+
+			/**
+			 * 查询新增的用户 ID
+			 *
+			 */
+			baseUserVo.setUserPassword(null);
+			baseUserVo.setUserPassword2(MD5Util.getMD5(baseUserVo.getUserPassword2()));
+			BaseUser baseUserNew =  baseUserService.findBaseUser(baseUserVo);
+			baseUserVo = new BaseUserVo(baseUserNew);
 
 
 			baseUserCompanyVo.setUserId(baseUserVo.getId());
@@ -226,12 +229,17 @@ public class BaseUserCompanyController extends BaseController{
 			model.addObject("propertyList", propertyList);
 			String checkLogin = check(baseUserCompanyVo);
 			if(!StringUtils.isBlank(checkLogin)){
+				model.addObject("flag","create");
+				model.setViewName("redirect:/user/toOneCompany.html");
 				model.addObject("errorMsg", checkLogin);
 				log.error(String.format("BaseUserCompanyController.saveCompany.check.error:%s", checkLogin));
 				return model;
 			}
+
+			baseUserCompanyVo.setRecommend(RecommendEnum.RECCOMEND.getId()); //默认不推荐
+			baseUserCompanyVo.setStatus(UserServiceStatuesEnum.PASSVERIFY.getId()); //管理员创建企业默认不需要审核 上线状态
 			model.addObject("vo", baseUserCompanyVo);
-			int result = baseUserCompanyService.insert(baseUserCompanyVo);
+			result = baseUserCompanyService.insert(baseUserCompanyVo);
 			if(result <= 0){
 				model.addObject("errorMsg","系统繁忙,请稍后再试");
 				log.error("BaseUserCompanyController.saveCompany.save.error:");
@@ -241,6 +249,8 @@ public class BaseUserCompanyController extends BaseController{
 				return model;
 			}
 		} catch (Exception e) {
+			model.addObject("flag","create");
+			model.setViewName("redirect:/user/toOneCompany.html");
 			model.addObject("errorMsg","系统繁忙,请稍后再试");
 			log.error("BaseUserCompanyController.saveCompany.system.error:", e);
 		}
@@ -397,6 +407,7 @@ public class BaseUserCompanyController extends BaseController{
 		}else if("detail".equals(flag)){
 			model.setViewName("admin/grzx_detailCompany");
 		}else if("create".equals(flag)){
+			model.addObject("errorMsg",request.getParameter("errorMsg"));
 			model.setViewName("admin/toCreateCompany");
 		}
 		return model;
