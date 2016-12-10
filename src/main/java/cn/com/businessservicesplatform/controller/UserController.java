@@ -57,7 +57,7 @@ public class UserController extends BaseController{
     	ModelAndView model = new ModelAndView ( "/user/editPassword");
     	BaseUserVo baseUserVo = this.getUser(request);
     	model.addObject("user", baseUserVo);
-    	if(StringUtils.isBlank(msg) && msg.equals("success")){
+    	if(!StringUtils.isBlank(msg) && msg.equals("success")){
     		model.addObject("errorMsg", "修改成功");
     	}
     	return model;
@@ -77,7 +77,7 @@ public class UserController extends BaseController{
 			baseUserVo.setId(nowUser.getId());
 			int result = baseUserService.updatePassword(baseUserVo);
 			if(result > 0){
-				model = new ModelAndView ( "redirect:/user/toEditUserInfo.html?msg=success");
+				model = new ModelAndView ( "redirect:/user/toEditPassword.html?msg=success");
 				return model;
 			}else{
 				if(result == -2){

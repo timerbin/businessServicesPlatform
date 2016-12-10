@@ -31,7 +31,7 @@
 			</c:if>
           <tr>
             <td width="120" align="right">原密码：</td>
-            <td width="260" ><input id="olduserPassword" name="olduserPassword" type="password" class="grzx_input" /></td>
+            <td width="260" ><input id="oldUserPassword" name="oldUserPassword" type="password" class="grzx_input" /></td>
           </tr>
           <tr>
             <td align="right">新密码：</td>
@@ -56,15 +56,15 @@ $("#saveBtn").click(function(){
 	}
 });
 function check(){
-	var olduserPassword = $("#olduserPassword").val();
-	if($.trim(olduserPassword).length <= 0){
+	var oldUserPassword = $("#oldUserPassword").val();
+	if($.trim(oldUserPassword).length <= 0){
 		alert("请输入原密码");
-		 $("#olduserPassword").focus();
+		 $("#oldUserPassword").focus();
 		return false;
 	}
-	if($.trim(olduserPassword).length < 6){
+	if($.trim(oldUserPassword).length < 6){
 		alert("原密码必须大于6位");
-		$("#olduserPassword").focus();
+		$("#oldUserPassword").focus();
 		return false;
 	}
 	var userPassword = $("#userPassword").val();
@@ -78,7 +78,7 @@ function check(){
 		$("#userPassword").focus();
 		return false;
 	}
-	if(userPassword == olduserPassword){
+	if(userPassword == oldUserPassword){
 		alert("新密码与原密码相同");
 	 	$("#userPassword").focus();
 		return false;
