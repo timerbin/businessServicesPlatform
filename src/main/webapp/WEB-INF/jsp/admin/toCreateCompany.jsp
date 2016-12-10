@@ -200,8 +200,9 @@
             </table>
         </form>
     </div>
+    <%--<jsp:include page="../public/footer.jsp" ></jsp:include>--%>
 </div>
-<jsp:include page="../public/footer.jsp"></jsp:include>
+
 </body>
 </html>
 
