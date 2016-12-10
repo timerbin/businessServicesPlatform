@@ -27,5 +27,7 @@ public interface BaseUserCompanyService {
 	int updateCompany(BaseUserCompanyVo vo);
 
 	public void deleteCompany(BaseUserCompanyVo vo);
+	
+	List<BaseUserCompanyVo> queryAllList(BaseUserCompanyVo vo);
 
 }

@@ -56,6 +56,7 @@ public class UserCompanyServiceServiceImpl implements UserCompanyServiceService{
     		vo.setStatus(1);
         	vo.setCreateTime(new Date());
         	vo.setModifyTime(new Date());
+        	vo.setRecommend(0);
         	result = userCompanyServiceMapper.insert(vo);
     	}else{
     		result = -2;

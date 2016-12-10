@@ -8,7 +8,6 @@ import cn.com.businessservicesplatform.common.util.BasePage;
 import cn.com.businessservicesplatform.model.mysql.BaseUserCompany;
 import cn.com.businessservicesplatform.model.vo.BaseUserCompanyVo;
 
-import java.util.List;
 
 public interface BaseUserCompanyMapper {
     int deleteByPrimaryKey(Integer id);
@@ -32,4 +31,8 @@ public interface BaseUserCompanyMapper {
     List<BaseUserCompanyVo> queryAllPage(@Param("basePage")BasePage basePage,@Param("vo")BaseUserCompanyVo vo);
 
     public List<BaseUserCompanyVo> queryList(@Param("vo")BaseUserCompanyVo vo);
+    
+    public List<BaseUserCompanyVo> queryAllList(@Param("vo")BaseUserCompanyVo vo);
+    
+    
 }
