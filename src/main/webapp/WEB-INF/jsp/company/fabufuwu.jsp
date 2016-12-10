@@ -12,7 +12,7 @@
 <body>
  <form action="${BASE_URL}/user/saveService.html" id="fbfwForm" name="fbfwForm">
  <input id="baseUrl"   value="${BASE_URL}"  type="hidden"  /> 
- <input id="picUrl" name="picUrl" value="${vo.picUrl}"  type="hidden"  />
+ <input id="picUrl" name="picUrl" value="${vo.picUrl}"  type="hidden" />
 <table width="100%" height="100%" border="0px" cellpadding="0px" cellspacing="0px" >
 	<tr><td width="250px"  class="con_left" valign="top" height="100%">
         <jsp:include page="../public/left.jsp" ></jsp:include>

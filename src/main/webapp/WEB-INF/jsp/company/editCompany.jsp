@@ -87,7 +87,7 @@
 	            	 			<option value="${property.id}" selected="selected">${property.showName}</option>
 			   				</c:if>
 			   				<c:if test="${property.id!=vo.companyType}">
-	            	 			<option value="${management.id}">${property.showName}</option>
+	            	 			<option value="${property.id}">${property.showName}</option>
 			   				</c:if>
 						</c:forEach>
                 	</select>

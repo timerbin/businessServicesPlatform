@@ -75,6 +75,24 @@
         and company_type = #{vo.companyType,jdbcType=INTEGER}
       </if>
   </select>
+
+
+
+  <select id="queryAllPage" resultMap="BaseResultMapVo" parameterType="cn.com.businessservicesplatform.model.vo.BaseUserCompanyVo" >
+    select
+    <include refid="Base_Column_List" />
+    from base_user_company where 1 = 1
+    <if test="vo.userId != null" >
+      and user_id = #{vo.userId,jdbcType=INTEGER}
+    </if>
+    <if test="vo.companyScope != null" >
+      and company_scope = #{vo.companyScope,jdbcType=INTEGER}
+    </if>
+    <if test="vo.companyType != null" >
+      and company_type = #{vo.companyType,jdbcType=INTEGER}
+    </if>
+  </select>
+
   
   <select id="queryList" resultMap="BaseResultMap" parameterType="cn.com.businessservicesplatform.model.vo.BaseUserCompanyVo" >
     select 
@@ -259,7 +277,7 @@
       <if test="userId != null" >
         user_id = #{userId,jdbcType=INTEGER},
       </if>
-      <if test="companyName != null" >
+      <if test="companyName != null and companyName != ''" >
         company_name = #{companyName,jdbcType=VARCHAR},
       </if>
       <if test="companyAddress != null" >

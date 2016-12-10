@@ -20,6 +20,12 @@ public interface BaseUserCompanyService {
 
 	public List<BaseUserCompanyVo> queryPage(BasePage basePage,BaseUserCompanyVo vo);
 
+	public List<BaseUserCompanyVo> queryAllPage(BasePage basePage,BaseUserCompanyVo vo);
+
 	public List<BaseUserCompanyVo> queryList(BaseUserCompanyVo vo);
+
+	int updateCompany(BaseUserCompanyVo vo);
+
+	public void deleteCompany(BaseUserCompanyVo vo);
 
 }

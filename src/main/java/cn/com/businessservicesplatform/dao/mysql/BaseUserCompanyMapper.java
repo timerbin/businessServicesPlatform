@@ -28,6 +28,8 @@ public interface BaseUserCompanyMapper {
     List<BaseUserCompany> getAllUserCompanys(BaseUserCompanyVo baseUserCompanyVo);
     
     List<BaseUserCompanyVo> queryPage(@Param("basePage")BasePage basePage,@Param("vo")BaseUserCompanyVo vo);
-    
+
+    List<BaseUserCompanyVo> queryAllPage(@Param("basePage")BasePage basePage,@Param("vo")BaseUserCompanyVo vo);
+
     public List<BaseUserCompanyVo> queryList(@Param("vo")BaseUserCompanyVo vo);
 }

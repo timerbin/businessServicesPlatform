@@ -302,22 +302,32 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="cn.com.businessservicesplatform.model.mysql.UserCompanyService">
+  update user_company_service
+  set user_id = #{userId,jdbcType=INTEGER},
+  company_id = #{companyId,jdbcType=INTEGER},
+  service_name = #{serviceName,jdbcType=VARCHAR},
+  service_contact_user = #{serviceContactUser,jdbcType=VARCHAR},
+  service_contact_tel = #{serviceContactTel,jdbcType=VARCHAR},
+  service_type = #{serviceType,jdbcType=INTEGER},
+  status = #{status,jdbcType=INTEGER},
+  modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+  create_time = #{createTime,jdbcType=TIMESTAMP},
+  verify_time = #{verifyTime,jdbcType=TIMESTAMP},
+  verify_user_id = #{verifyUserId,jdbcType=INTEGER},
+  verify_user_name = #{verifyUserName,jdbcType=VARCHAR},
+  verify_user_des = #{verifyUserDes,jdbcType=VARCHAR},
+  recommend = #{recommend,jdbcType=INTEGER},
+  pic_url = #{picUrl,jdbcType=VARCHAR}
+  where id = #{id,jdbcType=INTEGER}
+</update>
+
+
+  <update id="updateStatusByComId" parameterType="cn.com.businessservicesplatform.model.mysql.UserCompanyService">
     update user_company_service
-    set user_id = #{userId,jdbcType=INTEGER},
-      company_id = #{companyId,jdbcType=INTEGER},
-      service_name = #{serviceName,jdbcType=VARCHAR},
-      service_contact_user = #{serviceContactUser,jdbcType=VARCHAR},
-      service_contact_tel = #{serviceContactTel,jdbcType=VARCHAR},
-      service_type = #{serviceType,jdbcType=INTEGER},
-      status = #{status,jdbcType=INTEGER},
-      modify_time = #{modifyTime,jdbcType=TIMESTAMP},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      verify_time = #{verifyTime,jdbcType=TIMESTAMP},
-      verify_user_id = #{verifyUserId,jdbcType=INTEGER},
-      verify_user_name = #{verifyUserName,jdbcType=VARCHAR},
-      verify_user_des = #{verifyUserDes,jdbcType=VARCHAR},
-      recommend = #{recommend,jdbcType=INTEGER},
-      pic_url = #{picUrl,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=INTEGER}
+    set
+    status = #{status,jdbcType=INTEGER}
+    where company_id = #{companyId,jdbcType=INTEGER}
   </update>
+
+
 </mapper>

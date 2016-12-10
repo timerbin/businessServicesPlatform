@@ -341,9 +341,9 @@ public class UserCompanyServiceController extends BaseController{
 			model.addObject("serVo",userCompanyServiceVo);
 
 			if("edit".equals(flag)){
-				model.setViewName("admin/editService");
+				model.setViewName("admin/toEditService");
 			}else if("detail".equals(flag)){
-				model.setViewName("admin/detailService");
+				model.setViewName("admin/toDetailService");
 			}
 
 			return model;

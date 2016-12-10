@@ -25,6 +25,29 @@ public class BaseUserCompanyVo extends BaseUserCompany {
 
 	private String statusStr;
 
+	private String msg;
+
+
+	public BaseUserVo getUserVo() {
+		return userVo;
+	}
+
+	public void setUserVo(BaseUserVo userVo) {
+		this.userVo = userVo;
+	}
+
+	/****管理员创建企业包含 用户信息*****/
+	private BaseUserVo userVo;
+	/***********END********************/
+
+	public String getMsg() {
+		return msg;
+	}
+
+	public void setMsg(String msg) {
+		this.msg = msg;
+	}
+
 	public String getStatusStr() {
 		String str = "";
 		if(super.getStatus() != null){

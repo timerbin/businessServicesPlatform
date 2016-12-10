@@ -32,4 +32,6 @@ public interface UserCompanyServiceMapper {
     
     public List<UserCompanyServiceVo> queryList(@Param("vo")UserCompanyServiceVo vo);
 
+    int updateStatusByComId(UserCompanyServiceVo record);
+
 }

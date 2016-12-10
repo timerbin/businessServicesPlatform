@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import cn.com.businessservicesplatform.common.constants.UserServiceStatuesEnum;
+import cn.com.businessservicesplatform.dao.mysql.UserCompanyServiceMapper;
+import cn.com.businessservicesplatform.model.vo.UserCompanyServiceVo;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,6 +21,10 @@ import cn.com.businessservicesplatform.model.mysql.BaseUserCompany;
 import cn.com.businessservicesplatform.model.mysql.BaseUserCompanyPic;
 import cn.com.businessservicesplatform.model.vo.BaseUserCompanyVo;
 import cn.com.businessservicesplatform.service.BaseUserCompanyService;
+import org.springframework.transaction.TransactionStatus;
+import org.springframework.transaction.support.TransactionCallback;
+import org.springframework.transaction.support.TransactionCallbackWithoutResult;
+import org.springframework.transaction.support.TransactionTemplate;
 
 /**
  * Created by John on 2016/12/2.
@@ -31,6 +38,15 @@ public class BaseUserCompanyServiceImpl implements BaseUserCompanyService {
     BaseUserCompanyMapper baseUserCompanyMapper;
     @Autowired
     BaseUserCompanyPicMapper baseUserCompanyPicMapper;
+    @Autowired
+    UserCompanyServiceMapper userCompanyServiceMapper;
+
+//    @Autowired
+//    TransactionTemplate transactionTemplate;
+
+//    public BaseUserCompanyServiceImpl(TransactionTemplate transactionTemplate) {
+//        this.transactionTemplate = transactionTemplate;
+//    }
 
     @Override
     public int insert(BaseUserCompanyVo vo) {
@@ -204,7 +220,29 @@ public class BaseUserCompanyServiceImpl implements BaseUserCompanyService {
                 }
             }
         }
-        return list;
+        return volist;
+    }
+
+
+    /**
+     * 没有status where 过滤条件
+     * @param basePage
+     * @param vo
+     * @return
+     */
+    @Override
+    public List<BaseUserCompanyVo> queryAllPage(BasePage basePage, BaseUserCompanyVo vo) {
+        List<BaseUserCompanyVo> list = baseUserCompanyMapper.queryAllPage(basePage, vo);
+        List<BaseUserCompanyVo> volist = new ArrayList<BaseUserCompanyVo>();
+        if (null != list && list.size() > 0) {
+            for (BaseUserCompanyVo baseUserCompanyVo : list) {
+                if (null != baseUserCompanyVo && baseUserCompanyVo.getId() != null) {
+                    baseUserCompanyVo = makeBaseUser(baseUserCompanyVo);
+                    volist.add(baseUserCompanyVo);
+                }
+            }
+        }
+        return volist;
     }
 
     @Override
@@ -219,4 +257,33 @@ public class BaseUserCompanyServiceImpl implements BaseUserCompanyService {
         }
         return list;
     }
+
+    /**
+     * 更新企业信息
+     * @param vo
+     * @return
+     */
+    @Override
+    public int updateCompany(BaseUserCompanyVo vo) {
+       return baseUserCompanyMapper.updateByPrimaryKeySelective(vo);
+    }
+
+
+
+
+    /**
+     * 删除企业信息 逻辑删除
+     * @param vo
+     */
+    public void deleteCompany(BaseUserCompanyVo vo){
+        updateCompany(vo);
+        //逻辑删除 服务信息
+        UserCompanyServiceVo serVo = new UserCompanyServiceVo();
+        serVo.setCompanyId(vo.getId());
+        serVo.setStatus(UserServiceStatuesEnum.DELETED.getId());
+        userCompanyServiceMapper.updateStatusByComId(serVo);
+        //删除公司图片信息
+        baseUserCompanyPicMapper.deleteAllPic(vo.getId());
+    }
+
 }

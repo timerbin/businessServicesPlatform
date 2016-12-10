@@ -175,7 +175,7 @@ public class LoginController extends BaseController{
      */
     @RequestMapping("/doRegister")
     public ModelAndView doRegister(BaseUserVo baseUserVo) {
-    	ModelAndView model = new ModelAndView ( "/login/register"); 
+    	ModelAndView model = new ModelAndView ("/login/register");
     	try {
     		model.addObject("vo", baseUserVo);
 			String checkResult = checkRegisterMsg(baseUserVo);

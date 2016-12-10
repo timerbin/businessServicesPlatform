@@ -56,7 +56,7 @@
 
             </td>
             <td width="90"><input name="" type="button" value="查询" class="grzx_button2" onclick="serAllService()"/></td>
-            <td width="90"><input name="" type="button" value="新增" class="grzx_button2" onclick="pushService()"/></td>
+            <%--<td width="90"><input name="" type="button" value="新增" class="grzx_button2" onclick="pushService()"/></td>--%>
           </tr>
         </table>
         <table width="950" border="0" cellspacing="1" cellpadding="0" class="fuwugl_table">
@@ -126,14 +126,15 @@
     $("#butuijian").click(function(){
         $("#serManageForm").attr("action",baseUrl+"/user/toUpdateService.html");
         $("#recommend").val(1);
-        $(this).val($("#butuijian").attr("data-id"));
+        $("#id").val($("#butuijian").attr("data-id"));
         jQuery("#serManageForm").submit();
     });
     $("#tuijian").click(function(){
-
+//        alert($("#tuijian").attr("data-id"));
         $("#serManageForm").attr("action",baseUrl+"/user/toUpdateService.html");
         $("#recommend").val(0);
-        $(this).val($("#tuijian").attr("data-id"));
+        $("#id").val($("#tuijian").attr("data-id"));
+
         jQuery("#serManageForm").submit();
 
     });
@@ -184,7 +185,7 @@
     }
 
     $("#fwMaType").change(function(){
-        alert($("#fwMaType").val());
+//        alert($("#fwMaType").val());
         $("#serviceType").val($("#fwMaType").val());
     });
 </script>
