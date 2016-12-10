@@ -283,7 +283,7 @@ public class BaseUserCompanyServiceImpl implements BaseUserCompanyService {
         serVo.setStatus(UserServiceStatuesEnum.DELETED.getId());
         userCompanyServiceMapper.updateStatusByComId(serVo);
         //删除公司图片信息
-        baseUserCompanyPicMapper.deleteAllPic(vo.getId());
+//        baseUserCompanyMapper.deleteAllPic(vo.getId());
     }
 
 }

@@ -202,6 +202,7 @@ public class BaseUserCompanyController extends BaseController{
 			if(!StringUtils.isBlank(checkResult)){
 				model.addObject("errorMsg", checkResult);
 				log.error(String.format("BaseUserCompanyController.createCompany.check.error:%s",checkResult));
+				model.setViewName("/user/toOneCompany.html?flag=create");
 				return model;
 			}
 			Integer result = baseUserService.register(baseUserVo);
@@ -214,8 +215,17 @@ public class BaseUserCompanyController extends BaseController{
 				model.addObject("errorMsg", "系统繁忙，请稍后再试");
 				return model;
 			}
+
+
 		   /****************end***********/
 
+
+			/**
+			 * 查询新增的用户 ID
+			 *
+			 */
+			BaseUser baseUserNew =  baseUserService.findBaseUser(baseUserVo);
+			baseUserVo = new BaseUserVo(baseUserNew);
 
 
 			baseUserCompanyVo.setUserId(baseUserVo.getId());
@@ -231,7 +241,7 @@ public class BaseUserCompanyController extends BaseController{
 				return model;
 			}
 			model.addObject("vo", baseUserCompanyVo);
-			int result = baseUserCompanyService.insert(baseUserCompanyVo);
+			result = baseUserCompanyService.insert(baseUserCompanyVo);
 			if(result <= 0){
 				model.addObject("errorMsg","系统繁忙,请稍后再试");
 				log.error("BaseUserCompanyController.saveCompany.save.error:");
