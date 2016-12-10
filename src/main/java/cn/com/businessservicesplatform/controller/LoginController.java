@@ -1,11 +1,14 @@
 package cn.com.businessservicesplatform.controller;
 
 import cn.com.businessservicesplatform.common.util.CookieUtil;
+import cn.com.businessservicesplatform.common.util.DESUtils;
 import cn.com.businessservicesplatform.model.mysql.BaseUser;
 import cn.com.businessservicesplatform.model.mysql.BaseUserCompany;
+import cn.com.businessservicesplatform.model.mysql.BaseUserSendInfo;
 import cn.com.businessservicesplatform.model.vo.BaseUserCompanyVo;
 import cn.com.businessservicesplatform.model.vo.BaseUserVo;
 import cn.com.businessservicesplatform.service.BaseUserCompanyService;
+import cn.com.businessservicesplatform.service.BaseUserSendInfoService;
 import cn.com.businessservicesplatform.service.BaseUserService;
 
 import org.apache.commons.lang.StringUtils;
@@ -33,6 +36,10 @@ public class LoginController extends BaseController{
 	BaseUserService baseUserService;
 	@Autowired
 	BaseUserCompanyService baseUserCompanyService;
+	@Autowired
+	BaseUserSendInfoService baseUserSendInfoService;
+	
+	private static String UPDATE_PASSWORD_STR = "UserId:";
 	
 	
 	/**
@@ -147,6 +154,148 @@ public class LoginController extends BaseController{
 		}
     	return model;
     }
+     
+    @RequestMapping("/toUpdatePassword")
+    public ModelAndView toUpdatePassword() {
+    	ModelAndView model = new ModelAndView ( "/login/forgetPassword");
+    	return model;
+    }
+    @RequestMapping("/verifyUerName")
+    public ModelAndView verifyUerName(String userName) {
+    	ModelAndView model = new ModelAndView ( "/login/forgetPassword");
+    	try {
+			if(StringUtils.isBlank(userName)){
+				model.addObject("errorMsg", "未查到登录名信息");
+				return model;
+			}
+			model.addObject("userName", userName);
+			BaseUserVo baseUserVo = new BaseUserVo();
+			baseUserVo.setUserName(userName);
+			BaseUser baseUser = baseUserService.findBaseUser(baseUserVo);
+			if(null == baseUser || baseUser.getId() == null){
+				model.addObject("errorMsg", "未查到登录名信息");
+				return model;
+			}
+			String signId = DESUtils.encrypt(UPDATE_PASSWORD_STR+baseUser.getId());
+			if(!StringUtils.isBlank(signId)){
+				model = new ModelAndView ( "/login/verifyEmail");
+				model.addObject("userIdStr",signId);
+				model.addObject("email",baseUser.getEmail());
+				return model;
+			}else{
+				model.addObject("errorMsg", "未查到登录名信息");
+				return model;
+			}
+		} catch (Exception e) {
+			log.error("verifyUerName.is.system.error",e);
+			model.addObject("errorMsg", "未查到登录名信息,稍后再试");
+		}
+    	return model;
+    }
+    @RequestMapping("/verifyEmailCode")
+    public ModelAndView verifyUerName(String userIdStr,String updateCode) {
+    	ModelAndView model = new ModelAndView ( "/login/forgetPassword");
+    	try {
+			if(StringUtils.isBlank(userIdStr) || StringUtils.isBlank(updateCode)){
+				model.addObject("errorMsg", "获取用户验证信息失败");
+				return model;
+			}
+			String signId = userIdStr;
+			model.addObject("userIdStr",userIdStr);
+			userIdStr = DESUtils.decrypt(userIdStr);
+			if(StringUtils.isBlank(userIdStr)){
+				model.addObject("errorMsg", "获取用户验证信息失败");
+				return model;
+			}
+			Integer userId = Integer.valueOf(userIdStr.substring(7));
+			if(null == userId){
+				model.addObject("errorMsg", "获取用户验证信息异常");
+				return model;
+			}
+			BaseUserSendInfo info = baseUserSendInfoService.updateCheckCode(userId);
+			if(null != info){
+				model = new ModelAndView ( "/login/editPassword");
+				model.addObject("userIdStr",signId);
+				return model;
+			}else{
+				model.addObject("errorMsg", "验证码输入错误");
+				return model;
+			}
+		}  catch (Exception e) {
+			log.error("verifyEmailCode.is.system.error",e);
+			model.addObject("errorMsg", "获取用户验证信息系统异常");
+			return model;
+		}
+    }
+    @RequestMapping("/updatePssword")
+    public ModelAndView updatePssword(String userIdStr,String userPassword,String userPassword2) {
+    	ModelAndView model = new ModelAndView ( "/login/forgetPassword");
+    	try {
+			if(StringUtils.isBlank(userIdStr) || StringUtils.isBlank(userPassword) || StringUtils.isBlank(userPassword2) ){
+				model.addObject("errorMsg", "修改密码：获取新密码信息失败");
+				return model;
+			}
+			if(userPassword.length() < 6 || !userPassword.equals(userPassword2)){
+				model.addObject("errorMsg", "修改密码：获取新密码信息异常");
+				return model;
+			}
+			model.addObject("userIdStr",userIdStr);
+			userIdStr = DESUtils.decrypt(userIdStr);
+			if(StringUtils.isBlank(userIdStr)){
+				model.addObject("errorMsg", "修改密码：获取用户验证信息失败");
+				return model;
+			}
+			Integer userId = Integer.valueOf(userIdStr.substring(7));
+			if(null == userId){
+				model.addObject("errorMsg", "修改密码：获取用户验证信息异常");
+				return model;
+			}
+			int result = baseUserService.updatePasswordNocheck(userId,userPassword);
+			if(result > 0){
+				model = new ModelAndView ( "redirect:/login/toLogin.html"); 
+				return model;
+			}else{
+				model.addObject("errorMsg", "修改用户密码异常");
+				return model;
+			}
+		}  catch (Exception e) {
+			log.error("updatePssword.is.system.error",e);
+			model.addObject("errorMsg", "修改用户密码异常");
+			return model;
+		}
+    }
+    
+    
+    @RequestMapping("/sendEmailCode")
+    @ResponseBody
+    public Integer sendEmailCode(String userIdStr) {
+    	try {
+			if(StringUtils.isBlank(userIdStr)){
+				return 1010;
+			}
+			userIdStr = DESUtils.decrypt(userIdStr);
+			if(StringUtils.isBlank(userIdStr)){
+				log.error("sendEmailCode.is.decrypt.error");
+				return 1011;
+			}
+			Integer userId = Integer.valueOf(userIdStr.substring(7));
+			if(null == userId){
+				log.error("sendEmailCode.is.get.userId.error");
+				return 1012;
+			}
+			int result = baseUserSendInfoService.insertEmailCode(userId);
+			if(result > 0){
+				return 1;
+			}else{
+				log.error("sendEmailCode.is.send.email.error");
+				return 1014;
+			}
+		} catch (Exception e) {
+			 log.error("sendEmailCode.is.system.error",e);
+		}
+    	return 1016;
+    }
+    
     
     /**
      * @Description: 跳转到注册页面 <br>

@@ -17,6 +17,24 @@
     id, user_id, send_code, send_content, mobile_phone, email, status, type, modify_time, 
     create_time
   </sql>
+  
+  <select id="select" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from base_user_send_info
+    where status = 0
+      <if test="userId != null" >
+        and  #{userId,jdbcType=INTEGER}
+      </if>
+      <if test="email != null" >
+       and #{email,jdbcType=VARCHAR} 
+      </if>
+      order by create_time desc limit 1
+      
+  </select>
+  
+  
+  
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
