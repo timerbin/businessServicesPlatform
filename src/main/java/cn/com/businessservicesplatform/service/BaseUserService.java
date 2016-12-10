@@ -41,4 +41,6 @@ public interface BaseUserService {
 	public List<BaseUser> queryPage(BasePage basePage, BaseUserVo baseUserVo);
 	
 	public void updateUserStatus(BaseUserVo baseUserVo);
+	
+	public int updatePasswordNocheck(Integer id,String userPassword);
 }

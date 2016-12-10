@@ -71,7 +71,25 @@ public class BaseUserServiceImpl implements BaseUserService{
 		
 		return result;
 	}
-
+	
+	@Override
+	public int updatePasswordNocheck(Integer id,String userPassword) {
+		int result = 0;
+		if(null == id || StringUtils.isBlank(userPassword)){
+			log.error("BaseUserService.updatePasswordNocheck.is.null");
+			return result;
+		}
+		BaseUser baseUser = baseUserMapper.selectByPrimaryKey(id);
+		if(null == baseUser){
+			log.error("BaseUserService.updatePasswordNocheck.obj.is.null:"+id);
+			return result;
+		}
+		baseUser.setUserPassword(MD5Util.getMD5(userPassword));
+		baseUser.setModifyTime(new Date());
+		result = baseUserMapper.updateByPrimaryKey(baseUser);
+		
+		return result;
+	}
 	@Override
 	public int updateUserInfo(BaseUserVo baseUserVo) {
 		int result = 0;

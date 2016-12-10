@@ -38,7 +38,7 @@
             <span><img id="img" style="width:110px;height:30px;" src="${BASE_URL}/authImage" title="换一张" /></span>
         </li>
         <li>
-            <span class="login_wjmm"><a href="${BASE_URL}/login/toRegister.html">立即注册</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#">忘记密码</a></span>
+            <span class="login_wjmm"><a href="${BASE_URL}/login/toRegister.html">立即注册</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="${BASE_URL}/login/toUpdatePassword.html">忘记密码</a></span>
         </li>
         <li><input id="loginBtn" name="loginBtn" type="button" value="登 录" class="login_button" /></li>
     </ul>
