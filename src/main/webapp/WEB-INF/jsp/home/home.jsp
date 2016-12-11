@@ -109,7 +109,11 @@ $("#queryBtn").click(function(){
 	$("#allCompany").submit();
 });
 $("#addService").click(function(){
+//	$("#allCompany").submit();
+	$("#allCompany").attr("action","/user/toPushService.html");
 	$("#allCompany").submit();
+
+
 });
 </script>
 

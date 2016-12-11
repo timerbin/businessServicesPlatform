@@ -2,7 +2,7 @@
 <div>
      <div class="left_logo"><img src="${BASE_URL}/images/home_logo.png" width="152" height="100" /></div>
      <ul>
-         <li><span class="left_biao"><img src="${BASE_URL}/images/nav_01.png" /></span>首页</li>
+         <li> <span class="left_biao"><img src="${BASE_URL}/images/nav_01.png"/> </span><a href="${BASE_URL}/home/homeIndex.html" ><font color="white">首页</font></a></li>
          <li class="left_border"><span class="left_biao"><img src="${BASE_URL}/images/nav_02.png" /></span>行政办公</li>
          <li><span class="left_biao"><img src="${BASE_URL}/images/nav_03.png" /></span>商旅出行</li>
          <li><span class="left_biao"><img src="${BASE_URL}/images/nav_04.png" /></span>注册服务</li>

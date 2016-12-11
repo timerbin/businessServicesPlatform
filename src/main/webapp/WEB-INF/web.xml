@@ -61,7 +61,7 @@
 	<!-- end 配置spring MVC -->
 
 	<welcome-file-list>
-		<welcome-file>/</welcome-file>
+		<welcome-file>/home/homeIndex.html</welcome-file>
 	</welcome-file-list>
 	<!-- 配置session超时时间，单位分钟 -->
 	<session-config>

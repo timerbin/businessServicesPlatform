@@ -47,6 +47,7 @@ public class UserCompanyServiceController extends BaseController{
 	BaseUserCompanyService baseUserCompanyService;
 
 
+
 	/**
 	 * 发布服务 跳转
 	 * @param request
@@ -54,10 +55,36 @@ public class UserCompanyServiceController extends BaseController{
 	 */
 	@RequestMapping("/toPushService")
 	protected ModelAndView toSaveService(HttpServletRequest request) {
+		ModelAndView model = new ModelAndView ("/company/fabufuwu");
+		try {
 
-		ModelAndView model = new ModelAndView ("company/fabufuwu");
-		List<BaseConfigData> serTypeList = baseConfigDataService.queryList(new BaseConfigDataVo(BaseConfigTypeEnum.SERVICES_TYPE.getId()));
-		model.addObject("serTypeList", serTypeList);
+			BaseUserVo baseUserVo = getUser(request);
+			model.addObject("user", baseUserVo);
+			if(null == baseUserVo){
+				model = new ModelAndView ( "redirect:/login/toLogin.html");
+				return model;
+			}
+
+			//判断是否为企业用户
+			BaseUserCompanyVo vo  = baseUserCompanyService.getBaseUserAllCompany(baseUserVo.getId());
+			if(vo != null){
+				List<BaseConfigData> serTypeList = baseConfigDataService.queryList(new BaseConfigDataVo(BaseConfigTypeEnum.SERVICES_TYPE.getId()));
+				model.addObject("serTypeList", serTypeList);
+			}else{
+				//跳转到成为企业页面
+				model.addObject("errorMsg","成为企业后才能发布服务，请填写资料");
+				model = new ModelAndView ("company/editCompany");
+			}
+
+
+		}catch (Exception e){
+
+			log.error("############ 发布服务跳转异常 ",e);
+			model.addObject("errorMsg","系统繁忙请稍后再试");
+//			model = new ModelAndView ("company/fabufuwu");
+		}
+
+
 		return model;
 	}
 
@@ -113,13 +140,14 @@ public class UserCompanyServiceController extends BaseController{
 	protected ModelAndView saveService(HttpServletRequest request,UserCompanyServiceVo serVo) {
 		ModelAndView model = new ModelAndView ("/company/fabufuwu");
 		try {
-			//判断是否为企业用户
+
 			BaseUserVo baseUserVo = getUser(request);
 			model.addObject("user", baseUserVo);
 			if(null == baseUserVo){
 				model = new ModelAndView ( "redirect:/login/toLogin.html");
 				return model;
 			}
+
 			List<BaseConfigData> serTypeList = baseConfigDataService.queryList(new BaseConfigDataVo(BaseConfigTypeEnum.SERVICES_TYPE.getId()));
 			model.addObject("serTypeList", serTypeList);
 			model.addObject("vo", serVo);
