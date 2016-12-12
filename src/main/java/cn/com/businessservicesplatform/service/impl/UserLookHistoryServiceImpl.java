@@ -3,7 +3,12 @@ package cn.com.businessservicesplatform.service.impl;
 import java.util.Date;
 import java.util.List;
 
+import cn.com.businessservicesplatform.common.constants.UserLookHistoryTypeEnum;
 import cn.com.businessservicesplatform.common.util.BasePage;
+import cn.com.businessservicesplatform.model.vo.BaseUserCompanyVo;
+import cn.com.businessservicesplatform.model.vo.UserCompanyServiceVo;
+import cn.com.businessservicesplatform.service.BaseUserCompanyService;
+import cn.com.businessservicesplatform.service.UserCompanyServiceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +23,11 @@ public class UserLookHistoryServiceImpl implements UserLookHistoryService{
 	
 	@Autowired
 	UserLookHistoryMapper userLookHistoryMapper;
+
+	@Autowired
+	BaseUserCompanyService baseUserCompanyService;
+	@Autowired
+	UserCompanyServiceService userCompanyServiceService;
 
 	@Override
 	public int insert(UserLookHistoryVo userLookHistoryVo) {
@@ -65,8 +75,22 @@ public class UserLookHistoryServiceImpl implements UserLookHistoryService{
 	}
 
     @Override
-    public List<UserLookHistory> queryByPage(BasePage basePage, UserLookHistoryVo userLookHistoryVo) {
-        return userLookHistoryMapper.queryPage(basePage,userLookHistoryVo);
+    public List<UserLookHistoryVo> queryByPage(BasePage basePage, UserLookHistoryVo userLookHistoryVo) {
+		List<UserLookHistoryVo> voLst = userLookHistoryMapper.queryPage(basePage,userLookHistoryVo);
+		for(UserLookHistoryVo vo:voLst){
+			if(null != vo){
+				if(vo.getType() == UserLookHistoryTypeEnum.SERVICES.getId()){
+					UserCompanyServiceVo serviceVo = userCompanyServiceService.getAllService(vo.getCompanyId());
+					vo.setUserCompanyServiceVo(serviceVo);
+					BaseUserCompanyVo companyVo =  baseUserCompanyService.getUserAllCompany(vo.getCompanyId());
+					vo.setBaseUserCompanyVo(companyVo);
+				}else if(vo.getType() == UserLookHistoryTypeEnum.COMPANY.getId()){
+					BaseUserCompanyVo  companyVo =  baseUserCompanyService.getUserAllCompany(vo.getCompanyId());
+					vo.setBaseUserCompanyVo(companyVo);
+				}
+			}
+		}
+		return voLst;
     }
 
 	@Override

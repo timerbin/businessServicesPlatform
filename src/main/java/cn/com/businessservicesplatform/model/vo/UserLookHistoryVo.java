@@ -4,8 +4,12 @@ import cn.com.businessservicesplatform.model.mysql.UserLookHistory;
 
 public class UserLookHistoryVo extends UserLookHistory {
 
-	
-	
+	private BaseUserCompanyVo baseUserCompanyVo;
+
+	private UserCompanyServiceVo userCompanyServiceVo;
+
+
+
 	public UserLookHistoryVo() {
 	}
 
@@ -73,5 +77,22 @@ public class UserLookHistoryVo extends UserLookHistory {
 
 	public void setCompanyPicUrl(String companyPicUrl) {
 		this.companyPicUrl = companyPicUrl;
+	}
+
+
+	public BaseUserCompanyVo getBaseUserCompanyVo() {
+		return baseUserCompanyVo;
+	}
+
+	public void setBaseUserCompanyVo(BaseUserCompanyVo baseUserCompanyVo) {
+		this.baseUserCompanyVo = baseUserCompanyVo;
+	}
+
+	public UserCompanyServiceVo getUserCompanyServiceVo() {
+		return userCompanyServiceVo;
+	}
+
+	public void setUserCompanyServiceVo(UserCompanyServiceVo userCompanyServiceVo) {
+		this.userCompanyServiceVo = userCompanyServiceVo;
 	}
 }

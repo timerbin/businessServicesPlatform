@@ -55,55 +55,69 @@ public class UserLookHistoryController extends BaseController{
     public ModelAndView toLookList(@RequestParam(required = false, value = "page", defaultValue = "1")Integer page, UserLookHistoryVo userLookHistoryVo) {
     	ModelAndView model = new ModelAndView ( "/user/lookHistory");
         BasePage basePage = new BasePage(page,10);
-		List<UserLookHistory> ulhLstHis =  userLookHistoryService.queryByPage(basePage,userLookHistoryVo);
 
-
-		//查询企业 浏览历史
-		UserLookHistoryVo voCompany = new UserLookHistoryVo();
-		voCompany.setType(UserLookHistoryTypeEnum.COMPANY.getId());
-		List<UserLookHistory> comLstHis =  userLookHistoryService.queryHistroyList(voCompany);
-
-		//查询服务 浏览历史
-		UserLookHistoryVo voService = new UserLookHistoryVo();
-		voService.setType(UserLookHistoryTypeEnum.SERVICES.getId());
-		List<UserLookHistory> serLstHis =  userLookHistoryService.queryHistroyList(voService);
-
-
+		if(userLookHistoryVo.getType().equals("")){
+			userLookHistoryVo.setType(null);
+		}
+		List<UserLookHistoryVo>  ulhLstHis = userLookHistoryService.queryByPage(basePage,userLookHistoryVo);
 		List<UserLookHistoryVo> ulhLst = new ArrayList<UserLookHistoryVo>();
 		for (UserLookHistory ulh : ulhLstHis){
 			UserLookHistoryVo hVo = new UserLookHistoryVo(ulh);
 			ulhLst.add(hVo);
 		}
 
-
-
-		List<UserLookHistoryVo> ulhLstNew = new ArrayList<UserLookHistoryVo>();
-//		List<String> dateStr = new ArrayList<String>();
-
-		BaseUserCompanyVo companyVo = new BaseUserCompanyVo();
-		UserCompanyServiceVo usVo = new UserCompanyServiceVo();
-		for (UserLookHistoryVo hVo: ulhLst) {
-
-			//获取企业公司
-			companyVo.setUserId(hVo.getCompanyId());
-			BaseUserCompany bc = baseUserCompanyService.getUserCompany(companyVo);
-			hVo.setCompanyName(bc.getCompanyName());
-			BaseUserCompanyVo bcVo = new BaseUserCompanyVo(bc);
-			hVo.setCompanyPicUrl(bcVo.getPicList().get(0).getCompanyPicUrl());
-
-			//获取服务
-			usVo.setUserId(hVo.getServiceId());
-			hVo.setServiceName(userCompanyServiceService.fetchCompanyService(usVo).getServiceName());
-
-			ulhLstNew.add(hVo);
-		}
-
-		model.addObject("ulhLstNew",ulhLstNew);
-		model.addObject("comLstHis",comLstHis);
-		model.addObject("serLstHis",serLstHis);
-
+		model.addObject("ulhLst",ulhLst);
 		model.addObject("dateStr",userLookHistoryService.queryHisDate());
-    	return model;
+
+		return model;
+
+//		//查询企业 浏览历史
+//		UserLookHistoryVo voCompany = new UserLookHistoryVo();
+//		voCompany.setType(UserLookHistoryTypeEnum.COMPANY.getId());
+//		List<UserLookHistory> comLstHis =  userLookHistoryService.queryHistroyList(voCompany);
+//
+//		//查询服务 浏览历史
+//		UserLookHistoryVo voService = new UserLookHistoryVo();
+//		voService.setType(UserLookHistoryTypeEnum.SERVICES.getId());
+//		List<UserLookHistory> serLstHis =  userLookHistoryService.queryHistroyList(voService);
+//
+//
+//		List<UserLookHistoryVo> ulhLst = new ArrayList<UserLookHistoryVo>();
+//		for (UserLookHistory ulh : ulhLstHis){
+//			UserLookHistoryVo hVo = new UserLookHistoryVo(ulh);
+//			ulhLst.add(hVo);
+//		}
+
+
+
+//		List<UserLookHistoryVo> ulhLstNew = new ArrayList<UserLookHistoryVo>();
+////		List<String> dateStr = new ArrayList<String>();
+//
+//		BaseUserCompanyVo companyVo = new BaseUserCompanyVo();
+//		UserCompanyServiceVo usVo = new UserCompanyServiceVo();
+//		for (UserLookHistoryVo hVo: ulhLst) {
+//
+//			//获取企业公司
+//			companyVo.setUserId(hVo.getCompanyId());
+//			BaseUserCompany bc = baseUserCompanyService.getUserCompany(companyVo);
+//			hVo.setCompanyName(bc.getCompanyName());
+//			BaseUserCompanyVo bcVo = new BaseUserCompanyVo(bc);
+//			hVo.setCompanyPicUrl(bcVo.getPicList().get(0).getCompanyPicUrl());
+//
+//			//获取服务
+//			usVo.setUserId(hVo.getServiceId());
+//			hVo.setServiceName(userCompanyServiceService.fetchCompanyService(usVo).getServiceName());
+//
+//			ulhLstNew.add(hVo);
+//		}
+
+//		model.addObject("ulhLstNew",ulhLstNew);
+//		model.addObject("comLstHis",comLstHis);
+//		model.addObject("comLstHis",comLstHis);
+//		model.addObject("serLstHis",serLstHis);
+//
+//		model.addObject("dateStr",userLookHistoryService.queryHisDate());
+
     }
 	
 	

@@ -34,7 +34,7 @@ public interface UserLookHistoryService {
 	public List<UserLookHistory> queryHistroyList(UserLookHistoryVo userLookHistoryVo);
 
 
-    public List<UserLookHistory> queryByPage(BasePage basePage, UserLookHistoryVo userLookHistoryVo);
+    public List<UserLookHistoryVo> queryByPage(BasePage basePage, UserLookHistoryVo userLookHistoryVo);
 	
 	/**
 	 * @Description: 删除浏览记录 <br>
