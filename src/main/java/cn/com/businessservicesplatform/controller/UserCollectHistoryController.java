@@ -1,6 +1,7 @@
 package cn.com.businessservicesplatform.controller;
 
 import cn.com.businessservicesplatform.common.constants.UserCollectHistoryTypeEnum;
+import cn.com.businessservicesplatform.common.util.BasePage;
 import cn.com.businessservicesplatform.model.vo.BaseUserVo;
 import cn.com.businessservicesplatform.model.vo.UserCollectHistoryVo;
 import cn.com.businessservicesplatform.service.UserCollectHistoryService;
@@ -14,6 +15,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -73,7 +75,7 @@ public class UserCollectHistoryController extends BaseController{
     }
     
     @RequestMapping("/collectList")
-    public ModelAndView collectList(UserCollectHistoryVo userCollectHistoryVo) {
+    public ModelAndView collectList(@RequestParam(required = false, value = "page", defaultValue = "1")Integer page, UserCollectHistoryVo userCollectHistoryVo) {
     	ModelAndView modelAndView = new ModelAndView("/user/collectList");
     	try {
     		if(null == userCollectHistoryVo){
@@ -83,7 +85,8 @@ public class UserCollectHistoryController extends BaseController{
     			userCollectHistoryVo.setType(UserCollectHistoryTypeEnum.SERVICES.getId());
     		}
     		modelAndView.addObject("vo", userCollectHistoryVo);
-			List<UserCollectHistoryVo> collectList = userCollectHistoryService.queryList(userCollectHistoryVo);
+			BasePage basePage = new BasePage(page,10);
+			List<UserCollectHistoryVo> collectList = userCollectHistoryService.queryPage(basePage,userCollectHistoryVo);
 			modelAndView.addObject("collectList", collectList);
 		} catch (Exception e) {
 			log.error("UserCollectHistoryController.collectList.is.system.error",e);

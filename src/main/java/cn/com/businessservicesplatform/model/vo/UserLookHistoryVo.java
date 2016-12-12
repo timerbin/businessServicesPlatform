@@ -9,6 +9,20 @@ public class UserLookHistoryVo extends UserLookHistory {
 	public UserLookHistoryVo() {
 	}
 
+
+	public UserLookHistoryVo(UserLookHistory history) {
+		super.setCompanyId(history.getCompanyId());
+		super.setCreateTime(history.getCreateTime());
+		super.setId(history.getId());
+		super.setLookCount(history.getLookCount());
+		super.setModifyTime(history.getModifyTime());
+		super.setNowDate(history.getNowDate());
+		super.setServiceId(history.getServiceId());
+		super.setStatus(history.getStatus());
+		super.setType(history.getType());
+		super.setUserId(history.getUserId());
+	}
+
 	public UserLookHistoryVo(Integer userId, Integer serverId, Integer companyId, Integer type) {
 		super.setUserId(userId);
 		super.setServiceId(serverId);

@@ -1,6 +1,7 @@
 package cn.com.businessservicesplatform.controller;
 
 import cn.com.businessservicesplatform.common.constants.UserLookHistoryTypeEnum;
+import cn.com.businessservicesplatform.common.util.BasePage;
 import cn.com.businessservicesplatform.model.mysql.BaseUserCompany;
 import cn.com.businessservicesplatform.model.mysql.UserLookHistory;
 import cn.com.businessservicesplatform.model.vo.BaseUserCompanyVo;
@@ -17,6 +18,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -50,26 +52,26 @@ public class UserLookHistoryController extends BaseController{
      * @throws
      */
     @RequestMapping("/toLookList")
-    public ModelAndView toLookList() {
+    public ModelAndView toLookList(@RequestParam(required = false, value = "page", defaultValue = "1")Integer page, UserLookHistoryVo userLookHistoryVo) {
     	ModelAndView model = new ModelAndView ( "/user/lookHistory");
-		UserLookHistoryVo vo = new UserLookHistoryVo();
-		List<UserLookHistory> ulhLstHis =  userLookHistoryService.queryHistroyList(vo);
+        BasePage basePage = new BasePage(page,10);
+		List<UserLookHistory> ulhLstHis =  userLookHistoryService.queryByPage(basePage,userLookHistoryVo);
 
 
 		//查询企业 浏览历史
 		UserLookHistoryVo voCompany = new UserLookHistoryVo();
 		voCompany.setType(UserLookHistoryTypeEnum.COMPANY.getId());
-		List<UserLookHistory> comLstHis =  userLookHistoryService.queryHistroyList(vo);
+		List<UserLookHistory> comLstHis =  userLookHistoryService.queryHistroyList(voCompany);
 
 		//查询服务 浏览历史
 		UserLookHistoryVo voService = new UserLookHistoryVo();
 		voService.setType(UserLookHistoryTypeEnum.SERVICES.getId());
-		List<UserLookHistory> serLstHis =  userLookHistoryService.queryHistroyList(vo);
+		List<UserLookHistory> serLstHis =  userLookHistoryService.queryHistroyList(voService);
 
 
 		List<UserLookHistoryVo> ulhLst = new ArrayList<UserLookHistoryVo>();
 		for (UserLookHistory ulh : ulhLstHis){
-			UserLookHistoryVo hVo = new UserLookHistoryVo(ulh.getUserId(),ulh.getServiceId(),ulh.getCompanyId(),ulh.getType());
+			UserLookHistoryVo hVo = new UserLookHistoryVo(ulh);
 			ulhLst.add(hVo);
 		}
 

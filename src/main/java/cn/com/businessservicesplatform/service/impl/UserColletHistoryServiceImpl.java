@@ -1,6 +1,7 @@
 package cn.com.businessservicesplatform.service.impl;
 
 import cn.com.businessservicesplatform.common.constants.UserCollectHistoryTypeEnum;
+import cn.com.businessservicesplatform.common.util.BasePage;
 import cn.com.businessservicesplatform.dao.mysql.UserCollectHistoryMapper;
 import cn.com.businessservicesplatform.model.mysql.UserCollectHistory;
 import cn.com.businessservicesplatform.model.vo.BaseUserCompanyVo;
@@ -112,6 +113,28 @@ public class UserColletHistoryServiceImpl implements UserCollectHistoryService {
 	@Override
 	public List<UserCollectHistoryVo> queryList(UserCollectHistoryVo userCollectHistoryVo) {
 		List<UserCollectHistoryVo> list = userCollectHistoryMapper.queryList(userCollectHistoryVo);
+		if(null != list && list.size() > 0){
+			for(UserCollectHistoryVo vo:list){
+				if(null != vo){
+					if(vo.getType() == UserCollectHistoryTypeEnum.SERVICES.getId()){
+						UserCompanyServiceVo serviceVo = userCompanyServiceService.getAllService(vo.getCompanyId());
+						vo.setUserCompanyServiceVo(serviceVo);
+						BaseUserCompanyVo  companyVo =  baseUserCompanyService.getUserAllCompany(vo.getCompanyId());
+						vo.setBaseUserCompanyVo(companyVo);
+					}else if(vo.getType() == UserCollectHistoryTypeEnum.COMPANY.getId()){
+						BaseUserCompanyVo  companyVo =  baseUserCompanyService.getUserAllCompany(vo.getCompanyId());
+						vo.setBaseUserCompanyVo(companyVo);
+					}
+				}
+			}
+		}
+		return list;
+	}
+
+
+	@Override
+	public List<UserCollectHistoryVo> queryPage(BasePage basePage, UserCollectHistoryVo userCollectHistoryVo) {
+		List<UserCollectHistoryVo> list = userCollectHistoryMapper.queryPage(basePage,userCollectHistoryVo);
 		if(null != list && list.size() > 0){
 			for(UserCollectHistoryVo vo:list){
 				if(null != vo){

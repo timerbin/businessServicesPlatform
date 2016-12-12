@@ -2,6 +2,7 @@ package cn.com.businessservicesplatform.service;
 
 import java.util.List;
 
+import cn.com.businessservicesplatform.common.util.BasePage;
 import cn.com.businessservicesplatform.model.mysql.UserLookHistory;
 import cn.com.businessservicesplatform.model.vo.UserLookHistoryVo;
 
@@ -31,6 +32,9 @@ public interface UserLookHistoryService {
 	 * @throws
 	 */
 	public List<UserLookHistory> queryHistroyList(UserLookHistoryVo userLookHistoryVo);
+
+
+    public List<UserLookHistory> queryByPage(BasePage basePage, UserLookHistoryVo userLookHistoryVo);
 	
 	/**
 	 * @Description: 删除浏览记录 <br>

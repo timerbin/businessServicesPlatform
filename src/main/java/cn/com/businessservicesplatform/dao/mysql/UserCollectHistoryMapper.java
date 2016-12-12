@@ -2,6 +2,7 @@ package cn.com.businessservicesplatform.dao.mysql;
 
 import java.util.List;
 
+import cn.com.businessservicesplatform.common.util.BasePage;
 import org.apache.ibatis.annotations.Param;
 
 import cn.com.businessservicesplatform.model.mysql.UserCollectHistory;
@@ -23,4 +24,8 @@ public interface UserCollectHistoryMapper {
     UserCollectHistory getCollect(@Param("vo") UserCollectHistoryVo vo);
     
     public List<UserCollectHistoryVo> queryList(UserCollectHistoryVo userCollectHistoryVo);
+
+    public List<UserCollectHistoryVo> queryPage(@Param("basePage")BasePage basePage, @Param("vo")UserCollectHistoryVo userCollectHistoryVo);
+
+
 }

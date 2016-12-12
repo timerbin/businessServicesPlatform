@@ -50,6 +50,27 @@
      </if>
       order by modify_time desc
   </select>
+
+
+  <select id="queryPage" resultMap="BaseResultMapVo" parameterType="cn.com.businessservicesplatform.model.vo.UserCollectHistoryVo" >
+    select
+    <include refid="Base_Column_List" />
+    from user_collect_history
+    where status = 1
+    <if test="vo.userId != null" >
+      and  user_id = #{vo.userId,jdbcType=INTEGER}
+    </if>
+    <if test="vo.serviceId != null" >
+      and service_id = #{vo.serviceId,jdbcType=INTEGER}
+    </if>
+    <if test="vo.companyId != null" >
+      and company_id = #{vo.companyId,jdbcType=INTEGER}
+    </if>
+    <if test="vo.type != null" >
+      and type = #{vo.type,jdbcType=INTEGER}
+    </if>
+    order by modify_time desc
+  </select>
   
   
   

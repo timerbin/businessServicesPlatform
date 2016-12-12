@@ -3,6 +3,7 @@ package cn.com.businessservicesplatform.service.impl;
 import java.util.Date;
 import java.util.List;
 
+import cn.com.businessservicesplatform.common.util.BasePage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -63,10 +64,10 @@ public class UserLookHistoryServiceImpl implements UserLookHistoryService{
 		return userLookHistoryMapper.queryHistroyList(userLookHistoryVo);
 	}
 
-//	@Override
-//	public List<UserLookHistory> queryHistroyList(UserLookHistoryVo userLookHistoryVo) {
-//		return userLookHistoryMapper.queryHistroyList(userLookHistoryVo);
-//	}
+    @Override
+    public List<UserLookHistory> queryByPage(BasePage basePage, UserLookHistoryVo userLookHistoryVo) {
+        return userLookHistoryMapper.queryPage(basePage,userLookHistoryVo);
+    }
 
 	@Override
 	public int updateDel(Integer id) {

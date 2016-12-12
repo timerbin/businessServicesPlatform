@@ -15,6 +15,12 @@
 <form id="doEditUserInfo" action="${BASE_URL}/user/collectList.html" method="post">
 	<input id="collectType" name="type" value="${vo.type}" type="hidden"/>
 	<input id="baseUrl"  value="${BASE_URL}" type="hidden"/>
+
+	<input id="page" name="page" type="hidden" value="${basePage.page}"/>
+	<input id="curPage" name="curPage"  value="${basePage.page}" type="hidden"/>
+	<input id="pageCount" name="pageCount" value="${basePage.count}" type="hidden"/>
+
+
 	<jsp:include page="../public/loginheader.jsp" />
 	<div class="top_tiao"></div>
 	<div class="gerenzx_main">
@@ -72,10 +78,28 @@
 	        </div>
         </c:if>
   </div>
+		<table>
+			<tr>
+				<td height="40" colspan ="7"> <div class="pages" id="pager"></div></td>
+			</tr>
+		</table>
+
 </div>
 <script type="text/javascript">
 $("#collectList").addClass("li_atab");
 var baseUrl = $("#baseUrl").val();
+
+
+//分页  begin
+var cur_page = $("#curPage").val();
+var page_count = $("#pageCount").val();
+jQuery("#pager").pager({pagenumber: cur_page, pagecount: page_count, buttonClickCallback: change_page });
+
+function change_page(cur_page) {
+	jQuery("#page").val(cur_page);
+	jQuery("#doEditUserInfo").submit();
+}
+
 $(".serviceBtn").click(function(){
 	var serviceId = $(this).attr("dataId");
 	var companyId = $(this).attr("dataCompanyId");
