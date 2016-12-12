@@ -9,6 +9,7 @@
 <link href="${BASE_URL}/images/gerenzx.css" rel="stylesheet" type="text/css" />
 <meta name="renderer" content="webkit" />
 <jsp:include page="../public/baseData.jsp" />
+    <jsp:include page="../public/pager.jsp" />
 </head>
 
 <body>
@@ -77,12 +78,14 @@
 	            </ul>
 	        </div>
         </c:if>
+
+        <table>
+            <tr>
+                <td height="40" colspan ="7"> <div class="pages" id="pager"></div></td>
+            </tr>
+        </table>
   </div>
-		<table>
-			<tr>
-				<td height="40" colspan ="7"> <div class="pages" id="pager"></div></td>
-			</tr>
-		</table>
+
 
 </div>
 <script type="text/javascript">
