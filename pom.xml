@@ -217,7 +217,7 @@
     </dependencies>
 
   <build>
-        <finalName>businessservicesplatform</finalName>
+        <finalName>platform</finalName>
         
         <resources>
             <resource>
