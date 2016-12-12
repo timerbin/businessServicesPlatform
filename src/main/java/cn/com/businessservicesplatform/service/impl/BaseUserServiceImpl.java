@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 import cn.com.businessservicesplatform.common.constants.BaseUserTypeEnum;
 import cn.com.businessservicesplatform.common.util.BasePage;
-import cn.com.businessservicesplatform.common.util.MD5Util;
 import cn.com.businessservicesplatform.dao.mysql.BaseUserMapper;
 import cn.com.businessservicesplatform.model.mysql.BaseUser;
 import cn.com.businessservicesplatform.model.vo.BaseUserVo;
@@ -31,7 +30,7 @@ public class BaseUserServiceImpl implements BaseUserService{
 
 	@Override
 	public Integer register(BaseUserVo baseUserVo) {
-		baseUserVo.setUserPassword(MD5Util.getMD5(baseUserVo.getUserPassword()));
+		//baseUserVo.setUserPassword(MD5Util.getMD5(baseUserVo.getUserPassword()));
 		baseUserVo.setCreateTime(new Date());
 		baseUserVo.setUserStatus(1);
 		baseUserVo.setModifyTime(new Date());
@@ -41,9 +40,9 @@ public class BaseUserServiceImpl implements BaseUserService{
 
 	@Override
 	public BaseUser findBaseUser(BaseUserVo baseUserVo) {
-		if(!StringUtils.isBlank(baseUserVo.getUserPassword())){
-			baseUserVo.setUserPassword(MD5Util.getMD5(baseUserVo.getUserPassword()));
-		}
+//		if(!StringUtils.isBlank(baseUserVo.getUserPassword())){
+//			baseUserVo.setUserPassword(MD5Util.getMD5(baseUserVo.getUserPassword()));
+//		}
 		return baseUserMapper.findBaseUser(baseUserVo);
 	}
 
@@ -59,13 +58,13 @@ public class BaseUserServiceImpl implements BaseUserService{
 			log.error("BaseUserService.updatePassword.obj.is.null:"+baseUserVo.getId());
 			return result;
 		}
-		baseUserVo.setOldUserPassword(MD5Util.getMD5(baseUserVo.getOldUserPassword()));
+//		baseUserVo.setOldUserPassword(MD5Util.getMD5(baseUserVo.getOldUserPassword()));
 		if(!baseUserVo.getOldUserPassword().equals(baseUser.getUserPassword())){
 			log.error("BaseUserService.updatePassword.oldPwd.is.error:"+baseUserVo.getId());
 			result = -2;
 			return result;
 		}
-		baseUser.setUserPassword(MD5Util.getMD5(baseUserVo.getUserPassword()));
+//		baseUser.setUserPassword(MD5Util.getMD5(baseUserVo.getUserPassword()));
 		baseUser.setModifyTime(new Date());
 		result = baseUserMapper.updateByPrimaryKey(baseUser);
 		
@@ -84,7 +83,7 @@ public class BaseUserServiceImpl implements BaseUserService{
 			log.error("BaseUserService.updatePasswordNocheck.obj.is.null:"+id);
 			return result;
 		}
-		baseUser.setUserPassword(MD5Util.getMD5(userPassword));
+//		baseUser.setUserPassword(MD5Util.getMD5(userPassword));
 		baseUser.setModifyTime(new Date());
 		result = baseUserMapper.updateByPrimaryKey(baseUser);
 		

@@ -8,7 +8,7 @@ http://www.springframework.org/schema/aop
 http://www.springframework.org/schema/aop/spring-aop-3.1.xsd
 ">
 	<!-- 配置数据源 -->
-	<bean id="mallDataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
 		<!-- 基本属性 url、user、password -->
 		<property name="url"
 				  value="${com.jdbc.url}?useUnicode=true&amp;characterEncoding=${com.jdbc.encoding}"/>
@@ -38,7 +38,7 @@ http://www.springframework.org/schema/aop/spring-aop-3.1.xsd
 	<!-- myBatis文件 -->
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 	<property name="configLocation" value="classpath:mybatis-config.xml"></property>
-		<property name="dataSource" ref="mallDataSource" />
+		<property name="dataSource" ref="dataSource" />
 		<!-- 自动扫描entity目录, 省掉Configuration.xml里的手工配置 -->
 		<property name="mapperLocations" value="classpath:mybatis/mapper/mysql/**/*Mapper.xml" />
 	</bean>
@@ -50,7 +50,7 @@ http://www.springframework.org/schema/aop/spring-aop-3.1.xsd
  
 	<!-- 配置事务管理器 -->
 	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-		<property name="dataSource" ref="mallDataSource" />
+		<property name="dataSource" ref="dataSource" />
 	</bean>
 
 	<!-- 拦截器方式配置事物 -->

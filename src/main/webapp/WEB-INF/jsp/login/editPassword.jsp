@@ -62,6 +62,7 @@ var baseUrl = $("#baseUrl").val();
     		 $("#userPassword").focus();
     		return false;
     	}
+    	$("#userPassword").val(hex_md5(userPassword));
     	var userPassword2 = $("#userPassword2").val();
     	if($.trim(userPassword2).length <= 0){
     		alert("请输入确认新密码");
@@ -73,6 +74,7 @@ var baseUrl = $("#baseUrl").val();
    		 	$("#userPassword2").focus();
    			return false;
     	}
+    	$("#userPassword2").val(hex_md5(userPassword2));
     	return true;
     }
 </script>

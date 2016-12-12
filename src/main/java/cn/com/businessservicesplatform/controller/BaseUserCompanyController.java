@@ -215,8 +215,9 @@ public class BaseUserCompanyController extends BaseController{
 			 * 查询新增的用户 ID
 			 *
 			 */
+			baseUserVo.setUserPassword2(baseUserVo.getUserPassword2());
 			baseUserVo.setUserPassword(null);
-			baseUserVo.setUserPassword2(MD5Util.getMD5(baseUserVo.getUserPassword2()));
+//			baseUserVo.setUserPassword2(MD5Util.getMD5(baseUserVo.getUserPassword2()));
 			BaseUser baseUserNew =  baseUserService.findBaseUser(baseUserVo);
 			baseUserVo = new BaseUserVo(baseUserNew);
 

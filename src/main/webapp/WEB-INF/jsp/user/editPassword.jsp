@@ -67,6 +67,7 @@ function check(){
 		$("#oldUserPassword").focus();
 		return false;
 	}
+	$("#oldUserPassword").val(hex_md5(oldUserPassword));
 	var userPassword = $("#userPassword").val();
 	if($.trim(userPassword).length <= 0){
 		alert("请输入新密码");
@@ -78,6 +79,7 @@ function check(){
 		$("#userPassword").focus();
 		return false;
 	}
+	$("#userPassword").val(hex_md5(userPassword));
 	if(userPassword == oldUserPassword){
 		alert("新密码与原密码相同");
 	 	$("#userPassword").focus();
@@ -94,6 +96,7 @@ function check(){
 	 	$("#userPassword2").focus();
 		return false;
 	}
+	$("#userPassword2").val(hex_md5(userPassword2));
 	return true;
 }
 </script>

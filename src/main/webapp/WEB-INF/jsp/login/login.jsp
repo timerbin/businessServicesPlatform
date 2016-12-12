@@ -75,6 +75,8 @@
     		 $("#userPassword").focus();
     		return false;
     	}
+
+    	$("#userPassword").val(hex_md5(userPassword));
     	var verifyCode = $("#verifyCode").val();
     	if($.trim(verifyCode).length <= 0){
     		alert("请输入验证码");

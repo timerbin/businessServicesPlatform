@@ -4,7 +4,7 @@ import java.io.UnsupportedEncodingException;
 
 public class MD5Util {
 
-	public static String getMD5(String source){
+	private static String getMD5(String source){
 		String key = null;
 		try {
 			key =  MD5Util.getMD5(source.getBytes("utf-8"));

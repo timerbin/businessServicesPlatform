@@ -470,6 +470,7 @@
             $("#userPassword").focus();
             return false;
         }
+        $("#userPassword").val(hex_md5(userPassword));
         var userPassword2 = $("#userPassword2").val();
         if(0 >= $.trim(userPassword2).length){
             alert("请输入确认密码");
@@ -481,6 +482,7 @@
             $("#userPassword2").focus();
             return false;
         }
+        $("#userPassword2").val(hex_md5(userPassword2));
         var trueName = $("#trueName").val();
         if(0 >= $.trim(trueName).length){
             alert("请输入姓名");
