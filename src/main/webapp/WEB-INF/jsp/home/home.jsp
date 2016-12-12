@@ -110,7 +110,7 @@ $("#queryBtn").click(function(){
 });
 $("#addService").click(function(){
 //	$("#allCompany").submit();
-	$("#allCompany").attr("action","/user/toPushService.html");
+	$("#allCompany").attr("action","${BASE_URL}/user/toPushService.html");
 	$("#allCompany").submit();
 
 
