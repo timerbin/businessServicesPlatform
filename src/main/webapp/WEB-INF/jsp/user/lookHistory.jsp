@@ -12,8 +12,9 @@
 </head>
 
 <body>
-<form action="" id="lookHisForm" name="lookHisForm">
+<form action="${BASE_URL}/user/toLookList.html" id="lookHisForm" name="lookHisForm">
     <input id="lookType" name="type" value="${vo.type}" type="hidden"/>
+    <input id="findType" name="findType" value="" type="hidden"/>
     <input id="baseUrl" value="${BASE_URL}" type="hidden"/>
     <input id="page" name="page" type="hidden" value="${basePage.page}"/>
     <input id="curPage" name="curPage" value="${basePage.page}" type="hidden"/>
@@ -28,47 +29,47 @@
             <div class="grzx_h2"><h2>浏览历史</h2></div>
             <div class="llls_button_box">
                 <%--默认全部分类--%>
-                <c:if test="${vo.type== null}">
-                    <input name="" type="button" value="全部分类" class="llls_button"/>
-                    <input name="" type="button" value="企业"  class="llls_button2"/>
-                    <input name="" type="button" value="服务" class="llls_button2"/>
+                <c:if test="${vo.findType == 0 or vo.findType == null}">
+                    <input id="lookAll" name="lookAll" type="button" value="全部分类" class="llls_button"/>
+                    <input id="lookCompany" name="lookCompany" type="button" value="企业"  class="llls_button2"/>
+                    <input id="lookService" name="lookService" type="button" value="服务" class="llls_button2"/>
                 </c:if>
                     <%--服务浏览--%>
-                <c:if test="${vo.type==1}">
-                    <input name="" type="button" value="全部分类" class="llls_button2"/>
-                    <input name="" type="button" value="企业"  class="llls_button2"/>
-                    <input name="" type="button" value="服务" class="llls_button"/>
+                <c:if test="${vo.findType==1}">
+                    <input id="lookAll" name="lookAll" type="button" value="全部分类" class="llls_button2"/>
+                    <input id="lookCompany" name="lookCompany" type="button" value="企业"  class="llls_button2"/>
+                    <input id="lookService" name="lookService" type="button" value="服务" class="llls_button"/>
                 </c:if>
                     <%--企业浏览--%>
-                <c:if test="${vo.type==2}">
-                    <input name="" type="button" value="全部分类" class="llls_button2"/>
-                    <input name="" type="button" value="企业"  class="llls_button"/>
-                    <input name="" type="button" value="服务" class="llls_button2"/>
+                <c:if test="${vo.findType==2}">
+                    <input id="lookAll" name="lookAll" type="button" value="全部分类" class="llls_button2"/>
+                    <input id="lookCompany" name="lookCompany" type="button" value="企业"  class="llls_button"/>
+                    <input id="lookService" name="lookService" type="button" value="服务" class="llls_button2"/>
                 </c:if>
 
             </div>
 
 
-            <c:if test="${vo.type==1}">
+            <c:if test="${vo.findType ==1}">
                 <c:forEach items="${ulhLst}" var="hisVo" >
                     <div class="llls_time">${hisVo.nowDate}</div>
                     <div>
                         <dl class="llls_list">
                             <dt><img src="${BASE_URL}/${hisVo.baseUserCompanyVo.logoPicPath}"/></dt>
                             <dd>
-                                <h3>斐讯数据通信技术有限公司</h3>
-                                <p>激情发展、追求卓越、客户价值、共同成长</p>
+                                <h3>${hisVo.userCompanyServiceVo.serviceName}</h3>
+                                <p>${hisVo.userCompanyServiceVo.serviceDirections}</p>
                                 <span><img src="images/shanchu.png"/></span>
                             </dd>
                         </dl>
-                        <dl class="llls_list">
+                       <%-- <dl class="llls_list">
                             <dt><img src="images/home_yzqy_16.jpg"/></dt>
                             <dd>
                                 <h3>斐讯数据通信技术有限公司</h3>
                                 <p>激情发展、追求卓越、客户价值、共同成长</p>
                                 <span><img src="images/shanchu.png"/></span>
                             </dd>
-                        </dl>
+                        </dl>--%>
                         <div class="clear"></div>
                     </div>
 
@@ -76,26 +77,55 @@
 
             </c:if>
 
-            <c:if test="${vo.type==2}">
+            <c:if test="${vo.findType ==2}">
                 <c:forEach items="${ulhLst}" var="hisVo" >
                     <div class="llls_time">${hisVo.nowDate}</div>
                     <div>
                         <dl class="llls_list">
                             <dt><img src="${BASE_URL}/${hisVo.baseUserCompanyVo.logoPicPath}"/></dt>
                             <dd>
-                                <h3>斐讯数据通信技术有限公司</h3>
-                                <p>激情发展、追求卓越、客户价值、共同成长</p>
-                                <span><img src="images/shanchu.png"/></span>
+                                <h3>${BASE_URL}/${hisVo.baseUserCompanyVo.logoPicPath}</h3>
+                                <p>${hisVo.baseUserCompanyVo.companyDirections}</p>
+                                <%--<span><img src="images/shanchu.png"/></span>--%>
                             </dd>
                         </dl>
-                        <dl class="llls_list">
+                       <%-- <dl class="llls_list">
                             <dt><img src="images/home_yzqy_16.jpg"/></dt>
                             <dd>
                                 <h3>斐讯数据通信技术有限公司</h3>
                                 <p>激情发展、追求卓越、客户价值、共同成长</p>
                                 <span><img src="images/shanchu.png"/></span>
                             </dd>
+                        </dl>--%>
+                        <div class="clear"></div>
+                    </div>
+
+                </c:forEach>
+
+            </c:if>
+
+
+
+            <c:if test="${vo.findType ==0}">
+                <c:forEach items="${ulhLst}" var="hisVo" >
+                    <div class="llls_time">${hisVo.nowDate}</div>
+                    <div>
+                        <dl class="llls_list">
+                            <dt><img src="${BASE_URL}/${hisVo.baseUserCompanyVo.logoPicPath}"/></dt>
+                            <dd>
+                                <h3>${hisVo.userCompanyServiceVo.serviceName}</h3>
+                                <p>${hisVo.userCompanyServiceVo.serviceDirections}</p>
+                                <span><img src="images/shanchu.png"/></span>
+                            </dd>
                         </dl>
+                            <%-- <dl class="llls_list">
+                                 <dt><img src="images/home_yzqy_16.jpg"/></dt>
+                                 <dd>
+                                     <h3>斐讯数据通信技术有限公司</h3>
+                                     <p>激情发展、追求卓越、客户价值、共同成长</p>
+                                     <span><img src="images/shanchu.png"/></span>
+                                 </dd>
+                             </dl>--%>
                         <div class="clear"></div>
                     </div>
 
@@ -133,8 +163,47 @@
                 </dl>
                 <div class="clear"></div>
             </div>--%>
+
+            <table>
+                <tr>
+                    <td height="40" colspan ="7"> <div class="pages" id="pager"></div></td>
+                </tr>
+            </table>
         </div>
     </div>
 </form>
 </body>
 </html>
+
+<script type="text/javascript">
+    $("#collectList").addClass("li_atab");
+    var baseUrl = $("#baseUrl").val();
+
+
+    //分页  begin
+    var cur_page = $("#curPage").val();
+    var page_count = $("#pageCount").val();
+    jQuery("#pager").pager({pagenumber: cur_page, pagecount: page_count, buttonClickCallback: change_page });
+
+    function change_page(cur_page) {
+        jQuery("#page").val(cur_page);
+        jQuery("#doEditUserInfo").submit();
+    }
+
+    $("#lookService").click(function(){
+        $("#lokkType").val(1);
+        $("#findType").val(1);
+        $("#lookHisForm").submit();
+    });
+    $("#lookCompany").click(function(){
+        $("#lookType").val(2);
+        $("#findType").val(2);
+        $("#lookHisForm").submit();
+    });
+
+    $("#lookAll").click(function(){
+        $("#lookType").val(null);
+        $("#findType").val(0);
+        $("#lookHisForm").submit();
+    });
+</script>

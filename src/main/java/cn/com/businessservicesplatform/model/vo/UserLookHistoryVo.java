@@ -8,7 +8,7 @@ public class UserLookHistoryVo extends UserLookHistory {
 
 	private UserCompanyServiceVo userCompanyServiceVo;
 
-
+	private String findType;
 
 	public UserLookHistoryVo() {
 	}
@@ -94,5 +94,16 @@ public class UserLookHistoryVo extends UserLookHistory {
 
 	public void setUserCompanyServiceVo(UserCompanyServiceVo userCompanyServiceVo) {
 		this.userCompanyServiceVo = userCompanyServiceVo;
+	}
+
+	public String getFindType() {
+		if(this.findType == null && "".equals(this.findType)) {
+			return findType = "0";
+		}
+		return findType;
+	}
+
+	public void setFindType(String findType) {
+		this.findType = findType;
 	}
 }

@@ -12,7 +12,7 @@ import cn.com.businessservicesplatform.model.vo.TypeEnumVo;
  */
 public enum UserLookHistoryTypeEnum {
 	SERVICES(1,"服务浏览历史"),
-	COMPANY(2,"店铺浏览历史")
+	COMPANY(2,"公司浏览历史")
 	;
 	private int id;
 	private String des;

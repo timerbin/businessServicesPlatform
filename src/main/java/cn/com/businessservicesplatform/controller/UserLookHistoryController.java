@@ -2,10 +2,7 @@ package cn.com.businessservicesplatform.controller;
 
 import cn.com.businessservicesplatform.common.constants.UserLookHistoryTypeEnum;
 import cn.com.businessservicesplatform.common.util.BasePage;
-import cn.com.businessservicesplatform.model.mysql.BaseUserCompany;
 import cn.com.businessservicesplatform.model.mysql.UserLookHistory;
-import cn.com.businessservicesplatform.model.vo.BaseUserCompanyVo;
-import cn.com.businessservicesplatform.model.vo.UserCompanyServiceVo;
 import cn.com.businessservicesplatform.model.vo.UserLookHistoryVo;
 import cn.com.businessservicesplatform.service.BaseUserCompanyService;
 import cn.com.businessservicesplatform.service.UserCompanyServiceService;
@@ -54,9 +51,13 @@ public class UserLookHistoryController extends BaseController{
     @RequestMapping("/toLookList")
     public ModelAndView toLookList(@RequestParam(required = false, value = "page", defaultValue = "1")Integer page, UserLookHistoryVo userLookHistoryVo) {
     	ModelAndView model = new ModelAndView ( "/user/lookHistory");
+
+		if(page == null){
+			page =1;
+		}
         BasePage basePage = new BasePage(page,10);
 
-		if(userLookHistoryVo.getType().equals("")){
+		if(userLookHistoryVo.getType()!=null && userLookHistoryVo.getType().equals("")){
 			userLookHistoryVo.setType(null);
 		}
 		List<UserLookHistoryVo>  ulhLstHis = userLookHistoryService.queryByPage(basePage,userLookHistoryVo);
@@ -68,7 +69,6 @@ public class UserLookHistoryController extends BaseController{
 
 		model.addObject("ulhLst",ulhLst);
 		model.addObject("dateStr",userLookHistoryService.queryHisDate());
-
 		return model;
 
 //		//查询企业 浏览历史
