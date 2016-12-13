@@ -9,8 +9,12 @@
 <link href="${BASE_URL}/images/gerenzx.css" rel="stylesheet" type="text/css" />
 <meta name="renderer" content="webkit" />
 <jsp:include page="../public/baseData.jsp" />
+<script type="text/javascript" src="${BASE_URL}/js/jquery.datetimepicker.full.min.js" ></script>
+<link href="${BASE_URL}/images/jquery.datetimepicker.css" rel="stylesheet" type="text/css" />
+
 <script type="text/javascript" src="${BASE_URL}/js/echarts.js" ></script>
 <script type="text/javascript" src="${BASE_URL}/js/line.js" ></script>
+
 </head>
 
 <body>
@@ -26,9 +30,9 @@
 	      <table border="0" cellspacing="10" cellpadding="0" class="gerenzx_table">
 	          <tr>
 	            <td width="78" align="right">统计时间：</td>
-	            <td width="190"><input name="" type="text" class="grzx_input" /></td>
+	            <td width="190"><input id="beginTime" name="beginTime"  placeholder="yyyy-MM-dd" type="text" class="grzx_input" /></td>
 	            <td width="37" align="center">至</td>
-	            <td width="191"><input name="" type="text" class="grzx_input" /></td>
+	            <td width="191"><input id="endTime" name="endTime"  placeholder="yyyy-MM-dd" type="text" class="grzx_input" /></td>
 	            <td width="78" align="right">服务类别：</td>
 	            <td width="153">
 	            	<select name="" class="grzx_input">
@@ -54,6 +58,22 @@
 </div>
 <script type="text/javascript">
 var baseUrl = $("#baseUrl").val();
+
+$('#beginTime').datetimepicker({
+	lang:'ch',
+	timepicker:false,
+	format:'Y-m-d',
+	formatDate:'Y-m-d'
+});
+$('#endTime').datetimepicker({
+	lang:'ch',
+	timepicker:false,
+	format:'Y-m-d',
+	formatDate:'Y-m-d'
+});
+
+
+
 $("#toStatistics").addClass("li_atab");
 var option = {
 	    title : {

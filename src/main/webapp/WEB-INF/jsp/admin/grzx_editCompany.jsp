@@ -8,6 +8,9 @@
     <link href="${BASE_URL}/images/gerenzx.css" rel="stylesheet" type="text/css"/>
     <jsp:include page="../public/baseData.jsp"/>
     <jsp:include page="../public/pager.jsp"/>
+    
+    <script type="text/javascript" src="${BASE_URL}/js/jquery.datetimepicker.full.min.js" ></script>
+	<link href="${BASE_URL}/images/jquery.datetimepicker.css" rel="stylesheet" type="text/css" />
 </head>
 
 <body>
@@ -82,7 +85,7 @@
                 </tr>
                 <tr>
                     <td align="right"><span class="hong_xing">*</span>成立时间：</td>
-                    <td><input id="companyRegisterTimeStr" placeholder="yyyy-MM-dd" name="companyRegisterTimeStr" value="${vo.companyRegisterTimeStr}"  type="text" class="form_input2" /></td>
+                    <td><input id="companyRegisterTimeStr"  name="companyRegisterTimeStr" placeholder="yyyy-MM-dd" name="companyRegisterTimeStr" value="${vo.companyRegisterTimeStr}"   type="text" class="form_input2" /></td>
                     <td>&nbsp;</td>
                 </tr>
                 <tr>
@@ -146,6 +149,13 @@
 <script type="text/javascript">
     var baseUrl = $("#baseUrl").val();
 
+    $('#companyRegisterTimeStr').datetimepicker({
+    	lang:'ch',
+    	timepicker:false,
+    	format:'Y-m-d',
+    	formatDate:'Y-m-d'
+	});
+    
     var picUrls = $("#picListStr").val();
     if($.trim(picUrls).length > 0){
         $("#cimgs").html("");

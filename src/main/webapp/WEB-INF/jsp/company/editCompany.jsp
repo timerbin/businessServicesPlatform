@@ -9,6 +9,11 @@
 <link href="${BASE_URL}/images/hongqiao.css" rel="stylesheet" type="text/css" />
 <meta name="renderer" content="webkit" />
 <jsp:include page="../public/baseData.jsp" />
+
+<script type="text/javascript" src="${BASE_URL}/js/jquery.datetimepicker.full.min.js" ></script>
+<link href="${BASE_URL}/images/jquery.datetimepicker.css" rel="stylesheet" type="text/css" />
+	
+	
 </head>
 
 
@@ -130,6 +135,15 @@
 <jsp:include page="../public/footer.jsp" ></jsp:include>
 <script type="text/javascript">
 	var baseUrl = $("#baseUrl").val();
+	
+	
+	$('#companyRegisterTimeStr').datetimepicker({
+    	lang:'ch',
+    	timepicker:false,
+    	format:'Y-m-d',
+    	formatDate:'Y-m-d'
+	});
+	
 	
 	var picUrls = $("#picListStr").val();
 	if($.trim(picUrls).length > 0){
