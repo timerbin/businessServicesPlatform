@@ -4,6 +4,7 @@ import java.util.List;
 
 import cn.com.businessservicesplatform.common.util.BasePage;
 import cn.com.businessservicesplatform.model.mysql.UserLookHistory;
+import cn.com.businessservicesplatform.model.vo.BaseConfigDataVo;
 import cn.com.businessservicesplatform.model.vo.UserLookHistoryVo;
 
 public interface UserLookHistoryService {
@@ -65,5 +66,7 @@ public interface UserLookHistoryService {
 	 * @throws
 	 */
 	public List<UserLookHistory> queryTopHistroyList(UserLookHistoryVo userLookHistoryVo);
+	
+	public List<BaseConfigDataVo> queryServiceLook(UserLookHistoryVo userLookHistoryVo);
 	
 }

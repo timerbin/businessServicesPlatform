@@ -2,6 +2,7 @@ package cn.com.businessservicesplatform.controller;
 
 import cn.com.businessservicesplatform.common.util.BasePage;
 import cn.com.businessservicesplatform.model.mysql.UserLookHistory;
+import cn.com.businessservicesplatform.model.vo.BaseConfigDataVo;
 import cn.com.businessservicesplatform.model.vo.UserLookHistoryVo;
 import cn.com.businessservicesplatform.service.BaseUserCompanyService;
 import cn.com.businessservicesplatform.service.UserCompanyServiceService;
@@ -126,4 +127,15 @@ public class UserLookHistoryController extends BaseController{
     	return  result;
     }
 	
+	@RequestMapping("/queryServiceLook")
+	@ResponseBody
+    public List<BaseConfigDataVo> queryServiceLook(UserLookHistoryVo userLookHistoryVo) {
+		List<BaseConfigDataVo> result = new ArrayList<BaseConfigDataVo>();
+		try {
+			result = userLookHistoryService.queryServiceLook(userLookHistoryVo);
+		} catch (Exception e) {
+			log.error("queryServiceLook.is.system.error",e);
+		}
+		return result ;
+    }
 }

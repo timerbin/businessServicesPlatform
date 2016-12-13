@@ -84,7 +84,7 @@ var option = {
 	        trigger: 'axis'
 	    },
 	    legend: {
-	        data:['安置房','规划建设工程'],
+	        data:[],
 	        orient:'vertical',
 	        x:80,
 	        y:'top',
@@ -106,39 +106,64 @@ var option = {
 	            max:2000
 	        }
 	    ],
-	    series : [
-	        {
-	            name:'规划建设工程',
-	            type:'line',
-	            smooth:true,
-	            itemStyle: {normal: {areaStyle: {type: 'default'}}},
-	            data:[10, 12, 21, 54, 260, 830, 710,700,700,700,700,700]
-	        },
-	        {
-	            name:'安置房',
-	            type:'line',
-	            smooth:true,
-	            itemStyle: {normal: {areaStyle: {type: 'default'}}},
-	            data:[30, 182, 434, 791, 390, 30, 10,700,700,700,700,700]
-	        }
-	    ]
+	    series : []
 	};
 
-require.config({
-    paths: {
-        echarts: './js'
+var subSeriesList = new Array();
+
+var subSeries = {
+	 name:'',
+     type:'line',
+     smooth:true,
+     itemStyle: {normal: {areaStyle: {type: 'default'}}},
+     data:[]
+}
+
+var serverTypes = new Array();
+
+$.ajax({
+    url: baseUrl+"/user/queryServiceLook.html",
+    type : 'POST',
+    async: false,
+    success: function (data) {
+        if (data) {
+	       	 $.each(data,function(n,value) {
+	       		serverTypes[n] = value.showName;
+	       		subSeries.name = value.showName;
+	       		var seriesData = new Array();
+	       		$.each(value.lookSize,function(m,val) {
+	       			if(val < 0 || val == null){
+	       				val = 0;
+	       			}
+	       			seriesData[m] = val;
+		        });
+	       		subSeries.data = seriesData;
+	       		subSeriesList[n] = subSeries;
+	         });
+	       	 option.legend.data = serverTypes;
+	       	 option.series = subSeriesList;
+	         loadEchar();
+        }
     }
 });
-require(
+
+function loadEchar(){
+	require.config({
+	    paths: {
+	        echarts: './js'
+	    }
+	});
+	require(
         [
             'echarts',
             'echarts/chart/line',   
-        ],
-        function (ec) {
+        ],function (ec) {
             var myChart = ec.init(document.getElementById('statistics'));
             myChart.setOption(option);
         }
     );
+}
+
 
  
 </script>
