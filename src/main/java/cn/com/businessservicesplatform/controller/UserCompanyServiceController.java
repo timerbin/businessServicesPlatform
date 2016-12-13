@@ -66,7 +66,8 @@ public class UserCompanyServiceController extends BaseController{
 			}else{
 				//跳转到成为企业页面
 				model.addObject("errorMsg","成为企业后才能发布服务，请填写资料");
-				model = new ModelAndView ("company/editCompany");
+				/*model = new ModelAndView ("company/editCompany");*/
+				model = new ModelAndView ("redirect:/user/toCompany.html");
 			}
 
 
@@ -132,6 +133,7 @@ public class UserCompanyServiceController extends BaseController{
 	@RequestMapping("/saveService")
 	protected ModelAndView saveService(HttpServletRequest request,UserCompanyServiceVo serVo) {
 		ModelAndView model = new ModelAndView ("/company/fabufuwu");
+		model.addObject("errorMsg","服务发布成功");
 		try {
 
 			BaseUserVo baseUserVo = getUser(request);
@@ -164,7 +166,7 @@ public class UserCompanyServiceController extends BaseController{
 				log.error("UserCompanyServiceController.saveService.save.error:");
 				return model;
 			}else{
-				model = new ModelAndView ( "redirect:/user/toCompany.html");
+//				model = new ModelAndView ( "redirect:/user/toCompany.html");
 	    		return model;
 			}
 		}catch (Exception e){
