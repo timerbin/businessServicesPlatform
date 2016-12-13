@@ -18,7 +18,6 @@ display:none
 
 <body>
 <form id="doEditUserInfo" action="${BASE_URL}/user/doEditUserInfo.html" method="post">
-	<input id="baseUrl"   value="${BASE_URL}"  type="hidden"  /> 
  	<input id="userLogo" name="userLogo" value="${vo.userLogo}"  type="hidden"  />
 	<jsp:include page="../public/loginheader.jsp" />
 	<div class="top_tiao"></div>

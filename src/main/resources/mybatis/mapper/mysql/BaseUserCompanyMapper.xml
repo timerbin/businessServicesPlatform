@@ -74,6 +74,10 @@
       <if test="vo.companyType != null" >
         and company_type = #{vo.companyType,jdbcType=INTEGER}
       </if>
+      <if test="vo.companyName != null">
+       and company_name like CONCAT('%',#{vo.companyName,jdbcType=INTEGER},'%') 
+    </if>
+    order by create_time desc
   </select>
   
   <select id="queryAllList" resultMap="BaseResultMapVo" parameterType="cn.com.businessservicesplatform.model.vo.BaseUserCompanyVo" >

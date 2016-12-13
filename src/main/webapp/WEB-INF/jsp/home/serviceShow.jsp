@@ -44,188 +44,157 @@
 </head>
 <body>
 <input id="userId" name="userId"   value="${services_user_info.id}"  type="hidden"  />
-<form id="saveComment" action="${BASE_URL}/user/saveComment.html" method="post">
-	<input id="serviceId" name="serviceId"   value="${queryVo.id}"  type="hidden"  />
-	<input id="tagIds" name="tagIds"    type="hidden"  />
-	<input id="commentDirections" name="commentDirections"    type="hidden"  />
-	<input id="callbackUrl" name="callbackUrl" type="hidden" value="${BASE_URL}/home/serviceShow.html?id=${queryVo.id}" />
-	<input id="commentType" name="commentType"    type="hidden"  />
-	
-</form>
-<form id="allService" action="${BASE_URL}/home/allService.html" method="post">
-	<input id="baseUrl"   value="${BASE_URL}"  type="hidden"  />
-	<input id="id" name="id"   value="${queryVo.id}"  type="hidden"  />
-	 <input id="page" name="page" type="hidden" value="${basePage.page}"/>
-    <input id="curPage" name="curPage"  value="${basePage.page}" type="hidden"/>
-   	<input id="pageCount" name="pageCount" value="${basePage.pages}" type="hidden"/>
-	
+
     <table width="100%" height="100%" border="0px" cellpadding="0px" cellspacing="0px" >
 	<tr><td width="250px" valign="top" class="con_left">
 		 <jsp:include page="../public/left.jsp" ></jsp:include>
 	</td>
     <td  valign="top">
 		<jsp:include page="../public/header.jsp" ></jsp:include>
-    	 <div class="right_search">
-            <div class="search_box">
-                <table border="0" cellspacing="0" cellpadding="0">
-                  <tr>
-                    <td>
-                    	<label>
-	                    	<select id="serviceType" name="serviceType" class="select_fuwu">
-	                    		<c:forEach items="${serviceTypeList}" var="serviceType">
-	                    			<c:if test="${serviceType.id==queryVo.serviceType}">
-			            	 			<option value="${serviceType.id}" selected="selected">${serviceType.showName}</option>
-					   				</c:if>
-					   				<c:if test="${serviceType.id!=queryVo.serviceType}">
-			            	 			<option value="${serviceType.id}">${serviceType.showName}</option>
-					   				</c:if>
-								</c:forEach>
-	                    	</select>
-                    	</label>
-                    </td>
-                    <td><label><input id="queryStr" name="queryStr" type="text" placeholder="请输入关键字查询..." class="input_chaxun" /></label></td>
-                    <td><label><input id="queryBtn" type="button" value="搜 索" class="button_search" /></label></td>
-                  </tr>
-                </table>
-            </div>
-            <div class="release_box">
-            	<c:if test="${not empty user}">
-          	 		<label><input id="addService" type="button" value="免费发布服务" class="button_release" /></label>
-   				</c:if>
-            </div>
-        </div>
-        
-        <div class="right_main">
-            <div class="fuwu_left_con">
-                <div class="right3_h2"><span class="more"><a href="#" target="_blank">查看更多>></a></span><h2>推荐服务</h2></div>
-                <div class="tjfw_tuwen">
-           	    	<span class="tjfw_tu"><img src="${BASE_URL}/${vo.picUrl}" /></span>
-                    <span class="scfuwu"><a data-id="${vo.id}" href="javascript:;">[收藏服务]</a></span>
-                    <h3>${vo.serviceName}</h3> 
-                    <span class="fuwu_time">${vo.createTimeStr}</span>
-                    <span class="fuwu_pingjia">
-                    	服务评价 
-                    	<c:forEach var="s"  begin="1" end="${commentSize.star}">
-                    		 <img src="${BASE_URL}/images/wuxing_huang.png"/> 
+		
+		
+		<jsp:include page="../public/search.jsp" ></jsp:include>
+    	 
+        <form id="saveComment" action="${BASE_URL}/user/saveComment.html" method="post">
+			<input id="serviceId" name="serviceId"   value="${queryVo.id}"  type="hidden"  />
+			<input id="tagIds" name="tagIds"    type="hidden"  />
+			<input id="commentDirections" name="commentDirections"    type="hidden"  />
+			<input id="callbackUrl" name="callbackUrl" type="hidden" value="${BASE_URL}/home/serviceShow.html?id=${queryVo.id}" />
+			<input id="commentType" name="commentType"    type="hidden"  />
+	
+	        <div class="right_main">
+	            <div class="fuwu_left_con">
+	                <div class="right3_h2"><span class="more"><a href="#" target="_blank">查看更多>></a></span><h2>推荐服务</h2></div>
+	                <div class="tjfw_tuwen">
+	           	    	<span class="tjfw_tu"><img src="${BASE_URL}/${vo.picUrl}" /></span>
+	                    <span class="scfuwu"><a data-id="${vo.id}" href="javascript:;">[收藏服务]</a></span>
+	                    <h3>${vo.serviceName}</h3> 
+	                    <span class="fuwu_time">${vo.createTimeStr}</span>
+	                    <span class="fuwu_pingjia">
+	                    	服务评价 
+	                    	<c:forEach var="s"  begin="1" end="${commentSize.star}">
+	                    		 <img src="${BASE_URL}/images/wuxing_huang.png"/> 
+							</c:forEach>
+							<c:forEach var="s"  begin="1" end="${5-commentSize.star}">
+	                    		 <img src="${BASE_URL}/images/wuxing_hui.png"/> 
+							</c:forEach>
+	                    </span>
+	                </div>
+	                
+	                <div class="tjfw_article">
+	                    <h4>服务介绍</h4>
+	                    <p>${vo.serviceDirections}</p>
+	                    <h4>联系方式</h4>
+	                    <p>联系人：${vo.serviceContactUser}</p>
+	                    <p>联系方式：${vo.serviceContactTel}</p>
+	                	<h4>服务评价</h4>
+	                	<div class="fwpj_fwpj">
+	                		<div class="comment-rate">
+								 <dl>
+									 <dt><img src="${BASE_URL}/images/shou_03.jpg" />好评</dt>
+									 <dd><div style="width:${commentSize.goodSizeRate}%;"></div>${commentSize.goodSize}人</dd>
+								 </dl>
+								 <dl>
+									 <dt><img src="${BASE_URL}/images/shou_07.jpg" />中评  </dt>
+									 <dd><div style="width: ${commentSize.middleSizeRate}%;"></div>${commentSize.middleSize}人</dd>
+								 </dl>
+								 <dl>
+									 <dt><img src="${BASE_URL}/images/shou_11.jpg" />差评 </dt>
+									 <dd><div style="width:${commentSize.badSizeRate}%;"></div>${commentSize.badSize}人</dd>
+								 </dl>
+							 </div>
+	                        <div class="haopingdu">好评度 <span>${commentSize.goodSizeRate}%</span></div>
+	                        <div class="clear"></div>
+	                    </div>
+	                    <div id="saveComment" class="tjfw_article">
+	                    	<c:if test="${not empty errorMsg}">
+						        <h4><span style="color:red;">${errorMsg}</span></h4>
+							</c:if>
+		                    <h4>评论标签</h4>
+		                    <p>
+		                    	<c:forEach items="${allTagList}" var="dataTag">
+	                    			<span><input name="dataTagStr" type="checkbox" value="${dataTag.id}" />${dataTag.showName}</span>
+	                    		</c:forEach>
+		                    </p>
+		                    <h4>评论内容</h4>
+		                     <p>
+		                     	<input name="commentTypeBtn" type="radio" value="1" checked="checked" />好评
+		                        <input name="commentTypeBtn" type="radio" value="2" />中评 
+		                        <input name="commentTypeBtn" type="radio" value="3" />差评
+		                    </p>
+		                    <p>
+		                    	 <textarea id="commentDirectionsStr"  cols="" rows="" class="form_textarea"></textarea>
+		                    </p>
+	                    </div>
+	                    <div class="tjfw_button"><input id="addComment"  type="button" / value="我要点评" class="form_button bjse_hong"></div>
+	            	</div>
+	                
+	              <div class="tjfw_evaluation">
+	                	<ul class="evaluation">
+	                    	<li><input name="queryType" type="radio" value="" />全部 （${commentSize.allSize}）</li>
+	                        <li><input name="queryType" type="radio" value="1" />好评 （${commentSize.goodSize}）</li>
+	                        <li><input name="queryType" type="radio" value="2" />中评 （${commentSize.middleSize}）</li>
+	                        <li><input name="queryType" type="radio" value="3" />差评 （${commentSize.badSize}）</li>
+	                    </ul>
+	                    <c:forEach items="${commentList}" var="comment">
+	                  			<div class="evaluation_ar">
+			                    	<h3>
+			                    		<c:if test="${comment.commentType==1}">
+			                    			<img src="${BASE_URL}/images/shou_03.jpg" />好评 
+			   							</c:if>
+			   							<c:if test="${comment.commentType==2}">
+			   								<img src="${BASE_URL}/images/shou_07.jpg" />中评
+			   							</c:if>
+			   							<c:if test="${comment.commentType==3}">
+			   								<img src="${BASE_URL}/images/shou_011.jpg" />差评
+			   							</c:if>
+			                    		<c:forEach items="${comment.tagList}" var="tag">
+			                    			<span>${tag.commentTagName}</span>
+			                    		</c:forEach>
+			                    	</h3>
+		                        	<p>${comment.commentDirections}</p>
+		                        	<span class="hui_zi">${comment.createTimeStr}</span>
+		                    	</div>
 						</c:forEach>
-						<c:forEach var="s"  begin="1" end="${5-commentSize.star}">
-                    		 <img src="${BASE_URL}/images/wuxing_hui.png"/> 
-						</c:forEach>
-                    </span>
-                </div>
-                
-                <div class="tjfw_article">
-                    <h4>服务介绍</h4>
-                    <p>${vo.serviceDirections}</p>
-                    <h4>联系方式</h4>
-                    <p>联系人：${vo.serviceContactUser}</p>
-                    <p>联系方式：${vo.serviceContactTel}</p>
-                	<h4>服务评价</h4>
-                	<div class="fwpj_fwpj">
-                		<div class="comment-rate">
-							 <dl>
-								 <dt><img src="${BASE_URL}/images/shou_03.jpg" />好评</dt>
-								 <dd><div style="width:${commentSize.goodSizeRate}%;"></div>${commentSize.goodSize}人</dd>
-							 </dl>
-							 <dl>
-								 <dt><img src="${BASE_URL}/images/shou_07.jpg" />中评  </dt>
-								 <dd><div style="width: ${commentSize.middleSizeRate}%;"></div>${commentSize.middleSize}人</dd>
-							 </dl>
-							 <dl>
-								 <dt><img src="${BASE_URL}/images/shou_11.jpg" />差评 </dt>
-								 <dd><div style="width:${commentSize.badSizeRate}%;"></div>${commentSize.badSize}人</dd>
-							 </dl>
-						 </div>
-                        <div class="haopingdu">好评度 <span>${commentSize.goodSizeRate}%</span></div>
-                        <div class="clear"></div>
-                    </div>
-                    <div id="saveComment" class="tjfw_article">
-                    	<c:if test="${not empty errorMsg}">
-					        <h4><span style="color:red;">${errorMsg}</span></h4>
-						</c:if>
-	                    <h4>评论标签</h4>
-	                    <p>
-	                    	<c:forEach items="${allTagList}" var="dataTag">
-                    			<span><input name="dataTagStr" type="checkbox" value="${dataTag.id}" />${dataTag.showName}</span>
-                    		</c:forEach>
-	                    </p>
-	                    <h4>评论内容</h4>
-	                     <p>
-	                     	<input name="commentTypeBtn" type="radio" value="1" checked="checked" />好评
-	                        <input name="commentTypeBtn" type="radio" value="2" />中评 
-	                        <input name="commentTypeBtn" type="radio" value="3" />差评
-	                    </p>
-	                    <p>
-	                    	 <textarea id="commentDirectionsStr"  cols="" rows="" class="form_textarea"></textarea>
-	                    </p>
-                    </div>
-                    <div class="tjfw_button"><input id="addComment"  type="button" / value="我要点评" class="form_button bjse_hong"></div>
-            	</div>
-                
-              <div class="tjfw_evaluation">
-                	<ul class="evaluation">
-                    	<li><input name="queryType" type="radio" value="" />全部 （${commentSize.allSize}）</li>
-                        <li><input name="queryType" type="radio" value="1" />好评 （${commentSize.goodSize}）</li>
-                        <li><input name="queryType" type="radio" value="2" />中评 （${commentSize.middleSize}）</li>
-                        <li><input name="queryType" type="radio" value="3" />差评 （${commentSize.badSize}）</li>
-                    </ul>
-                    <c:forEach items="${commentList}" var="comment">
-                  			<div class="evaluation_ar">
-		                    	<h3>
-		                    		<c:if test="${comment.commentType==1}">
-		                    			<img src="${BASE_URL}/images/shou_03.jpg" />好评 
-		   							</c:if>
-		   							<c:if test="${comment.commentType==2}">
-		   								<img src="${BASE_URL}/images/shou_07.jpg" />中评
-		   							</c:if>
-		   							<c:if test="${comment.commentType==3}">
-		   								<img src="${BASE_URL}/images/shou_011.jpg" />差评
-		   							</c:if>
-		                    		<c:forEach items="${comment.tagList}" var="tag">
-		                    			<span>${tag.commentTagName}</span>
-		                    		</c:forEach>
-		                    	</h3>
-	                        	<p>${comment.commentDirections}</p>
-	                        	<span class="hui_zi">${comment.createTimeStr}</span>
-	                    	</div>
-					</c:forEach>
-                    <div class="pages" id="pager"></div>
-              </div>
-            </div>
-            <div class="fuwu_right_con">
-            	<div class="company">
-                	<h2>${vo.baseUserCompanyVo.companyName}</h2>
-                    <ul>
-                        <li>注册时间：${vo.baseUserCompanyVo.companyRegisterTimeStr}</li>
-                        <li>地址：${vo.baseUserCompanyVo.companyAddress}</li>
-                        <li>公司主页：<a href="#">${vo.baseUserCompanyVo.companyUrl}</a></li>
-                    </ul>
-                    <span data-id="${vo.baseUserCompanyVo.id}" >收藏企业</span>
-                    <div class="clear"></div>
-                </div>
-                
-                <div class="tjfw_cnxh margin_top25">
-                	<div class="right_h2"><span class="more">&nbsp;</span><h2>猜你喜欢</h2></div>
-                    <ul>
-                        <c:forEach items="${likeServiceList}" var="likeService">
-                    		<c:if test="${not empty likeService.id}">
-		                        <li><img src="${BASE_URL}/${service.picUrl}" width="180" height="100" />
-		                            <h3>${likeService.serviceName}</h3>
-		                            <p>${likeService.serviceDirections}</p>
-		                            <span><a href="#">查看</a></span>
-	                        	</li>
-                        	</c:if>
-						</c:forEach>
-                    </ul>
-                </div>
-            </div>
-            <div class="clear"></div>
-        </div>
+	                    <div class="pages" id="pager"></div>
+	              </div>
+	            </div>
+	            <div class="fuwu_right_con">
+	            	<div class="company">
+	                	<h2>${vo.baseUserCompanyVo.companyName}</h2>
+	                    <ul>
+	                        <li>注册时间：${vo.baseUserCompanyVo.companyRegisterTimeStr}</li>
+	                        <li>地址：${vo.baseUserCompanyVo.companyAddress}</li>
+	                        <li>公司主页：<a href="#">${vo.baseUserCompanyVo.companyUrl}</a></li>
+	                    </ul>
+	                    <span data-id="${vo.baseUserCompanyVo.id}" >收藏企业</span>
+	                    <div class="clear"></div>
+	                </div>
+	                
+	                <div class="tjfw_cnxh margin_top25">
+	                	<div class="right_h2"><span class="more">&nbsp;</span><h2>猜你喜欢</h2></div>
+	                    <ul>
+	                        <c:forEach items="${likeServiceList}" var="likeService">
+	                    		<c:if test="${not empty likeService.id}">
+			                        <li><img src="${BASE_URL}/${service.picUrl}" width="180" height="100" />
+			                            <h3>${likeService.serviceName}</h3>
+			                            <p>${likeService.serviceDirections}</p>
+			                            <span><a href="#">查看</a></span>
+		                        	</li>
+	                        	</c:if>
+							</c:forEach>
+	                    </ul>
+	                </div>
+	            </div>
+	            <div class="clear"></div>
+	        </div>
+	     </form>
         <div class="footer">Copyright 2011-2016</div>
     </td></tr>
 </table>
          
 <script type="text/javascript">
+$("#navMenu0").addClass("left_border");
 var baseUrl = $("#baseUrl").val();
 //分页  begin
 var cur_page = $("#curPage").val();
@@ -234,13 +203,10 @@ jQuery("#pager").pager({pagenumber: cur_page, pagecount: page_count, buttonClick
 
 function change_page(cur_page) {
     jQuery("#page").val(cur_page);
-    jQuery("#allCompany").submit();
+    jQuery("#saveComment").submit();
 }
 //分页 end
 
-$("#queryBtn").click(function(){
-	$("#allCompany").submit();
-});
 $("#addComment").click(function(){
 	var userId = $("#userId").val();
 	if($.trim(userId).length <= 0){
@@ -269,8 +235,6 @@ function check(){
 	return true
 }
 </script>
-
-</form>
 </body>
 </html>
 

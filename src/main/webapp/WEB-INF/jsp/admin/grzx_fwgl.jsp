@@ -12,7 +12,6 @@
 <body>
 <form action="${BASE_URL}/user/toUpdateService.html" id="serManageForm" name="serManageForm">
 	<input id="recommend" name="recommend" type="hidden" />
-	<input id="baseUrl"   value="${BASE_URL}"  type="hidden"  />
 	<input id="page" name="page" type="hidden" value="${basePage.page}"/>
 	<input id="curPage" name="curPage"  value="${basePage.page}" type="hidden"/>
 	<input id="pageCount" name="pageCount" value="${basePage.count}" type="hidden"/>

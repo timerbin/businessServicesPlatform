@@ -15,7 +15,6 @@
 <body>
 <form id="doEditUserInfo" action="${BASE_URL}/user/collectList.html" method="post">
 	<input id="collectType" name="type" value="${vo.type}" type="hidden"/>
-	<input id="baseUrl"  value="${BASE_URL}" type="hidden"/>
 	<input id="page" name="page" type="hidden" value="${basePage.page}"/>
 	<input id="curPage" name="curPage"  value="${basePage.page}" type="hidden"/>
 	<input id="pageCount" name="pageCount" value="${basePage.count}" type="hidden"/>

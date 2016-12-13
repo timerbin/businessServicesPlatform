@@ -20,7 +20,6 @@
         <form id="comManageForm" name="comManageForm" action="" method="post">
 
             <input id="status" name="status" type="hidden"/>
-            <input id="baseUrl" value="${BASE_URL}" type="hidden"/>
             <input id="page" name="page" type="hidden" value="${basePage.page}"/>
             <input id="curPage" name="curPage" value="${basePage.page}" type="hidden"/>
             <input id="pageCount" name="pageCount" value="${basePage.count}" type="hidden"/>

@@ -14,7 +14,6 @@
 
 <body>
 <form id="saveCompany" action="${BASE_URL}/user/saveCompany.html" method="post">
-	<input id="baseUrl"   value="${BASE_URL}"  type="hidden"  />
 	<input id="picListStr" name="picListStr" value="${vo.picListStr}"  type="hidden"  />
 	
      <table width="100%" height="100%" border="0px" cellpadding="0px" cellspacing="0px" >

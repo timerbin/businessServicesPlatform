@@ -1,13 +1,10 @@
 package cn.com.businessservicesplatform.model.vo;
 
 
-import cn.com.businessservicesplatform.common.constants.BaseConfigTypeEnum;
 import cn.com.businessservicesplatform.common.constants.RecommendEnum;
 import cn.com.businessservicesplatform.common.util.DateUtils;
-import cn.com.businessservicesplatform.model.mysql.BaseConfigData;
 import cn.com.businessservicesplatform.model.mysql.UserCompanyService;
 
-import java.util.List;
 
 public class UserCompanyServiceVo extends UserCompanyService {
 	
@@ -24,6 +21,26 @@ public class UserCompanyServiceVo extends UserCompanyService {
 	
 	private Integer code;
 	private String msg;
+	
+	private String queryStr;
+	
+	private Integer queryType;
+
+	public Integer getQueryType() {
+		return queryType;
+	}
+
+	public void setQueryType(Integer queryType) {
+		this.queryType = queryType;
+	}
+
+	public String getQueryStr() {
+		return queryStr;
+	}
+
+	public void setQueryStr(String queryStr) {
+		this.queryStr = queryStr;
+	}
 
 	public String getMsg() {
 		return msg;

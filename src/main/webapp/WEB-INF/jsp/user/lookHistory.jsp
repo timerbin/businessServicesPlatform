@@ -14,7 +14,6 @@
 <form action="${BASE_URL}/user/toLookList.html" id="lookHisForm" name="lookHisForm">
     <input id="lookType" name="type" value="${vo.type}" type="hidden"/>
     <input id="findType" name="findType" value="" type="hidden"/>
-    <input id="baseUrl" value="${BASE_URL}" type="hidden"/>
     <input id="page" name="page" type="hidden" value="${basePage.page}"/>
     <input id="curPage" name="curPage" value="${basePage.page}" type="hidden"/>
     <input id="pageCount" name="pageCount" value="${basePage.count}" type="hidden"/>

@@ -13,7 +13,6 @@
 <body>
 
 <form id="verifyForm" action="${BASE_URL}/login/verifyEmailCode.html" method="post">
-<input id="baseUrl"   value="${BASE_URL}"  type="hidden"  />
  <input id="userIdStr" name ="userIdStr"  value="${userIdStr}" type="hidden"/>
 <div class="login_head">
 	<div class="login_title" style="color:#FFFFFF;font-size:20px;text-align:center;padding-top:35px;">验证邮箱</div>

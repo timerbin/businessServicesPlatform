@@ -52,6 +52,7 @@
     <if test="vo.serviceName != null">
        and service_name like CONCAT('%',#{vo.serviceName,jdbcType=INTEGER},'%') 
     </if>
+     order by create_time desc
   </select>
 
  <select id="queryList" resultMap="BaseResultMap" parameterType="cn.com.businessservicesplatform.model.vo.UserCompanyServiceVo" >

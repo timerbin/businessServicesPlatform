@@ -11,7 +11,6 @@
 
 <body>
  <form action="${BASE_URL}/user/doAdminAddService.html" id="fbfwForm" name="fbfwForm">
- <input id="baseUrl"   value="${BASE_URL}"  type="hidden"  /> 
  <input id="picUrl" name="picUrl" value="${vo.picUrl}"  type="hidden" />
  <input id="userId" name="userId" value="${vo.userId}"  type="hidden" />
  <input id="companyId" name="companyId" value="${vo.companyId}"  type="hidden" />

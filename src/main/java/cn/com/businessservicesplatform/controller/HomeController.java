@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -57,6 +58,10 @@ public class HomeController extends BaseController{
     public ModelAndView allCompany(@RequestParam(required = false, value = "page", defaultValue = "1")Integer page,HttpServletRequest request,BaseUserCompanyVo baseUserCompanyVo) {
     	ModelAndView model = new ModelAndView ("/home/allCompany");
     	try {
+    		if(!StringUtils.isBlank(baseUserCompanyVo.getQueryStr()) && StringUtils.isBlank(baseUserCompanyVo.getCompanyName())){
+    			baseUserCompanyVo.setCompanyName(baseUserCompanyVo.getQueryStr());
+    		}
+    		
     		model.addObject("queryVo", baseUserCompanyVo);
     		
 			BaseUserVo baseUserVo = this.getUser(request);
@@ -92,6 +97,9 @@ public class HomeController extends BaseController{
     public ModelAndView allService(@RequestParam(required = false, value = "page", defaultValue = "1")Integer page,HttpServletRequest request,UserCompanyServiceVo userCompanyServiceVo) {
     	ModelAndView model = new ModelAndView ("/home/allService");
     	try {
+    		if(!StringUtils.isBlank(userCompanyServiceVo.getQueryStr()) && StringUtils.isBlank(userCompanyServiceVo.getServiceName())){
+    			userCompanyServiceVo.setServiceName(userCompanyServiceVo.getQueryStr());
+    		}
     		model.addObject("queryVo", userCompanyServiceVo);
     		
 			BaseUserVo baseUserVo = this.getUser(request);

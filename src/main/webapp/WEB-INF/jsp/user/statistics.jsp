@@ -16,7 +16,6 @@
 <body>
 <form id="doEditUserInfo" action="${BASE_URL}/user/toStatistics.html" method="post">
 	<input id="collectType" name="type" value="${vo.type}" type="hidden"/>
-	<input id="baseUrl"  value="${BASE_URL}" type="hidden"/>
 	<jsp:include page="../public/loginheader.jsp" />
 	<div class="top_tiao"></div>
 	<div class="gerenzx_main">

@@ -26,7 +26,16 @@ public class BaseUserCompanyVo extends BaseUserCompany {
 	private String statusStr;
 
 	private String msg;
+	
+	private Integer queryType;
 
+	public Integer getQueryType() {
+		return queryType;
+	}
+
+	public void setQueryType(Integer queryType) {
+		this.queryType = queryType;
+	}
 
 	public BaseUserVo getUserVo() {
 		return userVo;

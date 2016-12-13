@@ -7,7 +7,7 @@
  </div>
  <script type="text/javascript">
  var baseUrl = $("#baseUrl").val();
- $("#initMenu").html("<li><span class='left_biao'><img src='"+baseUrl+"/images/nav_01.png'/> </span><a href='"+baseUrl+"/home/homeIndex.html' style='color:white'>首页</a></li>");
+ $("#initMenu").html("<li id='navMenu0'><span class='left_biao'><img src='"+baseUrl+"/images/nav_01.png'/> </span><a href='"+baseUrl+"/home/homeIndex.html' style='color:white'>首页</a></li>");
  $.ajax({
      url: baseUrl+"/initMenu.html",
      type : 'GET',

@@ -7,7 +7,6 @@ import javax.servlet.http.HttpServletRequest;
 import cn.com.businessservicesplatform.common.constants.RecommendEnum;
 import cn.com.businessservicesplatform.common.constants.UserServiceStatuesEnum;
 import cn.com.businessservicesplatform.common.util.BasePage;
-import cn.com.businessservicesplatform.common.util.MD5Util;
 import cn.com.businessservicesplatform.model.mysql.BaseUser;
 import cn.com.businessservicesplatform.model.vo.*;
 import cn.com.businessservicesplatform.service.BaseUserService;
@@ -162,7 +161,6 @@ public class BaseUserCompanyController extends BaseController{
 			String trueName = request.getParameter("trueName");
 			String userPassword  = request.getParameter("userPassword");
 			String userPassword2  = request.getParameter("userPassword2");
-			Date registerTime = new Date();
 			String mobilePhoneNumber = request.getParameter("mobilePhoneNumber");
 			Integer userStatus = 1;
 			String sex = request.getParameter("userSex");

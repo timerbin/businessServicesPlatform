@@ -13,7 +13,6 @@
 <body>
 
 <form id="updatePwdForm" action="${BASE_URL}/login/updatePssword.html" method="post">
-<input id="baseUrl"   value="${BASE_URL}"  type="hidden"  />
  <input id="userIdStr" name ="userIdStr"  value="${userIdStr}" type="hidden"/>
  <input id="updateCode" name ="updateCode"  value="${updateCode}" type="hidden"/>
 <div class="login_head">
