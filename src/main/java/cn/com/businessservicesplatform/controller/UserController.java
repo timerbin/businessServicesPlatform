@@ -267,6 +267,8 @@ public class UserController extends BaseController{
 		}
 		return model;
 	}
+	
+	
     
 	/**
 	 * 跳转 统计页面

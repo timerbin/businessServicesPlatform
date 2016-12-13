@@ -1,12 +1,16 @@
 package cn.com.businessservicesplatform.service.impl;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import cn.com.businessservicesplatform.common.constants.BaseConfigTypeEnum;
 import cn.com.businessservicesplatform.common.constants.UserLookHistoryTypeEnum;
 import cn.com.businessservicesplatform.common.util.BasePage;
+import cn.com.businessservicesplatform.model.vo.BaseConfigDataVo;
 import cn.com.businessservicesplatform.model.vo.BaseUserCompanyVo;
 import cn.com.businessservicesplatform.model.vo.UserCompanyServiceVo;
+import cn.com.businessservicesplatform.service.BaseConfigDataService;
 import cn.com.businessservicesplatform.service.BaseUserCompanyService;
 import cn.com.businessservicesplatform.service.UserCompanyServiceService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +18,7 @@ import org.springframework.stereotype.Service;
 
 import cn.com.businessservicesplatform.common.util.DateUtils;
 import cn.com.businessservicesplatform.dao.mysql.UserLookHistoryMapper;
+import cn.com.businessservicesplatform.model.mysql.BaseConfigData;
 import cn.com.businessservicesplatform.model.mysql.UserLookHistory;
 import cn.com.businessservicesplatform.model.vo.UserLookHistoryVo;
 import cn.com.businessservicesplatform.service.UserLookHistoryService;
@@ -28,6 +33,9 @@ public class UserLookHistoryServiceImpl implements UserLookHistoryService{
 	BaseUserCompanyService baseUserCompanyService;
 	@Autowired
 	UserCompanyServiceService userCompanyServiceService;
+	
+	@Autowired
+	BaseConfigDataService baseConfigDataService;
 
 	@Override
 	public int insert(UserLookHistoryVo userLookHistoryVo) {
@@ -113,6 +121,22 @@ public class UserLookHistoryServiceImpl implements UserLookHistoryService{
 	public List<UserLookHistory> queryTopHistroyList(UserLookHistoryVo userLookHistoryVo){
 		return userLookHistoryMapper.queryTopHistroyList(userLookHistoryVo);
 	}
-
-
+	@Override
+	public List<BaseConfigDataVo> queryServiceLook(UserLookHistoryVo userLookHistoryVo){
+		List<BaseConfigDataVo> result = null;
+		BaseConfigDataVo vo = null;
+		List<Integer> lookSize = null;
+		List<BaseConfigData> queryList =  baseConfigDataService.queryList(new BaseConfigDataVo(BaseConfigTypeEnum.SERVICES_TYPE.getId()));
+		if(queryList != null && queryList.size() > 0){
+			result = new ArrayList<BaseConfigDataVo>();
+			for(BaseConfigData data : queryList){
+				lookSize = new ArrayList<Integer>();
+				vo = new BaseConfigDataVo(data);
+				vo.setLookSize(lookSize);
+				result.add(vo);
+			}
+		}
+		return result;
+	}
+	
 }
