@@ -69,7 +69,6 @@ public class BaseUserCompanyController extends BaseController{
 		//公司信息
 		BaseUserCompanyVo resultVo = baseUserCompanyService.getBaseUserAllCompany(baseUserVo.getId());
 		model.addObject("vo", resultVo);
-
 		return model;
 	}
 
@@ -98,6 +97,7 @@ public class BaseUserCompanyController extends BaseController{
 	@RequestMapping("/saveCompany")
     public ModelAndView saveCompany(HttpServletRequest request,BaseUserCompanyVo baseUserCompanyVo) {
     	ModelAndView model = new ModelAndView ( "/company/editCompany");
+		model.addObject("errorMsg","企业信息已经录入");
     	try {
     		BaseUserVo baseUserVo = this.getUser(request);
         	model.addObject("user", baseUserVo);
@@ -106,6 +106,7 @@ public class BaseUserCompanyController extends BaseController{
         		return model;
         	}
         	baseUserCompanyVo.setUserId(baseUserVo.getId());
+			baseUserCompanyVo.setStatus(UserServiceStatuesEnum.NOTPASSVERIFY.getId());
 			baseUserCompanyVo.setRecommend(RecommendEnum.UN_RECCOMEND.getId());
     		List<BaseConfigData>  managementList = baseConfigDataService.queryList(new BaseConfigDataVo(BaseConfigTypeEnum.MANAGEMENT.getId()));
         	model.addObject("managementList", managementList);

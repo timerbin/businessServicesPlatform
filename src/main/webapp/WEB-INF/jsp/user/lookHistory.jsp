@@ -108,22 +108,27 @@
                 <c:forEach items="${ulhLst}" var="hisVo" >
                     <div class="llls_time">${hisVo.nowDate}</div>
                     <div>
-                        <dl class="llls_list">
-                            <dt><img src="${BASE_URL}/${hisVo.baseUserCompanyVo.logoPicPath}"/></dt>
-                            <dd>
-                                <h3>${hisVo.userCompanyServiceVo.serviceName}</h3>
-                                <p>${hisVo.userCompanyServiceVo.serviceDirections}</p>
-                                <span><img src="images/shanchu.png"/></span>
-                            </dd>
-                        </dl>
-                            <%-- <dl class="llls_list">
-                                 <dt><img src="images/home_yzqy_16.jpg"/></dt>
-                                 <dd>
-                                     <h3>斐讯数据通信技术有限公司</h3>
-                                     <p>激情发展、追求卓越、客户价值、共同成长</p>
-                                     <span><img src="images/shanchu.png"/></span>
-                                 </dd>
-                             </dl>--%>
+
+                        <c:if test="${hisVo.type == 1}">
+                            <dl class="llls_list">
+                                <dt><img src="${BASE_URL}/${hisVo.baseUserCompanyVo.logoPicPath}"/></dt>
+                                <dd>
+                                    <h3>${hisVo.userCompanyServiceVo.serviceName}</h3>
+                                    <p>${hisVo.userCompanyServiceVo.serviceDirections}</p>
+                                    <span><img src="images/shanchu.png"/></span>
+                                </dd>
+                            </dl>
+                        </c:if>
+
+                        <c:if test="${hisVo.type == 2}">
+                            <dl class="llls_list">
+                                <dt><img src="${BASE_URL}/${hisVo.baseUserCompanyVo.logoPicPath}"/></dt>
+                                <dd>
+                                    <h3>${BASE_URL}/${hisVo.baseUserCompanyVo.logoPicPath}</h3>
+                                    <p>${hisVo.baseUserCompanyVo.companyDirections}</p>
+                                </dd>
+                            </dl>
+                        </c:if>
                         <div class="clear"></div>
                     </div>
 
