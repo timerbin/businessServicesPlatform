@@ -25,17 +25,29 @@ public class UserLookHistory {
 
     private Date createTime;
     
+    private Integer serviceType;
+    
     public UserLookHistory(){}
     
     public UserLookHistory(UserLookHistoryVo userLookHistoryVo){
     	this.userId = userLookHistoryVo.getUserId();
     	this.serviceId = userLookHistoryVo.getServiceId();
+    	this.serviceType = userLookHistoryVo.getServiceType();
     	this.type = userLookHistoryVo.getType();
     	this.companyId = userLookHistoryVo.getCompanyId();
     }
     
+    
 
-    public Integer getId() {
+    public Integer getServiceType() {
+		return serviceType;
+	}
+
+	public void setServiceType(Integer serviceType) {
+		this.serviceType = serviceType;
+	}
+
+	public Integer getId() {
         return id;
     }
 

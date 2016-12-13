@@ -9,6 +9,7 @@ import cn.com.businessservicesplatform.common.constants.UserLookHistoryTypeEnum;
 import cn.com.businessservicesplatform.common.util.BasePage;
 import cn.com.businessservicesplatform.model.vo.BaseConfigDataVo;
 import cn.com.businessservicesplatform.model.vo.BaseUserCompanyVo;
+import cn.com.businessservicesplatform.model.vo.ServiceLookSizeVo;
 import cn.com.businessservicesplatform.model.vo.UserCompanyServiceVo;
 import cn.com.businessservicesplatform.service.BaseConfigDataService;
 import cn.com.businessservicesplatform.service.BaseUserCompanyService;
@@ -125,15 +126,36 @@ public class UserLookHistoryServiceImpl implements UserLookHistoryService{
 	public List<BaseConfigDataVo> queryServiceLook(UserLookHistoryVo userLookHistoryVo){
 		List<BaseConfigDataVo> result = null;
 		BaseConfigDataVo vo = null;
-		List<Integer> lookSize = null;
+		List<ServiceLookSizeVo> sizeList = null;
+		Integer serviceType = userLookHistoryVo.getServiceType();
+		
 		List<BaseConfigData> queryList =  baseConfigDataService.queryList(new BaseConfigDataVo(BaseConfigTypeEnum.SERVICES_TYPE.getId()));
 		if(queryList != null && queryList.size() > 0){
 			result = new ArrayList<BaseConfigDataVo>();
+			
 			for(BaseConfigData data : queryList){
-				lookSize = new ArrayList<Integer>();
-				vo = new BaseConfigDataVo(data);
-				vo.setLookSize(lookSize);
-				result.add(vo);
+				if(null == serviceType || serviceType == data.getId() ){
+					userLookHistoryVo.setServiceType(data.getId());
+					vo = new BaseConfigDataVo(data);
+					Integer [] lookSize = {0,0,0,0,0,0,0,0,0,0,0,0};
+					sizeList = userLookHistoryMapper.queryLookSize(userLookHistoryVo);
+					if(null != sizeList && sizeList.size() > 0){
+						for(ServiceLookSizeVo sizeVo : sizeList){
+							if(null != sizeVo){
+								Integer months = Integer.parseInt(sizeVo.getMonths());
+								Integer size = 0;
+								if(months > 0){
+									if(null != sizeVo.getSize()){
+										size = sizeVo.getSize();
+									}
+									lookSize[months-1] = size;
+								}
+							}
+						}
+					}
+					vo.setLookSize(lookSize);
+					result.add(vo);
+				}
 			}
 		}
 		return result;

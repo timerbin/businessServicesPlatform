@@ -1,6 +1,5 @@
 package cn.com.businessservicesplatform.model.vo;
 
-import java.util.List;
 
 import cn.com.businessservicesplatform.common.constants.BaseConfigTypeEnum;
 import cn.com.businessservicesplatform.model.mysql.BaseConfigData;
@@ -32,13 +31,13 @@ public class BaseConfigDataVo extends BaseConfigData {
 	 private String updateCode;
 	 private String errorMsg;
 	 private String typeStr;
-	 public List<Integer> lookSize;
-	 
-	public List<Integer> getLookSize() {
+	 public Integer [] lookSize;
+
+	public Integer[] getLookSize() {
 		return lookSize;
 	}
 
-	public void setLookSize(List<Integer> lookSize) {
+	public void setLookSize(Integer[] lookSize) {
 		this.lookSize = lookSize;
 	}
 

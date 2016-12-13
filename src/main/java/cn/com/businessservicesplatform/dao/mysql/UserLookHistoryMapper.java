@@ -6,6 +6,7 @@ import cn.com.businessservicesplatform.common.util.BasePage;
 import org.apache.ibatis.annotations.Param;
 
 import cn.com.businessservicesplatform.model.mysql.UserLookHistory;
+import cn.com.businessservicesplatform.model.vo.ServiceLookSizeVo;
 import cn.com.businessservicesplatform.model.vo.UserLookHistoryVo;
 
 public interface UserLookHistoryMapper {
@@ -32,5 +33,8 @@ public interface UserLookHistoryMapper {
     List<String> queryHistoryDate();
     
     public List<UserLookHistory> queryTopHistroyList(@Param("vo")UserLookHistoryVo userLookHistoryVo);
+    
+    
+    public List<ServiceLookSizeVo> queryLookSize(@Param("vo")UserLookHistoryVo userLookHistoryVo);
 
 }

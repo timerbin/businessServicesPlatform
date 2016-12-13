@@ -1,9 +1,14 @@
 package cn.com.businessservicesplatform.controller;
 
+import cn.com.businessservicesplatform.common.constants.BaseConfigTypeEnum;
 import cn.com.businessservicesplatform.common.util.BasePage;
+import cn.com.businessservicesplatform.common.util.DateUtils;
+import cn.com.businessservicesplatform.model.mysql.BaseConfigData;
 import cn.com.businessservicesplatform.model.mysql.UserLookHistory;
 import cn.com.businessservicesplatform.model.vo.BaseConfigDataVo;
+import cn.com.businessservicesplatform.model.vo.BaseUserVo;
 import cn.com.businessservicesplatform.model.vo.UserLookHistoryVo;
+import cn.com.businessservicesplatform.service.BaseConfigDataService;
 import cn.com.businessservicesplatform.service.BaseUserCompanyService;
 import cn.com.businessservicesplatform.service.UserCompanyServiceService;
 import cn.com.businessservicesplatform.service.UserLookHistoryService;
@@ -20,7 +25,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 
 
 @Controller
@@ -37,6 +45,9 @@ public class UserLookHistoryController extends BaseController{
 
 	@Autowired
 	UserCompanyServiceService userCompanyServiceService;
+	
+	@Autowired
+	BaseConfigDataService baseConfigDataService;
 	
 	
 	/**
@@ -126,6 +137,38 @@ public class UserLookHistoryController extends BaseController{
 		}
     	return  result;
     }
+	
+	/**
+	 * 跳转 统计页面
+	 * @param request
+	 * @return
+     */
+	@RequestMapping("/toStatistics")
+	public ModelAndView toStatistics(HttpServletRequest request,UserLookHistoryVo userLookHistoryVo) {
+		ModelAndView model = new ModelAndView ("/user/statistics");
+		try {
+			BaseUserVo baseUserVo = this.getUser(request);
+			model.addObject("user", baseUserVo);
+			if(null == baseUserVo){
+				model = new ModelAndView ( "redirect:/login/toLogin.html");
+				return model;
+			}
+			//经营范围
+			List<BaseConfigData>  serviceTypeList = baseConfigDataService.queryList(new BaseConfigDataVo(BaseConfigTypeEnum.SERVICES_TYPE.getId()));
+			model.addObject("serviceTypeList", serviceTypeList);
+			
+			String data = DateUtils.getString(new Date(), "yyyy");
+			userLookHistoryVo.setBeginTime(data);
+			userLookHistoryVo.setEndTime(data);
+			model.addObject("vo",userLookHistoryVo);
+			
+			model.addObject("init","1");
+			
+		} catch (Exception e) {
+			log.error("UserController.toStatistics.is.system.error",e);
+		}
+		return model;
+	}
 	
 	@RequestMapping("/queryServiceLook")
 	@ResponseBody

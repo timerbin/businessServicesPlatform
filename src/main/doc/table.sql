@@ -105,6 +105,7 @@ CREATE TABLE `USER_LOOK_HISTORY` (
 `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '逻辑主键',
 user_id INT(11) NOT NULL  COMMENT '用户中心用户ID',
 service_id  INT(11)  NOT NULL  COMMENT '服务id',
+service_type INT(11) NOT NULL  COMMENT '类型 1服务类别',
 company_id  INT(11)  DEFAULT NULL  COMMENT '企业id',
 look_count  INT(11)  DEFAULT 1  COMMENT '每天的浏览次数',
 status int(1) DEFAULT 1 COMMENT '状态  -1逻辑删除 1正常',

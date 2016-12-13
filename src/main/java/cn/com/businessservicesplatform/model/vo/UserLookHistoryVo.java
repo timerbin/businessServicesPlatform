@@ -9,9 +9,16 @@ public class UserLookHistoryVo extends UserLookHistory {
 	private UserCompanyServiceVo userCompanyServiceVo;
 
 	private String findType;
-
-	public UserLookHistoryVo() {
-	}
+	private Integer queryRows = 20;
+	private String serviceName;
+	private String userName;
+	private String companyName;
+	private String companyPicUrl;
+	private String beginTime;
+	private String endTime;
+	
+	
+	public UserLookHistoryVo() {}
 
 
 	public UserLookHistoryVo(UserLookHistory history) {
@@ -25,6 +32,7 @@ public class UserLookHistoryVo extends UserLookHistory {
 		super.setStatus(history.getStatus());
 		super.setType(history.getType());
 		super.setUserId(history.getUserId());
+		super.setServiceType(history.getServiceType());
 	}
 
 	public UserLookHistoryVo(Integer userId, Integer serverId, Integer companyId, Integer type) {
@@ -33,12 +41,27 @@ public class UserLookHistoryVo extends UserLookHistory {
 		super.setCompanyId(companyId);
 		super.setType(type);
 	}
-	private Integer queryRows = 20;
-	private String serviceName;
-	private String userName;
-	private String companyName;
-	private String companyPicUrl;
-	
+
+	public String getBeginTime() {
+		return beginTime;
+	}
+
+
+	public void setBeginTime(String beginTime) {
+		this.beginTime = beginTime;
+	}
+
+
+	public String getEndTime() {
+		return endTime;
+	}
+
+
+	public void setEndTime(String endTime) {
+		this.endTime = endTime;
+	}
+
+
 	public Integer getQueryRows() {
 		return queryRows;
 	}

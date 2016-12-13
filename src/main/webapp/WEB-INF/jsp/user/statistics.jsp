@@ -20,6 +20,7 @@
 <body>
 <form id="doEditUserInfo" action="${BASE_URL}/user/toStatistics.html" method="post">
 	<input id="collectType" name="type" value="${vo.type}" type="hidden"/>
+	<input id="init" name="init" value="${init}" type="hidden"/>
 	<jsp:include page="../public/loginheader.jsp" />
 	<div class="top_tiao"></div>
 	<div class="gerenzx_main">
@@ -30,12 +31,13 @@
 	      <table border="0" cellspacing="10" cellpadding="0" class="gerenzx_table">
 	          <tr>
 	            <td width="78" align="right">统计时间：</td>
-	            <td width="190"><input id="beginTime" name="beginTime"  placeholder="yyyy-MM-dd" type="text" class="grzx_input" /></td>
+	            <td width="190"><input id="beginTime" name="beginTime"  value="${vo.beginTime}" placeholder="yyyy" type="text" class="grzx_input" /></td>
 	            <td width="37" align="center">至</td>
-	            <td width="191"><input id="endTime" name="endTime"  placeholder="yyyy-MM-dd" type="text" class="grzx_input" /></td>
+	            <td width="191"><input id="endTime" name="endTime" value="${vo.endTime}"   placeholder="yyyy" type="text" class="grzx_input" /></td>
 	            <td width="78" align="right">服务类别：</td>
 	            <td width="153">
-	            	<select name="" class="grzx_input">
+	            	<select name="serviceType" id="serviceType" class="grzx_input">
+	            		<option value=""  >请选择</option>
 	            		<c:forEach items="${serviceTypeList}" var="serviceType">
                    			<c:if test="${serviceType.id==queryVo.serviceType}">
 	            	 			<option value="${serviceType.id}" selected="selected">${serviceType.showName}</option>
@@ -46,7 +48,7 @@
 						</c:forEach>
 	            	</select>
 	            </td>
-	            <td width="90"><input name="" type="button" value="查询" class="grzx_button2" /></td>
+	            <td width="90"><input  id="queryBtn" type="button" value="查询" class="grzx_button2" /></td>
 	          </tr>
 	          <tr>
 	            <td colspan="7">
@@ -62,14 +64,14 @@ var baseUrl = $("#baseUrl").val();
 $('#beginTime').datetimepicker({
 	lang:'ch',
 	timepicker:false,
-	format:'Y-m-d',
-	formatDate:'Y-m-d'
+	format:'Y',
+	formatDate:'Y'
 });
 $('#endTime').datetimepicker({
 	lang:'ch',
 	timepicker:false,
-	format:'Y-m-d',
-	formatDate:'Y-m-d'
+	format:'Y',
+	formatDate:'Y'
 });
 
 
@@ -86,7 +88,7 @@ var option = {
 	    legend: {
 	        data:[],
 	        orient:'vertical',
-	        x:80,
+	        x:90,
 	        y:'top',
 	        borderColor:'#000000',
 	        borderWidth:1,
@@ -103,7 +105,7 @@ var option = {
 	    yAxis : [
 	        {
 	            type : 'value',
-	            max:2000
+	            max:500
 	        }
 	    ],
 	    series : []
@@ -111,41 +113,73 @@ var option = {
 
 var subSeriesList = new Array();
 
-var subSeries = {
-	 name:'',
-     type:'line',
-     smooth:true,
-     itemStyle: {normal: {areaStyle: {type: 'default'}}},
-     data:[]
-}
-
 var serverTypes = new Array();
 
-$.ajax({
-    url: baseUrl+"/user/queryServiceLook.html",
-    type : 'POST',
-    async: false,
-    success: function (data) {
-        if (data) {
-	       	 $.each(data,function(n,value) {
-	       		serverTypes[n] = value.showName;
-	       		subSeries.name = value.showName;
-	       		var seriesData = new Array();
-	       		$.each(value.lookSize,function(m,val) {
-	       			if(val < 0 || val == null){
-	       				val = 0;
-	       			}
-	       			seriesData[m] = val;
-		        });
-	       		subSeries.data = seriesData;
-	       		subSeriesList[n] = subSeries;
-	         });
-	       	 option.legend.data = serverTypes;
-	       	 option.series = subSeriesList;
-	         loadEchar();
-        }
-    }
-});
+
+
+function doQuery(){
+	if(check()){
+		$.ajax({
+		    url: baseUrl+"/user/queryServiceLook.html",
+		    type : 'POST',
+		    success: function (data) {
+		        if (data) {
+			       	 $.each(data,function(n,value) {
+			       		serverTypes[n] = value.showName;
+			       		var subSeries = {
+			       			 name:'',
+			       		     type:'line',
+			       		     smooth:true,
+			       		     itemStyle: {normal: {areaStyle: {type: 'default'}}},
+			       		     data:[]
+			       		}
+			       		subSeries.name = value.showName;
+			       		var seriesData = new Array();
+			       		$.each(value.lookSize,function(m,val) {
+			       			if(val < 0 || val == null){
+			       				val = 0;
+			       			}
+			       			seriesData[m] = val;
+				        });
+			       		subSeries.data = seriesData;
+			       		subSeriesList[n] = subSeries;
+			         });
+			       	 option.legend.data = serverTypes;
+			       	 option.series = subSeriesList;
+			         loadEchar();
+		        }
+		    }
+		});
+	}
+}
+
+function check(){
+	var beginTime = $("#beginTime").val();
+	if($.trim(beginTime).length <= 0){
+		alert("请输入开始时间");
+		 $("#beginTime").focus();
+		return false;
+	}
+	var endTime = $("#endTime").val();
+	if($.trim(endTime).length <= 0){
+		 alert("请输入结束时间");
+		 $("#endTime").focus();
+		return false;
+	}
+	if(endTime<beginTime){
+		alert("请重新输入结束时间,结束时间必须大于开始时间");
+		 $("#endTime").focus();
+		return false;
+	}
+	return true;
+}
+$("#queryBtn").click(doQuery);
+
+var init = $("#init").val();
+if(init.length>0 && init == 1){
+	doQuery();
+}
+
 
 function loadEchar(){
 	require.config({

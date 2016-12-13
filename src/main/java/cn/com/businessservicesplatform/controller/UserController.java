@@ -1,10 +1,7 @@
 package cn.com.businessservicesplatform.controller;
 
-import cn.com.businessservicesplatform.common.constants.BaseConfigTypeEnum;
 import cn.com.businessservicesplatform.common.util.BasePage;
-import cn.com.businessservicesplatform.model.mysql.BaseConfigData;
 import cn.com.businessservicesplatform.model.mysql.BaseUser;
-import cn.com.businessservicesplatform.model.vo.BaseConfigDataVo;
 import cn.com.businessservicesplatform.model.vo.BaseUserVo;
 import cn.com.businessservicesplatform.model.vo.UserServiceCommentVo;
 import cn.com.businessservicesplatform.service.BaseConfigDataService;
@@ -243,31 +240,6 @@ public class UserController extends BaseController{
     	return null;
     }
     
-    /**
-	 * 跳转 统计页面
-	 * @param request
-	 * @return
-     */
-	@RequestMapping("/toStatistics")
-	public ModelAndView toStatistics(HttpServletRequest request) {
-		ModelAndView model = new ModelAndView ("/user/statistics");
-		try {
-			BaseUserVo baseUserVo = this.getUser(request);
-			model.addObject("user", baseUserVo);
-			if(null == baseUserVo){
-				model = new ModelAndView ( "redirect:/login/toLogin.html");
-				return model;
-			}
-			//经营范围
-			List<BaseConfigData>  serviceTypeList = baseConfigDataService.queryList(new BaseConfigDataVo(BaseConfigTypeEnum.SERVICES_TYPE.getId()));
-			model.addObject("serviceTypeList", serviceTypeList);
-			
-		} catch (Exception e) {
-			log.error("UserController.toStatistics.is.system.error",e);
-		}
-		return model;
-	}
-	
 	
     
 	/**
