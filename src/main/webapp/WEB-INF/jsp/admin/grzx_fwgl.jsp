@@ -12,6 +12,7 @@
 <body>
 <form action="${BASE_URL}/user/toUpdateService.html" id="serManageForm" name="serManageForm">
 	<input id="recommend" name="recommend" type="hidden" />
+	<input id="status" name="status" type="hidden" />
 	<input id="page" name="page" type="hidden" value="${basePage.page}"/>
 	<input id="curPage" name="curPage"  value="${basePage.page}" type="hidden"/>
 	<input id="pageCount" name="pageCount" value="${basePage.count}" type="hidden"/>
@@ -41,6 +42,9 @@
 			                <%--<select name="" class="grzx_input"></select>--%>
 			                    <select name="fwMaType" id="fwMaType" class="grzx_input">
 			                        <%--<c:if test="${not empty serTypeList}">--%>
+										<option value="" selected="selected">
+											--请选择--
+										</option>
 			                        <c:forEach var="serType" items="${serTypeList}">
 			                            <option value="${serType.id}">
 			                                    ${serType.showName}
@@ -75,6 +79,23 @@
 				                  <td align="center">${fwVo.id}</td>
 				                  <td align="center">${fwVo.recommendStr}</td>
 				                  <td align="center">
+
+
+									  <%--<c:if test="${fwVo.status == 2}">
+										  <a id="fwOnline" name="fwOnline" data-id="${fwVo.id}" href="javascript:;"  class="hongzi_a" >上线</a>
+									  </c:if>
+									  <c:if test="${fwVo.status == 1}">
+										  <a id="fwOffLine" name="fwOffLine" href="javascript:;" data-id="${fwVo.id}" class="hongzi_a">下线</a>
+									  </c:if>--%>
+
+									  <c:if test="${fwVo.status == 2}">
+										  <a id="fwOnline" name="fwOnline" data-fid="${fwVo.id}" href="javascript:;"  class="hongzi_a" >上线</a>
+									  </c:if>
+									  <c:if test="${fwVo.status == 1}">
+										  <a id="fwOffLine" name="fwOffLine" href="javascript:;" data-fid="${fwVo.id}" class="hongzi_a">下线</a>
+									  </c:if>
+
+
 				                      <c:if test="${fwVo.recommend == 0}">
 				                          <a id="butuijian" name="butuijian" data-id="${fwVo.id}" href="javascript:;"  class="hongzi_a" >不推荐</a>
 				                      </c:if>
@@ -121,18 +142,35 @@ $("#serviceManage").addClass("li_atab");
     $("#butuijian").click(function(){
         $("#serManageForm").attr("action",baseUrl+"/user/toUpdateService.html");
         $("#recommend").val(1);
-        $("#id").val($("#butuijian").attr("data-id"));
+        $("#id").val($(this).attr("data-id"));
         jQuery("#serManageForm").submit();
     });
     $("#tuijian").click(function(){
-//        alert($("#tuijian").attr("data-id"));
         $("#serManageForm").attr("action",baseUrl+"/user/toUpdateService.html");
         $("#recommend").val(0);
-        $("#id").val($("#tuijian").attr("data-id"));
+        $("#id").val($(this).attr("data-id"));
 
         jQuery("#serManageForm").submit();
 
     });
+
+	//上线 下线 处理
+	$("#fwOnline").click(function(){
+		$("#serManageForm").attr("action",baseUrl+"/user/toUpdateService.html");
+		$("#status").val(1);
+		/*$("#id").val($("#fwOnline").attr("data-fid"));*/
+		$("#id").val($(this).attr("data-fid"));
+		jQuery("#serManageForm").submit();
+	});
+
+	$("#fwOffLine").click(function(){
+		$("#serManageForm").attr("action",baseUrl+"/user/toUpdateService.html");
+		$("#status").val(2);
+		/*$("#id").val($("#fwOffline").attr("data-fid"));*/
+		$("#id").val($(this).attr("data-fid"));
+		jQuery("#serManageForm").submit();
+
+	});
 
 
     function pushService() {

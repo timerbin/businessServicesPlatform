@@ -111,6 +111,30 @@ public class UserCompanyServiceServiceImpl implements UserCompanyServiceService{
 		}
 		return voList;
 	}
+
+
+	@Override
+	public List<UserCompanyServiceVo> queryAllPage(BasePage basePage,UserCompanyServiceVo vo){
+		List<UserCompanyService> list = userCompanyServiceMapper.queryAllPage(basePage, vo);
+		List<UserCompanyServiceVo> voList = new ArrayList<UserCompanyServiceVo>();
+
+		if(null != list && list.size()>0){
+			for(UserCompanyService service :list){
+				if(null != service && service.getCompanyId() != null){
+					UserCompanyServiceVo serviceVo = new UserCompanyServiceVo(service);
+					BaseUserCompanyVo baseUserCompanyVo = baseUserCompanyService.getUserAllCompany(service.getCompanyId());
+					serviceVo.setBaseUserCompanyVo(baseUserCompanyVo);
+					serviceVo.setStatusStr(UserServiceStatuesEnum.get(service.getStatus()).getDes());
+//					serviceVo.setServiceTypeStr();
+//					SimpleDateFormat dft = new SimpleDateFormat("yyyyMMdd HH:mm:ss");
+//					String dateStr = dft.format(service.getCreateTime());
+//					serviceVo.setCreateTimeStr(dateStr);
+					voList.add(serviceVo);
+				}
+			}
+		}
+		return voList;
+	}
 	@Override
 	 public List<UserCompanyServiceVo> queryList(UserCompanyServiceVo vo){
 		List<UserCompanyServiceVo> list = userCompanyServiceMapper.queryList(vo);

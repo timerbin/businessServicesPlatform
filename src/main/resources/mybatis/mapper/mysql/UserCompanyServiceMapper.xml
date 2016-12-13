@@ -55,6 +55,23 @@
      order by create_time desc
   </select>
 
+<!-- 查询所有服务 所有status的-->
+  <select id="queryAllPage" resultMap="BaseResultMap" parameterType="cn.com.businessservicesplatform.model.vo.UserCompanyServiceVo" >
+    select
+    <include refid="Base_Column_List" />
+    from user_company_service where 1 = 1
+    <if test="vo.userId != null" >
+      and user_id = #{vo.userId,jdbcType=INTEGER}
+    </if>
+    <if test="vo.serviceType != null">
+      and service_type = #{vo.serviceType,jdbcType=INTEGER}
+    </if>
+    <if test="vo.serviceName != null">
+      and service_name like CONCAT('%',#{vo.serviceName,jdbcType=INTEGER},'%')
+    </if>
+    order by create_time desc
+  </select>
+
  <select id="queryList" resultMap="BaseResultMap" parameterType="cn.com.businessservicesplatform.model.vo.UserCompanyServiceVo" >
     select
     <include refid="Base_Column_List" />
@@ -239,7 +256,7 @@
       <if test="companyId != null">
         company_id = #{companyId,jdbcType=INTEGER},
       </if>
-      <if test="serviceName != null">
+      <if test="serviceName != null and serviceName != ''">
         service_name = #{serviceName,jdbcType=VARCHAR},
       </if>
       <if test="serviceContactUser != null">
@@ -248,10 +265,10 @@
       <if test="serviceContactTel != null">
         service_contact_tel = #{serviceContactTel,jdbcType=VARCHAR},
       </if>
-      <if test="serviceType != null">
+      <if test="serviceType != null and serviceType != ''">
         service_type = #{serviceType,jdbcType=INTEGER},
       </if>
-      <if test="status != null">
+      <if test="status != null and status != ''">
         status = #{status,jdbcType=INTEGER},
       </if>
       <if test="modifyTime != null">
@@ -275,7 +292,7 @@
       <if test="serviceDirections != null">
         service_directions = #{serviceDirections,jdbcType=LONGVARCHAR},
       </if>
-      <if test="recommend != null">
+      <if test="recommend != null and recommend != ''">
         recommend = #{recommend,jdbcType=INTEGER},
       </if>
       <if test="picUrl != null">

@@ -29,6 +29,10 @@ public interface UserCompanyServiceMapper {
     List<UserCompanyService> getAllUserCompanyServices(UserCompanyServiceVo record);
 
     List<UserCompanyService> queryPage(@Param("basePage")BasePage basePage,@Param("vo")UserCompanyServiceVo vo);
+
+    List<UserCompanyService> queryAllPage(@Param("basePage")BasePage basePage,@Param("vo")UserCompanyServiceVo vo);
+
+
     
     public List<UserCompanyServiceVo> queryList(@Param("vo")UserCompanyServiceVo vo);
 

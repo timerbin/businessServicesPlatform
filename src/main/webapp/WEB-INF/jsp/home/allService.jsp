@@ -27,6 +27,10 @@
 		   	<input id="pageCount" name="pageCount" value="${basePage.pages}" type="hidden"/>
 		   	<input id="initMenuType"   value="${queryVo.serviceType}" type="hidden"/>
 		   	<input id="serviceName" name="serviceName"  value="${queryVo.serviceName}"   type="hidden"  />
+
+			 <input id="id" name="id" type="hidden"/>
+			 <input id="companyId" name="companyId" type="hidden"/>
+			 <input id="serviceType" name="serviceType" type="hidden"/>
 		   	
 		   	
 	        <div class="right_main">
@@ -35,10 +39,12 @@
 	                <c:forEach items="${serviceList}" var="service">
 	                <c:if test="${not empty service.id}">
 	               		<div class="tjfw_tuwen">
-		           	    	<div class="tjfw_tu"><img src="${BASE_URL}/${service.picUrl}" /></div>
+		           	    	<div class="tjfw_tu">
+								<img id="imgSeriveShow" data-id="${service.id}" date-comid="${service.companyId}" data-type="${service.serviceType}" src="${BASE_URL}/${service.picUrl}"/>
+							</div>
 		                    <span class="scfuwu">
 		                    	<c:if test="${service.recommend==1}">
-		                    		<img src="${BASE_URL}/images/tuijian.png" width="35" height="44" />
+		                    		<img  src="${BASE_URL}/images/tuijian.png" width="35" height="44" />
 				   				</c:if>
 		                    </span> 
 		                    <div class="tjfw_center">
@@ -60,7 +66,7 @@
 			                        <li><img src="${BASE_URL}/${service.picUrl}" width="180" height="100" />
 			                            <h3>${likeService.serviceName}</h3>
 			                            <p>${likeService.serviceDirections}</p>
-			                            <span><a href="#">查看</a></span>
+			                            <span><a id="showService" name="showService" href="#" data-id="${likeService.id}">查看</a></span>
 		                        	</li>
 	                        	</c:if>
 							</c:forEach>
@@ -92,6 +98,20 @@ function change_page(cur_page) {
     jQuery("#page").val(cur_page);
     jQuery("#allService").submit();
 }
+
+
+$("#imgSeriveShow").click(function(){
+	$("#allService").attr("action",baseUrl+"/home/serviceShow.html");
+	/*$("#id").val("Enabled");*/
+	/*$(this).val($("#Enabled").attr("data-id"));*/
+//	alert($(this).attr("data-id"));
+	$("#id").val($(this).attr("data-id"));
+	$("#companyId").val($(this).attr("data-comid"));
+	$("#serviceType").val($(this).attr("data-type"));
+	jQuery("#allService").submit();
+});
+
+
 
 </script>
 

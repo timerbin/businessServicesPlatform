@@ -1,9 +1,13 @@
 package cn.com.businessservicesplatform.controller;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
+import cn.com.businessservicesplatform.common.constants.UserLookHistoryTypeEnum;
+import cn.com.businessservicesplatform.model.vo.*;
+import cn.com.businessservicesplatform.service.*;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,15 +21,7 @@ import cn.com.businessservicesplatform.common.constants.BaseConfigTypeEnum;
 import cn.com.businessservicesplatform.common.constants.RecommendEnum;
 import cn.com.businessservicesplatform.common.util.BasePage;
 import cn.com.businessservicesplatform.model.mysql.BaseConfigData;
-import cn.com.businessservicesplatform.model.vo.BaseConfigDataVo;
-import cn.com.businessservicesplatform.model.vo.BaseUserCompanyVo;
-import cn.com.businessservicesplatform.model.vo.BaseUserVo;
-import cn.com.businessservicesplatform.model.vo.UserCompanyServiceVo;
-import cn.com.businessservicesplatform.model.vo.UserServiceCommentVo;
-import cn.com.businessservicesplatform.service.BaseConfigDataService;
-import cn.com.businessservicesplatform.service.BaseUserCompanyService;
-import cn.com.businessservicesplatform.service.UserCompanyServiceService;
-import cn.com.businessservicesplatform.service.UserServiceCommentService;
+
 @Controller
 @RequestMapping("")
 public class HomeController extends BaseController{
@@ -39,6 +35,9 @@ public class HomeController extends BaseController{
 	UserCompanyServiceService userCompanyServiceService;
 	@Autowired
 	UserServiceCommentService userServiceCommentService;
+
+	@Autowired
+	UserLookHistoryService userLookHistoryService;
 	 
 	@RequestMapping("/")
     public ModelAndView homeIndex(HttpServletRequest request,BaseUserCompanyVo baseUserCompanyVo) {
@@ -221,6 +220,23 @@ public class HomeController extends BaseController{
 				}else{
 					model.addObject("errorMsg", "评论失败");
 				}
+			}
+
+
+
+			//增加浏览记录
+			UserLookHistoryVo userLookHistoryVo = new UserLookHistoryVo();
+			userLookHistoryVo.setUserId(baseUserVo==null?null:baseUserVo.getId());
+			userLookHistoryVo.setServiceId(userCompanyServiceVo.getId());
+			userLookHistoryVo.setCompanyId(userCompanyServiceVo.getCompanyId());
+			userLookHistoryVo.setType(UserLookHistoryTypeEnum.SERVICES.getId());
+			userLookHistoryVo.setServiceType(userCompanyServiceVo.getServiceType());
+
+			int insertResult = userLookHistoryService.insert(userLookHistoryVo);
+			if(insertResult > 0){
+//				result = Boolean.TRUE;
+			}else{
+				log.error("UserLookHistoryController.add.look.is.null:"+insertResult);
 			}
 		} catch (Exception e) {
 			log.error("HomeController.serviceShow.is.system.error",e);

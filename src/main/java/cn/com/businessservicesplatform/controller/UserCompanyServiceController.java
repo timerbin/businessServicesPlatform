@@ -1,6 +1,7 @@
 package cn.com.businessservicesplatform.controller;
 
 import cn.com.businessservicesplatform.common.constants.BaseConfigTypeEnum;
+import cn.com.businessservicesplatform.common.constants.UserServiceStatuesEnum;
 import cn.com.businessservicesplatform.common.util.BasePage;
 import cn.com.businessservicesplatform.model.mysql.BaseConfigData;
 import cn.com.businessservicesplatform.model.vo.BaseConfigDataVo;
@@ -100,7 +101,7 @@ public class UserCompanyServiceController extends BaseController{
                 page =1;
             }
             BasePage basePage = new BasePage(page,10);
-			List<UserCompanyServiceVo> voList = userCompanyServiceService.queryPage(basePage,userCompanyServiceVo);
+			List<UserCompanyServiceVo> voList = userCompanyServiceService.queryAllPage(basePage,userCompanyServiceVo);
 
 			for (UserCompanyServiceVo vo:voList) {
 				for (BaseConfigData config:serTypeList) {
@@ -154,6 +155,7 @@ public class UserCompanyServiceController extends BaseController{
 			}
 			serVo.setCompanyId(baseUserVo.getCompanyId());
 			serVo.setUserId(baseUserVo.getId());
+			serVo.setStatus(UserServiceStatuesEnum.PASSVERIFY.getId());  //默认是上线状态
 			//发布服务
 			int result = userCompanyServiceService.insert(serVo);
 			if(result <= 0){
@@ -263,7 +265,7 @@ public class UserCompanyServiceController extends BaseController{
 
 
 	/**
-	 * 推荐 更新保存
+	 * 推荐 上线 下线更新保存
 	 * @param
 	 * @return
 	 */
@@ -271,7 +273,9 @@ public class UserCompanyServiceController extends BaseController{
 	protected ModelAndView updateServ(@RequestParam(required = false, value = "page", defaultValue = "1")Integer page,UserCompanyServiceVo userCompanyServiceVo) {
 
 		try {
-			if(null == userCompanyServiceVo || userCompanyServiceVo.getId() == null){
+			if(null == userCompanyServiceVo){
+				return toServiceManage(page,userCompanyServiceVo);
+			}else if(userCompanyServiceVo.getId() == null){
 				return toServiceManage(page,userCompanyServiceVo);
 			}
 			int result = userCompanyServiceService.updateByPrimaryKeySelective(userCompanyServiceVo);
@@ -284,33 +288,6 @@ public class UserCompanyServiceController extends BaseController{
 			log.error("########更新服务失败",e);
 		}
 		return toServiceManage(page,userCompanyServiceVo);
-
-
-
-
-
-
-//		ModelAndView modle = new ModelAndView("admin/grzx_fwgl");
-//		Map<String,Object> map = new HashMap<String, Object>();
-//		try {
-//			String recommend = request.getParameter("tuijianflag");
-//			String id = request.getParameter("id");
-//			UserCompanyServiceVo vo = new UserCompanyServiceVo();
-//			vo.setId(Integer.parseInt(id));
-//			vo.setRecommend(Integer.parseInt(recommend));
-//			int i = userCompanyServiceService.updateByPrimaryKeySelective(vo);
-//
-//			if(i>0){
-//				modle.addObject("msg","成功");
-//			}else{
-//				modle.addObject("msg","失败");
-//			}
-//			return modle;
-//		}catch (Exception e){
-//			log.error("################### updateServ 推荐不推荐 服务失败" + e);
-//			modle.addObject("errorMsg","系统繁忙，请稍后再试");
-//			return modle;
-//		}
 	}
 
 
@@ -359,23 +336,17 @@ public class UserCompanyServiceController extends BaseController{
 
 		ModelAndView model = new ModelAndView ("admin/grzx_fwgl");
 		try {
-
 			List<BaseConfigData> serTypeList = baseConfigDataService.queryList(new BaseConfigDataVo(BaseConfigTypeEnum.SERVICES_TYPE.getId()));
 			model.addObject("typeLst",serTypeList);
-
 			String id = request.getParameter("id");
 			String flag = request.getParameter("flag");
-
 			UserCompanyServiceVo userCompanyServiceVo =	userCompanyServiceService.getAllService(Integer.parseInt(id));
-
 			model.addObject("serVo",userCompanyServiceVo);
-
 			if("edit".equals(flag)){
 				model.setViewName("admin/toEditService");
 			}else if("detail".equals(flag)){
 				model.setViewName("admin/toDetailService");
 			}
-
 			return model;
 		}catch (Exception e){
 			log.error("################### 查询服务详细失败" + e);
@@ -383,25 +354,28 @@ public class UserCompanyServiceController extends BaseController{
 			return model;
 		}
 	}
+
+
+
 	/**
 	 * 管理员发布服务
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping("/toAdminAddService")
-	protected ModelAndView toAdminAddService(HttpServletRequest request) {
-		ModelAndView model = new ModelAndView ("/admin/adminAddService");
-		try {
-			List<BaseConfigData> serTypeList = baseConfigDataService.queryList(new BaseConfigDataVo(BaseConfigTypeEnum.SERVICES_TYPE.getId()));
-			model.addObject("serTypeList", serTypeList);
-			BaseUserCompanyVo vo = new BaseUserCompanyVo();
-			List<BaseUserCompanyVo> comanyList = baseUserCompanyService.queryAllList(vo);
-			model.addObject("comanyList", comanyList);
-		} catch (Exception e) {
-			log.error("toAdminAddService.is.system.error",e);
-		}
-		return model;
-	}
+//	@RequestMapping("/toAdminAddService")
+//	protected ModelAndView toAdminAddService(HttpServletRequest request) {
+//		ModelAndView model = new ModelAndView ("/admin/adminAddService");
+//		try {
+//			List<BaseConfigData> serTypeList = baseConfigDataService.queryList(new BaseConfigDataVo(BaseConfigTypeEnum.SERVICES_TYPE.getId()));
+//			model.addObject("serTypeList", serTypeList);
+//			BaseUserCompanyVo vo = new BaseUserCompanyVo();
+//			List<BaseUserCompanyVo> comanyList = baseUserCompanyService.queryAllList(vo);
+//			model.addObject("comanyList", comanyList);
+//		} catch (Exception e) {
+//			log.error("toAdminAddService.is.system.error",e);
+//		}
+//		return model;
+//	}
 	
 	/**
 	 * 管理员发布服务
@@ -412,7 +386,7 @@ public class UserCompanyServiceController extends BaseController{
 	protected ModelAndView doAdminAddService(HttpServletRequest request,UserCompanyServiceVo serVo) {
 		ModelAndView model = new ModelAndView ("/admin/adminAddService");
 		try {
-			//判断是否为企业用户
+
 			BaseUserVo baseUserVo = getUser(request);
 			model.addObject("user", baseUserVo);
 			if(null == baseUserVo){

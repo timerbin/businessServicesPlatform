@@ -22,6 +22,9 @@ public interface UserCompanyServiceService {
 
    public List<UserCompanyServiceVo> queryPage(BasePage basePage, UserCompanyServiceVo vo);
 
+   public List<UserCompanyServiceVo> queryAllPage(BasePage basePage, UserCompanyServiceVo vo);
+
+
    public List<UserCompanyServiceVo> queryLikeList(Integer queryRows);
 
    public List<UserCompanyServiceVo> queryList(UserCompanyServiceVo vo);

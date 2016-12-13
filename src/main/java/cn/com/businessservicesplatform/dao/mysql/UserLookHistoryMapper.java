@@ -26,7 +26,7 @@ public interface UserLookHistoryMapper {
     
     public List<UserLookHistory> queryHistroyList(@Param("vo")UserLookHistoryVo userLookHistoryVo);
 
-    public List<UserLookHistoryVo> queryPage(@Param("basePage")BasePage basePage, @Param("vo")UserLookHistoryVo vo);
+    public List<UserLookHistory> queryPage(@Param("basePage")BasePage basePage, @Param("vo")UserLookHistoryVo vo);
 
     int updateDelStatus(Integer id);
 

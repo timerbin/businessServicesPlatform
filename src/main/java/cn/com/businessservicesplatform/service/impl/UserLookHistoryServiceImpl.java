@@ -41,11 +41,12 @@ public class UserLookHistoryServiceImpl implements UserLookHistoryService{
 	@Override
 	public int insert(UserLookHistoryVo userLookHistoryVo) {
 		int result = 0;
-		if(null != userLookHistoryVo && null != userLookHistoryVo.getUserId()){
+//		if(null != userLookHistoryVo && null != userLookHistoryVo.getUserId()){
+		if(null != userLookHistoryVo){
 			/**当前时间**/
 			String nowDate = DateUtils.getString(new Date(),DateUtils.DEF_DATE_NO_TIME_FORMAT);
 			userLookHistoryVo.setNowDate(nowDate);
-			
+
 			UserLookHistory lookHistory = userLookHistoryMapper.getByVo(userLookHistoryVo);
 			if(null == lookHistory || lookHistory.getId() == null){
 				lookHistory = new UserLookHistory(userLookHistoryVo);
@@ -85,7 +86,14 @@ public class UserLookHistoryServiceImpl implements UserLookHistoryService{
 
     @Override
     public List<UserLookHistoryVo> queryByPage(BasePage basePage, UserLookHistoryVo userLookHistoryVo) {
-		List<UserLookHistoryVo> voLst = userLookHistoryMapper.queryPage(basePage,userLookHistoryVo);
+		List<UserLookHistory> lst = userLookHistoryMapper.queryPage(basePage,userLookHistoryVo);
+		List<UserLookHistoryVo> voLst = new ArrayList<UserLookHistoryVo>();
+		for (UserLookHistory hist:lst) {
+			UserLookHistoryVo vo = new UserLookHistoryVo(hist);
+			voLst.add(vo);
+		}
+
+
 		for(UserLookHistoryVo vo:voLst){
 			if(null != vo){
 				if(vo.getType() == UserLookHistoryTypeEnum.SERVICES.getId()){
