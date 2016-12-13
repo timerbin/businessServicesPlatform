@@ -1,6 +1,5 @@
 package cn.com.businessservicesplatform.controller;
 
-import cn.com.businessservicesplatform.common.constants.UserLookHistoryTypeEnum;
 import cn.com.businessservicesplatform.common.util.BasePage;
 import cn.com.businessservicesplatform.model.mysql.UserLookHistory;
 import cn.com.businessservicesplatform.model.vo.UserLookHistoryVo;
@@ -66,58 +65,11 @@ public class UserLookHistoryController extends BaseController{
 			UserLookHistoryVo hVo = new UserLookHistoryVo(ulh);
 			ulhLst.add(hVo);
 		}
-
+		model.addObject("vo",userLookHistoryVo);
+		
 		model.addObject("ulhLst",ulhLst);
 		model.addObject("dateStr",userLookHistoryService.queryHisDate());
 		return model;
-
-//		//查询企业 浏览历史
-//		UserLookHistoryVo voCompany = new UserLookHistoryVo();
-//		voCompany.setType(UserLookHistoryTypeEnum.COMPANY.getId());
-//		List<UserLookHistory> comLstHis =  userLookHistoryService.queryHistroyList(voCompany);
-//
-//		//查询服务 浏览历史
-//		UserLookHistoryVo voService = new UserLookHistoryVo();
-//		voService.setType(UserLookHistoryTypeEnum.SERVICES.getId());
-//		List<UserLookHistory> serLstHis =  userLookHistoryService.queryHistroyList(voService);
-//
-//
-//		List<UserLookHistoryVo> ulhLst = new ArrayList<UserLookHistoryVo>();
-//		for (UserLookHistory ulh : ulhLstHis){
-//			UserLookHistoryVo hVo = new UserLookHistoryVo(ulh);
-//			ulhLst.add(hVo);
-//		}
-
-
-
-//		List<UserLookHistoryVo> ulhLstNew = new ArrayList<UserLookHistoryVo>();
-////		List<String> dateStr = new ArrayList<String>();
-//
-//		BaseUserCompanyVo companyVo = new BaseUserCompanyVo();
-//		UserCompanyServiceVo usVo = new UserCompanyServiceVo();
-//		for (UserLookHistoryVo hVo: ulhLst) {
-//
-//			//获取企业公司
-//			companyVo.setUserId(hVo.getCompanyId());
-//			BaseUserCompany bc = baseUserCompanyService.getUserCompany(companyVo);
-//			hVo.setCompanyName(bc.getCompanyName());
-//			BaseUserCompanyVo bcVo = new BaseUserCompanyVo(bc);
-//			hVo.setCompanyPicUrl(bcVo.getPicList().get(0).getCompanyPicUrl());
-//
-//			//获取服务
-//			usVo.setUserId(hVo.getServiceId());
-//			hVo.setServiceName(userCompanyServiceService.fetchCompanyService(usVo).getServiceName());
-//
-//			ulhLstNew.add(hVo);
-//		}
-
-//		model.addObject("ulhLstNew",ulhLstNew);
-//		model.addObject("comLstHis",comLstHis);
-//		model.addObject("comLstHis",comLstHis);
-//		model.addObject("serLstHis",serLstHis);
-//
-//		model.addObject("dateStr",userLookHistoryService.queryHisDate());
-
     }
 	
 	

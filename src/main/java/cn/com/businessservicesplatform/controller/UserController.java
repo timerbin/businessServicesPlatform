@@ -291,6 +291,7 @@ public class UserController extends BaseController{
 			model.addObject("vo", baseUserVo);
 			baseUserService.updateUserStatus(baseUserVo);
 		} catch (Exception e) {
+			e.printStackTrace();
 			log.error("UserController.userManagement.is.system.error",e);
 		}
 		return model;

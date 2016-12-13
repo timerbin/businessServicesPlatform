@@ -17,6 +17,7 @@
 	<input id="page" name="page" type="hidden" value="${basePage.page}"/>
     <input id="curPage" name="curPage"  value="${basePage.page}" type="hidden"/>
    	<input id="pageCount" name="pageCount" value="${basePage.pages}" type="hidden"/>
+   	<input id="initMenuType"   value="${queryVo.serviceType}" type="hidden"/>
     <table width="100%" height="100%" border="0px" cellpadding="0px" cellspacing="0px" >
 	<tr><td width="250px" valign="top" class="con_left">
 		 <jsp:include page="../public/left.jsp" ></jsp:include>
@@ -97,6 +98,11 @@
 </table>
 <script type="text/javascript">
 //分页  begin
+
+var initMenuType = $("#initMenuType").val();
+if(initMenuType.length > 0){
+	$("#navMenu"+initMenuType).addClass("left_border");
+}
 var cur_page = $("#curPage").val();
 var page_count = $("#pageCount").val();
 jQuery("#pager").pager({pagenumber: cur_page, pagecount: page_count, buttonClickCallback: change_page });

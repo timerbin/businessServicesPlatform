@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div class="head_box">
-	<span class="head_logo"><img src="${BASE_URL}/images/gerenzx_logo.png" width="220" height="60" /></span>
+	<span class="head_logo"><a href="${BASE_URL}/home/homeIndex.html"><img src="${BASE_URL}/images/gerenzx_logo.png" width="220" height="60" /></a></span>
 	<c:if test="${not empty services_user_info}">
 		<ul class="header_yh">
 	        <!-- <li class="header_xiala"><a href="#"></a></li> -->

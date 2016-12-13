@@ -5,7 +5,6 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>浏览历史</title>
-    <%--<link href="images/gerenzx.css" rel="stylesheet" type="text/css" />--%>
     <link href="${BASE_URL}/images/gerenzx.css" rel="stylesheet" type="text/css"/>
     <jsp:include page="../public/baseData.jsp"/>
     <jsp:include page="../public/pager.jsp"/>
@@ -172,14 +171,9 @@
         </div>
     </div>
 </form>
-</body>
-</html>
-
 <script type="text/javascript">
-    $("#collectList").addClass("li_atab");
+    $("#toLookList").addClass("li_atab");
     var baseUrl = $("#baseUrl").val();
-
-
     //分页  begin
     var cur_page = $("#curPage").val();
     var page_count = $("#pageCount").val();
@@ -207,3 +201,7 @@
         $("#lookHisForm").submit();
     });
 </script>
+</body>
+</html>
+
+

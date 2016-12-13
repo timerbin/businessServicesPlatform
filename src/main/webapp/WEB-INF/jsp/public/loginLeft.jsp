@@ -12,7 +12,7 @@
             <li id="collectList"><span><img src="${BASE_URL}/images/gerenzx_x4.png" /></span><a href="${BASE_URL}/user/collectList.html">我的收藏</a></li>
             <c:if test="${not empty services_user_info}">
             	<c:if test="${services_user_info.type == 2}">
-		            <li id=""><span><img src="${BASE_URL}/images/gerenzx_x5.png" /></span><a href="${BASE_URL}/user/toAllCompany.html">企业管理</a></li>
+		            <li id="companyManage"><span><img src="${BASE_URL}/images/gerenzx_x5.png" /></span><a href="${BASE_URL}/user/toAllCompany.html">企业管理</a></li>
 		            <li id="serviceManage"><span><img src="${BASE_URL}/images/gerenzx_x6.png" /></span><a href="${BASE_URL}/user/toServiceManage.html">服务管理</a></li>
 		            <li id="userManagement"><span><img src="${BASE_URL}/images/gerenzx_x1.png" /></span><a href="${BASE_URL}/user/userManagement.html">用户管理</a></li>
 		            <li id="baseList"><span><img src="${BASE_URL}/images/gerenzx_x1.png" /></span><a href="${BASE_URL}/user/baseList.html">基本信息管理</a></li>

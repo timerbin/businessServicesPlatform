@@ -5,7 +5,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>企业管理</title>
-    <link href="/images/gerenzx.css" rel="stylesheet" type="text/css"/>
+    <link href="${BASE_URL}/images/gerenzx.css" rel="stylesheet" type="text/css"/>
     <jsp:include page="../public/baseData.jsp"/>
     <jsp:include page="../public/pager.jsp"/>
 </head>
@@ -88,14 +88,11 @@
         </form>
     </div>
 </div>
-<%--<jsp:include page="../public/footer.jsp"></jsp:include>--%>
-</body>
-</html>
 
 <script type="application/javascript">
 
     var baseUrl = $("#baseUrl").val();
-    $("#baseList").addClass("li_atab");
+    $("#companyManage").addClass("li_atab");
 
     //分页  begin
     var cur_page = $("#curPage").val();
@@ -151,3 +148,6 @@
     }
 
 </script>
+</body>
+</html>
+

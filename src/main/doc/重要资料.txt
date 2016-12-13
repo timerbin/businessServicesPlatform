@@ -11,3 +11,20 @@ http://echarts.baidu.com/echarts2/doc/doc.html#引入ECharts2
 http://echarts.baidu.com/echarts2/doc/example/line3.html#macarons
 
 
+http://pan.baidu.com/s/1cf4Boi?qq-pf-to=pcqq.c2c#list/path=%2F
+
+1、服务名称过滤不正确
+4、新增、编辑、详情页面没有样式
+7、点击logo进首页
+9、点中浏览历史选中是我的收藏 
+6、点击服务管理，左侧导航，基本信息管理也选中了
+13、左边菜单导航
+10、浏览历史中企业和服务按钮点中样式不变
+2、页码不正确，
+8、用户管理  模糊查询分页不正确
+3、类型没加载
+
+
+5、服务操作里面，有几个调整一下，新增之后默认上线，上线的可以下线，下线的可以上线，推荐操作一样
+11、时间最好用控件，如果不用控件，校验只有年份
+12、首页下拉列表框只有企业和服务

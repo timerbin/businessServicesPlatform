@@ -9,7 +9,7 @@
 <meta name="renderer" content="webkit" />
 </head>
 <body>
-	<img onclick="doSelectPic('khzm')"  id = "khzm"  src="/images/nav_01.png" alt="" />
+	<img onclick="doSelectPic('khzm')"  id = "khzm"  src="${BASE_URL}/images/nav_01.png" alt="" />
 	 <iframe id="uploadPicFrame" src="" style="display:none;"></iframe>
 <script src="/js/jquery-1.9.1.min.js"></script>
 <!-- 触发JS刷新-->

@@ -26,14 +26,8 @@
                     <td>
                     	<label>
 	                    	<select id="companyScope" name="companyScope" class="select_fuwu">
-	                    		<c:forEach items="${managementList}" var="management">
-	                    			<c:if test="${management.id==queryVo.companyScope}">
-			            	 			<option value="${management.id}" selected="selected">${management.showName}</option>
-					   				</c:if>
-					   				<c:if test="${management.id!=queryVo.companyScope}">
-			            	 			<option value="${management.id}">${management.showName}</option>
-					   				</c:if>
-								</c:forEach>
+	            	 			<option value="1">企业</option>
+	            	 			<option value="2">服务</option>
 	                    	</select>
                     	</label>
                     </td>

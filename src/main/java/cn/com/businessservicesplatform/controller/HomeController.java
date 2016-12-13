@@ -1,5 +1,6 @@
 package cn.com.businessservicesplatform.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
@@ -7,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 
@@ -136,10 +138,6 @@ public class HomeController extends BaseController{
 			BaseUserVo baseUserVo = this.getUser(request);
 			
 			model.addObject("user", baseUserVo);
-			//经营范围
-			List<BaseConfigData>  managementList = baseConfigDataService.queryList(new BaseConfigDataVo(BaseConfigTypeEnum.MANAGEMENT.getId()));
-			model.addObject("managementList", managementList);
-			 
 			baseUserCompanyVo.setRecommend(RecommendEnum.RECCOMEND.getId());
 			baseUserCompanyVo.setQueryRows(5);
 			List<BaseUserCompanyVo> companyList = baseUserCompanyService.queryList( baseUserCompanyVo);
@@ -222,6 +220,19 @@ public class HomeController extends BaseController{
     		return model;
 		}
     	return model;
+    }
+	
+	
+	@RequestMapping("/initMenu")
+	@ResponseBody
+    public List<BaseConfigData> initMenu() {
+		List<BaseConfigData> result = new ArrayList<BaseConfigData>();
+		try {
+			result = baseConfigDataService.queryList(new BaseConfigDataVo(BaseConfigTypeEnum.SERVICES_TYPE.getId()));
+		} catch (Exception e) {
+			log.error("initMenu.is.system.error",e);
+		}
+		return result ;
     }
 	
 }

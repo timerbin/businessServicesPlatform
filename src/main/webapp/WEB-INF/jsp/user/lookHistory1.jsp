@@ -5,18 +5,18 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>浏览历史</title>
-<link href="/images/gerenzx.css" rel="stylesheet" type="text/css" />
+<link href="${BASE_URL}/images/gerenzx.css" rel="stylesheet" type="text/css" />
     <jsp:include page="../public/baseData.jsp" />
     <jsp:include page="../public/pager.jsp" />
 </head>
 
 <body>
 <div class="head_box">
-	<span class="head_logo"><img src="/images/gerenzx_logo.png" width="220" height="60" /></span>
+	<span class="head_logo"><img src="${BASE_URL}/images/gerenzx_logo.png" width="220" height="60" /></span>
 	<ul class="header_yh">
         <li class="header_xiala"><a href="#"></a></li>
         <li class="header_name">张小二</li>
-        <li class="header_touxiang"><img src="/images/touxiang_03.jpg" width="38" height="38" /></li>
+        <li class="header_touxiang"><img src="${BASE_URL}/images/touxiang_03.jpg" width="38" height="38" /></li>
     </ul>
     <ul class="head_grzcdl">
         <li class="head_gr"><a href="#">个人中心</a></li>

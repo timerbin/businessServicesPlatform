@@ -5,7 +5,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>发布服务</title>
-<link href="/images/hongqiao.css" rel="stylesheet" type="text/css" />
+<link href="${BASE_URL}/images/hongqiao.css" rel="stylesheet" type="text/css" />
     <jsp:include page="../public/baseData.jsp" />
 </head>
 

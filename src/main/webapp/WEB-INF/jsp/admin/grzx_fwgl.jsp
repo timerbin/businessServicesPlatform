@@ -34,7 +34,7 @@
 			          </c:if>
 			          <tr>
 			            <td width="78" align="right">服务名称：</td>
-			            <td width="155"><input id="serviceName" name="serviceName" type="text" class="grzx_input" /></td>
+			            <td width="155"><input id="serviceName" name="serviceName" value="${vo.serviceName}" type="text" class="grzx_input" /></td>
 			            <%--<td width="78" align="right">创建时间：</td>
 			            <td width="150"><input name="" type="text" class="grzx_input" /></td>--%>
 			            <td width="78" align="right">服务类别：</td>
@@ -100,8 +100,8 @@
 </form>
 <script type="application/javascript">
 $("#serviceManage").addClass("li_atab");
+
     var baseUrl = $("#baseUrl").val();
-    $("#baseList").addClass("li_atab");
 
     //分页  begin
     var cur_page = $("#curPage").val();
