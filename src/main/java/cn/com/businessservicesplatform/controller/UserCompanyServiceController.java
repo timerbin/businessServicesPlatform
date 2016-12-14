@@ -343,6 +343,7 @@ public class UserCompanyServiceController extends BaseController{
 			String flag = request.getParameter("flag");
 			UserCompanyServiceVo userCompanyServiceVo =	userCompanyServiceService.getAllService(Integer.parseInt(id));
 			model.addObject("serVo",userCompanyServiceVo);
+			model.addObject("vo",userCompanyServiceVo);
 			if("edit".equals(flag)){
 				model.setViewName("admin/toEditService");
 			}else if("detail".equals(flag)){
@@ -363,20 +364,20 @@ public class UserCompanyServiceController extends BaseController{
 	 * @param request
 	 * @return
 	 */
-//	@RequestMapping("/toAdminAddService")
-//	protected ModelAndView toAdminAddService(HttpServletRequest request) {
-//		ModelAndView model = new ModelAndView ("/admin/adminAddService");
-//		try {
-//			List<BaseConfigData> serTypeList = baseConfigDataService.queryList(new BaseConfigDataVo(BaseConfigTypeEnum.SERVICES_TYPE.getId()));
-//			model.addObject("serTypeList", serTypeList);
-//			BaseUserCompanyVo vo = new BaseUserCompanyVo();
-//			List<BaseUserCompanyVo> comanyList = baseUserCompanyService.queryAllList(vo);
-//			model.addObject("comanyList", comanyList);
-//		} catch (Exception e) {
-//			log.error("toAdminAddService.is.system.error",e);
-//		}
-//		return model;
-//	}
+	@RequestMapping("/toAdminAddService")
+	protected ModelAndView toAdminAddService(HttpServletRequest request) {
+		ModelAndView model = new ModelAndView ("/admin/adminAddService");
+		try {
+			List<BaseConfigData> serTypeList = baseConfigDataService.queryList(new BaseConfigDataVo(BaseConfigTypeEnum.SERVICES_TYPE.getId()));
+			model.addObject("serTypeList", serTypeList);
+			BaseUserCompanyVo vo = new BaseUserCompanyVo();
+			List<BaseUserCompanyVo> comanyList = baseUserCompanyService.queryAllList(vo);
+			model.addObject("comanyList", comanyList);
+		} catch (Exception e) {
+			log.error("toAdminAddService.is.system.error",e);
+		}
+		return model;
+	}
 	
 	/**
 	 * 管理员发布服务

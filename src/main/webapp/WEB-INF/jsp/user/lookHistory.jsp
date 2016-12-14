@@ -49,34 +49,28 @@
 
 
             <c:if test="${vo.findType ==1}">
-                <c:forEach items="${ulhLst}" var="hisVo" >
-                    <div class="llls_time">${hisVo.nowDate}</div>
-                    <div>
-                        <dl class="llls_list">
-                            <dt><img src="${hisVo.baseUserCompanyVo.logoPicPath}"/></dt>
-                            <dd>
-                                <h3>${hisVo.userCompanyServiceVo.serviceName}</h3>
-                                <p>${hisVo.userCompanyServiceVo.serviceDirections}</p>
-                                <span><img src="images/shanchu.png"/></span>
-                            </dd>
-                        </dl>
-                       <%-- <dl class="llls_list">
-                            <dt><img src="images/home_yzqy_16.jpg"/></dt>
-                            <dd>
-                                <h3>斐讯数据通信技术有限公司</h3>
-                                <p>激情发展、追求卓越、客户价值、共同成长</p>
-                                <span><img src="images/shanchu.png"/></span>
-                            </dd>
-                        </dl>--%>
-                        <div class="clear"></div>
-                    </div>
-
+                <c:forEach items="${dateStr}" var="dtStr">
+                    <div class="llls_time">${dtStr}</div>
+                    <c:forEach items="${ulhLst}" var="hisVo" >
+                        <c:if test="${dtStr == hisVo.nowDate}">
+                            <div>
+                                <dl class="llls_list">
+                                    <dt><img src="${hisVo.baseUserCompanyVo.logoPicPath}"/></dt>
+                                    <dd>
+                                        <h3>${hisVo.userCompanyServiceVo.serviceName}</h3>
+                                        <p>${hisVo.userCompanyServiceVo.serviceDirections}</p>
+                                        <span><img src="images/shanchu.png"/></span>
+                                    </dd>
+                                </dl>
+                                <div class="clear"></div>
+                            </div>
+                        </c:if>
+                    </c:forEach>
                 </c:forEach>
-
             </c:if>
 
             <c:if test="${vo.findType ==2}">
-                <c:forEach items="${ulhLst}" var="hisVo" >
+               <%-- <c:forEach items="${ulhLst}" var="hisVo" >
                     <div class="llls_time">${hisVo.nowDate}</div>
                     <div>
                         <dl class="llls_list">
@@ -84,28 +78,39 @@
                             <dd>
                                 <h3>${hisVo.baseUserCompanyVo.logoPicPath}</h3>
                                 <p>${hisVo.baseUserCompanyVo.companyDirections}</p>
-                                <%--<span><img src="images/shanchu.png"/></span>--%>
+                                &lt;%&ndash;<span><img src="images/shanchu.png"/></span>&ndash;%&gt;
                             </dd>
                         </dl>
-                       <%-- <dl class="llls_list">
-                            <dt><img src="images/home_yzqy_16.jpg"/></dt>
-                            <dd>
-                                <h3>斐讯数据通信技术有限公司</h3>
-                                <p>激情发展、追求卓越、客户价值、共同成长</p>
-                                <span><img src="images/shanchu.png"/></span>
-                            </dd>
-                        </dl>--%>
                         <div class="clear"></div>
                     </div>
 
+                </c:forEach>--%>
+
+                <c:forEach items="${dateStr}" var="dtStr">
+                    <div class="llls_time">${dtStr}</div>
+                    <c:forEach items="${ulhLst}" var="hisVo" >
+                        <c:if test="${dtStr == hisVo.nowDate}">
+                            <div>
+                                <dl class="llls_list">
+                                    <dt><img src="${hisVo.baseUserCompanyVo.logoPicPath}"/></dt>
+                                    <dd>
+                                        <h3>${hisVo.baseUserCompanyVo.logoPicPath}</h3>
+                                        <p>${hisVo.baseUserCompanyVo.companyDirections}</p>
+                                        &lt;%&ndash;<span><img src="images/shanchu.png"/></span>&ndash;%&gt;
+                                    </dd>
+                                </dl>
+                                <div class="clear"></div>
+                            </div>
+                        </c:if>
+                    </c:forEach>
                 </c:forEach>
 
             </c:if>
 
 
 
-            <c:if test="${vo.findType ==0}">
-                <c:forEach items="${ulhLst}" var="hisVo" >
+            <c:if test="${vo.findType == 0 or vo.findType == null}">
+               <%-- <c:forEach items="${ulhLst}" var="hisVo" >
                     <div class="llls_time">${hisVo.nowDate}</div>
                     <div>
 
@@ -132,6 +137,37 @@
                         <div class="clear"></div>
                     </div>
 
+                </c:forEach>--%>
+
+                <c:forEach items="${dateStr}" var="dtStr">
+                    <div class="llls_time">${dtStr}</div>
+                    <c:forEach items="${ulhLst}" var="hisVo" >
+                        <c:if test="${dtStr == hisVo.nowDate}">
+                            <div>
+                                <c:if test="${hisVo.type == 1}">
+                                    <dl class="llls_list">
+                                        <dt><img src="${hisVo.baseUserCompanyVo.logoPicPath}"/></dt>
+                                        <dd>
+                                            <h3>${hisVo.userCompanyServiceVo.serviceName}</h3>
+                                            <p>${hisVo.userCompanyServiceVo.serviceDirections}</p>
+                                            <span><img src="images/shanchu.png"/></span>
+                                        </dd>
+                                    </dl>
+                                </c:if>
+
+                                <c:if test="${hisVo.type == 2}">
+                                    <dl class="llls_list">
+                                        <dt><img src="${BASE_URL}/${hisVo.baseUserCompanyVo.logoPicPath}"/></dt>
+                                        <dd>
+                                            <h3>${hisVo.baseUserCompanyVo.logoPicPath}</h3>
+                                            <p>${hisVo.baseUserCompanyVo.companyDirections}</p>
+                                        </dd>
+                                    </dl>
+                                </c:if>
+                                <div class="clear"></div>
+                            </div>
+                        </c:if>
+                    </c:forEach>
                 </c:forEach>
 
             </c:if>
@@ -189,7 +225,7 @@
     }
 
     $("#lookService").click(function(){
-        $("#lokkType").val(1);
+        $("#lookType").val(1);
         $("#findType").val(1);
         $("#lookHisForm").submit();
     });

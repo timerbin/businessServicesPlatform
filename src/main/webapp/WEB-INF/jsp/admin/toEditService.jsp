@@ -21,6 +21,7 @@
     	<div class="grzx_h2"><h2>编辑服务</h2></div>
         <form action="${BASE_URL}/user/toUpdateService.html" id="serManageForm" name="serManageForm">
 
+            <input id="id" name="id" type="hidden" value="${serVo.id}"/>
             <table width="900" border="0" cellspacing="20" cellpadding="0">
 
                 <c:if test="${not empty msg}">
@@ -42,14 +43,14 @@
                 <tr>
                     <td width="121" align="right"><span class="hong_xing">*</span>服务名称：</td>
                     <td width="550">
-                        <input id="serviceNameEdit" name="serviceNameEdit" type="text" class="form_input" value="${serVo.serviceName}"/>
+                        <input id="serviceNameEdit" name="serviceName" type="text" class="form_input" value="${serVo.serviceName}"/>
                     </td>
                     <td width="149">&nbsp;</td>
                 </tr>
                 <tr>
                     <td align="right"><span class="hong_xing">*</span>服务类别：</td>
                     <td>
-                        <select name="serviceTypeEdit" id="serviceTypeEdit" class="form_input">
+                        <select name="serviceType" id="serviceTypeEdit" class="form_input">
                             <%--<c:if test="${not empty serTypeList}">--%>
                             <c:forEach var="serType" items="${typeLst}">
 
@@ -78,12 +79,12 @@
                 </tr>
                 <tr>
                     <td align="right"><span class="hong_xing">*</span>联系人：</td>
-                    <td><input name="fwLxrEdit" id="fwLxrEdit" type="text" class="form_input2" value="${serVo.serviceContactUser}"/></td>
+                    <td><input name="serviceContactUser" id="fwLxrEdit" type="text" class="form_input2" value="${serVo.serviceContactUser}"/></td>
                     <td>&nbsp;</td>
                 </tr>
                 <tr>
                     <td align="right"><span class="hong_xing">*</span>联系方式：</td>
-                    <td><input name="fwLxfsEdit" id="fwLxfsEdit" type="text" class="form_input2" value="${serVo.serviceContactTel}" /></td>
+                    <td><input name="serviceContactTel" id="fwLxfsEdit" type="text" class="form_input2" value="${serVo.serviceContactTel}" /></td>
                     <td>&nbsp;</td>
                 </tr>
 
@@ -100,7 +101,7 @@
 
                 <tr>
                     <td align="right" valign="top"><span class="hong_xing">*</span>服务介绍：</td>
-                    <td colspan="2"><textarea name="fwJsEdit" id="fwJsEdit" cols="50" rows="5" class="form_textarea" >${serVo.serviceDirections}</textarea></td>
+                    <td colspan="2"><textarea name="serviceDirections" id="fwJsEdit" cols="50" rows="5" class="form_textarea" >${serVo.serviceDirections}</textarea></td>
                 </tr>
                 <tr>
                     <td align="right">&nbsp;</td>
@@ -136,7 +137,7 @@
 
     $("#baocunBtn").click(function(){
         if(check()){
-            $("#bjfwForm").submit();
+            $("#serManageForm").submit();
         }
     });
 

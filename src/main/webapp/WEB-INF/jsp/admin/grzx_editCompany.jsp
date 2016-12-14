@@ -85,7 +85,7 @@
                 </tr>
                 <tr>
                     <td align="right"><span class="hong_xing">*</span>成立时间：</td>
-                    <td><input id="companyRegisterTimeStr"  name="companyRegisterTimeStr" placeholder="yyyy-MM-dd" name="companyRegisterTimeStr" value="${vo.companyRegisterTimeStr}"   type="text" class="form_input2" /></td>
+                    <td><input id="companyRegisterTimeStr"  name="companyRegisterTimeStr" placeholder="年-月-日" name="companyRegisterTimeStr" value="${vo.companyRegisterTimeStr}"   type="text" class="form_input2" /></td>
                     <td>&nbsp;</td>
                 </tr>
                 <tr>

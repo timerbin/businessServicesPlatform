@@ -80,7 +80,8 @@ public class UserLookHistoryController extends BaseController{
 		model.addObject("vo",userLookHistoryVo);
 		
 		model.addObject("ulhLst",ulhLst);
-		model.addObject("dateStr",userLookHistoryService.queryHisDate());
+		List<String> lstStr = userLookHistoryService.queryHisDate();
+		model.addObject("dateStr",lstStr);
 		return model;
     }
 	

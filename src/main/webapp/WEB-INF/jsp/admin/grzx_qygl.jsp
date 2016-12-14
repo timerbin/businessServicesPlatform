@@ -8,6 +8,7 @@
     <link href="${BASE_URL}/images/gerenzx.css" rel="stylesheet" type="text/css"/>
     <jsp:include page="../public/baseData.jsp"/>
     <jsp:include page="../public/pager.jsp"/>
+
 </head>
 
 <body>

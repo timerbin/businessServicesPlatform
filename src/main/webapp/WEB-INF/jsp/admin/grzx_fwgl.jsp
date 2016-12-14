@@ -98,10 +98,10 @@
 				                      <c:if test="${fwVo.recommend == 0}">
 				                          <a id="butuijian" name="butuijian" data-id="${fwVo.id}" href="javascript:;"  class="hongzi_a" >不推荐</a>
 				                      </c:if>
-				                      <c:if test="${fwVo.recommend == 1}">
+				                     <%-- <c:if test="${fwVo.recommend == 1}">
 				                          <a id="tuijian" name="tuijian" href="javascript:;" data-id="${fwVo.id}" class="hongzi_a">推荐</a>
-				                      </c:if>
-				
+				                      </c:if>--%>
+
 				                      <a href="${BASE_URL}/user/toFindService.html?id=${fwVo.id}&flag=edit" class="lanzi_a">编辑</a>
 				                      <a href="${BASE_URL}/user/toDelService.html?id=${fwVo.id}" class="hongzi_a">删除</a>
 				                      <a href="${BASE_URL}/user/toFindService.html?id=${fwVo.id}&flag=detail" class="lanzi_a">详情</a>

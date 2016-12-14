@@ -54,7 +54,7 @@
 
 
 
-  <select id="queryHistoryDate" resultMap="BaseResultMap" >
+  <select id="queryHistoryDate" resultType="java.lang.String" >
     SELECT DISTINCT(now_date) FROM
     user_look_history
     where  status = 1
