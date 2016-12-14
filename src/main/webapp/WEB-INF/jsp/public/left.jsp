@@ -11,6 +11,7 @@
  $.ajax({
      url: baseUrl+"/initMenu.html",
      type : 'GET',
+     async:false,
      success: function (data) {
          if (data) {
         	 $.each(data,function(n,value) {
