@@ -32,7 +32,7 @@ public class UploadUtil {
 	 * @throws IOException
 	 */
 	public String saveToLocal(MultipartFile uploadFile,String path) throws IOException {
-		String resultPath = "images/upfile";
+		String resultPath = "v/business/images";
 		File filePathDir = new File(path);
 		if (!filePathDir.exists()) {
 			filePathDir.mkdirs();

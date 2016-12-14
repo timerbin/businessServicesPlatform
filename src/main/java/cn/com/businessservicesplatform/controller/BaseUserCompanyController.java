@@ -39,6 +39,9 @@ public class BaseUserCompanyController extends BaseController{
 
 	@Value("${com.upload.file.path}")
 	private String uploadFilePath;
+	
+	@Value("${com.img.url}")
+	private String imgUrl;
 
 
 	
@@ -296,7 +299,7 @@ public class BaseUserCompanyController extends BaseController{
 			String picPath = UploadUtil.getInstance().saveToLocal(pic,uploadFilePath);
 			if (!StringUtils.isBlank(picPath)) {
 				resultVo.setReturnCode(1);
-				resultVo.setPicPath(picPath);
+				resultVo.setPicPath(imgUrl+picPath);
 			}else{
 				resultVo.setMsg("上传图片信息失败");
 			}

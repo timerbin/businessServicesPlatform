@@ -310,7 +310,7 @@
     	if (data.returnCode == "1"){
     		var picUrl = data.picPath;
     		if(picUrl.length > 0){
-        		var imgHtml = "<img title='点击删除' onclick='delPic(this)' srcpath='"+data.picPath+"' src='"+baseUrl+"/"+data.picPath+"' class='up_pic_img' />";
+        		var imgHtml = "<img title='点击删除' onclick='delPic(this)' srcpath='"+data.picPath+"' src='"+data.picPath+"' class='up_pic_img' />";
         		$("#cimgs").append(imgHtml);
     		}else{
     			alert("上传失败,请稍后再试");

@@ -217,7 +217,7 @@ function picUploadCallback(data){
 		var picUrl = data.picPath;
 		if(picUrl.length > 0){
 			$("#userLogoImg").attr("data-src",data.picPath);
-			$("#userLogoImg").attr("src",baseUrl+"/"+data.picPath);
+			$("#userLogoImg").attr("src",data.picPath);
 		}else{
 			alert("上传失败,请稍后再试");
 		}

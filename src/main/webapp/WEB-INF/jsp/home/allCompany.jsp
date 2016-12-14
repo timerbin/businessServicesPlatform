@@ -35,7 +35,7 @@
 	                    <ul>
 	                    	<c:forEach items="${companyList}" var="company">
 	                    		<c:if test="${not empty company.id}">
-			                		<li><img src="${BASE_URL}/${company.logoPicPath}"  />
+			                		<li><img src="${company.logoPicPath}"  />
 			                            <h3>${company.companyName}</h3>
 			                            <p>${company.companyDirections}</p>
 			                        </li>
