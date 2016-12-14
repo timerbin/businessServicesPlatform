@@ -30,7 +30,7 @@ public interface UserCompanyServiceMapper {
 
     List<UserCompanyService> queryPage(@Param("basePage")BasePage basePage,@Param("vo")UserCompanyServiceVo vo);
 
-    List<UserCompanyService> queryAllPage(@Param("basePage")BasePage basePage,@Param("vo")UserCompanyServiceVo vo);
+    List<UserCompanyService> queryPageAll(@Param("basePage")BasePage basePage,@Param("vo")UserCompanyServiceVo vo);
 
 
     

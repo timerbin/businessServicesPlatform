@@ -227,8 +227,8 @@ public class BaseUserCompanyServiceImpl implements BaseUserCompanyService {
      * @return
      */
     @Override
-    public List<BaseUserCompanyVo> queryAllPage(BasePage basePage, BaseUserCompanyVo vo) {
-        List<BaseUserCompanyVo> list = baseUserCompanyMapper.queryAllPage(basePage, vo);
+    public List<BaseUserCompanyVo> queryPageAll(BasePage basePage, BaseUserCompanyVo vo) {
+        List<BaseUserCompanyVo> list = baseUserCompanyMapper.queryPageAll(basePage, vo);
         List<BaseUserCompanyVo> volist = new ArrayList<BaseUserCompanyVo>();
         if (null != list && list.size() > 0) {
             for (BaseUserCompanyVo baseUserCompanyVo : list) {

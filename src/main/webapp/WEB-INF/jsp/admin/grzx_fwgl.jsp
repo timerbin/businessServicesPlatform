@@ -13,9 +13,10 @@
 <form action="${BASE_URL}/user/toUpdateService.html" id="serManageForm" name="serManageForm">
 	<input id="recommend" name="recommend" type="hidden" />
 	<input id="status" name="status" type="hidden" />
-	<input id="page" name="page" type="hidden" value="${basePage.page}"/>
-	<input id="curPage" name="curPage"  value="${basePage.page}" type="hidden"/>
-	<input id="pageCount" name="pageCount" value="${basePage.count}" type="hidden"/>
+	 <input id="page" name="page" type="hidden" value="${basePage.page}"/>
+     <input id="curPage" name="curPage"  value="${basePage.page}" type="hidden"/>
+    	<input id="pageCount" name="pageCount" value="${basePage.pages}" type="hidden"/>
+            
 	<input id="id" name="id" type="hidden"/>
 	<input id="serviceType" name="serviceType" type="hidden"/>
 	
@@ -64,7 +65,6 @@
 				            <td width="143" align="center">创建时间</td>
 				            <td width="113" align="center">服务类型</td>
 				            <td width="73" align="center">状态</td>
-				            <td width="78" align="center">序号</td>
 				            <td width="111" align="center">是否推荐</td>
 				            <td width="228" align="center">操作</td>
 				          </tr>
@@ -76,7 +76,6 @@
 				                  <td align="center">${fwVo.createTimeStr}</td>
 				                  <td align="center">${fwVo.serviceTypeStr}</td>
 				                  <td align="center">${fwVo.statusStr}</td>
-				                  <td align="center">${fwVo.id}</td>
 				                  <td align="center">${fwVo.recommendStr}</td>
 				                  <td align="center">
 

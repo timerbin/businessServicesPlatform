@@ -79,11 +79,8 @@ public class BaseUserCompanyController extends BaseController{
 	@RequestMapping("/toAllCompany")
 	public ModelAndView toAllCompany(@RequestParam(required = false, value = "page", defaultValue = "1")Integer page, BaseUserCompanyVo baseUserCompanyVo) {
 		ModelAndView model = new ModelAndView ("/admin/grzx_qygl");
-		if(page == null){
-			page =1;
-		}
 		BasePage basePage = new BasePage(page,10);
-		List<BaseUserCompanyVo> companyVoLst =	baseUserCompanyService.queryAllPage(basePage,baseUserCompanyVo);
+		List<BaseUserCompanyVo> companyVoLst =	baseUserCompanyService.queryPageAll(basePage,baseUserCompanyVo);
 		model.addObject("comVoLst",companyVoLst);
 		model.addObject("basePage",basePage);
 		return model;

@@ -101,7 +101,7 @@ public class UserCompanyServiceController extends BaseController{
                 page =1;
             }
             BasePage basePage = new BasePage(page,10);
-			List<UserCompanyServiceVo> voList = userCompanyServiceService.queryAllPage(basePage,userCompanyServiceVo);
+			List<UserCompanyServiceVo> voList = userCompanyServiceService.queryPageAll(basePage,userCompanyServiceVo);
 
 			for (UserCompanyServiceVo vo:voList) {
 				for (BaseConfigData config:serTypeList) {

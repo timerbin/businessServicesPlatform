@@ -89,7 +89,7 @@
 
 
 
-  <select id="queryAllPage" resultMap="BaseResultMapVo" parameterType="cn.com.businessservicesplatform.model.vo.BaseUserCompanyVo" >
+  <select id="queryPageAll" resultMap="BaseResultMapVo" parameterType="cn.com.businessservicesplatform.model.vo.BaseUserCompanyVo" >
     select
     <include refid="Base_Column_List" />
     from base_user_company where 1 = 1

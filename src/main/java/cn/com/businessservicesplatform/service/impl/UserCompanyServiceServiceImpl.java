@@ -118,8 +118,8 @@ public class UserCompanyServiceServiceImpl implements UserCompanyServiceService{
 
 
 	@Override
-	public List<UserCompanyServiceVo> queryAllPage(BasePage basePage,UserCompanyServiceVo vo){
-		List<UserCompanyService> list = userCompanyServiceMapper.queryAllPage(basePage, vo);
+	public List<UserCompanyServiceVo> queryPageAll(BasePage basePage,UserCompanyServiceVo vo){
+		List<UserCompanyService> list = userCompanyServiceMapper.queryPageAll(basePage, vo);
 		List<UserCompanyServiceVo> voList = new ArrayList<UserCompanyServiceVo>();
 
 		if(null != list && list.size()>0){

@@ -20,9 +20,12 @@
         <form id="comManageForm" name="comManageForm" action="" method="post">
 
             <input id="status" name="status" type="hidden"/>
+             
             <input id="page" name="page" type="hidden" value="${basePage.page}"/>
-            <input id="curPage" name="curPage" value="${basePage.page}" type="hidden"/>
-            <input id="pageCount" name="pageCount" value="${basePage.count}" type="hidden"/>
+		    <input id="curPage" name="curPage"  value="${basePage.page}" type="hidden"/>
+		   	<input id="pageCount" name="pageCount" value="${basePage.pages}" type="hidden"/>
+            
+            
             <input id="id" name="id" type="hidden"/>
 
             <table border="0" cellspacing="10" cellpadding="0" class="gerenzx_table">
@@ -58,7 +61,7 @@
                 <tbody>
                 <c:forEach var="com" items="${comVoLst}">
                     <tr>
-                        <td height="40">${com.companyName}</td>
+                        <td height="40" align="center">${com.companyName}</td>
                         <td align="center">${com.companyAddress}</td>
                         <td align="center">${com.companyContactUser}</td>
                         <td align="center">${com.companyContactTel}</td>
@@ -100,7 +103,7 @@
 
     function change_page(cur_page) {
         jQuery("#page").val(cur_page);
-        jQuery("#serManageForm").submit();
+        jQuery("#comManageForm").submit();
     }
 
     $("#xiaxian").click(function () {
