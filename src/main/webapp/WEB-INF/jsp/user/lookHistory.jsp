@@ -53,7 +53,7 @@
                     <div class="llls_time">${hisVo.nowDate}</div>
                     <div>
                         <dl class="llls_list">
-                            <dt><img src="${BASE_URL}/${hisVo.baseUserCompanyVo.logoPicPath}"/></dt>
+                            <dt><img src="${hisVo.baseUserCompanyVo.logoPicPath}"/></dt>
                             <dd>
                                 <h3>${hisVo.userCompanyServiceVo.serviceName}</h3>
                                 <p>${hisVo.userCompanyServiceVo.serviceDirections}</p>
@@ -80,9 +80,9 @@
                     <div class="llls_time">${hisVo.nowDate}</div>
                     <div>
                         <dl class="llls_list">
-                            <dt><img src="${BASE_URL}/${hisVo.baseUserCompanyVo.logoPicPath}"/></dt>
+                            <dt><img src="${hisVo.baseUserCompanyVo.logoPicPath}"/></dt>
                             <dd>
-                                <h3>${BASE_URL}/${hisVo.baseUserCompanyVo.logoPicPath}</h3>
+                                <h3>${hisVo.baseUserCompanyVo.logoPicPath}</h3>
                                 <p>${hisVo.baseUserCompanyVo.companyDirections}</p>
                                 <%--<span><img src="images/shanchu.png"/></span>--%>
                             </dd>
@@ -111,7 +111,7 @@
 
                         <c:if test="${hisVo.type == 1}">
                             <dl class="llls_list">
-                                <dt><img src="${BASE_URL}/${hisVo.baseUserCompanyVo.logoPicPath}"/></dt>
+                                <dt><img src="${hisVo.baseUserCompanyVo.logoPicPath}"/></dt>
                                 <dd>
                                     <h3>${hisVo.userCompanyServiceVo.serviceName}</h3>
                                     <p>${hisVo.userCompanyServiceVo.serviceDirections}</p>
@@ -124,7 +124,7 @@
                             <dl class="llls_list">
                                 <dt><img src="${BASE_URL}/${hisVo.baseUserCompanyVo.logoPicPath}"/></dt>
                                 <dd>
-                                    <h3>${BASE_URL}/${hisVo.baseUserCompanyVo.logoPicPath}</h3>
+                                    <h3>${hisVo.baseUserCompanyVo.logoPicPath}</h3>
                                     <p>${hisVo.baseUserCompanyVo.companyDirections}</p>
                                 </dd>
                             </dl>

@@ -38,7 +38,7 @@
 			</c:if>
         </div>
         <div class="wdsc_list">
-            <div class="wdsc_left"><img src="${BASE_URL}/${collect.baseUserCompanyVo.logoPicPath}" /></div>
+            <div class="wdsc_left"><img src="${collect.baseUserCompanyVo.logoPicPath}" /></div>
             <div class="wdsc_center">
                 <h3>${collect.userCompanyServiceVo.serviceName}</h3>
                 <p>${collect.userCompanyServiceVo.serviceDirections}</p>
@@ -66,7 +66,7 @@
 	            <ul>
 	            	<c:forEach items="${collectList}" var="collect">
 		        	  	<li>
-		                    <span class="wdsc_qiye"><img src="${BASE_URL}/${collect.baseUserCompanyVo.logoPicPath}" /></span>
+		                    <span class="wdsc_qiye"><img src="${collect.baseUserCompanyVo.logoPicPath}" /></span>
 		                    <h3>${collect.baseUserCompanyVo.companyName}</h3>
 		                    <span class="qysc_pp">${collect.baseUserCompanyVo.companyDirections}</span>
 		                    <span class="wdsdc_qy_xing"><img class="companyBtn" dataId="${collect.userCompanyServiceVo.id}" src="${BASE_URL}/images/shoucang.png" /></span>
