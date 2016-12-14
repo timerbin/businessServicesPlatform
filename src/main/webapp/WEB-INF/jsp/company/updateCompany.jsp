@@ -258,7 +258,7 @@
     }
     initUploadPicFrame();
     function initUploadPicFrame(){
-    	var frameSrc = "/user/getUploadPicForm.html";
+    	var frameSrc = baseUrl+"/user/getUploadPicForm.html";
     	var frameParam = new Object();
     	frameParam.formId= "upload";
     	frameParam.inputId= "pic";
