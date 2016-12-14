@@ -148,24 +148,24 @@
     select 
     <include refid="Base_Column_List" />
     from user_look_history
-    where  status = 1 
+    where  status = 1
     <if test="vo.id != null" >
-        and id = #{vo.id,jdbcType=INTEGER},
+        and id = #{vo.id,jdbcType=INTEGER}
     </if>
     <if test="vo.userId != null" >
-        and user_id = #{vo.userId,jdbcType=INTEGER},
+        and user_id = #{vo.userId,jdbcType=INTEGER}
     </if>
     <if test="vo.serviceId != null" >
-        and service_id = #{vo.serviceId,jdbcType=INTEGER},
+        and service_id = #{vo.serviceId,jdbcType=INTEGER}
     </if>
     <if test="vo.companyId != null" >
-        and company_id = #{vo.companyId,jdbcType=INTEGER},
+        and company_id = #{vo.companyId,jdbcType=INTEGER}
     </if>
     <if test="vo.type != null" >
-        and type = #{vo.type,jdbcType=INTEGER},
+        and type = #{vo.type,jdbcType=INTEGER}
     </if>
     <if test="vo.nowDate != null" >
-        and now_date = #{vo.nowDate,jdbcType=VARCHAR},
+        and now_date = #{vo.nowDate,jdbcType=VARCHAR}
     </if>
     
   </select>

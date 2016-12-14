@@ -51,7 +51,8 @@ public class UserCompanyServiceServiceImpl implements UserCompanyServiceService{
     	UserCompanyServiceVo queryVo = new UserCompanyServiceVo();
     	queryVo.setServiceType(vo.getServiceType());
     	queryVo.setServiceName(vo.getServiceName());
-    	UserCompanyServiceVo resulstVo = userCompanyServiceMapper.getUserCompanyService(queryVo);
+    	UserCompanyService resulst = userCompanyServiceMapper.getUserCompanyService(queryVo);
+		UserCompanyServiceVo resulstVo = new UserCompanyServiceVo(resulst);
     	if(null == resulstVo || resulstVo.getId() == null){
     		vo.setStatus(1);
         	vo.setCreateTime(new Date());
@@ -67,7 +68,10 @@ public class UserCompanyServiceServiceImpl implements UserCompanyServiceService{
 
     @Override
     public UserCompanyServiceVo fetchCompanyService(UserCompanyServiceVo vo) {
-        return userCompanyServiceMapper.getUserCompanyService(vo);
+
+		UserCompanyService userCompanyService = userCompanyServiceMapper.getUserCompanyService(vo);
+		UserCompanyServiceVo userCompanyServiceVo = new UserCompanyServiceVo(userCompanyService);
+        return userCompanyServiceVo;
     }
 
 	@Override

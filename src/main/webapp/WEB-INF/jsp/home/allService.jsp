@@ -40,7 +40,7 @@
 	                <c:if test="${not empty service.id}">
 	               		<div class="tjfw_tuwen">
 		           	    	<div class="tjfw_tu">
-								<img id="imgSeriveShow" data-id="${service.id}" date-comid="${service.companyId}" data-type="${service.serviceType}" src="${BASE_URL}/${service.picUrl}"/>
+								<img id="imgSeriveShow" data-id="${service.id}" date-cid="${service.companyId}" data-type="${service.serviceType}" src="${BASE_URL}/${service.picUrl}"/>
 							</div>
 		                    <span class="scfuwu">
 		                    	<c:if test="${service.recommend==1}">
@@ -66,7 +66,7 @@
 			                        <li><img src="${BASE_URL}/${service.picUrl}" width="180" height="100" />
 			                            <h3>${likeService.serviceName}</h3>
 			                            <p>${likeService.serviceDirections}</p>
-			                            <span><a id="showService" name="showService" href="#" data-id="${likeService.id}">查看</a></span>
+			                            <span><a id="showLikeService" name="showLikeService" href="#" data-sid="${likeService.id}" date-lid="${likeService.companyId}" data-stype="${likeService.serviceType}">查看</a></span>
 		                        	</li>
 	                        	</c:if>
 							</c:forEach>
@@ -103,10 +103,23 @@ $("#imgSeriveShow").click(function(){
 	$("#allService").attr("action",baseUrl+"/home/serviceShow.html");
 	/*$("#id").val("Enabled");*/
 	/*$(this).val($("#Enabled").attr("data-id"));*/
-//	alert($(this).attr("data-id"));
+	alert($(this).attr("data-cid"));
 	$("#id").val($(this).attr("data-id"));
-	$("#companyId").val($(this).attr("data-comid"));
+	$("#companyId").val($(this).attr("data-cid"));
 	$("#serviceType").val($(this).attr("data-type"));
+	jQuery("#allService").submit();
+});
+
+
+
+$("#showLikeService").click(function(){
+	$("#allService").attr("action",baseUrl+"/home/serviceShow.html");
+	/*$("#id").val("Enabled");*/
+	/*$(this).val($("#Enabled").attr("data-id"));*/
+	alert($(this).attr("data-sid"));
+	$("#id").val($(this).attr("data-sid"));
+	$("#companyId").val($(this).attr("data-lid"));
+	$("#serviceType").val($(this).attr("data-stype"));
 	jQuery("#allService").submit();
 });
 

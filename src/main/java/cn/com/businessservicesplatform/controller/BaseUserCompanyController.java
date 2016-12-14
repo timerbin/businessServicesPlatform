@@ -97,7 +97,7 @@ public class BaseUserCompanyController extends BaseController{
 	@RequestMapping("/saveCompany")
     public ModelAndView saveCompany(HttpServletRequest request,BaseUserCompanyVo baseUserCompanyVo) {
     	ModelAndView model = new ModelAndView ( "/company/editCompany");
-		model.addObject("errorMsg","企业信息已经录入");
+
     	try {
     		BaseUserVo baseUserVo = this.getUser(request);
         	model.addObject("user", baseUserVo);
@@ -126,8 +126,9 @@ public class BaseUserCompanyController extends BaseController{
 				log.error("BaseUserCompanyController.saveCompany.save.error:");
 				return model;
 			}else{
-				model = new ModelAndView ( "redirect:/user/toCompany.html");
-	    		return model;
+				model.addObject("errorMsg","企业信息已经录入");
+//				model = new ModelAndView ( "redirect:/user/toCompany.html");
+//	    		return model;
 			}
 		} catch (Exception e) {
 			model.addObject("errorMsg","系统繁忙,请稍后再试");

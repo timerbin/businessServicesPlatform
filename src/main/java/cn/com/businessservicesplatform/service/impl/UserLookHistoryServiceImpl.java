@@ -40,32 +40,40 @@ public class UserLookHistoryServiceImpl implements UserLookHistoryService{
 
 	@Override
 	public int insert(UserLookHistoryVo userLookHistoryVo) {
-		int result = 0;
-//		if(null != userLookHistoryVo && null != userLookHistoryVo.getUserId()){
-		if(null != userLookHistoryVo){
-			/**当前时间**/
-			String nowDate = DateUtils.getString(new Date(),DateUtils.DEF_DATE_NO_TIME_FORMAT);
-			userLookHistoryVo.setNowDate(nowDate);
 
-			UserLookHistory lookHistory = userLookHistoryMapper.getByVo(userLookHistoryVo);
-			if(null == lookHistory || lookHistory.getId() == null){
-				lookHistory = new UserLookHistory(userLookHistoryVo);
-				lookHistory.setStatus(1);
-				lookHistory.setNowDate(nowDate);
-				lookHistory.setCreateTime(new Date());
-				lookHistory.setModifyTime(new Date());
-				result = userLookHistoryMapper.insert(lookHistory);
-			}else{
-				if(null != lookHistory.getLookCount()){
-					lookHistory.setLookCount(lookHistory.getLookCount().intValue()+1);
+		try {
+			int result = 0;
+			if(null != userLookHistoryVo && null != userLookHistoryVo.getUserId()){
+				/**当前时间**/
+				String nowDate = DateUtils.getString(new Date(),DateUtils.DEF_DATE_NO_TIME_FORMAT);
+				userLookHistoryVo.setNowDate(nowDate);
+
+				UserLookHistory lookHistory = userLookHistoryMapper.getByVo(userLookHistoryVo);
+				if(null == lookHistory || lookHistory.getId() == null){
+					lookHistory = new UserLookHistory(userLookHistoryVo);
+					lookHistory.setStatus(1);
+					lookHistory.setNowDate(nowDate);
+					lookHistory.setCreateTime(new Date());
+					lookHistory.setModifyTime(new Date());
+					result = userLookHistoryMapper.insert(lookHistory);
 				}else{
-					lookHistory.setLookCount(1);
+					if(null != lookHistory.getLookCount()){
+						lookHistory.setLookCount(lookHistory.getLookCount().intValue()+1);
+					}else{
+						lookHistory.setLookCount(1);
+					}
+					lookHistory.setModifyTime(new Date());
+					result = userLookHistoryMapper.updateByPrimaryKey(lookHistory);
 				}
-				lookHistory.setModifyTime(new Date());
-				result = userLookHistoryMapper.updateByPrimaryKey(lookHistory);
 			}
+			return result;
+		}catch (Exception e){
+
+			e.printStackTrace();
 		}
-		return result;
+
+		return 0;
+
 	}
 
 	/**
