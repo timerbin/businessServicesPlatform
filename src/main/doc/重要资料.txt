@@ -52,3 +52,10 @@ http://pan.baidu.com/s/1cf4Boi?qq-pf-to=pcqq.c2c#list/path=%2F
 18、注册的时候发现了，用户名输入3位，其他信息都填写完整，提交的时候提示用户名必须要6位，这时候密码已经加密了。这是不正确的
 
 
+114.215.31.235
+端口33
+root/1a!Tx2016+
+
+
+
+home/apache-tomcat-2016
