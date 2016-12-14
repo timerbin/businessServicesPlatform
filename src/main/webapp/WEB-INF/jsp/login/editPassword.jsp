@@ -34,8 +34,7 @@
         <li class="margin_top20"><input id="updatePwdBtn" name="updatePwdBtn" type="button" value="修改" class="login_button" /></li>
     </ul>
 </div>
-
-<jsp:include page="../public/footer.jsp" />
+<jsp:include page="../public/footer.jsp" ></jsp:include>   
 <script type="text/javascript">
 var baseUrl = $("#baseUrl").val();
     $("#updatePwdBtn").click(function(){

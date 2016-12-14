@@ -14,7 +14,11 @@
      success: function (data) {
          if (data) {
         	 $.each(data,function(n,value) {
-        		  var menuLi = "<li id='navMenu"+value.id+"'><span class='left_biao'><img src='"+baseUrl+"/images/nav_0"+(n+1)+".png' /></span><a href='"+baseUrl+"/home/allService.html?serviceType="+value.id+"'  style='color:white' >"+value.showName+"</a></li>";
+        		 var picName = "0"+(n+1);
+        		 if(n+1>=10){
+        			 picName = (n+1);
+        		 }
+        		  var menuLi = "<li id='navMenu"+value.id+"'><span class='left_biao'><img src='"+baseUrl+"/images/nav_"+picName+".png' /></span><a href='"+baseUrl+"/home/allService.html?serviceType="+value.id+"'  style='color:white' >"+value.showName+"</a></li>";
                   $("#initMenu").append(menuLi);
              });
          }

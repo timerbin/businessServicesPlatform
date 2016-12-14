@@ -132,7 +132,6 @@
         </div>
     </td></tr>
 </table>
-<jsp:include page="../public/footer.jsp" ></jsp:include>
 <script type="text/javascript">
 	var baseUrl = $("#baseUrl").val();
 	

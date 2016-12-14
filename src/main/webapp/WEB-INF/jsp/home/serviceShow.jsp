@@ -189,10 +189,8 @@
 	            <div class="clear"></div>
 	        </div>
 	     </form>
-        <div class="footer">Copyright 2011-2016</div>
     </td></tr>
 </table>
-         
 <script type="text/javascript">
 $("#navMenu0").addClass("left_border");
 var baseUrl = $("#baseUrl").val();

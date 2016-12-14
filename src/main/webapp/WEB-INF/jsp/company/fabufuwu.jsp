@@ -88,7 +88,6 @@
     </td></tr>
 </table>
  </form>
-<jsp:include page="../public/footer.jsp" ></jsp:include>
 <script type="application/javascript">
 var baseUrl = $("#baseUrl").val();
 
