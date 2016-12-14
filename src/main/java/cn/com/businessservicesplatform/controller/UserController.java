@@ -258,12 +258,14 @@ public class UserController extends BaseController{
 				return model;
 			}
 			
+			baseUserService.updateUserStatus(baseUserVo);
+			
 			BasePage basePage = new BasePage(page,10);
 			List<BaseUser> userList = baseUserService.queryPage(basePage, baseUserVo);
 			model.addObject("userList", userList);
 			model.addObject("basePage", basePage);
 			model.addObject("vo", baseUserVo);
-			baseUserService.updateUserStatus(baseUserVo);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			log.error("UserController.userManagement.is.system.error",e);
