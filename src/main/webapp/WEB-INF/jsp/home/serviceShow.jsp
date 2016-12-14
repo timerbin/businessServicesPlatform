@@ -61,6 +61,11 @@
 			<input id="commentDirections" name="commentDirections"    type="hidden"  />
 			<input id="callbackUrl" name="callbackUrl" type="hidden" value="${BASE_URL}/home/serviceShow.html?id=${queryVo.id}" />
 			<input id="commentType" name="commentType"    type="hidden"  />
+
+
+			<input id="id" name="id" type="hidden"/>
+			<input id="companyId" name="companyId" type="hidden"/>
+			<input id="serviceType" name="serviceType" type="hidden"/>
 	
 	        <div class="right_main">
 	            <div class="fuwu_left_con">
@@ -179,7 +184,7 @@
 			                        <li><img src="${BASE_URL}/${service.picUrl}" width="180" height="100" />
 			                            <h3>${likeService.serviceName}</h3>
 			                            <p>${likeService.serviceDirections}</p>
-			                            <span><a href="#">查看</a></span>
+			                            <span><a id="showLikeService" name="showLikeService" href="#" data-aId="${likeService.id}" data-aComId="${likeService.companyId}" data-aSerType="${likeService.serviceType}">查看</a></span>
 		                        	</li>
 	                        	</c:if>
 							</c:forEach>
@@ -232,6 +237,15 @@ function check(){
 	$("#commentType").val(commentTypeBtn);
 	return true
 }
+
+
+$("#showLikeService").click(function(){
+	$("#saveComment").attr("action",baseUrl+"/home/serviceShow.html");
+	$("#id").val($(this).attr("data-aId"));
+	$("#companyId").val($(this).attr("data-aComId"));
+	$("#serviceType").val($(this).attr("data-aSerType"));
+	jQuery("#saveComment").submit();
+});
 </script>
 </body>
 </html>

@@ -172,6 +172,7 @@ public class UserCompanyServiceController extends BaseController{
 	    		return model;
 			}
 		}catch (Exception e){
+			e.printStackTrace();
 			model.addObject("errorMsg","系统繁忙,请稍后再试");
 			log.error("BaseUserCompanyController.saveCompany.system.error:", e);
 		}

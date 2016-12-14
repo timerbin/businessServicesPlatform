@@ -21,7 +21,11 @@
 		<jsp:include page="../public/search.jsp" ></jsp:include>
 		
     	<form id="allCompany" action="${BASE_URL}/home/allService.html" method="post">
-	
+
+			<input id="id" name="id" type="hidden"/>
+			<input id="companyId" name="companyId" type="hidden"/>
+			<input id="serviceType" name="serviceType" type="hidden"/>
+
 	        <div class="right_main">
 	            <div class="youzhiqy_box">
 	                <div class="right2_h2"><span class="more"><a href="#" target="_blank">查看更多>></a></span><h2>优质企业</h2></div>
@@ -62,7 +66,7 @@
 		                        <li class="float_left"><img src="${BASE_URL}/${service.picUrl}" width="180" height="100" />
 		                            <h3>${likeService.serviceName}</h3>
 		                            <p>${likeService.serviceDirections}</p>
-		                            <span><a href="#">查看</a></span>
+		                            <span><a id="showLikeService" name="showLikeService" href="#" data-aId="${likeService.id}" data-aComId="${likeService.companyId}" data-aSerType="${likeService.serviceType}">查看</a></span>
 	                        	</li>
 	                        	</c:if>
 							</c:forEach>
@@ -80,6 +84,13 @@
 <script type="text/javascript">
 $("#navMenu0").addClass("left_border");
 
+$("#allCompany").click(function(){
+	$("#saveComment").attr("action",baseUrl+"/home/serviceShow.html");
+	$("#id").val($(this).attr("data-aId"));
+	$("#companyId").val($(this).attr("data-aComId"));
+	$("#serviceType").val($(this).attr("data-aSerType"));
+	jQuery("#allCompany").submit();
+});
 </script>
 
 
