@@ -23,7 +23,7 @@ public interface UserCompanyServiceMapper {
 
     int updateByPrimaryKey(UserCompanyService record);
 
-    UserCompanyServiceVo getUserCompanyService(UserCompanyService record);
+    UserCompanyService getUserCompanyService(UserCompanyService record);
 
 
     List<UserCompanyService> getAllUserCompanyServices(UserCompanyServiceVo record);

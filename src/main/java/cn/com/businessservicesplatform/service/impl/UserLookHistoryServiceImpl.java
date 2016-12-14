@@ -41,8 +41,8 @@ public class UserLookHistoryServiceImpl implements UserLookHistoryService{
 	@Override
 	public int insert(UserLookHistoryVo userLookHistoryVo) {
 		int result = 0;
-//		if(null != userLookHistoryVo && null != userLookHistoryVo.getUserId()){
-		if(null != userLookHistoryVo){
+		if(null != userLookHistoryVo && null != userLookHistoryVo.getUserId()){
+//		if(null != userLookHistoryVo){
 			/**当前时间**/
 			String nowDate = DateUtils.getString(new Date(),DateUtils.DEF_DATE_NO_TIME_FORMAT);
 			userLookHistoryVo.setNowDate(nowDate);
