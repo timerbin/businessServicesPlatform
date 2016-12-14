@@ -73,11 +73,10 @@
 	        
 	        </div>
         </form>
-        <div class="footer">Copyright 2011-2016</div>
     </td></tr>
 </table>
         
-        
+<jsp:include page="../public/footer.jsp" ></jsp:include>   
 <script type="text/javascript">
 $("#navMenu0").addClass("left_border");
 

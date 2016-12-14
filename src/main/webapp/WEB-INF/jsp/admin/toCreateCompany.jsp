@@ -199,7 +199,6 @@
             </table>
         </form>
     </div>
-    <%--<jsp:include page="../public/footer.jsp" ></jsp:include>--%>
 </div>
 
 </body>

@@ -168,7 +168,6 @@
             </div>
             <div class="clear"></div>
         </div>
-        <jsp:include page="../public/footer.jsp" ></jsp:include>
     </td></tr>
 </table>
 
