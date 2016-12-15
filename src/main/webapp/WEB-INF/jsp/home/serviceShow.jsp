@@ -71,7 +71,7 @@
 	            <div class="fuwu_left_con">
 	                <div class="right3_h2"><span class="more"><a href="#" target="_blank">查看更多>></a></span><h2>推荐服务</h2></div>
 	                <div class="tjfw_tuwen">
-	           	    	<span class="tjfw_tu"><img src="${BASE_URL}/${vo.picUrl}" /></span>
+	           	    	<span class="tjfw_tu"><img src="${vo.picUrl}" /></span>
 	                    <span class="scfuwu"><a data-id="${vo.id}" href="javascript:;">[收藏服务]</a></span>
 	                    <h3>${vo.serviceName}</h3> 
 	                    <span class="fuwu_time">${vo.createTimeStr}</span>
@@ -181,7 +181,7 @@
 	                    <ul>
 	                        <c:forEach items="${likeServiceList}" var="likeService">
 	                    		<c:if test="${not empty likeService.id}">
-			                        <li><img src="${BASE_URL}/${service.picUrl}" width="180" height="100" />
+			                        <li><img src="${service.picUrl}" width="180" height="100" />
 			                            <h3>${likeService.serviceName}</h3>
 			                            <p>${likeService.serviceDirections}</p>
 			                            <span><a id="showLikeService" name="showLikeService" href="#" data-aId="${likeService.id}" data-aComId="${likeService.companyId}" data-aSerType="${likeService.serviceType}">查看</a></span>

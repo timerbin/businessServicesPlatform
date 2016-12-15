@@ -42,7 +42,7 @@ display:none
 	            	 <img src="${BASE_URL}/images/touxiang_03.jpg" width="38" height="38" />
 				</c:if>
 				<c:if test="${not empty vo.userLogo}">
-					 <img src="${BASE_URL}/${vo.userLogo}" width="38" height="38" />
+					 <img src="${vo.userLogo}" width="38" height="38" />
 				</c:if>
             </td>
             <td width="120" class="td_dis" align="right">头像：</td>
@@ -51,7 +51,7 @@ display:none
 		            	 <img id="userLogoImg"  src="${BASE_URL}/images/touxiang_03.jpg" data-src="images/touxiang_03.jpg" width="38" height="38" />
 					</c:if>
 					<c:if test="${not empty vo.userLogo}">
-						 <img id="userLogoImg" src="${BASE_URL}/${vo.userLogo}" data-src="${vo.userLogo}"  width="38" height="38"  />
+						 <img id="userLogoImg" src="${vo.userLogo}" data-src="${vo.userLogo}"  width="38" height="38"  />
 					</c:if>
                 	<input  onclick="doSelectPic()"  type="button" value="上传图片" class="form_shangchuan" />
                 	<iframe id="uploadPicFrame" src="" style="display:none;"></iframe>

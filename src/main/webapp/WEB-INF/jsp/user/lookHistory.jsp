@@ -110,35 +110,6 @@
 
 
             <c:if test="${vo.findType == 0 or vo.findType == null}">
-               <%-- <c:forEach items="${ulhLst}" var="hisVo" >
-                    <div class="llls_time">${hisVo.nowDate}</div>
-                    <div>
-
-                        <c:if test="${hisVo.type == 1}">
-                            <dl class="llls_list">
-                                <dt><img src="${hisVo.baseUserCompanyVo.logoPicPath}"/></dt>
-                                <dd>
-                                    <h3>${hisVo.userCompanyServiceVo.serviceName}</h3>
-                                    <p>${hisVo.userCompanyServiceVo.serviceDirections}</p>
-                                    <span><img src="images/shanchu.png"/></span>
-                                </dd>
-                            </dl>
-                        </c:if>
-
-                        <c:if test="${hisVo.type == 2}">
-                            <dl class="llls_list">
-                                <dt><img src="${BASE_URL}/${hisVo.baseUserCompanyVo.logoPicPath}"/></dt>
-                                <dd>
-                                    <h3>${hisVo.baseUserCompanyVo.logoPicPath}</h3>
-                                    <p>${hisVo.baseUserCompanyVo.companyDirections}</p>
-                                </dd>
-                            </dl>
-                        </c:if>
-                        <div class="clear"></div>
-                    </div>
-
-                </c:forEach>--%>
-
                 <c:forEach items="${dateStr}" var="dtStr">
                     <div class="llls_time">${dtStr}</div>
                     <c:forEach items="${ulhLst}" var="hisVo" >
@@ -157,7 +128,7 @@
 
                                 <c:if test="${hisVo.type == 2}">
                                     <dl class="llls_list">
-                                        <dt><img src="${BASE_URL}/${hisVo.baseUserCompanyVo.logoPicPath}"/></dt>
+                                        <dt><img src="${hisVo.baseUserCompanyVo.logoPicPath}"/></dt>
                                         <dd>
                                             <h3>${hisVo.baseUserCompanyVo.logoPicPath}</h3>
                                             <p>${hisVo.baseUserCompanyVo.companyDirections}</p>

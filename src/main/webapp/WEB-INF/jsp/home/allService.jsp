@@ -40,7 +40,7 @@
 	                <c:if test="${not empty service.id}">
 	               		<div class="tjfw_tuwen">
 		           	    	<div class="tjfw_tu">
-								<img id="imgSeriveShow" data-imgId="${service.id}" data-imgComId="${service.companyId}" data-imgType="${service.serviceType}" src="${BASE_URL}/${service.picUrl}"/>
+								<img id="imgSeriveShow" data-imgId="${service.id}" data-imgComId="${service.companyId}" data-imgType="${service.serviceType}" src="${service.picUrl}"/>
 							</div>
 		                    <span class="scfuwu">
 		                    	<c:if test="${service.recommend==1}">
@@ -63,7 +63,7 @@
 	                    <ul>
 	                    	<c:forEach items="${likeServiceList}" var="likeService">
 	                    		<c:if test="${not empty likeService.id}">
-			                        <li><img src="${BASE_URL}/${service.picUrl}" width="180" height="100" />
+			                        <li><img src="${service.picUrl}" width="180" height="100" />
 			                            <h3>${likeService.serviceName}</h3>
 			                            <p>${likeService.serviceDirections}</p>
 			                            <span><a id="showLikeService" name="showLikeService" href="#" data-aId="${likeService.id}" data-aComId="${likeService.companyId}" data-aSerType="${likeService.serviceType}">查看</a></span>

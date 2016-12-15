@@ -50,7 +50,7 @@
         <c:if test="${vo.type==1}">
 	        <c:forEach items="${collectList}" var="collect">
 	        	<div class="wdsc_list">
-		            <div class="wdsc_left"><img src="${BASE_URL}/${collect.baseUserCompanyVo.logoPicPath}" /></div>
+		            <div class="wdsc_left"><img src="${collect.baseUserCompanyVo.logoPicPath}" /></div>
 		            <div class="wdsc_center">
 		                <h3>${collect.userCompanyServiceVo.serviceName}</h3>
 		                <p>${collect.userCompanyServiceVo.serviceDirections}</p>

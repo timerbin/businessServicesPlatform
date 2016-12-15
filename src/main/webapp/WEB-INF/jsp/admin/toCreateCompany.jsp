@@ -234,11 +234,11 @@
         if(picUrls.indexOf("|") > 0){
             var picUrl = picUrls.split('|');
             for(var i=0;i<picUrl.length;i++){
-                var imgHtml = "<img title='点击删除' onclick='delPic(this)' srcpath='"+picUrl[i]+"' src='"+baseUrl+"/"+picUrl[i]+"' class='up_pic_img' />";
+                var imgHtml = "<img title='点击删除' onclick='delPic(this)' srcpath='"+picUrl[i]+"' src='"+picUrl[i]+"' class='up_pic_img' />";
                 $("#cimgs").append(imgHtml);
             }
         }else{
-            var imgHtml = "<img title='点击删除' onclick='delPic(this)' srcpath='"+picUrls+"' src='"+baseUrl+"/"+picUrls+"' class='up_pic_img' />";
+            var imgHtml = "<img title='点击删除' onclick='delPic(this)' srcpath='"+picUrls+"' src='"+picUrls+"' class='up_pic_img' />";
             $("#cimgs").append(imgHtml);
         }
     }

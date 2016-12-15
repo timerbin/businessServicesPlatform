@@ -114,7 +114,7 @@ var baseUrl = $("#baseUrl").val();
 var picUrl = $("#picUrl").val();
 if($.trim(picUrl).length > 0){
 	$("#cimgs").html("");
-	var imgHtml = "<img title='点击删除' onclick='delPic(this)' srcpath='"+picUrl+"' src='"+baseUrl+"/"+picUrl+"' class='up_pic_img' />";
+	var imgHtml = "<img title='点击删除' onclick='delPic(this)' srcpath='"+picUrl+"' src='"+picUrl+"' class='up_pic_img' />";
 	$("#cimgs").append(imgHtml);
 }
 
