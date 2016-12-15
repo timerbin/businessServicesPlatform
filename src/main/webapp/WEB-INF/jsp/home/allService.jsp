@@ -63,7 +63,7 @@
 	                    <ul>
 	                    	<c:forEach items="${likeServiceList}" var="likeService">
 	                    		<c:if test="${not empty likeService.id}">
-			                        <li><img src="${service.picUrl}" width="180" height="100" />
+			                        <li><img src="${likeService.picUrl}" width="180" height="100" />
 			                            <h3>${likeService.serviceName}</h3>
 			                            <p>${likeService.serviceDirections}</p>
 			                            <span><a id="showLikeService" name="showLikeService" href="#" data-aId="${likeService.id}" data-aComId="${likeService.companyId}" data-aSerType="${likeService.serviceType}">查看</a></span>
