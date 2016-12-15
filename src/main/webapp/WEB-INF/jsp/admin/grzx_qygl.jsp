@@ -19,22 +19,17 @@
     <div class="gerenzx_right">
         <div class="grzx_h2"><h2>企业管理</h2></div>
         <form id="comManageForm" name="comManageForm" action="" method="post">
-
             <input id="status" name="status" type="hidden"/>
-             
             <input id="page" name="page" type="hidden" value="${basePage.page}"/>
 		    <input id="curPage" name="curPage"  value="${basePage.page}" type="hidden"/>
 		   	<input id="pageCount" name="pageCount" value="${basePage.pages}" type="hidden"/>
-            
-            
             <input id="id" name="id" type="hidden"/>
 
             <table border="0" cellspacing="10" cellpadding="0" class="gerenzx_table">
 
                 <c:if test="${not empty msg}">
                     <tr>
-                        <td width="121" align="right"><span style="color:red;">${msg}</span></td>
-                        <td colspan="6">&nbsp;</td>
+                        <td width="121"  colspan="7" align="left"><span style="color:red;">${msg}</span></td>
                     </tr>
                 </c:if>
 

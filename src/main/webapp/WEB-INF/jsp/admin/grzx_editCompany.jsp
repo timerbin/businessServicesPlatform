@@ -27,6 +27,8 @@
             <input id="curPage" name="curPage" value="${basePage.page}" type="hidden"/>
             <input id="pageCount" name="pageCount" value="${basePage.count}" type="hidden"/>
             <input id="id" name="id" type="hidden" value="${vo.id}"/>
+            <input id="picListStr" name="picListStr" type="hidden" value="${vo.picListStr}"/>
+			<input id="userId" name="userId" type="hidden" value="${vo.userId}"/>
 
 
             <table width="900" border="0" cellspacing="20" cellpadding="0">
@@ -97,7 +99,7 @@
                                 <option value="${property.id}" selected="selected">${property.showName}</option>
                             </c:if>
                             <c:if test="${property.id!=vo.companyType}">
-                                <option value="${management.id}">${property.showName}</option>
+                                <option value="${property.id}">${property.showName}</option>
                             </c:if>
                         </c:forEach>
                     </select>
@@ -142,8 +144,6 @@
         </form>
     </div>
 </div>
-</body>
-</html>
 
 <script type="text/javascript">
     var baseUrl = $("#baseUrl").val();
@@ -161,11 +161,11 @@
         if(picUrls.indexOf("|") > 0){
             var picUrl = picUrls.split('|');
             for(var i=0;i<picUrl.length;i++){
-                var imgHtml = "<img title='点击删除' onclick='delPic(this)' srcpath='"+picUrl[i]+"' src='"+picUrl[i]+"' class='up_pic_img' />";
+                var imgHtml = "<img title='点击删除' onclick='delPic(this)' style='width:120px;height:120px;' srcpath='"+picUrl[i]+"' src='"+picUrl[i]+"' class='up_pic_img' />";
                 $("#cimgs").append(imgHtml);
             }
         }else{
-            var imgHtml = "<img title='点击删除' onclick='delPic(this)' srcpath='"+picUrls+"' src='"+picUrls+"' class='up_pic_img' />";
+            var imgHtml = "<img title='点击删除' onclick='delPic(this)' style='width:120px;height:120px;' srcpath='"+picUrls+"' src='"+picUrls+"' class='up_pic_img' />";
             $("#cimgs").append(imgHtml);
         }
     }
@@ -182,7 +182,6 @@
 
 
     $("#returnBtn").click(function(){
-
         $("#comEditForm").attr("action",baseUrl+"/user/toAllCompany.html").submit();
 
     });
@@ -223,9 +222,8 @@
             return false;
         }
 
-//        debugger;
         var companyType = $("#companyType").val();
-        if(0 >= $.trim(companyType).length){
+        if( $.trim(companyType).length <= 0){
             alert("请选择企业性质");
             return false;
         }
@@ -331,7 +329,7 @@
         if (data.returnCode == "1"){
             var picUrl = data.picPath;
             if(picUrl.length > 0){
-                var imgHtml = "<img title='点击删除' onclick='delPic(this)' srcpath='"+data.picPath+"' src='"+data.picPath+"' class='up_pic_img' />";
+                var imgHtml = "<img title='点击删除' onclick='delPic(this)' style='width:120px;height:120px;' srcpath='"+data.picPath+"' src='"+data.picPath+"' class='up_pic_img' />";
                 $("#cimgs").append(imgHtml);
             }else{
                 alert("上传失败,请稍后再试");
@@ -360,3 +358,7 @@
     }
 
 </script>
+</body>
+</html>
+
+

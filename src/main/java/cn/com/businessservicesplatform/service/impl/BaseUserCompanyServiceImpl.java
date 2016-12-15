@@ -48,7 +48,13 @@ public class BaseUserCompanyServiceImpl implements BaseUserCompanyService {
     public int insert(BaseUserCompanyVo vo) {
         int result = 0;
         if (null != vo && vo.getUserId() != null) {
-            BaseUserCompany baseUserCompany = getUserCompany(new BaseUserCompanyVo(vo.getUserId()));
+            BaseUserCompany baseUserCompany =null;
+            if(null != vo.getId()){
+            	baseUserCompany = baseUserCompanyMapper.selectByPrimaryKey(vo.getId());
+            }
+            if(null == baseUserCompany){
+            	baseUserCompany= getUserCompany(new BaseUserCompanyVo(vo.getUserId()));
+            }
             if (null != baseUserCompany && baseUserCompany.getId() != null) {
                 vo.setId(baseUserCompany.getId());
                 baseUserCompany = baseUserCompany.make(baseUserCompany, vo);

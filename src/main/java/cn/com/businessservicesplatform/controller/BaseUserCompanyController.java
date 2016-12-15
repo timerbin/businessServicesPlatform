@@ -89,6 +89,7 @@ public class BaseUserCompanyController extends BaseController{
 		List<BaseUserCompanyVo> companyVoLst =	baseUserCompanyService.queryPageAll(basePage,baseUserCompanyVo);
 		model.addObject("comVoLst",companyVoLst);
 		model.addObject("basePage",basePage);
+		model.addObject("msg", baseUserCompanyVo.getMsg());
 		return model;
 	}
 
@@ -331,16 +332,18 @@ public class BaseUserCompanyController extends BaseController{
 	 * @return
 	 */
 	@RequestMapping("/updateCompany")
-	protected ModelAndView updateCompany(@RequestParam(required = false, value = "page", defaultValue = "1")Integer page,BaseUserCompanyVo baseUserCompanyVo) {
-
+	protected ModelAndView updateCompany(@RequestParam(required = false, value = "page", defaultValue = "1")Integer page,HttpServletRequest request,BaseUserCompanyVo baseUserCompanyVo) {
+		ModelAndView model = null;
 		try {
 			if (null == baseUserCompanyVo || baseUserCompanyVo.getId() == null) {
 				return toAllCompany(page, baseUserCompanyVo);
 			}
-			int result = baseUserCompanyService.updateCompany(baseUserCompanyVo);
-
-			if (result < 0) {
-				baseUserCompanyVo.setMsg("更新失败");
+			int result = baseUserCompanyService.insert(baseUserCompanyVo);
+			if (result <= 0) {
+				baseUserCompanyVo.setMsg("编辑企业信息失败");
+			}else{
+				model = new ModelAndView ( "redirect:/user/toOneCompany.html?id="+baseUserCompanyVo.getId()+"&flag=edit");
+				return model;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -29,8 +29,7 @@
       			<table border="0" cellspacing="10" cellpadding="0" class="gerenzx_table">
 			          <c:if test="${not empty msg}">
 			              <tr>
-			                  <td width="121" align="right"><span style="color:red;">${msg}</span></td>
-			                  <td colspan="6">&nbsp;</td>
+			                  <td width="121" align="left" colspan="7"><span style="color:red;">${msg}</span></td>
 			              </tr>
 			          </c:if>
 			          <tr>

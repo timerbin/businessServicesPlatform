@@ -136,28 +136,10 @@
     </div>
 </div>
 <script type="text/javascript">
-var baseUrl = $("#baseUrl").val();
-
+	var baseUrl = $("#baseUrl").val();
     $("#retturnBtn").click(function(){
         $("#comDetailForm").attr("action",baseUrl+"/user/toAllCompany.html").submit();
     });
-   
-
-    var picUrls = $("#picListStr").val();
-    if($.trim(picUrls).length > 0){
-        $("#cimgs").html("");
-        if(picUrls.indexOf("|") > 0){
-            var picUrl = picUrls.split('|');
-            for(var i=0;i<picUrl.length;i++){
-                var imgHtml = "<img title='点击删除' onclick='delPic(this)' srcpath='"+picUrl[i]+"' src='"+picUrl[i]+"' class='up_pic_img' />";
-                $("#cimgs").append(imgHtml);
-            }
-        }else{
-            var imgHtml = "<img title='点击删除' onclick='delPic(this)' srcpath='"+picUrls+"' src='"+picUrls+"' class='up_pic_img' />";
-            $("#cimgs").append(imgHtml);
-        }
-    }
-
 </script>
 </body>
 </html>

@@ -116,6 +116,7 @@ public class UserCompanyServiceController extends BaseController{
 			model.addObject("basePage",basePage);
 			model.addObject("serTypeList", serTypeList);
 			model.addObject("voList", voList);
+			model.addObject("msg", userCompanyServiceVo.getMsg());
 		}catch (Exception e){
 			e.printStackTrace();
 			log.error("###########服务管理 分页查询错误",e);
@@ -272,7 +273,7 @@ public class UserCompanyServiceController extends BaseController{
 	 */
 	@RequestMapping("/toUpdateService")
 	protected ModelAndView updateServ(@RequestParam(required = false, value = "page", defaultValue = "1")Integer page,UserCompanyServiceVo userCompanyServiceVo) {
-
+		ModelAndView model = null;
 		try {
 			if(null == userCompanyServiceVo){
 				return toServiceManage(page,userCompanyServiceVo);
@@ -283,6 +284,9 @@ public class UserCompanyServiceController extends BaseController{
 
 			if(result <0){
 				userCompanyServiceVo.setMsg("修改失败");
+			}else{
+				model = new ModelAndView ( "redirect:/user/toFindService.html?id="+userCompanyServiceVo.getId()+"&flag=edit");
+				return model;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

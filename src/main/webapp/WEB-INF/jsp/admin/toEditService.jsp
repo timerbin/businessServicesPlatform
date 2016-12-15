@@ -22,6 +22,8 @@
         <form action="${BASE_URL}/user/toUpdateService.html" id="serManageForm" name="serManageForm">
 
             <input id="id" name="id" type="hidden" value="${serVo.id}"/>
+            <input type="hidden" name="id_edit" id="id_edit" value="${serVo.id}"/>
+            
             <table width="900" border="0" cellspacing="20" cellpadding="0">
 
                 <c:if test="${not empty msg}">
@@ -36,10 +38,6 @@
                         <td colspan="2">&nbsp;</td>
                     </tr>
                 </c:if>
-
-                <input type="hidden" name="id_edit" id="id_edit" value="${serVo.id}"/>
-
-
                 <tr>
                     <td width="121" align="right"><span class="hong_xing">*</span>服务名称：</td>
                     <td width="550">
@@ -51,27 +49,19 @@
                     <td align="right"><span class="hong_xing">*</span>服务类别：</td>
                     <td>
                         <select name="serviceType" id="serviceTypeEdit" class="form_input">
-                            <%--<c:if test="${not empty serTypeList}">--%>
                             <c:forEach var="serType" items="${typeLst}">
-
                                 <c:if test="${serVo.serviceType == serType.id}">
-
                                     <option value="${serType.id}" selected="selected">
                                             ${serType.showName}
                                     </option>
                                 </c:if>
-
                                 <c:if test="${serVo.serviceType != serType.id}">
 
                                     <option value="${serType.id}">
                                             ${serType.showName}
                                     </option>
                                 </c:if>
-
-
-
                             </c:forEach>
-                            <%--</c:if>--%>
                         </select>
 
                     </td>
@@ -91,7 +81,9 @@
                 <tr>
                     <td align="right" valign="top"><span class="hong_xing">*</span>服务图片：</td>
                     <td class="qiye_img" >
-                        <span id="cimgs" title="点击删除"></span>
+                        <span id="cimgs" title="点击删除">
+                        	<img title='点击删除' onclick='delPic(this)' srcpath="${serVo.picUrl}" src="${serVo.picUrl}" style="width:120px;height:120px;" class='up_pic_img' />
+                        </span>
                     </td>
                     <td valign="bottom"  >
                         <input  onclick="doSelectPic()"  type="button" value="上传图片" class="form_shangchuan" />
@@ -105,9 +97,8 @@
                 </tr>
                 <tr>
                     <td align="right">&nbsp;</td>
-                    <td><input name="baocunBtn" id="baocunBtn" type="button"  value="保 存" class="form_button bjse_hong">
-                        <%--<input name="tijiaoBtn" id="tijiaoBtn" type="button"  value="提 交" class="form_button bjse_lan">--%>
-                        <input name="chongzhiBtn" id="chongzhiBtn" type="reset"  value="取 消" class="form_button bjse_cheng" onclick="cancelEditSer()">
+                    <td><input name="baocunBtn" id="baocunBtn" type="button"  value="保 存" class="form_button bjse_hong"/>
+                        <input name="chongzhiBtn" id="chongzhiBtn" type="reset"  value="取 消" class="form_button bjse_cheng" onclick="cancelEditSer()"/>
                     </td>
                     <td>&nbsp;</td>
                 </tr>
@@ -116,25 +107,14 @@
         </form>
   </div>
 </div>
-</body>
-</html>
 <script type="application/javascript">
-    /*$("baocunBtn").click(function(){
-     $.post("demo_test_post.asp",
-     {
-     serviceName:$("fwName").val(),
-     city:"Duckburg"
-     },
-     function(data,status){
-     alert("Data: " + data + "\nStatus: " + status);
-     });
-     });*/
 
+
+	var baseUrl = $("#baseUrl").val();
 
     function cancelEditSer(){
         window.location.href="${BASE_URL}/user/toServiceManage.html";
     }
-
     $("#baocunBtn").click(function(){
         if(check()){
             $("#serManageForm").submit();
@@ -252,7 +232,7 @@
         if (data.returnCode == "1"){
             var picUrl = data.picPath;
             if(picUrl.length > 0){
-                var imgHtml = "<img title='点击删除' onclick='delPic(this)' srcpath='"+data.picPath+"' src='"+data.picPath+"' class='up_pic_img' />";
+                var imgHtml = "<img title='点击删除' onclick='delPic(this)' srcpath='"+data.picPath+"'  style='width:120px;height:120px;' src='"+data.picPath+"' class='up_pic_img' />";
                 $("#cimgs").append(imgHtml);
             }else{
                 alert("上传失败,请稍后再试");
@@ -280,4 +260,7 @@
         return paramStr.substr(1);
     }
 </script>
+</body>
+</html>
+
 

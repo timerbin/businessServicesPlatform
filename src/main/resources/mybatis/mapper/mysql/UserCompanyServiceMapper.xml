@@ -18,19 +18,18 @@
     <result column="verify_user_des" jdbcType="VARCHAR" property="verifyUserDes" />
     <result column="recommend" jdbcType="INTEGER" property="recommend" />
     <result column="pic_url" jdbcType="VARCHAR" property="picUrl" />
+    <result column="service_directions" jdbcType="VARCHAR" property="serviceDirections" />
   </resultMap>
-  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="cn.com.businessservicesplatform.model.mysql.UserCompanyService">
-    <result column="service_directions" jdbcType="LONGVARCHAR" property="serviceDirections" />
-  </resultMap>
+ 
   <sql id="Base_Column_List">
     id, user_id, company_id, service_name, service_contact_user, service_contact_tel, 
     service_type, status, modify_time, create_time, verify_time, verify_user_id, verify_user_name, 
-    verify_user_des,recommend,pic_url
+    verify_user_des,recommend,pic_url,service_directions
   </sql>
   <sql id="Blob_Column_List">
     service_directions
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from user_company_service
