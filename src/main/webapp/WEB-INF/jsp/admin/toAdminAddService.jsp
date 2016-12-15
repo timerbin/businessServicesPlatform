@@ -18,30 +18,46 @@
 
         <jsp:include page="../public/loginLeft.jsp" />
     <div class="gerenzx_right">
-    	<div class="grzx_h2"><h2>编辑服务</h2></div>
-        <form action="${BASE_URL}/user/toUpdateService.html" id="serManageForm" name="serManageForm">
+    	<div class="grzx_h2"><h2>创建服务</h2></div>
+        <form action="${BASE_URL}/user/doAdminAddService.html" id="fbfwForm" name="fbfwForm">
 
-            <input id="id" name="id" type="hidden" value="${serVo.id}"/>
-            <input type="hidden" name="id_edit" id="id_edit" value="${serVo.id}"/>
-            
+            <input id="picUrl" name="picUrl" value="${vo.picUrl}"  type="hidden" />
+            <input id="userId" name="userId" value="${vo.userId}"  type="hidden" />
+            <input id="companyId" name="companyId" value="${vo.companyId}"  type="hidden" />
+
+
+
             <table width="900" border="0" cellspacing="20" cellpadding="0">
 
-                <c:if test="${not empty msg}">
-                    <tr>
-                        <td width="121" align="right"><span style="color:red;">${msg}</span></td>
-                        <td colspan="6">&nbsp;</td>
-                    </tr>
-                </c:if>
                 <c:if test="${not empty errorMsg}">
                     <tr>
-                        <td width="121" align="right"><span style="color:red;">${errorMsg}</span></td>
-                        <td colspan="2">&nbsp;</td>
+                        <td colspan="3" align="right"><span style="color:red;">${errorMsg}</span></td>
                     </tr>
                 </c:if>
+
+
+                <tr>
+                    <td width="121" align="right"><span class="hong_xing">*</span>公司名称：</td>
+                    <td width="550">
+                        <select name="companySel" id="companySel" class="grzx_input2">
+                            <option value="">请选择</option>
+                            <c:forEach var="comany" items="${comanyList}">
+                                <c:if test="${comany.id==vo.companyId}">
+                                    <option value="${comany.id}" data-id="${comany.userId}" selected="selected">${comany.companyName}</option>
+                                </c:if>
+                                <c:if test="${comany.id!=vo.companyId}">
+                                    <option value="${comany.id}" data-id="${comany.userId}" >${comany.companyName}</option>
+                                </c:if>
+                            </c:forEach>
+                        </select>
+                    </td>
+                    <td width="149">&nbsp;</td>
+                </tr>
+
                 <tr>
                     <td width="121" align="right"><span class="hong_xing">*</span>服务名称：</td>
                     <td width="550">
-                        <input id="serviceNameEdit" name="serviceName" type="text" class="grzx_input2" value="${serVo.serviceName}"/>
+                        <input id="serviceName" name="serviceName" type="text" class="grzx_input2" value="${vo.serviceName}"/>
                     </td>
                     <td width="149">&nbsp;</td>
                 </tr>
@@ -49,17 +65,12 @@
                     <td align="right"><span class="hong_xing">*</span>服务类别：</td>
                     <td>
                         <select name="serviceType" id="serviceTypeEdit" class="grzx_input2">
-                            <c:forEach var="serType" items="${typeLst}">
-                                <c:if test="${serVo.serviceType == serType.id}">
-                                    <option value="${serType.id}" selected="selected">
-                                            ${serType.showName}
-                                    </option>
+                            <c:forEach var="serType" items="${serTypeList}">
+                                <c:if test="${serType.id==vo.serviceType}">
+                                    <option value="${serType.id}" selected="selected">${serType.showName}</option>
                                 </c:if>
-                                <c:if test="${serVo.serviceType != serType.id}">
-
-                                    <option value="${serType.id}">
-                                            ${serType.showName}
-                                    </option>
+                                <c:if test="${serType.id!=vo.serviceType}">
+                                    <option value="${serType.id}">${serType.showName}</option>
                                 </c:if>
                             </c:forEach>
                         </select>
@@ -69,35 +80,33 @@
                 </tr>
                 <tr>
                     <td align="right"><span class="hong_xing">*</span>联系人：</td>
-                    <td><input name="serviceContactUser" id="fwLxrEdit" type="text" class="grzx_input2" value="${serVo.serviceContactUser}"/></td>
+                    <td><input name="serviceContactUser" id="serviceContactUser" type="text" class="grzx_input2" value="${vo.serviceContactUser}"/></td>
                     <td>&nbsp;</td>
                 </tr>
                 <tr>
                     <td align="right"><span class="hong_xing">*</span>联系方式：</td>
-                    <td><input name="serviceContactTel" id="fwLxfsEdit" type="text" class="grzx_input2" value="${serVo.serviceContactTel}" /></td>
+                    <td><input name="serviceContactTel" id="serviceContactTel" type="text" class="grzx_input2" value="${vo.serviceContactTel}" /></td>
                     <td>&nbsp;</td>
                 </tr>
 
                 <tr>
                     <td align="right" valign="top"><span class="hong_xing">*</span>服务图片：</td>
                     <td class="qiye_img" >
-                        <span id="cimgs" title="点击删除">
-                        	<img title='点击删除' onclick='delPic(this)' srcpath="${serVo.picUrl}" src="${serVo.picUrl}" style="width:120px;height:120px;" class='up_pic_img' />
-                        </span>
+                        <span id="cimgs" title="点击删除"></span>
                     </td>
                     <td valign="bottom"  >
                         <input  onclick="doSelectPic()"  type="button" value="上传图片" class="upload_button" />
-                        <iframe id="uploadPicFrame" src="${serVo.picUrl}" style="display:none;"></iframe>
+                        <iframe id="uploadPicFrame" src="" style="display:none;"></iframe>
                     </td>
                 </tr>
 
                 <tr>
                     <td align="right" valign="top"><span class="hong_xing">*</span>服务介绍：</td>
-                    <td colspan="2"><textarea name="serviceDirections" id="fwJsEdit" cols="50" rows="5" class="text_area" >${serVo.serviceDirections}</textarea></td>
+                    <td colspan="2"><textarea name="serviceDirections" id="serviceDirections" cols="50" rows="5" class="text_area" >${vo.serviceDirections}</textarea></td>
                 </tr>
                 <tr>
                     <td align="right">&nbsp;</td>
-                    <td><input name="baocunBtn" id="baocunBtn" type="button"  value="保 存" class="grzx_button"/>
+                    <td><input name="tijiaoBtn" id="tijiaoBtn" type="button"  value="保 存" class="grzx_button"/>
                         <input name="chongzhiBtn" id="chongzhiBtn" type="reset"  value="取 消" class="grzx_button" onclick="cancelEditSer()"/>
                     </td>
                     <td>&nbsp;</td>
@@ -108,65 +117,88 @@
   </div>
 </div>
 <script type="application/javascript">
-
-
-	var baseUrl = $("#baseUrl").val();
-
     function cancelEditSer(){
         window.location.href="${BASE_URL}/user/toServiceManage.html";
     }
-    $("#baocunBtn").click(function(){
-        if(check()){
-            $("#serManageForm").submit();
-        }
+
+    var baseUrl = $("#baseUrl").val();
+
+
+    var picUrl = $("#picUrl").val();
+    if($.trim(picUrl).length > 0){
+        $("#cimgs").html("");
+        var imgHtml = "<img title='点击删除' onclick='delPic(this)' srcpath='"+picUrl+"' src='"+picUrl+"' class='up_pic_img' />";
+        $("#cimgs").append(imgHtml);
+    }
+
+
+    $('#companySel').change(function(){
+        $("#companyId").val($(this).children('option:selected').val());
+        $("#userId").val($(this).children('option:selected').attr("data-id"));
     });
 
-
+    $("#tijiaoBtn").click(function(){
+        if(check()){
+            $("#fbfwForm").submit();
+        }
+    });
     function check(){
-        var serviceName = $("#serviceNameEdit").val();
+        var companyId = $("#companyId").val();
+        if($.trim(companyId).length <= 0){
+            alert("请选择公司信息");
+            $("#companySel").focus();
+            return false;
+        }
+        var userId = $("#userId").val();
+        if($.trim(userId).length <= 0){
+            alert("请选择公司信息");
+            $("#companySel").focus();
+            return false;
+        }
+        var serviceName = $("#serviceName").val();
         if($.trim(serviceName).length <= 0){
             alert("请输入服务名称");
-            $("#serviceNameEdit").focus();
+            $("#serviceName").focus();
             return false;
         }
-        var serviceType = $("#serviceTypeEdit").val();
+        var serviceType = $("#serviceType").val();
         if($.trim(serviceName).length <= 0){
             alert("请选择服务类型");
-            $("#serviceTypeEdit").focus();
+            $("#serviceType").focus();
             return false;
         }
-        var serviceContactUser = $("#fwLxrEdit").val();
+        var serviceContactUser = $("#serviceContactUser").val();
         if($.trim(serviceContactUser).length <= 0){
             alert("请输入服务联系人");
-            $("#fwLxrEdit").focus();
+            $("#serviceContactUser").focus();
             return false;
         }
-        var serviceContactTel = $("#fwLxfsEdit").val();
+        var serviceContactTel = $("#serviceContactTel").val();
         if($.trim(serviceContactTel).length <= 0){
             alert("请输入服务联系方式");
-            $("#fwLxfsEdit").focus();
+            $("#serviceContactTel").focus();
             return false;
         }
         if(!checkMob(serviceContactTel)){
             alert("请输入正确服务联系方式");
-            $("#fwLxfsEdit").focus();
+            $("#serviceContactTel").focus();
             return false;
         }
-        var serviceDirections = $("#fwJsEdit").val();
+        var serviceDirections = $("#serviceDirections").val();
         if($.trim(serviceDirections).length <= 0){
             alert("请输入服务介绍");
-            $("#fwJsEdit").focus();
+            $("#serviceDirections").focus();
             return false;
         }
-        /* var picUrl = "";
-         $('.up_pic_img').each(function(){
-         picUrl = $(this).attr("srcpath");
-         });
-         if($.trim(picUrl).length <= 0){
-         alert("请上传服务图片");
-         return false;
-         }
-         $("#picUrl").val(picUrl);*/
+        var picUrl = "";
+        $('.up_pic_img').each(function(){
+            picUrl = $(this).attr("srcpath");
+        });
+        if($.trim(picUrl).length <= 0){
+            alert("请上传服务图片");
+            return false;
+        }
+        $("#picUrl").val(picUrl);
         return true;
     }
     var isMob = /^((13[0-9])|(14[0-9])|(15[0-9])|(18[0-9])|(17[0-9]))\d{8}$/;
@@ -232,7 +264,7 @@
         if (data.returnCode == "1"){
             var picUrl = data.picPath;
             if(picUrl.length > 0){
-                var imgHtml = "<img title='点击删除' onclick='delPic(this)' srcpath='"+data.picPath+"'  style='width:120px;height:120px;' src='"+data.picPath+"' class='up_pic_img' />";
+                var imgHtml = "<img title='点击删除' onclick='delPic(this)' srcpath='"+data.picPath+"' src='"+data.picPath+"' class='up_pic_img' />";
                 $("#cimgs").append(imgHtml);
             }else{
                 alert("上传失败,请稍后再试");

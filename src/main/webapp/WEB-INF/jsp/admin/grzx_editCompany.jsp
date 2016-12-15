@@ -46,32 +46,32 @@
                 </c:if>
                 <tr>
                     <td width="121" align="right"><span class="hong_xing">*</span>企业名称：</td>
-                    <td width="550"><input id="companyName" name="companyName" value="${vo.companyName}" type="text" class="form_input" /></td>
+                    <td width="550"><input id="companyName" name="companyName" value="${vo.companyName}" type="text" class="grzx_input2" /></td>
                     <td width="149">&nbsp;</td>
                 </tr>
                 <tr>
                     <td align="right"><span class="hong_xing">*</span>注册资金：</td>
-                    <td><input  id="companyRegisterMoney" name="companyRegisterMoney" value="${vo.companyRegisterMoney}"   type="text" class="form_input2" /></td>
+                    <td><input  id="companyRegisterMoney" name="companyRegisterMoney" value="${vo.companyRegisterMoney}"   type="text" class="grzx_input2" /></td>
                     <td>&nbsp;</td>
                 </tr>
                 <tr>
                     <td align="right"><span class="hong_xing">*</span>企业地址：</td>
-                    <td><input id="companyAddress" name="companyAddress" value="${vo.companyAddress}"  type="text" class="form_input" /></td>
+                    <td><input id="companyAddress" name="companyAddress" value="${vo.companyAddress}"  type="text" class="grzx_input2" /></td>
                     <td>&nbsp;</td>
                 </tr>
                 <tr>
                     <td align="right"><span class="hong_xing">*</span>联系电话：</td>
-                    <td><input id="companyContactTel" name="companyContactTel" value="${vo.companyContactTel}"  type="text" class="form_input2" /></td>
+                    <td><input id="companyContactTel" name="companyContactTel" value="${vo.companyContactTel}"  type="text" class="grzx_input2" /></td>
                     <td>&nbsp;</td>
                 </tr>
                 <tr>
                     <td align="right"><span class="hong_xing">*</span>联系人：</td>
-                    <td><input id="companyContactUser" name="companyContactUser" value="${vo.companyContactUser}" type="text" class="form_input2" /></td>
+                    <td><input id="companyContactUser" name="companyContactUser" value="${vo.companyContactUser}" type="text" class="grzx_input2" /></td>
                     <td>&nbsp;</td>
                 </tr>
                 <tr>
                     <td align="right"><span class="hong_xing">*</span>经营范围：</td>
-                    <td><select id="companyScope" name="companyScope" class="form_input">
+                    <td><select id="companyScope" name="companyScope" class="grzx_input2">
                         <option value="">请选择</option>
                         <c:forEach items="${managementList}" var="management">
                             <c:if test="${management.id==vo.companyScope}">
@@ -87,12 +87,12 @@
                 </tr>
                 <tr>
                     <td align="right"><span class="hong_xing">*</span>成立时间：</td>
-                    <td><input id="companyRegisterTimeStr"  name="companyRegisterTimeStr" placeholder="年-月-日" name="companyRegisterTimeStr" value="${vo.companyRegisterTimeStr}"   type="text" class="form_input2" /></td>
+                    <td><input id="companyRegisterTimeStr"  name="companyRegisterTimeStr" placeholder="年-月-日" name="companyRegisterTimeStr" value="${vo.companyRegisterTimeStr}"   type="text" class="grzx_input2" /></td>
                     <td>&nbsp;</td>
                 </tr>
                 <tr>
                     <td align="right"><span class="hong_xing">*</span>企业性质：</td>
-                    <td><select id="companyType" name="companyType"  class="form_input">
+                    <td><select id="companyType" name="companyType"  class="grzx_input2">
                         <option value="">请选择</option>
                         <c:forEach items="${propertyList}" var="property">
                             <c:if test="${property.id==vo.companyType}">
@@ -111,31 +111,31 @@
                     <td class="qiye_img" ><span id="cimgs" title="点击删除"></span>
                     </td>
                     <td valign="bottom" height="100">
-                        <input  onclick="doSelectPic()"  type="button" value="上传图片" class="form_shangchuan"/>
+                        <input  onclick="doSelectPic()"  type="button" value="上传图片" class="upload_button"/>
                         <iframe id="uploadPicFrame" src="" style="display:none;"></iframe>
                     </td>
                 </tr>
                 <tr>
                     <td align="right"><span class="hong_xing">*</span>企业官网链接：</td>
-                    <td><input  id="companyUrl" name="companyUrl" value="${vo.companyUrl}"   type="text" class="form_input" /></td>
+                    <td><input  id="companyUrl" name="companyUrl" value="${vo.companyUrl}"   type="text" class="grzx_input2" /></td>
                     <td>&nbsp;</td>
                 </tr>
                 <tr>
                     <td align="right" valign="top"><span class="hong_xing">*</span>企业简介：</td>
-                    <td colspan="2"><textarea id="companyDirections" name="companyDirections"  cols="" rows="" class="form_textarea">${vo.companyDirections}</textarea></td>
+                    <td colspan="2"><textarea id="companyDirections" name="companyDirections"  cols="" rows="" class="text_area">${vo.companyDirections}</textarea></td>
                 </tr>
                 <tr>
                     <td align="right">&nbsp;</td>
                     <td>
                         <c:if test="${empty vo}">
-                            <input  id="subBtn" name="subBtn" type="button"  value="提 交"  class="form_button bjse_lan"/>
+                            <input  id="subBtn" name="subBtn" type="button"  value="提 交"  class="grzx_button"/>
                         </c:if>
                         <c:if test="${not empty vo}">
-                            <input id="saveBtn" name="saveBtn" type="button"  value="保 存" class="form_button bjse_hong"/>
+                            <input id="saveBtn" name="saveBtn" type="button"  value="保 存" class="grzx_button"/>
                         </c:if>
                         &nbsp;&nbsp;&nbsp;
 
-                        <input id="returnBtn" name="returnBtn" type="button"  value="返 回" class="form_button bjse_hong"/>
+                        <input id="returnBtn" name="returnBtn" type="button"  value="返 回" class="grzx_button"/>
 
                     </td>
                     <td>&nbsp;</td>

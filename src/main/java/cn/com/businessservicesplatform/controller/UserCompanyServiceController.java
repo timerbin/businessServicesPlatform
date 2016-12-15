@@ -305,7 +305,9 @@ public class UserCompanyServiceController extends BaseController{
 	@ResponseBody
 	protected ModelAndView delServ(HttpServletRequest request) {
 
-		ModelAndView model = new ModelAndView ("admin/grzx_fwgl");
+//		ModelAndView model = new ModelAndView ("admin/grzx_fwgl");
+		ModelAndView model = new ModelAndView ("redirect:/user/toServiceManage.html");
+
 		try {
 			String id = request.getParameter("id");
 
@@ -313,13 +315,14 @@ public class UserCompanyServiceController extends BaseController{
 				int idInt = Integer.parseInt(id);
 				int i = userCompanyServiceService.delCompanyServiceByid(idInt);
 				if(i != 0){
-					model.addObject("msg","删除成功");
+//					model.addObject("msg","删除成功");
 				}else{
 					model.addObject("msg","删除失败");
 				}
 			}else{
 				model.addObject("msg","删除失败,无效的ID");
 			}
+
 
 			return model;
 		}catch (Exception e){
@@ -370,7 +373,9 @@ public class UserCompanyServiceController extends BaseController{
 	 */
 	@RequestMapping("/toAdminAddService")
 	protected ModelAndView toAdminAddService(HttpServletRequest request) {
-		ModelAndView model = new ModelAndView ("/admin/adminAddService");
+		/*ModelAndView model = new ModelAndView ("/admin/adminAddService");*/
+		ModelAndView model = new ModelAndView ("/admin/toAdminAddService");
+
 		try {
 			List<BaseConfigData> serTypeList = baseConfigDataService.queryList(new BaseConfigDataVo(BaseConfigTypeEnum.SERVICES_TYPE.getId()));
 			model.addObject("serTypeList", serTypeList);

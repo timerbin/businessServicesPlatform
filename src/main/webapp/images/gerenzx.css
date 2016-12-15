@@ -48,6 +48,9 @@ dl,dt,dd,h1,h2,h3,h4,h5,h6 { margin: 0px; padding: 0px;}
 .grzx_input2 { border:1px solid #dfdfdf; height:40px; line-height:40px; font-size:14px; color:666; border-radius:4px; width:50%;}
 .grzx_button { width:140px; height:40px; background:#304ffe; color:#fff; font-size:14px; border-radius:4px; border:0;}
 
+.upload_button { width:100px; height:36px; border:1px solid #dedede; border-radius:6px; background:#eaeaea;}
+.text_area { border:1px solid #dedede; width:450px; height:100px;}
+
 
 
 /*服务管理*/

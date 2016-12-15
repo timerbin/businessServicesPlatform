@@ -84,13 +84,13 @@
 
                 <tr>
                     <td align="right" valign="top"><span class="hong_xing">*</span>服务介绍：</td>
-                    <td colspan="2"><textarea name="fwJsEdit" id="fwJsEdit" cols="50" rows="5" class="form_textarea" readonly="readonly">${serVo.serviceDirections}</textarea>
+                    <td colspan="2"><textarea name="fwJsEdit" id="fwJsEdit" cols="50" rows="5" class="text_area" readonly="readonly">${serVo.serviceDirections}</textarea>
                     </td>
                 </tr>
                 <tr>
                     <td align="right">&nbsp;</td>
                     <td>
-                            <input name="returnBtn" id="returnBtn" type="button"  value="返 回" class="form_button bjse_hong" onclick="retturnSerM()"/>
+                            <input name="returnBtn" id="returnBtn" type="button"  value="返 回" class="grzx_button" onclick="retturnSerM()"/>
                     </td>
                     <td>&nbsp;</td>
                 </tr>
