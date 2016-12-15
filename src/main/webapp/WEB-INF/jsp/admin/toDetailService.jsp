@@ -20,7 +20,7 @@
     <div class="gerenzx_right">
     	<div class="grzx_h2"><h2>服务详情</h2></div>
         <form action="" id="serManageForm" name="serManageForm">
-
+			 <input type="hidden" name="id_edit" id="id_edit" value="${serVo.id}"/>
             <table width="900" border="0" cellspacing="20" cellpadding="0">
 
                 <c:if test="${not empty msg}">
@@ -35,14 +35,9 @@
                         <td colspan="2">&nbsp;</td>
                     </tr>
                 </c:if>
-
-                <input type="hidden" name="id_edit" id="id_edit" value="${serVo.id}"/>
-
-
                 <tr>
                     <td width="121" align="right"><span class="hong_xing">*</span>服务名称：</td>
                     <td width="550">
-                        <%--<input id="serviceNameEdit" name="serviceNameEdit" type="text" class="form_input" value="${serVo.serviceName}"/>--%>
                         <label>${serVo.serviceName}</label>
                     </td>
                     <td width="149">&nbsp;</td>
@@ -64,7 +59,6 @@
                 <tr>
                     <td align="right"><span class="hong_xing">*</span>联系人：</td>
                     <td>
-                       <%-- <input name="fwLxrEdit" id="fwLxrEdit" type="text" class="form_input2" value="${serVo.serviceContactUser}"/>--%>
                         <label>${serVo.serviceContactUser}</label>
                     </td>
                     <td>&nbsp;</td>
@@ -72,7 +66,6 @@
                 <tr>
                     <td align="right"><span class="hong_xing">*</span>联系方式：</td>
                     <td>
-                        <%--<input name="fwLxfsEdit" id="fwLxfsEdit" type="text" class="form_input2" value="${serVo.serviceContactTel}" />--%>
                         <label>${serVo.serviceContactTel}</label>
                     </td>
                     <td>&nbsp;</td>
@@ -81,11 +74,11 @@
                 <tr>
                     <td align="right" valign="top"><span class="hong_xing">*</span>服务图片：</td>
                     <td class="qiye_img" >
-                        <span id="cimgs" title="点击删除"></span>
+                        <span id="cimgs"  >
+                        	<img src="${serVo.picUrl}" style="width:120px;height:120px;" class="up_pic_img" />
+                        </span>
                     </td>
                     <td valign="bottom"  >
-                       <%-- <input  onclick="doSelectPic()"  type="button" value="上传图片" class="form_shangchuan" />--%>
-                        <iframe id="uploadPicFrame" src="${serVo.picUrl}" style="display:none;"></iframe>
                     </td>
                 </tr>
 
@@ -97,10 +90,7 @@
                 <tr>
                     <td align="right">&nbsp;</td>
                     <td>
-                        <%--<input name="baocunBtn" id="baocunBtn" type="button"  value="保 存" class="form_button bjse_hong">--%>
-                        <%--<input name="tijiaoBtn" id="tijiaoBtn" type="button"  value="提 交" class="form_button bjse_lan">--%>
-                        <%--<input name="chongzhiBtn" id="chongzhiBtn" type="reset"  value="取 消" class="form_button bjse_cheng" onclick="cancelSer()">--%>
-                            <input name="returnBtn" id="returnBtn" type="button"  value="返 回" class="form_button bjse_hong" onclick="retturnSerM()">
+                            <input name="returnBtn" id="returnBtn" type="button"  value="返 回" class="form_button bjse_hong" onclick="retturnSerM()"/>
                     </td>
                     <td>&nbsp;</td>
                 </tr>
@@ -109,94 +99,13 @@
         </form>
   </div>
 </div>
-</body>
-</html>
 <script type="application/javascript">
-
-
+var baseUrl = $("#baseUrl").val();
     function retturnSerM(){
-        window.location.href="${BASE_URL}/user/toServiceManage.html";
-    }
-
-    function doSelectPic() {
-        var imgSize = 0;
-        $('.up_pic_img').each(function(){
-            imgSize = imgSize+1;
-        });
-        if(imgSize <= 0 ){
-            $("#pic", $("#uploadPicFrame")[0].contentWindow.document).click();
-        }else{
-            alert("服务仅能上传一张图片");
-        }
-        return false;
-    }
-
-    initUploadPicFrame();
-    function initUploadPicFrame(){
-        var frameSrc = baseUrl+"/user/getUploadPicForm.html";
-        var frameParam = new Object();
-        frameParam.formId= "upload";
-        frameParam.inputId= "pic";
-        frameParam.inputOnChange = "parent.picChange";
-        frameParam.jsonp = "parent.picUploadCallback";
-        frameSrc += "?"+parseParam(frameParam);
-        $("#uploadPicFrame").attr("src", frameSrc);
-    }
-    function picChange(inputFile){
-        var fileSize = 0;
-        if (navigator.userAgent.indexOf('MSIE') >= 0){
-        }else{
-            var files = inputFile.files;
-            if (files.length>0){
-                var targetFile = files[0];
-                fileSize = targetFile.size;
-            }
-            if(files.length > 1){
-                alert("请单张上传");
-                initUploadPicFrame();
-            }
-        }
-        if (fileSize>2097152){
-            alert("上传图片大小超过2M");
-            initUploadPicFrame();
-        }else{
-            $("#upload", $("#uploadPicFrame")[0].contentWindow.document).submit();
-        }
-    }
-    function delPic(data){
-        $(data).remove();
-    }
-    //上传完成后回调的方法
-    function picUploadCallback(data){
-        if (data.returnCode == "1"){
-            var picUrl = data.picPath;
-            if(picUrl.length > 0){
-                var imgHtml = "<img title='点击删除' onclick='delPic(this)' srcpath='"+data.picPath+"' src='"+data.picPath+"' class='up_pic_img' />";
-                $("#cimgs").append(imgHtml);
-            }else{
-                alert("上传失败,请稍后再试");
-            }
-        }else{
-            if(data.msg != ""){
-                alert(data.msg);
-            }else{
-                alert("上传失败,请稍后再试");
-            }
-        }
-        initUploadPicFrame();
-    }
-    //公共方法,用来将对象转化为URL参数
-    function parseParam(param, key){
-        var paramStr="";
-        if(param instanceof String||param instanceof Number||param instanceof Boolean){
-            paramStr+="&"+key+"="+encodeURIComponent(param);
-        }else{
-            jQuery.each(param,function(i){
-                var k=key==null?i:key+(param instanceof Array?"["+i+"]":"."+i);
-                paramStr+='&'+parseParam(this, k);
-            });
-        }
-        return paramStr.substr(1);
+        window.location.href=baseUrl+"/user/toServiceManage.html";
     }
 </script>
+</body>
+</html>
+
 
