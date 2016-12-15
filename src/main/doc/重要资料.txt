@@ -59,6 +59,10 @@ http://pan.baidu.com/s/1cf4Boi?qq-pf-to=pcqq.c2c#list/path=%2F
 
 
 
+1、登录不区分大小写 
+2、企业管理怎家审核通过功能 
+3、首页查看更多 链接没值
+
 
 
 114.215.31.235
