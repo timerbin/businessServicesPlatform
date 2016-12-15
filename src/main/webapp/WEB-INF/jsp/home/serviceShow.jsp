@@ -69,7 +69,7 @@
 	
 	        <div class="right_main">
 	            <div class="fuwu_left_con">
-	                <div class="right3_h2"><span class="more"><a href="#" target="_blank">查看更多>></a></span><h2>推荐服务</h2></div>
+	                <div class="right3_h2"><span class="more"><a href="${BASE_URL}/home/allService.html">查看更多>></a></span><h2>推荐服务</h2></div>
 	                <div class="tjfw_tuwen">
 	           	    	<span class="tjfw_tu"><img src="${vo.picUrl}" /></span>
 	                    <span class="scfuwu"><a data-id="${vo.id}" href="javascript:;">[收藏服务]</a></span>

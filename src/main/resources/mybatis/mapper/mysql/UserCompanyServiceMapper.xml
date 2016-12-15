@@ -50,7 +50,7 @@
        and service_type = #{vo.serviceType,jdbcType=INTEGER}
     </if>
     <if test="vo.serviceName != null">
-       and service_name like CONCAT('%',#{vo.serviceName,jdbcType=INTEGER},'%') 
+       and service_name like CONCAT('%',#{vo.serviceName,jdbcType=VARCHAR},'%')
     </if>
      order by create_time desc
   </select>
@@ -67,7 +67,7 @@
       and service_type = #{vo.serviceType,jdbcType=INTEGER}
     </if>
     <if test="vo.serviceName != null">
-      and service_name like CONCAT('%',#{vo.serviceName,jdbcType=INTEGER},'%')
+      and service_name like CONCAT('%',#{vo.serviceName,jdbcType=VARCHAR},'%')
     </if>
     order by create_time desc
   </select>
@@ -100,6 +100,12 @@
     </if>
     <if test="id != null" >
       and id = #{id,jdbcType=INTEGER}
+    </if>
+    <if test="serviceType != null">
+      and service_type = #{serviceType,jdbcType=INTEGER}
+    </if>
+    <if test="serviceName != null">
+      and service_name = #{serviceName,jdbcType=VARCHAR}
     </if>
   </select>
 

@@ -59,7 +59,7 @@
 	         	</div>
 	            <div class="fuwu_right_con">
 	                <div class="tjfw_cnxh">
-	                	<div class="right_h2"><span class="more"><a href="#" target="_blank">查看更多>></a></span><h2>猜你喜欢</h2></div>
+	                	<div class="right_h2"><span class="more"><a href="${BASE_URL}/home/allService.html">查看更多>></a></span><h2>猜你喜欢</h2></div>
 	                    <ul>
 	                    	<c:forEach items="${likeServiceList}" var="likeService">
 	                    		<c:if test="${not empty likeService.id}">

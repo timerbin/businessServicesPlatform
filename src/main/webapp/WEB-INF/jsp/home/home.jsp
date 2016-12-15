@@ -28,7 +28,12 @@
 
 	        <div class="right_main">
 	            <div class="youzhiqy_box">
-	                <div class="right2_h2"><span class="more"><a href="#" target="_blank">查看更多>></a></span><h2>优质企业</h2></div>
+	                <div class="right2_h2">
+						<span class="more">
+							<a href="${BASE_URL}/home/allCompany.html">查看更多>></a>
+						</span>
+						<h2>优质企业</h2>
+					</div>
 	                
 	                <div class="youzhiqy_yzqy" >
 	                    <ul>
@@ -47,7 +52,7 @@
 	            
 	            <div class="fuwu_xihuan">
 	                <div class="tjfw_box">
-	                    <div class="right_h2"><span class="more"><a href="#" target="_blank">查看更多>></a></span><h2>推荐服务</h2></div>
+	                    <div class="right_h2"><span class="more"><a href="${BASE_URL}/home/allService.html">查看更多>></a></span><h2>推荐服务</h2></div>
 	                    <c:forEach items="${serviceList}" var="service" varStatus="status">
 	                    	<c:if test="${not empty service.id}">
 	                     	<dl>

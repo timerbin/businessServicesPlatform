@@ -69,6 +69,11 @@
                         <td align="center">${com.statusStr}</td>
                         <td align="center">
 
+                            <!--待验证状态-->
+                            <c:if test="${com.status == 0}">
+                                <a id="shangxian" name="shangxian" data-id="${com.id}" href="javascript:;"  class="hongzi_a" >通过</a>
+                            </c:if>
+
                             <c:if test="${com.status == 2}">
                                 <a id="shangxian" name="shangxian" data-id="${com.id}" href="javascript:;"  class="hongzi_a" >上线</a>
                             </c:if>

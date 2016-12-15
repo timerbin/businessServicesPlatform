@@ -76,13 +76,14 @@ public class LoginController extends BaseController{
 			HttpSession httpSession = request.getSession();
 			if(null != httpSession.getAttribute("verCode")){
 				code =  httpSession.getAttribute("verCode").toString();
+				code = code.toLowerCase();
 			}
 			if(StringUtils.isBlank(code)){
 				model.addObject("errorMsg","验证码输入错误");
 				log.error("LoginController.doLogin.check.error:code.is.null");
 				return model;
 			}else{
-				if(!code.equals(baseUserVo.getVerifyCode())){
+				if(!code.equals(baseUserVo.getVerifyCode().toLowerCase())){
 					model.addObject("errorMsg","验证码输入错误");
 					log.error("LoginController.doLogin.check.error:code.is.null");
 					return model;
@@ -124,8 +125,8 @@ public class LoginController extends BaseController{
 		}
     	return model;
     }
-    
-    private String checkLogin(BaseUserVo baseUserVo){
+
+	private String checkLogin(BaseUserVo baseUserVo){
     	if(null == baseUserVo){
     		return "注册信息为空";
     	}
