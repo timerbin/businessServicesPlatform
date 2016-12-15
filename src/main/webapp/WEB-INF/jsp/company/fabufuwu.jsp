@@ -24,8 +24,7 @@
             <table width="900" border="0" cellspacing="20" cellpadding="0">
             	<c:if test="${not empty errorMsg}">
 	            	<tr>
-	            		<td width="121" align="right"><span style="color:red;">${errorMsg}</span></td>
-	            		<td colspan="2">&nbsp;</td>
+	            		<td width="121" align="left" colspan="3"><span style="color:red;">${errorMsg}</span></td>
 	            	 </tr>
 			   </c:if>
               <tr>
