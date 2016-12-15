@@ -33,8 +33,6 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
     select 
     <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
     from user_company_service
     where id = #{id,jdbcType=INTEGER}
   </select>
