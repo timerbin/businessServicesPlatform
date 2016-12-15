@@ -130,7 +130,7 @@ public class UserController extends BaseController{
     		BaseUserVo nowUser = this.getUser(request);
         	model.addObject("user", nowUser);
         	BaseUserVo userVo = this.getUser(request);
-        	BaseUser baseUser = baseUserService.selectByPrimaryKey(userVo.getId());
+        	
         	model.addObject("vo", baseUserVo);
 			String checkLogin = checkUserInfo(baseUserVo);
 			if(!StringUtils.isBlank(checkLogin)){
@@ -140,6 +140,8 @@ public class UserController extends BaseController{
 			}
 			baseUserVo.setId(nowUser.getId());
 			int result = baseUserService.updateUserInfo(baseUserVo);
+			
+			BaseUser baseUser = baseUserService.selectByPrimaryKey(userVo.getId());
 			if(result > 0){
 				userVo =  new BaseUserVo(baseUser);
 				BaseUserCompanyVo baseUserCompanyVo = new BaseUserCompanyVo(baseUser.getId());
@@ -261,7 +263,7 @@ public class UserController extends BaseController{
 	 * @return
      */
 	@RequestMapping("/userManagement")
-	public ModelAndView userManagement(@RequestParam(required = false, value = "page", defaultValue = "1")Integer page,HttpServletRequest request,BaseUserVo baseUserVo) {
+	public ModelAndView userManagement(@RequestParam(required = false, value = "page", defaultValue = "1")Integer page,HttpServletRequest request,HttpServletResponse response,BaseUserVo baseUserVo) {
 		ModelAndView model = new ModelAndView ("/admin/userManagement");
 		try {
 			BaseUserVo nowUser = this.getUser(request);
@@ -272,6 +274,19 @@ public class UserController extends BaseController{
 			}
 			
 			baseUserService.updateUserStatus(baseUserVo);
+			
+			BaseUser baseUser = baseUserService.selectByPrimaryKey(nowUser.getId());
+			nowUser =  new BaseUserVo(baseUser);
+			BaseUserCompanyVo baseUserCompanyVo = new BaseUserCompanyVo(baseUser.getId());
+			BaseUserCompany baseUserCompany = baseUserCompanyService.getUserCompany(baseUserCompanyVo);
+			if(null != baseUserCompany && baseUserCompany.getId() != null){
+				nowUser.setCompanyId(baseUserCompany.getId());
+			}
+			Boolean setCookieResult = CookieUtil.setCookieUser(request,response,nowUser);
+			if(!setCookieResult){
+				setCookieResult = CookieUtil.setCookieUser(request,response,nowUser);
+			}
+			
 			
 			BasePage basePage = new BasePage(page,10);
 			List<BaseUser> userList = baseUserService.queryPage(basePage, baseUserVo);
