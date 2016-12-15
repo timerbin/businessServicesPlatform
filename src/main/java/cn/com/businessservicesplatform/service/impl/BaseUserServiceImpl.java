@@ -35,6 +35,7 @@ public class BaseUserServiceImpl implements BaseUserService{
 		baseUserVo.setUserStatus(1);
 		baseUserVo.setModifyTime(new Date());
 		baseUserVo.setType(BaseUserTypeEnum.GENERAL_USER.getId());
+		baseUserVo.setUserName(baseUserVo.getUserName().toLowerCase());
 		return baseUserMapper.insert(baseUserVo);
 	}
 
@@ -108,6 +109,7 @@ public class BaseUserServiceImpl implements BaseUserService{
 		baseUser.setUserSex(baseUserVo.getUserSex());
 		baseUser.setModifyTime(new Date());
 		baseUser.setUserLogo(baseUserVo.getUserLogo());
+		baseUserVo.setUserName(baseUserVo.getUserName().toLowerCase());
 		result = baseUserMapper.updateByPrimaryKey(baseUser);
 		return result;
 	}

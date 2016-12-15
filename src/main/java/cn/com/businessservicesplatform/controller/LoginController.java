@@ -133,6 +133,7 @@ public class LoginController extends BaseController{
     	if(StringUtils.isBlank(baseUserVo.getUserName())){
     		return "登录名为空";
     	}
+    	baseUserVo.setUserName(baseUserVo.getUserName().toLowerCase());
     	if(StringUtils.isBlank(baseUserVo.getUserPassword())){
     		return "密码为空";
     	}
@@ -169,6 +170,7 @@ public class LoginController extends BaseController{
 				model.addObject("errorMsg", "未查到登录名信息");
 				return model;
 			}
+			userName = userName.toLowerCase();
 			model.addObject("userName", userName);
 			BaseUserVo baseUserVo = new BaseUserVo();
 			baseUserVo.setUserName(userName);
@@ -356,6 +358,7 @@ public class LoginController extends BaseController{
     	if(StringUtils.isBlank(baseUserVo.getUserName())){
     		return "用户名为空";
     	}
+    	baseUserVo.setUserName(baseUserVo.getUserName().toLowerCase());
     	if(baseUserVo.getUserName().length() < 6){
     		return "用户名必须大于6位";
     	}
@@ -412,6 +415,7 @@ public class LoginController extends BaseController{
     	if(StringUtils.isBlank(baseUserVo.getUserName())){
     		return "用户名为空";
     	}
+    	baseUserVo.setUserName(baseUserVo.getUserName().toLowerCase());
     	if(StringUtils.isBlank(baseUserVo.getMobilePhoneNumber())){
     		return "联系方式为空";
     	}
