@@ -1,7 +1,10 @@
 package cn.com.businessservicesplatform.controller;
 
 import cn.com.businessservicesplatform.common.util.BasePage;
+import cn.com.businessservicesplatform.common.util.CookieUtil;
 import cn.com.businessservicesplatform.model.mysql.BaseUser;
+import cn.com.businessservicesplatform.model.mysql.BaseUserCompany;
+import cn.com.businessservicesplatform.model.vo.BaseUserCompanyVo;
 import cn.com.businessservicesplatform.model.vo.BaseUserVo;
 import cn.com.businessservicesplatform.model.vo.UserServiceCommentVo;
 import cn.com.businessservicesplatform.service.BaseConfigDataService;
@@ -128,7 +131,7 @@ public class UserController extends BaseController{
         	model.addObject("user", nowUser);
         	BaseUserVo userVo = this.getUser(request);
         	BaseUser baseUser = baseUserService.selectByPrimaryKey(userVo.getId());
-        	model.addObject("vo", baseUser);
+        	model.addObject("vo", baseUserVo);
 			String checkLogin = checkUserInfo(baseUserVo);
 			if(!StringUtils.isBlank(checkLogin)){
 				model.addObject("errorMsg", checkLogin);
@@ -138,6 +141,16 @@ public class UserController extends BaseController{
 			baseUserVo.setId(nowUser.getId());
 			int result = baseUserService.updateUserInfo(baseUserVo);
 			if(result > 0){
+				userVo =  new BaseUserVo(baseUser);
+				BaseUserCompanyVo baseUserCompanyVo = new BaseUserCompanyVo(baseUser.getId());
+				BaseUserCompany baseUserCompany = baseUserCompanyService.getUserCompany(baseUserCompanyVo);
+				if(null != baseUserCompany && baseUserCompany.getId() != null){
+					userVo.setCompanyId(baseUserCompany.getId());
+				}
+				Boolean setCookieResult = CookieUtil.setCookieUser(request,response,userVo);
+				if(!setCookieResult){
+					setCookieResult = CookieUtil.setCookieUser(request,response,userVo);
+				}
 				 model = new ModelAndView ( "redirect:/user/toEditUserInfo.html");
 				 return model;
 			}else{

@@ -3,11 +3,14 @@ package cn.com.businessservicesplatform.controller;
 import java.util.Date;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import cn.com.businessservicesplatform.common.constants.RecommendEnum;
 import cn.com.businessservicesplatform.common.constants.UserServiceStatuesEnum;
 import cn.com.businessservicesplatform.common.util.BasePage;
+import cn.com.businessservicesplatform.common.util.CookieUtil;
 import cn.com.businessservicesplatform.model.mysql.BaseUser;
+import cn.com.businessservicesplatform.model.mysql.BaseUserCompany;
 import cn.com.businessservicesplatform.model.vo.*;
 import cn.com.businessservicesplatform.service.BaseUserService;
 import org.apache.commons.lang.StringUtils;
@@ -95,7 +98,7 @@ public class BaseUserCompanyController extends BaseController{
 
 
 	@RequestMapping("/saveCompany")
-    public ModelAndView saveCompany(HttpServletRequest request,BaseUserCompanyVo baseUserCompanyVo) {
+    public ModelAndView saveCompany(HttpServletRequest request,HttpServletResponse response,BaseUserCompanyVo baseUserCompanyVo) {
     	ModelAndView model = new ModelAndView ( "/company/editCompany");
 
     	try {
@@ -126,6 +129,15 @@ public class BaseUserCompanyController extends BaseController{
 				log.error("BaseUserCompanyController.saveCompany.save.error:");
 				return model;
 			}else{
+				BaseUserCompanyVo queryCompanyVo = new BaseUserCompanyVo(baseUserVo.getId());
+				BaseUserCompany baseUserCompany = baseUserCompanyService.getUserCompany(queryCompanyVo);
+				if(null != baseUserCompany && baseUserCompany.getId() != null){
+					baseUserVo.setCompanyId(baseUserCompany.getId());
+				}
+				Boolean setCookieResult = CookieUtil.setCookieUser(request,response,baseUserVo);
+				if(!setCookieResult){
+					setCookieResult = CookieUtil.setCookieUser(request,response,baseUserVo);
+				}
 				model.addObject("errorMsg","企业信息已经录入");
 //				model = new ModelAndView ( "redirect:/user/toCompany.html");
 //	    		return model;
