@@ -160,7 +160,6 @@ public class UserLookHistoryController extends BaseController{
 			
 			String data = DateUtils.getString(new Date(), "yyyy");
 			userLookHistoryVo.setBeginTime(data);
-			userLookHistoryVo.setEndTime(data);
 			model.addObject("vo",userLookHistoryVo);
 			
 			model.addObject("init","1");

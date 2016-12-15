@@ -47,6 +47,9 @@
     <if test="vo.companyId != null" >
         and company_id = #{vo.companyId,jdbcType=INTEGER}
     </if>
+    <if test="vo.beginTime != null" >
+        and  YEAR(create_time)= #{vo.beginTime,jdbcType=INTEGER} 
+    </if>
    	group by months order by create_time ;  
   </select>
 

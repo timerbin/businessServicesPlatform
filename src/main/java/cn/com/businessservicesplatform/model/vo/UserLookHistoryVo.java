@@ -15,7 +15,6 @@ public class UserLookHistoryVo extends UserLookHistory {
 	private String companyName;
 	private String companyPicUrl;
 	private String beginTime;
-	private String endTime;
 	
 	
 	public UserLookHistoryVo() {}
@@ -50,17 +49,6 @@ public class UserLookHistoryVo extends UserLookHistory {
 	public void setBeginTime(String beginTime) {
 		this.beginTime = beginTime;
 	}
-
-
-	public String getEndTime() {
-		return endTime;
-	}
-
-
-	public void setEndTime(String endTime) {
-		this.endTime = endTime;
-	}
-
 
 	public Integer getQueryRows() {
 		return queryRows;

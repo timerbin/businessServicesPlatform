@@ -32,8 +32,6 @@
 	          <tr>
 	            <td width="78" align="right">统计时间：</td>
 	            <td width="190"><input id="beginTime" name="beginTime"  value="${vo.beginTime}" placeholder="yyyy" type="text" class="grzx_input" /></td>
-	            <td width="37" align="center">至</td>
-	            <td width="191"><input id="endTime" name="endTime" value="${vo.endTime}"   placeholder="yyyy" type="text" class="grzx_input" /></td>
 	            <td width="78" align="right">服务类别：</td>
 	            <td width="153">
 	            	<select name="serviceType" id="serviceType" class="grzx_input">
@@ -118,10 +116,13 @@ var serverTypes = new Array();
 
 
 function doQuery(){
+	var beginTime = $("#beginTime").val();
+	var serviceType = $("#serviceType").val()
 	if(check()){
 		$.ajax({
 		    url: baseUrl+"/user/queryServiceLook.html",
 		    type : 'POST',
+		    data:{'beginTime':beginTime,"serviceType":serviceType},
 		    success: function (data) {
 		        if (data) {
 			       	 $.each(data,function(n,value) {
@@ -156,24 +157,13 @@ function doQuery(){
 function check(){
 	var beginTime = $("#beginTime").val();
 	if($.trim(beginTime).length <= 0){
-		alert("请输入开始时间");
+		alert("请输入统计时间");
 		 $("#beginTime").focus();
-		return false;
-	}
-	var endTime = $("#endTime").val();
-	if($.trim(endTime).length <= 0){
-		 alert("请输入结束时间");
-		 $("#endTime").focus();
-		return false;
-	}
-	if(endTime<beginTime){
-		alert("请重新输入结束时间,结束时间必须大于开始时间");
-		 $("#endTime").focus();
 		return false;
 	}
 	return true;
 }
-$("#queryBtn").click(doQuery);
+$("#queryBtn").click(function(){doQuery()});
 
 var init = $("#init").val();
 if(init.length>0 && init == 1){
