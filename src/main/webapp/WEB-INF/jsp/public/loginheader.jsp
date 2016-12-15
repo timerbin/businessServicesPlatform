@@ -8,10 +8,10 @@
 	        <li class="header_name">${services_user_info.userName}</li>
 	        <li class="header_touxiang">
 	        	<c:if test="${empty services_user_info.userLogo}">
-	            	 <img id="userLogoImg"  src="${BASE_URL}/images/touxiang_03.jpg"  width="38" height="38" />
+	            	 <img id="userLogoImgHeader"  src="${BASE_URL}/images/touxiang_03.jpg"  width="38" height="38" />
 				</c:if>
 				<c:if test="${not empty services_user_info.userLogo}">
-					 <img id="userLogoImg" src="${BASE_URL}/${services_user_info.userLogo}"    width="38" height="38"  />
+					 <img id="userLogoImgHeader" src="${BASE_URL}/${services_user_info.userLogo}"    width="38" height="38"  />
 				</c:if>
 	        </li>
 	    </ul>
