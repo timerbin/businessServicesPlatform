@@ -29,7 +29,8 @@
                </table>
            </div>
           <div class="release_box">
-          	<c:if test="${not empty services_user_info && not empty services_user_info.companyId}">
+          	<%--<c:if test="${not empty services_user_info && not empty services_user_info.companyId}">--%>
+				<c:if test="${not empty services_user_info}">
         	 		<label><input id="addService" type="button" value="免费发布服务" class="button_release" /></label>
  				</c:if>
           </div>
