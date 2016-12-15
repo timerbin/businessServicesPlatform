@@ -63,6 +63,7 @@ public class UserCompanyServiceVo extends UserCompanyService {
     	super.setCreateTime(userCompanyService.getCreateTime());
     	super.setModifyTime(userCompanyService.getModifyTime());
 		super.setRecommend(userCompanyService.getRecommend());
+		super.setPicUrl(userCompanyService.getPicUrl());
     }
     
 
