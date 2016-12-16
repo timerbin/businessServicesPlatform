@@ -6,6 +6,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>企业管理</title>
     <link href="${BASE_URL}/images/gerenzx.css" rel="stylesheet" type="text/css"/>
+    <link href="${BASE_URL}/images/jquery.datetimepicker.css" rel="stylesheet" type="text/css" />
     <jsp:include page="../public/baseData.jsp"/>
     <jsp:include page="../public/pager.jsp"/>
 </head>
@@ -220,6 +221,14 @@
             $("#createComForm").attr("action","${BASE_URL}/user/createCompany.html");
             $("#createComForm").submit();
         }
+    });
+
+
+    $('#companyRegisterTimeStr').datetimepicker({
+        lang:'ch',
+        timepicker:false,
+        format:'Y-m-d',
+        formatDate:'Y-m-d'
     });
 
 
