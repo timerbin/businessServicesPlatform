@@ -66,19 +66,19 @@
 
                             <!--待验证状态-->
                             <c:if test="${com.status == 0}">
-                                <a id="shangxian" name="shangxian" data-id="${com.id}" href="javascript:;"  class="hongzi_a" >通过</a>
+                                <a id="shangxian" name="shangxian" data-id="${com.id}" href="javascript:;"  class="hongzi_a" >通过</a>&nbsp;&nbsp;
                             </c:if>
 
                             <c:if test="${com.status == 2}">
-                                <a id="shangxian" name="shangxian" data-id="${com.id}" href="javascript:;"  class="hongzi_a" >上线</a>
+                                <a id="shangxian" name="shangxian" data-id="${com.id}" href="javascript:;"  class="hongzi_a" >上线</a>&nbsp;&nbsp;
                             </c:if>
                             <c:if test="${com.status == 1}">
-                                <a id="xiaxian" name="xiaxian" href="javascript:;" data-id="${com.id}" class="hongzi_a">下线</a>
+                                <a id="xiaxian" name="xiaxian" href="javascript:;" data-id="${com.id}" class="hongzi_a">下线</a>&nbsp;&nbsp;
                             </c:if>
 
-                            <a href="${BASE_URL}/user/toOneCompany.html?id=${com.id}&flag=edit" class="lanzi_a">编辑</a>
-                            <a id="delCom" href="javascript:;"  data-id="${com.id}" class="hongzi_a">删除</a>
-                            <a href="${BASE_URL}/user/toOneCompany.html?id=${com.id}&flag=detail" class="lanzi_a">详细</a>
+                            <a href="${BASE_URL}/user/toOneCompany.html?id=${com.id}&flag=edit" class="lanzi_a">编辑</a>&nbsp;&nbsp;
+                            <a id="delCom" href="javascript:;"  data-id="${com.id}" class="hongzi_a">删除</a>&nbsp;&nbsp;
+                            <a href="${BASE_URL}/user/toOneCompany.html?id=${com.id}&flag=detail" class="lanzi_a">详细</a>&nbsp;&nbsp;
                         </td>
                     </tr>
                 </c:forEach>

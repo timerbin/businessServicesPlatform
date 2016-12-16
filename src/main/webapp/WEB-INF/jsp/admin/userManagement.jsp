@@ -59,16 +59,16 @@
 		            </td>
 		            <td align="center">
 		            	<c:if test="${user.userStatus!=1}">
-		            		<a id="Enabled" data-id="${user.id}" href="javascript:;" class="hongzi_a">启用</a>
+		            		<a id="Enabled" data-id="${user.id}" href="javascript:;" class="hongzi_a">启用</a>&nbsp;&nbsp;
 		            	</c:if>
 		            	<c:if test="${user.userStatus==1}">
-		            		<a id="Disable" data-id="${user.id}" href="javascript:;" class="hongzi_a">停用</a>
+		            		<a id="Disable" data-id="${user.id}" href="javascript:;" class="hongzi_a">停用</a>&nbsp;&nbsp;
 		            	</c:if>&nbsp;|&nbsp;
 		            	<c:if test="${user.type==1}">
-		            		<a id="doAdmin" data-id="${user.id}" href="javascript:;" class="hongzi_a">升为管理员</a>
+		            		<a id="doAdmin" data-id="${user.id}" href="javascript:;" class="hongzi_a">升为管理员</a>&nbsp;&nbsp;
 		            	</c:if>
 		            	<c:if test="${user.type==2}">
-		            		<a id="doUser" data-id="${user.id}" href="javascript:;" class="hongzi_a">降为普通用户</a>
+		            		<a id="doUser" data-id="${user.id}" href="javascript:;" class="hongzi_a">降为普通用户</a>&nbsp;&nbsp;
 		            	</c:if>
 		            </td>
 		          </tr>

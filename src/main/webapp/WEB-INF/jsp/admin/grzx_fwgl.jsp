@@ -77,33 +77,18 @@
 				                  <td align="center">${fwVo.statusStr}</td>
 				                  <td align="center">${fwVo.recommendStr}</td>
 				                  <td align="center">
-
-
-									  <%--<c:if test="${fwVo.status == 2}">
-										  <a id="fwOnline" name="fwOnline" data-id="${fwVo.id}" href="javascript:;"  class="hongzi_a" >上线</a>
-									  </c:if>
-									  <c:if test="${fwVo.status == 1}">
-										  <a id="fwOffLine" name="fwOffLine" href="javascript:;" data-id="${fwVo.id}" class="hongzi_a">下线</a>
-									  </c:if>--%>
-
 									  <c:if test="${fwVo.status == 2}">
-										  <a id="fwOnline" name="fwOnline" data-fid="${fwVo.id}" href="javascript:;"  class="hongzi_a" >上线</a>
+										  <a id="fwOnline" name="fwOnline" data-fid="${fwVo.id}" href="javascript:;"  class="hongzi_a" >上线</a>&nbsp;&nbsp;
 									  </c:if>
 									  <c:if test="${fwVo.status == 1}">
-										  <a id="fwOffLine" name="fwOffLine" href="javascript:;" data-fid="${fwVo.id}" class="hongzi_a">下线</a>
+										  <a id="fwOffLine" name="fwOffLine" href="javascript:;" data-fid="${fwVo.id}" class="hongzi_a">下线</a>&nbsp;&nbsp;
 									  </c:if>
-
-
 				                      <c:if test="${fwVo.recommend == 0}">
-				                          <a id="butuijian" name="butuijian" data-id="${fwVo.id}" href="javascript:;"  class="hongzi_a" >不推荐</a>
+				                          <a id="butuijian" name="butuijian" data-id="${fwVo.id}" href="javascript:;"  class="hongzi_a" >不推荐</a>&nbsp;&nbsp;
 				                      </c:if>
-				                     <%-- <c:if test="${fwVo.recommend == 1}">
-				                          <a id="tuijian" name="tuijian" href="javascript:;" data-id="${fwVo.id}" class="hongzi_a">推荐</a>
-				                      </c:if>--%>
-
-				                      <a href="${BASE_URL}/user/toFindService.html?id=${fwVo.id}&flag=edit" class="lanzi_a">编辑</a>
+				                      <a href="${BASE_URL}/user/toFindService.html?id=${fwVo.id}&flag=edit" class="lanzi_a">编辑</a>&nbsp;&nbsp;
 				                      <a href="${BASE_URL}/user/toDelService.html?id=${fwVo.id}" class="hongzi_a">删除</a>
-				                      <a href="${BASE_URL}/user/toFindService.html?id=${fwVo.id}&flag=detail" class="lanzi_a">详情</a>
+				                      <a href="${BASE_URL}/user/toFindService.html?id=${fwVo.id}&flag=detail" class="lanzi_a">详情</a>&nbsp;&nbsp;
 				                  </td>
 				              </tr>
 				

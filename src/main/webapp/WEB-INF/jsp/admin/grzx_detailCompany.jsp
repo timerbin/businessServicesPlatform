@@ -128,7 +128,7 @@
                 </tr>
                 <tr>
                     <td align="right">&nbsp;</td>
-                    <td><input id="retturnBtn" name="retturnBtn" type="button"  value="返 回" class="grzx_button"/></td>
+                    <td><input id="retturnBtn" name="retturnBtn" type="button"  value=" 返   回   " class="grzx_button"/></td>
                     <td>&nbsp;</td>
                 </tr>
             </table>

@@ -106,8 +106,8 @@
                 </tr>
                 <tr>
                     <td align="right">&nbsp;</td>
-                    <td><input name="tijiaoBtn" id="tijiaoBtn" type="button"  value="保 存" class="grzx_button"/>
-                        <input name="chongzhiBtn" id="chongzhiBtn" type="reset"  value="取 消" class="grzx_button" onclick="cancelEditSer()"/>
+                    <td><input name="tijiaoBtn" id="tijiaoBtn" type="button"  value="  保   存  " class="grzx_button"/>
+                        <input name="chongzhiBtn" id="chongzhiBtn" type="reset"  value=" 取   消  " class="grzx_button" onclick="cancelEditSer()"/>
                     </td>
                     <td>&nbsp;</td>
                 </tr>

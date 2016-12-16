@@ -128,14 +128,14 @@
                     <td align="right">&nbsp;</td>
                     <td>
                         <c:if test="${empty vo}">
-                            <input  id="subBtn" name="subBtn" type="button"  value="提 交"  class="grzx_button"/>
+                            <input  id="subBtn" name="subBtn" type="button"  value=" 提  交  "  class="grzx_button"/>
                         </c:if>
                         <c:if test="${not empty vo}">
-                            <input id="saveBtn" name="saveBtn" type="button"  value="保 存" class="grzx_button"/>
+                            <input id="saveBtn" name="saveBtn" type="button"  value=" 保   存  " class="grzx_button"/>
                         </c:if>
                         &nbsp;&nbsp;&nbsp;
 
-                        <input id="returnBtn" name="returnBtn" type="button"  value="返 回" class="grzx_button"/>
+                        <input id="returnBtn" name="returnBtn" type="button"  value=" 返   回  " class="grzx_button"/>
 
                     </td>
                     <td>&nbsp;</td>

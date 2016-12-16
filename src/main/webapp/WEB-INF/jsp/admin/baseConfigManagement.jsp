@@ -65,10 +65,10 @@
 		            <td align="center">${base.showName}</td>
 		            <td align="center">
 		            	<c:if test="${base.status!=1}">
-		            		<a id="Enabled" data-id="${base.id}" href="javascript:;" class="hongzi_a">启用</a>
+		            		<a id="Enabled" data-id="${base.id}" href="javascript:;" class="hongzi_a">启用</a>&nbsp;&nbsp;
 		            	</c:if>
 		            	<c:if test="${base.status==1}">
-		            		<a id="Disable" data-id="${base.id}" href="javascript:;" class="hongzi_a">停用</a>
+		            		<a id="Disable" data-id="${base.id}" href="javascript:;" class="hongzi_a">停用</a>&nbsp;&nbsp;
 		            	</c:if>
 		            </td>
 		          </tr>

@@ -90,7 +90,7 @@
                 <tr>
                     <td align="right">&nbsp;</td>
                     <td>
-                            <input name="returnBtn" id="returnBtn" type="button"  value="返 回" class="grzx_button" onclick="retturnSerM()"/>
+                            <input name="returnBtn" id="returnBtn" type="button"  value="  返   回    " class="grzx_button" onclick="retturnSerM()"/>
                     </td>
                     <td>&nbsp;</td>
                 </tr>
